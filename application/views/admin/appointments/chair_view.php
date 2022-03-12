@@ -1,3 +1,8 @@
+<?php  
+// helper 
+
+get_instance()->load->helper('custom_helper');
+?>
 <style>
     .table>thead>tr>th {
         border-top: 1px solid #c1c1c1  !important;
@@ -19,6 +24,27 @@
         clear: both;
         margin-bottom: 20px;
     }
+    .chr_default {
+        display: block;
+        background: #1c8f09;
+        border-radius: 5px;
+        padding: 5px 20px 10px 10px;
+        overflow: hidden;
+        position: relative;
+    }
+    .chair_green{ background: #1c8f09;}
+    .chair_blue{ background: #015baa;}
+    .chair_purple{ background: #9129bc;}
+    .chair_dbrown{ background: #aa5101;}
+    .chair_mgreen{ background: #aa9001;}
+    .chair_dlgrey{ background: #9e9e9e;}
+    .chr_default p {
+        margin: 0px 0px 3px 0px;
+        font-size: 12px;
+        color: #fff;
+        line-height: 12px;
+        text-transform: capitalize;
+    }
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/1.1.1/css/bootstrap-multiselect.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/1.1.1/js/bootstrap-multiselect.min.js"></script>
@@ -34,98 +60,241 @@
                     <div class="box-body">
                         <div class="app_filtersblock">
                             <div class="row">
+                                <?php
 
-                                <div class="col-md-3 calender_filter">
-                                    <form action="" method="post">
-                                        Date 
-                                        <input type="date" name="sdate" id="sdate" required="" value="<?php echo date('Y-m-d'); ?>" autocomplete="off">
-                                    </form> 
-                                </div>
-                                <div class="col-md-3 calender_filter">
-                                    Doctor 
-
-                                    <select name="doctor_id" id="doctor_id_top" class="select select-initialized form-control" multiple="multiple">
-                                        <?php foreach($doctors as $doctor){?>
-                                        <option value="<?php echo $doctor->id;?>"><?php echo $doctor->name;?></option>
-                                        <?php }?>
-                                         
-                                    </select>
-
-                                </div>    
-
-                                <div class="col-md-3 calender_filter">
-                                    Chairs 
-                                    <select name="chair_id" id="chair_id_top" class="form-control" multiple="">
-                                        <option value="1">Chair 1</option>
-                                        <option value="2">Chair 2</option>
-                                        <option value="3">Chair 3</option>
-                                        <option value="4">Chair 4</option>
-                                        <option value="5">Chair 5</option>
-                                    </select>
-                                </div>    
-
-                                <div class="col-md-2 pull-right text-right">
-                                    <a href="javascript://" onclick="window.print();" class="btn btn-dgrey border_radius30"><i class="fas fa-print"></i> Print</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="pptm_chview" id="pptm_chview_block">
-
-                                <table class="table table-striped_ table-bordered table-hover" cellspacing="0" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th width="16%">Slot Time</th>
-                                            <th width="16%">Chair 1</th>
-                                            <th width="16%">Chair 2</th>
-                                            <th width="16%">Chair 3</th>
-                                            <th width="16%">Chair 4</th>
-                                            <th width="16%">Chair 5</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody> 
-                                        <?php
-                                        $range = range(strtotime("10:00"), strtotime("19:45"), 15 * 60);
-                                        $now = strtotime(date('h:i A'));
-                                        $date = date('y-m-d');
-                                        foreach ($range as $time) {
-                                            $list_time = strtotime(date("h:i A", $time));
-                                            ?>
-                                            <tr>
-                                                <td><strong><?php echo date("h:i A", $time); ?></strong></td> 
-
-                                                <td style="<?php echo ($now > $list_time) ? 'background:#ddd;' : '' ?>" onclick="<?php echo ($now > $list_time) ? 'alert_function();' : 'add_application(\'' . $date . '\', \'' . date("h:i A", $time) . '\' , 2);' ?>">
-                                                    <a href="javascript://">Allot</a>
-                                                </td> 
-                                                <td style="<?php echo ($now > $list_time) ? 'background:#ddd;' : '' ?>" onclick="<?php echo ($now > $list_time) ? 'alert_function();' : 'add_application(\'' . $date . '\', \'' . date("h:i A", $time) . '\' , 2);' ?>">
-                                                    <a href="javascript://">Allot</a>
-                                                </td> 
-                                                <td style="<?php echo ($now > $list_time) ? 'background:#ddd;' : '' ?>" onclick="<?php echo ($now > $list_time) ? 'alert_function();' : 'add_application(\'' . $date . '\', \'' . date("h:i A", $time) . '\' , 2);' ?>">
-                                                    <a href="javascript://">Allot</a>
-                                                </td> 
-                                                <td style="<?php echo ($now > $list_time) ? 'background:#ddd;' : '' ?>" onclick="<?php echo ($now > $list_time) ? 'alert_function();' : 'add_application(\'' . $date . '\', \'' . date("h:i A", $time) . '\' , 2);' ?>">
-                                                    <a href="javascript://">Allot</a>
-                                                </td> 
-                                                <td style="<?php echo ($now > $list_time) ? 'background:#ddd;' : '' ?>" onclick="<?php echo ($now > $list_time) ? 'alert_function();' : 'add_application(\'' . $date . '\', \'' . date("h:i A", $time) . '\' , 2);' ?>">
-                                                    <a href="javascript://">Allot</a>
-                                                </td> 
-                                            </tr> 
-<?php } ?>
-
-                                    </tbody>
-
-                                </table>
-
-
-
-                            </div>
-                        </div>
+                                $sdate = date("Y-m-d");
+                                if(isset($_POST['sdate']) && $_POST['sdate'] != ''){
+                                   $sdate = $_POST['sdate'];
+                               }
+                                                    //echo $sdate;exit;
+                               echo $field_date = date("Y-m-d",strtotime($sdate));
+                               $dtype = 'all';
+                                  // if($role == 'Doctor'){ 
+                                   // $dtype = $user_id__;
+                                  //}   
+                               $splitimes = SplitTime($sdate." 10:00", $sdate." 20:00", "15");
+                               $ci =& get_instance(); 
+                               $appintment_info=array();
+                               $chairs = array(1,2,3,4,5);
+                               $chair_id = 'all';
+                               $doctor_id = 'all';
+                               $chair_colors = array('chair_green','chair_blue','chair_purple','chair_dbrown','chair_mgreen');
+                                  // echo "<pre>";
+                                    // print_r($splitimes);
+                                    // die;
+                                   //foreach ($AllAppointments as $key => $value) {
+                                      //print_r($value['start_time']);    
+                                   //}  
+                               foreach($splitimes as $stime){
+                                $start_time = $stime.':00';
+                                foreach($chairs as $chair){
+                                       //print_r($chair);
+                                    $sql = "SELECT a.*,patientses.name FROM appointments a inner join patientses on patientses.id = a.patient_id WHERE date = '".$sdate."' AND chair = '".$chair."' AND ('".$start_time."' BETWEEN `start_time` AND `end_time`) ";
+                                    $query_check = $this->db->query($sql);
+                                    $res_check = $query_check->result();
+                                    
+                                    if(count($res_check) > 0){
+                                       foreach($res_check as $rcheck){ 
+                                         $rcheck = (array) $rcheck;  
+                                         if(multi_array_search($rcheck['id'], $appintment_info)){ 
+                                                //$appintment_info[$stime][$chair][] = 'Allot';
+                                         } else { 
+                                           $appintment_info[$stime][$chair][] = $rcheck; 
+                                       }  
+                                   }  
+                               } else {
+                                   $appintment_info[$stime][$chair][] = 'Allot';
+                               }  
+                           }   
+                       }
+                                   //print_r($appintment_info);  
+                       ?>
+                       <div class="col-md-3 calender_filter">
+                        <form action="" method="post">
+                            Date 
+                            <input type="date" name="sdate" id="sdate" required="" value="<?php echo date('Y-m-d'); ?>" autocomplete="off">
+                        </form> 
                     </div>
+                    <div class="col-md-3 calender_filter">
+                        Doctor 
 
+                        <select name="doctor_id" id="doctor_id_top" class="select select-initialized form-control" multiple="multiple">
+                            <?php foreach($doctors_list as $doctor){?>
+                                <option value="<?php echo $doctor->id;?>"><?php echo $doctor->name;?></option>
+                            <?php }?>
+
+                        </select>
+
+                    </div>    
+
+                    <div class="col-md-3 calender_filter">
+                        Chairs 
+                        <select name="chair_id" id="chair_id_top" class="form-control" multiple="">
+                            <?php foreach($chairs as $ch){ ?>
+
+                               <option value="<?php echo $ch; ?>">Chair <?php echo $ch; ?></option>
+
+                           <?php } ?>
+                       </select>
+                   </div>    
+
+                   <div class="col-md-2 pull-right text-right">
+                    <a href="javascript://" onclick="window.print();" class="btn btn-dgrey border_radius30"><i class="fas fa-print"></i> Print</a>
                 </div>
             </div>
         </div>
-    </section>
+        <div class="container">
+            <div class="pptm_chview" id="pptm_chview_block">
+
+                <table class="table table-striped_ table-bordered table-hover" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+
+                            <th width="16%">Slot Time</th>
+
+                            <?php foreach($chairs as $ch){ ?>
+
+                              <th width="16%">Chair <?php echo $ch; ?></th>
+
+                          <?php } ?> 
+
+                      </tr>
+                  </thead>
+                  <tbody> 
+                    <?php
+/*echo '<pre>';
+print_r($appintment_info);*/
+
+foreach($appintment_info as $val => $ainfo_data){ 
+           // print_r($val);
+           // echo date("Y-m-d H:i:s");
+    $date_now = strtotime(date("Y-m-d H:i:s"));
+            //echo '<br>';
+           // echo $sdate.' '.$val['start_time'];
+
+    $cdate_now = strtotime($sdate.' '.$val) ;
+
+    if ($date_now > $cdate_now) {
+
+      $che_v =  'style="background:#ddd;"';
+
+      $che_c = 0;
+
+  } else {
+
+      $che_v =  '';
+
+      $che_c = 1;
+
+  } 
+
+  ?>
+  <tr>
+
+      <td><strong><?php  echo date("h:i A",strtotime($val)); ?></strong></td> 
+
+      <?php foreach($ainfo_data as $chair_no => $ainfo){
+                //print_r($ainfo[0]);
+        
+         ?>
+
+         <?php 
+
+         if($ainfo[0] != 'Allot'){ 
+
+                                                        //print_r($ainfo);
+
+          $row_s = 'rowspan="'.(($ainfo[0]['slot_time']/15)+1).'"';
+
+      } else {
+
+          $row_s = '';
+
+      }
+
+                                                   // echo $row_s.'<br/> ';
+
+      ?> 
+
+
+
+      <?php if($ainfo[0] == 'Allot'){ ?>
+
+          <!-- <td  <?php echo $che_v;  ?>  <?php if($che_c > 0){ ?>onclick="add_application('<?php echo $field_date; ?>','<?php echo date("h:i A",strtotime($val)); ?>',<?php echo $chair_no; ?>);" <?php } else { ?> onclick="alert_function();"<?php } ?> style="cursor: pointer;"> -->
+
+
+            <td  <?php echo $che_v;  ?>  <?php if($che_c > 0){ ?>onclick="add_application('<?php echo $field_date; ?>','<?php echo date("h:i A",strtotime($val)); ?>',<?php echo $chair_no; ?>);" <?php } else { ?> onclick="alert_function();"<?php } ?> style="cursor: pointer;">
+             
+              <a href="javascript://"><?php echo $ainfo[0]; ?></a>
+
+          <?php  } else { ?>
+
+           <td <?php echo $row_s; ?> <?php echo $che_v;  ?> style="background-color: #f7f2f2;">
+
+              <?php 
+
+                                                      // print_r($ainfo);
+
+              $doctor_data=$this->db->get_where("doctors", array('id' => $ainfo[0]['doctor_id']))->row();
+
+              $doctor_d = $doctor_data->name;
+
+                                                   // echo count($ainfo); ?>
+
+                                                   <div class="chr_default <?php echo $chair_colors[($ainfo[0]['chair']-1)]; ?>">
+                                                    <?php if($che_c > 0 && $ainfo[0]['appointment_status']=='approve'){ ?>
+                                                       <span style="color: #fff;" class="ar_int"><b>Arrived:</b>&nbsp;&nbsp;&nbsp;<input type="checkbox" id="arrivedstat<?php echo $ainfo[0]['id']; ?>" <?php if($ainfo[0]['appointment_status']=='Arrived'){ echo "checked='checked'"; } ?> name="" onclick="getreadystat('Arrived','<?php echo $ainfo[0]['appointment_no']; ?>',<?php echo $ainfo[0]['patient_id'];?>,<?php echo $ainfo[0]['id'];?>)"></span>
+                                                       <?php
+                                                   }
+                                                   ?>
+
+                                                   <a href="javascript://" onclick="view_event(<?php echo $ainfo[0]['id']; ?>);">
+
+                                                    <p><?php echo $ainfo[0]['name'];?></p>
+
+
+                                                    <p><?php echo $ainfo[0]['cause'];?></p>
+
+                                                    <p><strong>Doctor:</strong> <?php echo $doctor_d;?></p>
+
+                                                </a>
+
+                                            </div>
+
+                                            <?php
+
+                                        }  ?>
+
+
+
+                                    </td> 
+
+                                <?php } ?>
+
+                            </tr>  
+
+                            <?php 
+
+                        } 
+
+                                  //  exit; 
+
+                        ?> 
+                        
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
+</section>
 </div>
 
 <script>
@@ -1005,7 +1174,7 @@
                                         <option value=" "><?php echo trans('select') ?> </option>
                                         <?php foreach ($patientses as $patient): ?>
                                             <option  value="<?php echo html_escape($patient->id); ?>"><?= '<b>' . $patient->name . '</b> - ' . $patient->mr_number . ' - ' . $patient->mobile; ?></option>
-<?php endforeach ?>
+                                        <?php endforeach ?>
                                     </select>
                                 </div>
                             </div>

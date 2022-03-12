@@ -6,6 +6,7 @@ class Appointment extends Home_Controller {
     {
         parent::__construct();
         $this->load->library('calendar');
+        $this->load->helper('custom_helper');
         //check auth
         if (!is_staff() && !is_user()) {
             redirect(base_url());
@@ -33,9 +34,6 @@ class Appointment extends Home_Controller {
         $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
         $data['appointments'] = $this->admin_model->get_appointments(user()->id);
         $data['doctors'] = $this->admin_model->select_all_doctors();
-        // echo "<pre>";
-        // print_r($data['doctors']);
-        // die;
         $data['main_content'] = $this->load->view('admin/appointments/add_appointment',$data,TRUE);
         $data['doctors'] = $this->admin_model->select_all_doctors();
         $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
@@ -332,11 +330,11 @@ public function chairView()
     $data = array();
     $data['page'] = 'Appointment';
     $data['page_title'] = 'Chair View';
-    $data['doctors'] = $this->admin_model->get_by_user('doctors');
     $data['AllAppointments'] = $this->admin_model->fetch_current_date_appointment();    
-    $data['main_content'] = $this->load->view('admin/appointments/chair_view',$data,TRUE);
     $data['doctors'] = $this->admin_model->select_all_doctors();
+    $data['doctors_list'] = $this->admin_model->get_by_user('doctors');
     $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
+    $data['main_content'] = $this->load->view('admin/appointments/chair_view',$data,TRUE);
     $this->load->view('admin/index',$data);   
     
 }
