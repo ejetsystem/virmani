@@ -57,10 +57,13 @@ class Appointment extends Home_Controller {
            }
 
            if ($this->form_validation->run() === false) {
-            $this->session->set_flashdata('error', validation_errors());
-            redirect(base_url('admin/appointment'));
-        } else {
-
+                $this->session->set_flashdata('error', validation_errors());
+                if($this->input->post('page')=='chair_view_page'){
+                    redirect(base_url('clinic-admin/appointment/chair-view'));
+                }
+                redirect(base_url('admin/appointment'));
+            } 
+            else {
             if ($patient_type == 1) {
 
                 $user_data = array(
@@ -131,6 +134,9 @@ class Appointment extends Home_Controller {
             }
             $this->admin_model->insert($data, 'appointments');
             $this->session->set_flashdata('msg', trans('inserted-successfully')); 
+            if($this->input->post('page')=='chair_view_page'){
+                redirect(base_url('clinic-admin/appointment/chair-view'));
+            }
             redirect(base_url('clinic-admin/appointment'));
 
         }

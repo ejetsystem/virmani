@@ -167,6 +167,8 @@ $route['clinic-admin/appointment/add'] = 'admin/appointment/add';
 $route['clinic-admin/appointment/delete/(:any)'] = 'admin/appointment/delete/$1';
 $route['clinic-admin/appointment/calendar-view'] = 'admin/appointment/calendar';
 $route['clinic-admin/appointment/fetch'] = 'admin/appointment/fetch_particular_appointment';
+$route['clinic-admin/appointment/chair-view'] = 'admin/appointment/chairView';
+
 
 
 
