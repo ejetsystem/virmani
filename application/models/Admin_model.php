@@ -16,6 +16,17 @@ class Admin_model extends CI_Model {
         $query = $query->result();  
         return $query;
     }
+    
+    // get order by function
+    function get_order_by_attr($table,$attr,$order_by)
+    {
+        $this->db->select();
+        $this->db->from($table);
+        $this->db->order_by($attr,$order_by);
+        $query = $this->db->get();
+        $query = $query->result();  
+        return $query;
+    }
 
     // edit function
     function edit_option($action, $id, $table){

@@ -41,7 +41,7 @@
 <script src="<?php echo base_url() ?>assets/admin/js/lightbox.min.js"></script>
 <script src="<?php echo base_url() ?>assets/admin/js/croppie.min.js"></script>
 
-
+<script src="<?php echo base_url();?>assets/admin/js/patients.js"></script>
 
 <!-- Modal for Add Appointment -->
   <div id="add-appointment-modal" class="modal fade " role="dialog">
