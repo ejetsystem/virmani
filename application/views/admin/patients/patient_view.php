@@ -79,8 +79,8 @@
                     <h3><?php echo ucfirst($patients[0]['name']); ?></h3>
                     <p class="ram_text"><?php echo $patients[0]['present_address']; ?> </p>
 
-                    <p class="ram_text"><?php echo $contact[0]['phone1']; ?></p>
-                    <hr>
+                    <lable class="ram_text"><?php echo $contact[0]['phone1']; ?></lable>
+                    <hr style="margin-bottom: 6px;">
                     <lable>Balance Payment:</lable><span>0</span><br>
                     <lable>Medical History &amp; Allergies: </lable><span></span><br>
                     <lable>Special Note: </lable><span> </span><br>
@@ -93,42 +93,36 @@
         <div class="box add_area d-block my-20 p-20">
             <div class="row">
                 <div class="col-lg-12">
-                    <?php
-                    //print_r($_SERVER);
-                    echo $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-                    $pathFragments = explode('/', $path);
-                    echo $end = end($pathFragments);
-                    ?>
                     <ul class="nav nav-tabs nav-fill mb-3" id="ex1" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="patientsinfo" data-mdb-toggle="tab" href="#patientinfo" role="tab" aria-controls="patientinfo" aria-selected="false">Patient Info</a>
+                            <a class="nav-link <?php echo ($tabpage == 'patientinfo')? 'active' : '';?>" id="patientsinfo" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/patientinfo" role="tab" aria-controls="patientinfo" aria-selected="false">Patient Info</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="appointment" data-mdb-toggle="tab" href="#appointments" role="tab" aria-controls="appointments" aria-selected="false" >Appointments</a>
+                            <a class="nav-link  <?php echo ($tabpage == 'appointments')? 'active' : '';?>" id="appointment" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/appointments" role="tab" aria-controls="appointments" aria-selected="false" >Appointments</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="treatmentplan" data-mdb-toggle="tab" href="#treatmentplans" role="tab" aria-controls="treatmentplans" aria-selected="true">Treatment Plan</a>
+                            <a class="nav-link  <?php echo ($tabpage == 'treatmentplans')? 'active' : '';?>" id="treatmentplan" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/treatmentplans" role="tab" aria-controls="treatmentplans" aria-selected="true">Treatment Plan</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="workdone" data-mdb-toggle="tab" href="#worksdone" role="tab" aria-controls="worksdone" aria-selected="false">Work Done</a>
+                            <a class="nav-link <?php echo ($tabpage == 'worksdone')? 'active' : '';?>" id="workdone" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/worksdone" role="tab" aria-controls="worksdone" aria-selected="false">Work Done</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="worksdonehistory" data-mdb-toggle="tab" href="#workdonehistory" role="tab" aria-controls="workdonehistory" aria-selected="false">Work Done History</a>
+                            <a class="nav-link  <?php echo ($tabpage == 'workdonehistory')? 'active' : '';?>" id="worksdonehistory" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/workdonehistory" role="tab" aria-controls="workdonehistory" aria-selected="false">Work Done History</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="accounting" data-mdb-toggle="tab" href="#accountings" role="tab" aria-controls="accountings" aria-selected="false">Accounting</a>
+                            <a class="nav-link <?php echo ($tabpage == 'accountings')? 'active' : '';?>" id="accounting" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/accountings" role="tab" aria-controls="accountings" aria-selected="false">Accounting</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="lab" data-mdb-toggle="tab" href="#labs" role="tab" aria-controls="labs" aria-selected="false">Lab</a>
+                            <a class="nav-link <?php echo ($tabpage == 'labs')? 'active' : '';?>" id="lab" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/labs" role="tab" aria-controls="labs" aria-selected="false">Lab</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="xray" data-mdb-toggle="tab" href="#xrays" role="tab" aria-controls="xrays" aria-selected="false">X-Ray</a>
+                            <a class="nav-link <?php echo ($tabpage == 'xrays')? 'active' : '';?>" id="xray" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/xrays" role="tab" aria-controls="xrays" aria-selected="false">X-Ray</a>
                         </li>
                     </ul>
 
                     <!-- Tabs content -->
                     <div class="tab-content" id="ex2-content">
-                        <div class="tab-pane fade" id="patientinfo" role="tabpanel" aria-labelledby="patientsinfo">
+                        <div class="tab-pane fade <?php echo ($tabpage == 'patientinfo')? 'show active' : '';?>" id="patientinfo" role="tabpanel" aria-labelledby="patientsinfo">
                             <!--Start Patient Info  -->
                             <div class="box box-light mt-20">
                                 <div class="box-header with-border">
@@ -181,7 +175,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <a href="http://sonaai.co/dental/admin/staff/doctorprofile/8" style="text-decoration: underline; color: #f00;">D MASDASM,</a>
+                                                        <a href="#" style="text-decoration: underline; color: #f00;">D MASDASM,</a>
                                                     </td>
                                                     <td>QWEQWEWQEQWEQE</td>
                                                 </tr> 
@@ -192,7 +186,7 @@
                             </div>
                             <!-- aria-expanded Refferal of Patient -->
                         </div>
-                        <div class="tab-pane fade" id="appointments" role="tabpanel" aria-labelledby="appointment">
+                        <div class="tab-pane fade <?php echo ($tabpage == 'appointments')? 'show active' : '';?>" id="appointments" role="tabpanel" aria-labelledby="appointment">
                             <!--Start Appointments -->
                             <div class="box box-light mt-20">
                                 <div class="box-body box-profile" id="refpatientdiv">
@@ -215,11 +209,14 @@
                             </div>
                             <!-- End Appointments -->
                         </div>
-                        <div class="tab-pane fade  show active" id="treatmentplans" role="tabpanel" aria-labelledby="treatmentplan">
-                            <?php echo $this->load->view('admin/patients/treatment_plan', $data, TRUE); ?>
+                        <div class="tab-pane fade <?php echo ($tabpage == 'treatmentplans')? 'show active' : '';?>" id="treatmentplans" role="tabpanel" aria-labelledby="treatmentplan">
+                            <?php 
+                            if($tabpage == 'treatmentplans'){
+                                echo $this->load->view('admin/patients/treatment_plan', $data, TRUE);
+                            }?>
                         </div>
 
-                        <div class="tab-pane fade" id="worksdone" role="tabpanel" aria-labelledby="workdone">
+                        <div class="tab-pane fade <?php echo ($tabpage == 'worksdone')? 'show active' : '';?>" id="worksdone" role="tabpanel" aria-labelledby="workdone">
                             <!--Start Appointments -->
                             <div class="box box-light mt-20">
                                 <div class="box-body box-profile" id="refpatientdiv">
@@ -242,16 +239,16 @@
                             </div>
                             <!-- End Appointments -->
                         </div>
-                        <div class="tab-pane fade" id="workdonehistory" role="tabpanel" aria-labelledby="worksdonehistory">
+                        <div class="tab-pane fade  <?php echo ($tabpage == 'workdonehistory')? 'show active' : '';?>" id="workdonehistory" role="tabpanel" aria-labelledby="worksdonehistory">
                             Tab 5 content
                         </div>
-                        <div class="tab-pane fade" id="accountings" role="tabpanel" aria-labelledby="accounting">
+                        <div class="tab-pane fade  <?php echo ($tabpage == 'accountings')? 'show active' : '';?>" id="accountings" role="tabpanel" aria-labelledby="accounting">
                             Tab 6 content
                         </div>
-                        <div class="tab-pane fade" id="labs" role="tabpanel" aria-labelledby="lab">
+                        <div class="tab-pane fade <?php echo ($tabpage == 'labs')? 'show active' : '';?>" id="labs" role="tabpanel" aria-labelledby="lab">
                             Tab 7 content
                         </div>
-                        <div class="tab-pane fade" id="xrays" role="tabpanel" aria-labelledby="xray">
+                        <div class="tab-pane fade <?php echo ($tabpage == 'xrays')? 'show active' : '';?>" id="xrays" role="tabpanel" aria-labelledby="xray">
                             Tab 8 content
                         </div>
 

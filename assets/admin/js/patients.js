@@ -119,26 +119,10 @@ function getvalue1(a, b, c)
 
 function getRecord_teechinfo(id, b, img1)
 {
- 
-    //var img1 = base_url + 'uploads/teeth_images/' + img1;
-    //var doc = document.getElementById("treatment_doctor").value;
-    //var pid = document.getElementById("patient_id").value;
-    //var tcode = document.getElementById("treatmentcode").value;
-    //alert(tcode);
-    //$('#trcode').val(tcode);
-//    if (tcode)
-//    {
-//        document.getElementById("shw").style.display = "block";
-//    }
-//    document.getElementById('trcode').innerHTML = tcode;
-
-    //$('#tids1').val(tcode);
+  
     $('#teeth_id').val(id);
-    //$('#doc_id').val(doc);
-    //$('#tooth_patient_id').val(pid);
     $('#teeth_nte').html(b);
-    //$('#workteeth').html('<img src=' + img1 + '>');
-
+    
     $('#teethsid').val(id);
     $.ajax({
         url: base_url + 'admin/patients/getteethnumber',
@@ -146,8 +130,10 @@ function getRecord_teechinfo(id, b, img1)
         data: {teethid: id,csrf_test_name: csrf_token},
         success: function (data) {
 
-            var tcode = data;
-            document.getElementById('shw_tooth_number').innerHTML = tcode;
+           // var tcode = data;
+            document.getElementById('tooth_no_note_view').innerHTML = data;
+            document.getElementById('tooth_no_note').value = data;
+            
         }
     })
     document.getElementById("show_toothnumber").style.display = "block";
@@ -203,6 +189,7 @@ function getDatavalue_wr(a)
 //Add New teeth
 $("#form_addnotes_new").on('submit', (function (e) { 
     e.preventDefault();
+    var patient_id = $('#patient_id').val();
     $.ajax({
         url: base_url + 'admin/patients/add_note_new',
         type: "POST",
@@ -219,11 +206,107 @@ $("#form_addnotes_new").on('submit', (function (e) {
             });
             errorMsg(message);
         } else {
-
-            treatment_edit(data.trid,data.ttype);
+            location.replace(base_url +'clinic-admin/patients/view/'+patient_id+'#prescription');
+            location.reload();
+           // treatment_edit(data.trid,data.ttype);
         }
         },
         error: function () {
         }
     });
 }));
+
+  function isNumberKey(evt)
+    {
+      var charCode = (evt.which) ? evt.which : event.keyCode;
+      if (charCode != 46 && charCode != 189 && charCode > 31
+        && (charCode < 48 || charCode > 57))
+         return false;
+
+      return true;
+    }
+    function discount(){
+
+            var x=document.getElementById("treatment_amount").value;
+
+            var y=document.getElementById("distype").value;
+
+            var z=document.getElementById("disamt").value;
+            
+            if(y=='dispercentage'){
+                var newval=z/100;
+                var newx=x-newval;
+                if(newx>=0){
+                    $("#treatment_courtesy").val(newx); 
+                }
+
+            }else{
+                var newy=x-z;
+                if(newy>=0){
+                $("#treatment_courtesy").val(newy);
+                
+                }
+                else{                                       
+                   alert("You can't give discount"); 
+                    
+                }
+            }
+
+        }
+        function addcomp(id,complaint_type)
+        {   
+           
+            $('select[id="treatment_type"] option[value="' + complaint_type + '"]').attr("selected", "selected");
+            $('html, body').animate({
+                        scrollTop: $("#disp_div").offset().top
+                    }, 2000);
+        }
+        
+        function tethdelete($teethdata,pid){
+        //alert($teethdata);
+        var did = $teethdata;
+
+        if (confirm('Delete Confirm?')) {
+
+            $.ajax({
+
+                url: base_url + 'admin/patients/deleteteeth',
+
+                type: "POST",
+
+                data: {id: did,pid: pid,csrf_test_name: csrf_token},
+
+                dataType: 'json',
+
+                success: function (data) {
+                    alert(data);
+                    //successMsg('Record Deleted Successfully');
+                    $('body').append("<div class='alert alert-success'><i class='fa fa-check'></i> Order successfully added!</div>");
+                    
+                       
+ 
+                }
+
+            })
+
+        }
+
+    }
+        
+        function gettecchnumbers_treatment(a)
+            { 
+                   $.ajax({
+                        url: base_url + 'admin/patients/getteethlist_treatment',
+                        type: "POST",
+                        data: {teeth_cat_id:a,csrf_test_name: csrf_token},
+                        success: function (data) {
+                            //$("#teeth_data_div").show();
+                           // $("#teeth_data_div_treatment").html(data);
+
+                             $("#container").html(data);
+
+                        } 
+                    })
+            } 
+
+ 

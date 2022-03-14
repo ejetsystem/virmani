@@ -931,7 +931,8 @@ function add_vitals_md($data) {
     { 
         $teeth = $this->db->get_where("teeth", array('id' => $thid))->row();
         if($thid){
-            return '<p class="texp"> Tooth Number:<span class="tre-code"></span></p>'.'('.$teeth->teeth_number.') '.$teeth->teeth_note;
+            return  '('.$teeth->teeth_number.') '.$teeth->teeth_note;
+            //return '<p class="texp"> Tooth Number:<span class="tre-code"></span></p>'.'('.$teeth->teeth_number.') '.$teeth->teeth_note;
         }
     }
 
