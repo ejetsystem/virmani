@@ -2293,9 +2293,10 @@ class Admin_model extends CI_Model {
     }
 
     function fetch_all_appointment(){
-      $this->db->select('a.*,a.id as appointment_no,p.name as patient_name');
+      $this->db->select('a.*,a.id as appointment_no,p.name as patient_name,d.name as doctor_name');
       $this->db->from('appointments a');
       $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
+      $this->db->join('doctors d', 'd.id = a.doctor_id', 'LEFT');
       $this->db->order_by('id');
       $query = $this->db->get();
       $query = $query->result_array();  

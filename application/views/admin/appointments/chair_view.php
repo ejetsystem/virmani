@@ -61,22 +61,34 @@ get_instance()->load->helper('custom_helper');
                 <?php
 
                 $sdate = date("Y-m-d");
-                if(isset($_POST['sdate']) && $_POST['sdate'] != ''){
-                 $sdate = $_POST['sdate'];
+                if(isset($_REQUEST['sdate']) && $_REQUEST['sdate'] != ''){
+                 $sdate = $_REQUEST['sdate'];
                }
-               echo $field_date = date("Y-m-d",strtotime($sdate));
+               $field_date = date("Y-m-d",strtotime($sdate));
                $dtype = 'all';
                $splitimes = SplitTime($sdate." 10:00", $sdate." 20:00", "15");
                $ci =& get_instance(); 
                $appintment_info=array();
+
+               $chairs_list = array(1,2,3,4,5); 
                $chairs = array(1,2,3,4,5);
                $chair_id = 'all';
-               $doctor_id = 'all';
+               $doctor_id = '';
+               if(isset($_REQUEST['chair_id']) && $_REQUEST['chair_id'] != ''){
+                 $chairs = $_REQUEST['chair_id'];
+                 // echo "<pre>";
+                 // print_r($_REQUEST['chair_id']);
+                 // print_r($_REQUEST['doctor_id']);
+                 // die;
+               }
+               if(isset($_REQUEST['doctor_id']) && $_REQUEST['doctor_id'] != ''){
+                 $doctor_id = 'AND a.doctor_id IN('.implode(',',$_REQUEST['doctor_id']).')';
+               }
                $chair_colors = array('chair_green','chair_blue','chair_purple','chair_dbrown','chair_mgreen');
                foreach($splitimes as $stime){
                 $start_time = $stime.':00';
                 foreach($chairs as $chair){
-                  $sql = "SELECT a.*,patientses.name FROM appointments a inner join patientses on patientses.id = a.patient_id WHERE date = '".$sdate."' AND chair = '".$chair."' AND ('".$start_time."' BETWEEN `start_time` AND `end_time`) ";
+                  $sql = "SELECT a.*,patientses.name FROM appointments a inner join patientses on patientses.id = a.patient_id WHERE a.appointment_status=0 AND date = '".$sdate."' AND chair = '".$chair."' AND ('".$start_time."' BETWEEN `start_time` AND `end_time`) ".$doctor_id;
                   $query_check = $this->db->query($sql);
                   $res_check = $query_check->result();
 
@@ -94,31 +106,52 @@ get_instance()->load->helper('custom_helper');
                }   
              }
              ?>
-             <div class="col-md-3 calender_filter">
-              <form action="" method="post">
+             <div class="col-md-10 calender_filter">
+              <form id="submit_form" action="" method="get">
                 Date 
-                <input type="date" name="sdate" id="sdate" required="" value="<?php echo date('Y-m-d'); ?>" autocomplete="off">
+                <input type="date" name="sdate" class="col-md-2" id="sdate" required="" value="<?php echo $sdate; ?>" autocomplete="off">
+
+                 <center class="col-md-4 d-inline-block">
+                   <div>
+                     Doctor 
+
+                     <select name="doctor_id[]"  id="doctor_id_top" class="select select-initialized form-control" multiple="multiple">
+                       <?php foreach($doctors_list as $key=>$doctor){
+                        if(isset($_REQUEST['doctor_id']) && $_REQUEST['doctor_id'][$key]==$doctor->id){
+                          $doctor_selected = "selected";
+                        }
+                        else{
+                          $doctor_selected = "";
+                        }
+                       ?>
+                         <option <?php echo $doctor_selected; ?> value="<?php echo $doctor->id;?>"><?php echo $doctor->name;?></option>
+                       <?php }?>
+                     </select>
+                   </div>
+                 </center> 
+
+                 <div class="col-md-3 d-inline-block">
+                   Chairs 
+                   <select name="chair_id[]"  id="chair_id_top" class="form-control" multiple="multiple">
+                     <?php 
+                     foreach($chairs_list as $key=>$ch){
+                     if(isset($_REQUEST['chair_id']) && $_REQUEST['chair_id'][$key]==$ch){
+                       $chair_selected = "selected";
+                     }
+                     else{
+                       $chair_selected = "";
+                     } 
+                     ?>
+                      <option <?php echo $chair_selected; ?> value="<?php echo $ch; ?>">Chair <?php echo $ch; ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary px-40 mt-0">Filter</button>
               </form> 
             </div>
-            <div class="col-md-3 calender_filter">
-              Doctor 
-
-              <select name="doctor_id" id="doctor_id_top" class="select select-initialized form-control" multiple="multiple">
-                <?php foreach($doctors_list as $doctor){?>
-                  <option value="<?php echo $doctor->id;?>"><?php echo $doctor->name;?></option>
-                <?php }?>
-              </select>
-            </div>    
-            <div class="col-md-3 calender_filter">
-              Chairs 
-              <select name="chair_id" id="chair_id_top" class="form-control" multiple="">
-                <?php foreach($chairs as $ch){ ?>
-                 <option value="<?php echo $ch; ?>">Chair <?php echo $ch; ?></option>
-               <?php } ?>
-             </select>
-           </div>    
+                
            <div class="col-md-2 pull-right text-right">
-            <a href="javascript://" onclick="window.print();" class="btn btn-dgrey border_radius30"><i class="fas fa-print"></i> Print</a>
+            <a href="javascript://" onclick="window.print();" class="btn btn-dark"><i class="fa fa-print"></i> Print</a>
           </div>
         </div>
       </div>
@@ -214,12 +247,14 @@ get_instance()->load->helper('custom_helper');
     $('#add-appointment-modal').modal('show');
   }
 
+  // View Appointment
   function view_event(appointment_id){
     var post_data = {
       'id' :appointment_id,
       'csrf_test_name' : csrf_token
     };
-    var update_button = '<i class="fa fa-check"></i> <?php echo trans("update-serial") ?>';
+    var more_buttons = '<center class="text-white"><a onclick="changeAppointmentStatus(1,'+appointment_id+')" class="btn btn-primary btn-lg mr-30">Missed Appointment</a> <a onclick="changeAppointmentStatus(2,'+appointment_id+')" class="btn btn-success btn-lg mr-30">Complete Appointment</a> <a onclick="changeAppointmentStatus(3,'+appointment_id+')" class="btn btn-info btn-lg mr-30">Cancel Appointment</a> <a data-dismiss="modal" class="btn btn-danger btn-lg mr-30">Close</a></center>';
+
     $.ajax({
       url: base_url+"admin/appointment/fetch_particular_appointment",
       type: "Post",
@@ -227,19 +262,33 @@ get_instance()->load->helper('custom_helper');
       success: function (data) {
         $('#inlineRadio3').removeAttr("checked");
         $('#inlineRadio4').removeAttr("checked");
-        console.log(data);
+
+        $('#inlineRadio3').attr('disabled', true);
+        $('#inlineRadio4').attr('disabled', true);
+        
         var timeStarting = moment(data['start_time'], ["HH:mm:ss"]).format("HH:mm");
         $("#old_new_patient").hide();
-        $("#add_serial").html(update_button);
+        $("#add_serial").hide();
+        
         $('#doctors').select2('val',data['doctor_id']);
+        $('#doctors').attr('disabled', true);
+        
         $('#date_field').val(data['date']);
+        $('#date_field').attr('disabled', true);
+        
         $('#start_time option[value="'+timeStarting+'"]').attr("selected", "selected");
         $('#slot_type').val(data['slot_time']);
         $('#end_time').val(data['end_time']);
+        
         $('#slot').val(data['number_of_slot']);
+        $('#slot').attr('disabled', true);;
+        
         $('#cause').val(data['cause']);
-        $('#cause').val(data['cause']);
+        $('#cause').attr('disabled', true);
+        
         $('#chair_no').val(data['chair']);
+        $('#chair_no').attr('disabled', true);
+
         if(data['type']=="online"){
           $('#inlineRadio3').prop('checked', true);
         }
@@ -247,24 +296,42 @@ get_instance()->load->helper('custom_helper');
         if(data['type']=="offline"){
           $('#inlineRadio4').prop('checked', true);
         }
-        alert(data['patient_id']);
-        // $('#patients').select2('val',data['patient_id']);
+
         $('#patients').select2('val',data['patient_id']);
+        $('#patients').attr('disabled', true);
+
         $('#phone').val(data['patient_phone']);
+        $('#phone').attr('disabled', true);
+
+        $('#extra_notes').val(data['extra_notes']);
+        $('#extra_notes').attr('disabled', true);
         findEndTime();
-        // $('#type').val(data['type']);
+        
+        $('#add_more_button').html(more_buttons);
         $('#add-appointment-modal').modal('show');
       }
     });
   }
 
+  // function closeModal(){
+    
+  //   $('#add-appointment-modal').modal('hide');
+  // }
+
+  
+
   $(document).ready(function () {
     $('#doctor_id_top,#chair_id_top').multiselect();
   });
+
+
+  
+
+
 </script>
 
 <script>
-  $('#doctor_id_top').change(function () {
+  $('#doctor_id_top_').change(function () {
     var doctor_ids = '';
     var chair_ids = '';
     var sdate = $("#sdate").val();
@@ -287,14 +354,14 @@ get_instance()->load->helper('custom_helper');
     $.ajax({
       type: "POST",
       url: "<?php echo base_url();?>admin/appointment/appointments_function",
-      data: {doctor_id: doctor_ids, chair_id: chair_ids, sdate: sdate},
+      data: {doctor_id: doctor_ids, chair_id: chair_ids, sdate: sdate,'csrf_test_name' : csrf_token},
       success: function (data) {
         $('#pptm_chview_block').html(data);
       }
     });
   });
 
-  $('#chair_id_top').change(function () {
+  $('#chair_id_top_').change(function () {
     var doctor_ids = '';
     var chair_ids = '';
     var sdate = $("#sdate").val();
@@ -317,8 +384,8 @@ get_instance()->load->helper('custom_helper');
     }
     $.ajax({
       type: "POST",
-      url: "<?php echo base_url();?>admin/appointmentappointments_function",
-      data: {doctor_id: doctor_ids, chair_id: chair_ids, sdate: sdate},
+      url: "<?php echo base_url();?>admin/appointment/appointments_function",
+      data: {doctor_id: doctor_ids, chair_id: chair_ids, sdate: sdate,'csrf_test_name' : csrf_token},
       success: function (data) {
         $('#pptm_chview_block').html(data);
       }
@@ -349,7 +416,7 @@ get_instance()->load->helper('custom_helper');
     $.ajax({
       type: "POST",
       url: "<?php echo base_url();?>admin/appointment/appointments_function",
-      data: {doctor_id: doctor_ids, chair_id: chair_ids, sdate: sdate},
+      data: {doctor_id: doctor_ids, chair_id: chair_ids, sdate: sdate,'csrf_test_name' : csrf_token},
       success: function (data) {
         $('#pptm_chview_block').html(data);
       }
@@ -498,96 +565,6 @@ get_instance()->load->helper('custom_helper');
 
 
       });
-
-    $('#sdate').change(function () {
-        //alert("ok");
-
-
-
-        // var doctor_id = $("#doctor_id_top").val();
-
-        //var chair_id = $("#chair_id_top").val();
-
-
-
-        var sdate = $("#sdate").val();
-
-        var doctor_ids = '';
-
-        var chair_ids = '';
-
-
-
-        $("#doctor_id_top option:selected").each(function ()
-
-        {
-
-            // alert($(this).val());
-
-            doctor_ids += $(this).val() + ',';
-
-          });
-
-        // doctor_ids = doctor_ids.slice(0,-1);
-
-        doctor_ids = doctor_ids.substring(0, doctor_ids.length - 1);
-
-
-
-        if (doctor_ids == '') {
-
-          doctor_ids = 'all';
-
-        }
-
-
-
-        $("#chair_id_top option:selected").each(function ()
-
-        {
-
-            // alert($(this).val());
-
-            chair_ids += $(this).val() + ',';
-
-          });
-
-        // doctor_ids = doctor_ids.slice(0,-1);
-
-        chair_ids = chair_ids.substring(0, chair_ids.length - 1);
-
-
-
-        if (chair_ids == '') {
-
-          chair_ids = 'all';
-
-        }
-
-
-
-        $.ajax({
-
-          type: "POST",
-
-          url: "http://sonaai.co/dental/admin/calendar/appointments_function/",
-
-          data: {doctor_id: doctor_ids, chair_id: chair_ids, sdate: sdate},
-
-          success: function (data) {
-
-
-
-            $('#pptm_chview_block').html(data);
-
-          }
-
-        });
-
-
-
-      });
-
 
     $('#start_time').change(function () {
         //alert("ok");

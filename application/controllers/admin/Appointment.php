@@ -1,5 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 class Appointment extends Home_Controller {
 
     public function __construct()
@@ -299,14 +303,14 @@ public function calendar()
     $data['page'] = 'Appointment';
     $data['page_title'] = 'Appointment Calendar';
     $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
-    $data['result'] = $this->db->get("events")->result();
+    // $data['result'] = $this->db->get("events")->result();
     
-    foreach ($data['result'] as $key => $value) {
-        $data['data'][$key]['title'] = $value->title;
-        $data['data'][$key]['start'] = $value->start_date;
-        $data['data'][$key]['end'] = $value->end_date;
-        $data['data'][$key]['backgroundColor'] = "#00a65a";
-    }
+    // foreach ($data['result'] as $key => $value) {
+    //     $data['data'][$key]['title'] = $value->title;
+    //     $data['data'][$key]['start'] = $value->start_date;
+    //     $data['data'][$key]['end'] = $value->end_date;
+    //     $data['data'][$key]['backgroundColor'] = "#00a65a";
+    // }
     $data['main_content'] = $this->load->view('admin/appointments/appointment_calendar',$data,TRUE);
         //$this->load->view('admin/appointments/appointment_calendar', $data);   
     $data['doctors'] = $this->admin_model->select_all_doctors();
@@ -346,9 +350,8 @@ public function chairView()
 }
 
 public function appointments_function() {
-    print_r($_REQUEST);
-    die;    
-    $data["doctor_id"] = $_REQUEST['doctor_id'];
+      
+    /*$data["doctor_id"] = $_REQUEST['doctor_id'];
     $data["chair_id"] = $_REQUEST['chair_id'];
     $data["sdate"] = $_REQUEST['sdate']; 
     if($data["doctor_id"] == ''){
@@ -356,11 +359,23 @@ public function appointments_function() {
     }
     if($data["chair_id"] == ''){
         $data["chair_id"] = 'all';
-    }
+    }*/
+    // echo "<pre>";
+    // print_r($data);
+    // die;
     echo $this->load->view('admin/appointments/chair_view',$data,TRUE);
     
     
 }
+
+
+public function changeAppointmentStatus() {
+    $appointment_id = $this->input->post('id');
+    $appointment_status = $this->input->post('status');
+    $this->admin_model->edit_option(array('appointment_status' => $appointment_status), $appointment_id,'appointments');
+}
+
+
 
 }
 

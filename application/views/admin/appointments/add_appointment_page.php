@@ -234,8 +234,10 @@
                           </div> 
                         </div>
 
-                    <!-- csrf token -->
-                    <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
-                    <input type="hidden" name="page" id="page" value="">
-                    <button type="submit" id="add_serial" class="btn btn-primary btn-lg ml-0 mt-10"><i class="fa fa-check"></i> <?php echo trans('add-serial') ?></button>
+                      <!-- csrf token -->
+                      <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
+                      <input type="hidden" name="page" id="page" value="">
+                    <div id="add_more_button">
+                      <button type="submit" id="add_serial" class="btn btn-primary btn-lg ml-0 mt-10"><i class="fa fa-check"></i> <?php echo trans('add-serial') ?></button>
+                    </div>
                   </form>
