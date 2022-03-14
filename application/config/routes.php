@@ -154,6 +154,7 @@ $route['clinic-admin/patients'] = 'admin/patients';
 $route['clinic-admin/patients/add'] = 'admin/patients/add';
 $route['clinic-admin/patients/edit/(:any)'] = 'admin/patients/edit/$1';
 $route['clinic-admin/patients/view/(:any)'] = 'admin/patients/view_patient/$1';
+$route['clinic-admin/patients/view/(:any)/(:any)'] = 'admin/patients/view_patient/$1/$2';
 $route['clinic-admin/patients/update'] = 'admin/patients/update_patient';
 $route['clinic-admin/patients/delete-patients/(:any)'] = 'admin/patients/delete_patients/$1';
 $route['clinic-admin/patients/delete-insurance'] = 'admin/patients/delete_insurance';

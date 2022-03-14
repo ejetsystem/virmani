@@ -1,6 +1,6 @@
  
-<div class="table-responsive" id="loadtreatmentinfo">
-    <div class="row mb_2  mt_5">
+<div class="table-responsive_ mt-4" id="loadtreatmentinfo">
+    <div class="row mb-2  ">
         <div class="col-md-3">
             <h5><strong>Completed Jobs : 0</strong></h5>
         </div>
@@ -9,62 +9,177 @@
         </div>
         <div class="col-md-7">
             <a href="#" class="btn btn-primary btn-sm border_radius5 mb_5">Add Treatment Plan</a>
-
             <a class="btn btn-primary btn-sm border_radius5" id="bt" onclick="toggle(this)">Treatment Plan  History</a>
-
             <a class="btn btn-primary btn-sm border_radius5 mb_5" id="bt" onclick="toggle1(this)">All Complaints</a>
-
             <a href="<?php echo base_url(); ?>admin/patient/viewtreatmentplan/123" class="btn btn-primary btn-sm border_radius5 mb_5">Print</a>
         </div>
-
-
     </div>
-    <div class="table-responsive" id="loadtoothinfo_treatment">
-        <h3 class="bx-title ch_bt" style="color: #f37171;">Chief Complaint </h3> <a href="#" onclick="addcomp('123', 'chief_complaint')" class="btn btn-primary btn-sm border_radius5 mb_5">Add Complaint</a>
-        <div id="show_tbl" style="display: none;">
-            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer"><div class="dt-buttons btn-group btn-group2">               <a class="btn btn-default dt-button buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Copy"><span><i class="fa fa-files-o"></i></span></a> <a class="btn btn-default dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Excel"><span><i class="fa fa-file-excel-o"></i></span></a> <a class="btn btn-default dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="CSV"><span><i class="fa fa-file-text-o"></i></span></a> <a class="btn btn-default dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="PDF"><span><i class="fa fa-file-pdf-o"></i></span></a> <a class="btn btn-default dt-button buttons-print" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Print"><span><i class="fa fa-print"></i></span></a> <a class="btn btn-default dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Columns"><span><i class="fa fa-columns"></i></span></a> </div><div id="DataTables_Table_0_filter" class="dataTables_filter"><label><input type="search" class="" placeholder="Search..." aria-controls="DataTables_Table_0"></label></div><table class="table table-striped table-bordered table-hover example dataTable no-footer dtr-inline" cellspacing="0" width="100%" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="width: 100%;">
-                    <thead>
-                        <tr role="row"><th width="25%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Tooth Number: activate to sort column ascending">Tooth Number</th><th width="25%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Notes &amp;amp; Diagnosis: activate to sort column ascending">Notes &amp; Diagnosis</th><th width="25%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Doctor: activate to sort column ascending">Doctor</th><th width="15%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Treatment Code: activate to sort column ascending">Treatment Code</th><th width="15%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="App Estimate: activate to sort column ascending">App Estimate</th><th width="10%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Action: activate to sort column ascending">Action</th></tr>
-                    </thead>
-                    <tbody> 
-                        <tr class="odd"><td valign="top" colspan="6" class="dataTables_empty">No data available in table <br> <br><img src="https://smart-hospital.in/shappresource/images/addnewitem.svg" width="150"><br><br> <span class="text-success bolds"><i class="fa fa-arrow-left"></i> Add new record or search with different criteria.</span></td></tr></tbody>
-                </table><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Records: 0 to 0 of 0</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" id="DataTables_Table_0_previous"><i class="fa fa-angle-left"></i></a><span></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" id="DataTables_Table_0_next"><i class="fa fa-angle-right"></i></a></div></div>
+    <div class="table-responsive_" id="loadtoothinfo_treatment">
+        <h3 class="bx-title ch_bt" style="color: #f37171;display: inline-block;">Chief Complaint </h3> 
+         <a href="#" onclick="addcomp('<?php echo $patients[0]['id']; ?>','chief_complaint')" class="btn btn-primary btn-sm border_radius5 mb_5">Add Complaint</a><br />
+        <?php 
+            $SQLS = $this->db->query('select teethinfo.*,doctors.name,treatmentplans.job,treatmentplans.amount FROM `teethinfo` 
+                    inner join treatmentplans on treatmentplans.id = teethinfo.treatmentplans_id 
+                    inner join doctors on teethinfo.doc_id = doctors.id 
+                     
+                    WHERE teethinfo.tooth_patient_id ="'.$patients[0]['id'].'" and teethinfo.date="'.date('Y-m-d').'" and 
+                    teethinfo.workdone_id="0" and teethinfo.note_status!=1 and teethinfo.type="chief_complaint" order by teethinfo.id desc');
 
-            <a href="#" onclick="addcomp('123', 'chief_complaint')" class="btn btn-primary btn-sm border_radius5 mb_5">Add Complaint</a><br>
+            $tblrows=$SQLS->num_rows(); 
+            if($tblrows > 0){   ?>
+             
+            <div class="table-responsive">
+            <table class="table table-sm table-bordered table-hover" >
+                <thead>
+                    <tr class="success table-info">
+                        <th>Tooth Number</th>
+                        <th>Notes & Diagnosis</th>
+                        <th>Doctor</th>
+                         <th>Treatment Code</th>
+                         <th>App Estimate</th>
+                         <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                 <?php
+                 $resultlist_teeth=$SQLS->result_array();
+                 foreach ($resultlist_teeth as $teethdata) {?>
+                    <tr id="row_<?php echo $teethdata['id'] ?>">
+                    <td><?php echo $teethdata['teeth_number_note'] ?></td>
+                    <td><?php echo $teethdata['toth_note'] ?></td>
+
+                    <td><?php echo $teethdata['name'] ?></td>
+                    <td><?php echo $teethdata['job'] ?></td>
+                    <td><?php echo $teethdata['amount'] ?></td>
+                    <td>   
+                          <a href="#" class="on-default edit-row" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a> &nbsp; 
+                          <a data-val="Category"  data-id="<?php echo $teethdata['id'] ?>"  href="<?php echo base_url();?>admin/patients/deleteteeth/<?php echo $teethdata['id'] ?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                    </td>           
+                </tr>
+                <?php
+                }
+                ?>
+            </tbody>
+        </table>
+        
+        
         </div>
-        <br>
-        <h3 class="bx-title ch_bt" style="color: #8aef8e;">Other Findings</h3><a href="#" onclick="addcomp('123', 'other_findings')" class="btn btn-primary btn-sm border_radius5 mb_5">Add Other Findings</a>
-        <div id="show_tbl1" style="display: none;">
-            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer"><div class="dt-buttons btn-group btn-group2">               <a class="btn btn-default dt-button buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Copy"><span><i class="fa fa-files-o"></i></span></a> <a class="btn btn-default dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Excel"><span><i class="fa fa-file-excel-o"></i></span></a> <a class="btn btn-default dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="CSV"><span><i class="fa fa-file-text-o"></i></span></a> <a class="btn btn-default dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="PDF"><span><i class="fa fa-file-pdf-o"></i></span></a> <a class="btn btn-default dt-button buttons-print" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Print"><span><i class="fa fa-print"></i></span></a> <a class="btn btn-default dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Columns"><span><i class="fa fa-columns"></i></span></a> </div><div id="DataTables_Table_0_filter" class="dataTables_filter"><label><input type="search" class="" placeholder="Search..." aria-controls="DataTables_Table_0"></label></div><table class="table table-striped table-bordered table-hover example dataTable no-footer dtr-inline" cellspacing="0" width="100%" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="width: 100%;">
-                    <thead>
-                        <tr role="row"><th width="25%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Tooth Number: activate to sort column ascending">Tooth Number</th><th width="25%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Notes &amp;amp; Diagnosis: activate to sort column ascending">Notes &amp; Diagnosis</th><th width="25%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Doctor: activate to sort column ascending">Doctor</th><th width="15%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Treatment Code: activate to sort column ascending">Treatment Code</th><th width="15%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="App Estimate: activate to sort column ascending">App Estimate</th><th width="10%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Action: activate to sort column ascending">Action</th></tr>
-                    </thead>
-                    <tbody> 
+            <?php }?>
+        <br/>
+        
+        
+        
+        
+        <hr>
+        <h3 class="bx-title ch_bt" style="color: #8aef8e;display: inline-block;">Other Findings</h3>
+        <a href="#" onclick="addcomp('<?php echo $patients[0]['id']; ?>', 'other_findings')" class="btn btn-primary btn-sm border_radius5 mb_5">Add Other Findings</a>
+        
+        <?php 
+            $SQLS = $this->db->query('select teethinfo.*,doctors.name,treatmentplans.job,treatmentplans.amount FROM `teethinfo` 
+                    inner join treatmentplans on treatmentplans.id = teethinfo.treatmentplans_id 
+                    inner join doctors on teethinfo.doc_id = doctors.id 
+                     
+                    WHERE teethinfo.tooth_patient_id ="'.$patients[0]['id'].'" and teethinfo.date="'.date('Y-m-d').'" and 
+                    teethinfo.workdone_id="0" and teethinfo.note_status!=1 and teethinfo.type="other_findings" order by teethinfo.id desc');
 
-                        <tr class="odd"><td valign="top" colspan="6" class="dataTables_empty">No data available in table <br> <br><img src="https://smart-hospital.in/shappresource/images/addnewitem.svg" width="150"><br><br> <span class="text-success bolds"><i class="fa fa-arrow-left"></i> Add new record or search with different criteria.</span></td></tr></tbody>
-                </table><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Records: 0 to 0 of 0</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" id="DataTables_Table_0_previous"><i class="fa fa-angle-left"></i></a><span></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" id="DataTables_Table_0_next"><i class="fa fa-angle-right"></i></a></div></div>
+            $tblrows=$SQLS->num_rows(); 
+            if($tblrows > 0){   ?>
+             
+            <div class="table-responsive">
+            <table class="table table-sm table-bordered table-hover" >
+                <thead>
+                    <tr class="success table-info">
+                        <th>Tooth Number</th>
+                        <th>Notes & Diagnosis</th>
+                        <th>Doctor</th>
+                         <th>Treatment Code</th>
+                         <th>App Estimate</th>
+                         <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                 <?php
+                 $resultlist_teeth=$SQLS->result_array();
+                 foreach ($resultlist_teeth as $teethdata) {?>
+                <tr id="row_<?php echo $teethdata['id'] ?>">
+                    <td><?php echo $teethdata['teeth_number_note'] ?></td>
+                    <td><?php echo $teethdata['toth_note'] ?></td>
 
-
-            <a href="#" onclick="addcomp('123', 'other_findings')" class="btn btn-primary btn-sm border_radius5 mb_5">Add Other Findings</a><br>
-        </div><br>
+                    <td><?php echo $teethdata['name'] ?></td>
+                    <td><?php echo $teethdata['job'] ?></td>
+                    <td><?php echo $teethdata['amount'] ?></td>
+                    <td>  
+                          <a href="#" class="on-default edit-row" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a> &nbsp; 
+                          <a data-val="Category"  data-id="<?php echo $teethdata['id'] ?>"  href="<?php echo base_url();?>admin/patients/deleteteeth/<?php echo $teethdata['id'] ?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                    </td>           
+                </tr>
+                <?php
+                }
+                ?>
+            </tbody>
+        </table>
+        
+        
+        </div>
+            <?php }?>
+        
+        
+        <hr>
         <!-- Existing -->
 
-        <h3 class="bx-title ch_bt" style="color: #87CEEB;">Existing</h3><a href="#" onclick="addcomp('123', 'existing')" class="btn btn-primary btn-sm border_radius5 mb_5">Add Existing</a>
+        <h3 class="bx-title ch_bt" style="color: #87CEEB;display: inline-block;">Existing</h3>
+        <a href="#" onclick="addcomp('<?php echo $patients[0]['id']; ?>', 'existing')" class="btn btn-primary btn-sm border_radius5 mb_5">Add Existing</a>
+        
+        <?php 
+            $SQLS = $this->db->query('select teethinfo.*,doctors.name,treatmentplans.job,treatmentplans.amount FROM `teethinfo` 
+                    inner join treatmentplans on treatmentplans.id = teethinfo.treatmentplans_id 
+                    inner join doctors on teethinfo.doc_id = doctors.id 
+                     
+                    WHERE teethinfo.tooth_patient_id ="'.$patients[0]['id'].'" and teethinfo.date="'.date('Y-m-d').'" and 
+                    teethinfo.workdone_id="0" and teethinfo.note_status!=1 and teethinfo.type="existing" order by teethinfo.id desc');
 
-        <div id="show_tbl2" style="display: none;">
-            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer"><div class="dt-buttons btn-group btn-group2">               <a class="btn btn-default dt-button buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Copy"><span><i class="fa fa-files-o"></i></span></a> <a class="btn btn-default dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Excel"><span><i class="fa fa-file-excel-o"></i></span></a> <a class="btn btn-default dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="CSV"><span><i class="fa fa-file-text-o"></i></span></a> <a class="btn btn-default dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="PDF"><span><i class="fa fa-file-pdf-o"></i></span></a> <a class="btn btn-default dt-button buttons-print" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Print"><span><i class="fa fa-print"></i></span></a> <a class="btn btn-default dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Columns"><span><i class="fa fa-columns"></i></span></a> </div><div id="DataTables_Table_0_filter" class="dataTables_filter"><label><input type="search" class="" placeholder="Search..." aria-controls="DataTables_Table_0"></label></div><table class="table table-striped table-bordered table-hover example dataTable no-footer dtr-inline" cellspacing="0" width="100%" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="width: 100%;">
-                    <thead>
-                        <tr role="row"><th width="25%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Tooth Number: activate to sort column ascending">Tooth Number</th><th width="25%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Notes &amp;amp; Diagnosis: activate to sort column ascending">Notes &amp; Diagnosis</th><th width="25%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Doctor: activate to sort column ascending">Doctor</th><th width="15%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Treatment Code: activate to sort column ascending">Treatment Code</th><th width="15%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="App Estimate: activate to sort column ascending">App Estimate</th><th width="10%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Action: activate to sort column ascending">Action</th></tr>
-                    </thead>
-                    <tbody> 
+            $tblrows=$SQLS->num_rows(); 
+            if($tblrows > 0){   ?>
+             
+            <div class="table-responsive">
+            <table class="table table-sm table-bordered table-hover" >
+                <thead>
+                    <tr class="success table-info">
+                        <th>Tooth Number</th>
+                        <th>Notes & Diagnosis</th>
+                        <th>Doctor</th>
+                         <th>Treatment Code</th>
+                         <th>App Estimate</th>
+                         <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                 <?php
+                 $resultlist_teeth=$SQLS->result_array();
+                 foreach ($resultlist_teeth as $teethdata) {?>
+                <tr id="row_<?php echo $teethdata['id'] ?>">
+                    <td><?php echo $teethdata['teeth_number_note'] ?></td>
+                    <td><?php echo $teethdata['toth_note'] ?></td>
 
-                        <tr class="odd"><td valign="top" colspan="6" class="dataTables_empty">No data available in table <br> <br><img src="https://smart-hospital.in/shappresource/images/addnewitem.svg" width="150"><br><br> <span class="text-success bolds"><i class="fa fa-arrow-left"></i> Add new record or search with different criteria.</span></td></tr></tbody>
-                </table><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Records: 0 to 0 of 0</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" id="DataTables_Table_0_previous"><i class="fa fa-angle-left"></i></a><span></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" id="DataTables_Table_0_next"><i class="fa fa-angle-right"></i></a></div></div>
-
-            <a href="#" onclick="addcomp('123', 'existing')" class="btn btn-primary btn-sm border_radius5 mb_5">Add Existing</a>
-
-            <!-- End -->
+                    <td><?php echo $teethdata['name'] ?></td>
+                    <td><?php echo $teethdata['job'] ?></td>
+                    <td><?php echo $teethdata['amount'] ?></td>
+                    <td>  
+                          <a href="#" class="on-default edit-row" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a> &nbsp; 
+                          <a data-val="Category"  data-id="<?php echo $teethdata['id'] ?>"  href="<?php echo base_url();?>admin/patients/deleteteeth/<?php echo $teethdata['id'] ?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                    </td>           
+                </tr>
+                <?php
+                }
+                ?>
+            </tbody>
+        </table>
+        
+        
         </div>
+            <?php }?>
+       
+        <hr>
 
         <div id="loaddata">
             <div id="loadall" style="display:none;"><br> 
@@ -134,7 +249,9 @@
     </div>
 
     <style type="text/css">
-
+table {
+  table-layout: fixed;
+}
 
 
         .edbts {  float: right; color: #fff !important;}
@@ -149,9 +266,13 @@
         span.tre-code {
             color: #eb1c24;
         }
+        #shw_tooth_number{
+            margin-bottom: 1rem;
+        }
         p.texp {
             font-weight: 600;
             margin-top: 13px;
+            margin-bottom: 0px;
         }
 
         span.pl_box {  float: right;   padding-right: 0px;}
@@ -368,12 +489,17 @@
 
 
         <div id="show_toothnumber" style="display: none"></div>
-        <div id="shw_tooth_number"></div>
+        <!--<div id="shw_tooth_number"></div>-->
+        <div id="shw_tooth_number">
+            <p class="texp">Tooth Number: <span class="tre-code"></span></p>
+            <span id="tooth_no_note_view"></span>
+        </div>
 
         <div class="row_">
             <form id="form_addnotes_new" action="" accept-charset="utf-8" method="post" class="ptt10" enctype="multipart/form-data">
                 <input type="hidden" name="patient_id" id="patient_id" value="<?php echo ucfirst($patients[0]['id']); ?>">
                 <input type="hidden" name="teethsid" id="teethsid" value="">  
+                <input type="hidden" name="tooth_no_note" id="tooth_no_note" value="">  
                 <input type="hidden" name="toothinfo_ids" id="tooths_ids" value="">
                 <input type="hidden" name="trtmnts_ids" id="trtmnts_ids" value="">
                 <input type="hidden" name="trtypes" id="trtypes" value="">
@@ -385,12 +511,12 @@
                         <textarea class="form-control" name="toth_note" id="tooths_notes" rows="8" required=""></textarea> 
                     </div>
                 </div> 
-                <div class="col-sm-12">
+<!--                <div class="col-sm-12">
                     <div class="align-center">                        
                         <button type="submit" class="btn btn-primary" value="save">Save</button>
                     </div>
-                </div>
-            </form>    
+                </div>-->
+            <!--</form>-->    
         </div><!--  
       </div>  -->
 
@@ -511,9 +637,9 @@
             <hr class="border_hr">
         </div>
 
-        <form id="formaddtreatment1" action="" accept-charset="utf-8"  method="post" class="ptt10" enctype="multipart/form-data" >
+        <!--<form id="formaddtreatment1" action="" accept-charset="utf-8"  method="post" class="ptt10" enctype="multipart/form-data" >-->
             <input type="hidden" name="opd_no" value="<?php echo $id; ?>">
-            <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
+            <!--<input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">-->
             <div class="row">     
                 <div class="col-sm-6 pjob_tree">
                     <div class="form-group">  
@@ -583,7 +709,7 @@
 
                     <div class="form-group">
                         <label>Treatment Type</label>
-                        <select name="treatment_type" id="treatment_type1" class="form-control" required="">
+                        <select name="treatment_type" id="treatment_type" class="form-control" required="">
 
                             <option value=""><?php echo $this->lang->line('select') ?></option>
 
@@ -616,7 +742,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Estimated Amount</label>
-                                <input type="text" class="form-control" name="treatment_amount" id="treatment_amount1" required onkeypress="return isNumberKey(event)" onkeyup="discount1(this.value)">
+                                <input type="text" class="form-control" name="treatment_amount" id="treatment_amount" required onkeypress="return isNumberKey(event)" onkeyup="discount(this.value)">
                             </div>
                         </div>
 
@@ -625,8 +751,8 @@
                         // $patient_refer->discount_type;
                         //$patient_refer->amount;
                         ?>
-<!--        <input type="hidden" name="distype" id="distype1" value="<?php echo $patient_refer->discount_type; ?>">
-        <input type="hidden" name="disamt" id="disamt1" value="<?php echo $patient_refer->amount; ?>">-->
+                            <input type="hidden" name="distype" id="distype" value="">
+                            <input type="hidden" name="disamt" id="disamt" value="">
 
                         <div class="col-md-6">
                             <div class="form-group">
@@ -638,7 +764,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Estimated Total Amount</label>
-                                <input type="text" class="form-control" name="treatment_courtesy" id="treatment_courtesy1" onkeypress="return isNumberKey(event)" value="">
+                                <input type="text" class="form-control" name="treatment_courtesy" id="treatment_courtesy" onkeypress="return isNumberKey(event)" value="">
                             </div>
                             <span id="errtext"></span>
                         </div>
@@ -665,12 +791,12 @@
 
                 <div class="col-sm-12">
                     <div class="box-footer">
-                        <div class="align-center" id="save_divs">                        
+                        <div class="float-right" id="save_divs">                        
                             <button type="submit" class="btn btn-primary" value="save">Save</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="closeview();">Fill Later</button>
                         </div>
                     </div>
-                    <div class="align-center" id="view_divs" style="display: none;">       
+                    <div class="float-right" id="view_divs" style="display: none;">       
                         <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="closeview();">Fill Later</button>
                     </div>
                 </div>
