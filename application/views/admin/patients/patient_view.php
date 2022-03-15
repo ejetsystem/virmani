@@ -246,10 +246,16 @@
                             Tab 6 content
                         </div>
                         <div class="tab-pane fade <?php echo ($tabpage == 'labs')? 'show active' : '';?>" id="labs" role="tabpanel" aria-labelledby="lab">
-                            Tab 7 content
+                            <?php 
+                            if($tabpage == 'labs'){
+                                echo $this->load->view('admin/patients/labs_report', $data, TRUE);
+                            }?>
                         </div>
                         <div class="tab-pane fade <?php echo ($tabpage == 'xrays')? 'show active' : '';?>" id="xrays" role="tabpanel" aria-labelledby="xray">
-                            Tab 8 content
+                            <?php 
+                            if($tabpage == 'xrays'){
+                                echo $this->load->view('admin/patients/xrays_report', $data, TRUE);
+                            }?>
                         </div>
 
                     </div>

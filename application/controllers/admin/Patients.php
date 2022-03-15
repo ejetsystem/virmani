@@ -1,4 +1,8 @@
 <?php
+//ini_set('display_errors', '1');
+//ini_set('display_startup_errors', '1');
+//error_reporting(E_ALL);
+
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
@@ -536,9 +540,81 @@ class Patients extends Home_Controller {
          if(!empty($tabpage)){
             $data['tabpage'] = $tabpage; 
         }
+        if($tabpage == 'labs')
+        {
+            $data['lab_tests'] = $this->patient_model->getLabtestsDetails();
+            $data['patient_tests']=$this->patient_model->getPatienttestsDetails($id);
+        }
+        
+        if($tabpage == 'xrays')
+        {
+            $data['scan_tests'] =  $this->patient_model->getScantestsDetails();
+            $data['patient_scans']=$this->patient_model->getPatientscansDetails($id);
+        }
+        
         $data['main_content'] = $this->load->view('admin/patients/patient_view', $data, TRUE);
         $this->load->view('admin/index', $data);
     }
+    
+    public function add_lab(){
+       
+    $this->form_validation->set_rules('test_name', "test_name", 'trim|required');
+      if ($this->form_validation->run() == FALSE){
+        $msg = array(
+             'test_name' =>form_error('test_name'),
+             'test_price' =>form_error('test_price'),          
+            );
+        $array = array('status' => 'fail', 'error' => $msg, 'message' => '');
+        }else{
+          
+            $title =  'lab_'.time();
+            $path = 'uploads/labs/';
+            $img =  $this->patient_model->upload_files($path, $title, $_FILES['file']);
+             
+            $report_file =  implode(",",$img);
+            $report_date = $this->input->post('report_date');
+            $data = array(
+                      'patient_id' => $this->input->post("patient"),
+                      'test_name' => $this->input->post("test_name"),
+                      'report_date' => date('Y-m-d', strtotime($report_date)),
+                      'test_price' => $this->input->post("test_price"),
+                      'report_file' => $report_file,
+                    );  
+            $insert_id =  $this->patient_model->add_lab_test($data);
+           
+          $array = array('status' => 'success', 'error' =>'', 'message' => 'Lab Added Successfully.');
+        }
+    echo json_encode($array);
+  }
+  
+  public function add_scan(){
+    $this->form_validation->set_rules('scan_name', "scan_name", 'trim|required');
+      if ($this->form_validation->run() == FALSE){
+        $msg = array(
+             'scan_name' =>form_error('scan_name'),
+             'scan_price' =>form_error('scan_price'),          
+            );
+        $array = array('status' => 'fail', 'error' => $msg, 'message' => '');
+        }else{
+            $title =  'lab_'.time();
+            $path = 'uploads/labs/';
+            $img =  $this->patient_model->upload_files($path, $title, $_FILES['file']);
+             
+            $report_file =  implode(",",$img);
+            $report_date = $this->input->post('report_date');
+            $data = array(
+                      'patient_id' => $this->input->post("patient"),
+                      'scan_name' => $this->input->post("scan_name"),
+                      'report_date' => date('Y-m-d', strtotime($report_date)),
+                      'scan_price' => $this->input->post("scan_price"),
+                      'report_file' => $report_file,
+                    );  
+            $insert_id =  $this->patient_model->add_scan_test($data);
+           
+          $array = array('status' => 'success', 'error' =>'', 'message' => 'Scan Added Successfully.');
+        }
+    echo json_encode($array);
+  }
 
     public function getteeth() {
         ?>
