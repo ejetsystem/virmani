@@ -180,15 +180,15 @@
               <div class="dropdown-menu shadow">
                 
                 <?php if (check_feature_access('prescription') == TRUE): ?>
-                  <a class="dropdown-item" href="<?php echo base_url('admin/prescription') ?>"><?php echo trans('prescription') ?></a>
+                  <a class="dropdown-item" href="<?php echo base_url('clinic-admin/prescription') ?>"><?php echo trans('prescription') ?></a>
                 <?php endif; ?>
                 
                 <?php if (check_my_payment_status() == TRUE): ?>
                   <?php if (check_feature_access('staffs') == TRUE): ?>
-                    <a class="dropdown-item" href="<?php echo base_url('admin/staff') ?>"><?php echo trans('staff') ?></a>
+                    <a class="dropdown-item" href="<?php echo base_url('clinic-admin/staff') ?>"><?php echo trans('staff') ?></a>
                   <?php endif; ?>
                   <?php if (check_feature_access('patients') == TRUE): ?>
-                    <a class="dropdown-item" href="<?php echo base_url('admin/patients') ?>"><?php echo trans('patient') ?></a>
+                    <a class="dropdown-item" href="<?php echo base_url('clinic-admin/patients') ?>"><?php echo trans('patient') ?></a>
                   <?php endif; ?>
                   <?php if (check_feature_access('appointments') == TRUE): ?>
                     <!-- <a class="dropdown-item" href="<?php //echo base_url('admin/appointment') ?>"><?php // echo trans('appointment') ?></a> -->
@@ -196,7 +196,7 @@
                   <?php endif; ?>
                 <?php endif; ?>
 
-                <a class="dropdown-item" href="<?php echo base_url('admin/drugs') ?>"><?php echo trans('drug') ?></a>
+                <a class="dropdown-item" href="<?php echo base_url('clinic-admin/drugs') ?>"><?php echo trans('drug') ?></a>
               </div>
             </div>
           <?php endif ?>
@@ -240,10 +240,10 @@
                             <?php if (user()->role == 'user'): ?>
                               <?php if (check_my_payment_status() == TRUE): ?>
                                 <a target="_blank" href="<?php echo base_url('profile/'.user()->slug) ?>"><i class="icon-user"></i> <?php echo trans('view-profile') ?></a>
-                                <a href="<?php echo base_url('admin/profile') ?>"><i class="icon-pencil"></i> <?php echo trans('update-profile') ?></a>
+                                <a href="<?php echo base_url('clinic-admin/profile') ?>"><i class="icon-pencil"></i> <?php echo trans('update-profile') ?></a>
                               <?php endif ?>
                             <?php endif ?>
-                            <a href="<?php echo base_url('admin/dashboard/change_password') ?>"><i class="icon-lock"></i> <?php echo trans('change-password') ?></a>
+                            <a href="<?php echo base_url('clinic-admin/dashboard/change_password') ?>"><i class="icon-lock"></i> <?php echo trans('change-password') ?></a>
                           </div>
 
                           <div class="col-12 text-left">

@@ -144,6 +144,7 @@ $route['setup'] = 'auth/setup';
 
 
 //Doctor
+$route['clinic-admin/doctor'] = 'admin/doctor';
 $route['clinic-admin/doctor/add'] = 'admin/doctor/add';
 $route['clinic-admin/doctor/delete'] = 'admin/doctor/delete';
 $route['clinic-admin/doctor/update'] = 'admin/doctor/update';
@@ -170,3 +171,90 @@ $route['clinic-admin/appointment/calendar-view'] = 'admin/appointment/calendar';
 $route['clinic-admin/appointment/fetch'] = 'admin/appointment/fetch_particular_appointment';
 $route['clinic-admin/appointment/chair-view'] = 'admin/appointment/chairView';
 $route['clinic-admin/appointment/change-appointment-status'] = 'admin/appointment/changeAppointmentStatus';
+ 
+
+
+//Dashboard
+$route['clinic-admin/dashboard/user'] = 'admin/dashboard/user';
+$route['clinic-admin/dashboard/change_password'] = 'admin/dashboard/change_password';
+
+//Subcripton
+$route['clinic-admin/subscription'] = 'admin/subscription';
+$route['clinic-admin/subscription/upgrade/basic/monthly'] = 'admin/subscription/upgrade/basic/monthly';
+$route['clinic-admin/subscription/upgrade/basic/monthly/(:any)'] = 'admin/subscription/upgrade/basic/monthly/$1';
+$route['clinic-admin/subscription/upgrade/standared/monthly'] = 'admin/subscription/upgrade/standared/monthly';
+$route['clinic-admin/subscription/upgrade/standared/monthly/(:any)'] = 'admin/subscription/upgrade/standared/monthly/$1';
+$route['clinic-admin/subscription/upgrade/premium/monthly'] = 'admin/subscription/upgrade/premium/monthly';
+$route['clinic-admin/subscription/upgrade/premium/monthly/(:any)'] = 'admin/subscription/upgrade/premium/monthly/$1';
+$route['clinic-admin/subscription/upgrade/basic/yearly'] = 'admin/subscription/upgrade/basic/yearly';
+$route['clinic-admin/subscription/upgrade/basic/yearly/(:any)'] = 'admin/subscription/upgrade/basic/yearly/$1';
+$route['clinic-admin/subscription/upgrade/standared/yearly'] = 'admin/subscription/upgrade/standared/yearly';
+$route['clinic-admin/subscription/upgrade/standared/yearly/(:any)'] = 'admin/subscription/upgrade/standared/yearly/$1';
+$route['clinic-admin/subscription/upgrade/premium/yearly'] = 'admin/subscription/upgrade/premium/yearly';
+$route['clinic-admin/subscription/upgrade/premium/yearly/(:any)'] = 'admin/subscription/upgrade/premium/yearly/$1';
+
+//QR Code
+$route['clinic-admin/profile/qr_code'] = 'admin/profile/qr_code';
+$route['clinic-admin/profile/download_qrcode'] = 'admin/profile/download_qrcode';
+
+//Rating
+$route['clinic-admin/dashboard/rating'] = 'admin/dashboard/rating';
+
+//Chamber
+$route['clinic-admin/chamber'] = 'admin/chamber';
+$route['clinic-admin/chamber/set_primary/(:any)'] = 'admin/chamber/set_primary/$1';
+$route['clinic-admin/chamber/edit/(:any)'] = 'admin/chamber/edit/$1';
+$route['clinic-admin/chamber/delete/(:any)'] = 'admin/chamber/delete/$1';
+
+//Department
+$route['clinic-admin/department'] = 'admin/department';
+$route['clinic-admin/department/edit/(:any)'] = 'admin/department/edit/$1';
+$route['clinic-admin/department/delete/(:any)'] = 'admin/department/delete//$1';
+
+//Consultation Setting
+$route['clinic-admin/live_consults/settings'] = 'admin/live_consults/settings';
+$route['clinic-admin/live_consults'] = 'admin/live_consults';
+$route['clinic-admin/live_consults/evisit_settings'] = 'admin/live_consults/evisit_settings';
+$route['clinic-admin/live_consults/edit/(:any)'] = 'admin/live_consults/edit/$1';
+// $route['clinic-admin/prescription'] = 'admin/live_consults/evisit_settings';
+
+//Staff
+$route['clinic-admin/staff'] = 'admin/staff';
+$route['clinic-admin/staff/edit/(:any)'] = 'admin/staff/edit/$1';
+$route['clinic-admin/staff/delete/(:any)'] = 'admin/staff/delete/$1';
+
+
+
+//Settings
+$route['clinic-admin/diagonosis'] = 'admin/diagonosis';
+$route['clinic-admin/advises'] = 'admin/advises';
+$route['clinic-admin/additional_advises'] = 'admin/additional_advises';
+$route['clinic-admin/advise_investigation'] = 'admin/advise_investigation';
+$route['clinic-admin/advise_investigation/edit/(:any)'] = 'admin/advise_investigation/edit/$1';
+$route['clinic-admin/advise_investigation/delete/(:any)'] = 'admin/advise_investigation/delete/$1';
+$route['clinic-admin/diagonosis/edit/(:any)'] = 'admin/diagonosis/edit/$1';
+
+//Prescription
+$route['clinic-admin/prescription'] = 'admin/prescription';
+$route['clinic-admin/prescription/all_prescription'] = 'admin/prescription/all_prescription';
+
+//Drugs
+$route['clinic-admin/drugs'] = 'admin/drugs';
+$route['clinic-admin/drugs/edit/(:any)'] = 'admin/drugs/edit/$1';
+$route['clinic-admin/drugs/delete/(:any)'] = 'admin/drugs/delete/$1';
+
+//Profile
+$route['clinic-admin/profile'] = 'admin/profile';
+$route['clinic-admin/educations'] = 'admin/educations';
+
+//Education
+$route['clinic-admin/educations/edit/(:any)'] = 'admin/educations/edit/$1';
+$route['clinic-admin/educations/delete/(:any)'] = 'admin/educations/delete/$1';
+
+//Exprience
+$route['clinic-admin/experiences'] = 'admin/experiences';
+$route['clinic-admin/experiences/edit/(:any)'] = 'admin/experiences/edit/$1';
+$route['clinic-admin/experiences/delete/(:any)'] = 'admin/experiences/delete/$1';
+
+
+ 

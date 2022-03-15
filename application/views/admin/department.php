@@ -15,7 +15,7 @@
         <div class="box-tools pull-right">
           <?php if (isset($page_title) && $page_title == "Edit"): ?>
             <?php $required = ''; ?>
-            <a href="<?php echo base_url('superadmin/department') ?>" class="pull-right btn btn-light-secondary btn-sm"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a>
+            <a href="<?php echo base_url('clinic-admin/department') ?>" class="pull-right btn btn-light-secondary btn-sm"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a>
           <?php else: ?>
             <?php $required = 'required'; ?>
             <a href="#" class="text-right btn btn-light-secondary btn-sm cancel_btn"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a>
@@ -86,9 +86,9 @@
 
                         <?php if (is_admin() || is_user() && user()->id == $row->user_id): ?>
                         
-                          <a href="<?php echo base_url('superadmin/department/edit/'.html_escape($row->id));?>" class="on-default edit-row" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a> &nbsp; 
+                          <a href="<?php echo base_url('clinic-admin/department/edit/'.html_escape($row->id));?>" class="on-default edit-row" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a> &nbsp; 
 
-                          <a data-val="page" data-id="<?php echo html_escape($row->id); ?>" href="<?php echo base_url('admin/department/delete/'.html_escape($row->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o"></i></a>
+                          <a data-val="page" data-id="<?php echo html_escape($row->id); ?>" href="<?php echo base_url('clinic-admin/department/delete/'.html_escape($row->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o"></i></a>
 
                         <?php else: ?>
 

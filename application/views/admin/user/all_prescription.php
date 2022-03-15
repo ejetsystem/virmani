@@ -10,7 +10,7 @@
 
 				        <?php if (is_user()): ?>
 					        <div class="box-tools pull-right">
-					         	<a href="<?php echo base_url('admin/prescription') ?>" class="pull-right btn btn-light-secondary mt-15 btn-sm"><i class="fa fa-plus"></i> <?php echo trans('create-new-prescription') ?></a>
+					         	<a href="<?php echo base_url('clinic-admin/prescription') ?>" class="pull-right btn btn-light-secondary mt-15 btn-sm"><i class="fa fa-plus"></i> <?php echo trans('create-new-prescription') ?></a>
 					        </div>
 				        <?php endif ?>
 				    </div>

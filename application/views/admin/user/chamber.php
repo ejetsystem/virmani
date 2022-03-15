@@ -147,14 +147,14 @@
                           <?php if ($chamber->is_primary == 1): ?>
                             <span class="badge brd-20 badge-success-soft" disabled data-toggle="tooltip" data-placement="top" title="This is your default chamber"><i class="ficon flaticon-check"></i> Active</span>
                           <?php else: ?>
-                            <a data-val="<?php echo html_escape($chamber->name); ?>" data-id="<?php echo html_escape($chamber->id); ?>" href="<?php echo base_url('admin/chamber/set_primary/'.html_escape($chamber->id));?>" class="btn btn-light-primary primary_item brd-20" data-toggle="tooltip" data-placement="top" title="Set as a default chamber"><i class="fa fa-star"></i> <?php echo trans('set-default') ?></a>
+                            <a data-val="<?php echo html_escape($chamber->name); ?>" data-id="<?php echo html_escape($chamber->id); ?>" href="<?php echo base_url('clinic-admin/chamber/set_primary/'.html_escape($chamber->id));?>" class="btn btn-light-primary primary_item brd-20" data-toggle="tooltip" data-placement="top" title="Set as a default chamber"><i class="fa fa-star"></i> <?php echo trans('set-default') ?></a>
                           <?php endif ?>
                         </td>
                         
                         <td class="actions" width="12%">
-                          <a href="<?php echo base_url('admin/chamber/edit/'.md5($chamber->id));?>" class="on-default edit-row" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; 
+                          <a href="<?php echo base_url('clinic-admin/chamber/edit/'.md5($chamber->id));?>" class="on-default edit-row" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; 
 
-                          <a data-val="Category" data-id="<?php echo html_escape($chamber->id); ?>" href="<?php echo base_url('admin/chamber/delete/'.html_escape($chamber->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="<?php echo trans('delete') ?>"><i class="fa fa-trash-o"></i></a> &nbsp;
+                          <a data-val="Category" data-id="<?php echo html_escape($chamber->id); ?>" href="<?php echo base_url('clinic-admin/chamber/delete/'.html_escape($chamber->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="<?php echo trans('delete') ?>"><i class="fa fa-trash-o"></i></a> &nbsp;
                         </td>
                     </tr>
                     

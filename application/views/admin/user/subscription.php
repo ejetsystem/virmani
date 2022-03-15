@@ -118,12 +118,12 @@
                   
                   <?php if ($user->package_id == $package->id): ?>
                       <?php if (user()->user_type == 'registered'): ?>
-                        <a class="btn btn-primary btn-lg btn-block package_btn" href="<?php echo base_url('admin/subscription/upgrade/'.$package->slug) ?>"> <?php echo trans('your-selected-plan') ?></a>
+                        <a class="btn btn-primary btn-lg btn-block package_btn" href="<?php echo base_url('clinic-admin/subscription/upgrade/'.$package->slug) ?>"> <?php echo trans('your-selected-plan') ?></a>
                       <?php else: ?>
-                        <a class="btn btn-light-secondary btn-lg btn-block package_btn" href="<?php echo base_url('admin/subscription/upgrade/'.$package->slug) ?>"> <?php echo trans('select') ?></a>
+                        <a class="btn btn-light-secondary btn-lg btn-block package_btn" href="<?php echo base_url('clinic-admin/subscription/upgrade/'.$package->slug) ?>"> <?php echo trans('select') ?></a>
                       <?php endif ?>
                     <?php else: ?>
-                      <a class="btn btn-light-secondary btn-lg btn-block package_btn" href="<?php echo base_url('admin/subscription/upgrade/'.$package->slug) ?>"> <?php echo trans('select') ?></a>
+                      <a class="btn btn-light-secondary btn-lg btn-block package_btn" href="<?php echo base_url('clinic-admin/subscription/upgrade/'.$package->slug) ?>"> <?php echo trans('select') ?></a>
                     <?php endif ?>
 
                 </div>

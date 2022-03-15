@@ -106,12 +106,12 @@ class Subscription extends Home_Controller {
                 }
 
                 $this->common_model->insert($pay_data, 'payment');
-                redirect(base_url('admin/subscription'));
+                redirect(base_url('clinic-admin/subscription'));
             }else{
                 if (settings()->enable_payment == 1) {
                     redirect(base_url('admin/subscription/purchase/'.$uid.'/'.$slug.'/'.$billing_type));
                 } else {
-                    redirect(base_url('admin/subscription'));
+                    redirect(base_url('clinic-admin/subscription'));
                 }
             }
         }

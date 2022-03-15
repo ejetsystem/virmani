@@ -125,7 +125,7 @@ public function update(){
         $data = $this->security->xss_clean($data);
         $this->admin_model->edit_option($data, $user_id, 'users');
         $this->session->set_flashdata('msg', trans('updated-successfully')); 
-        redirect(base_url('admin/profile'));
+        redirect(base_url('clinic-admin/profile'));
     }
 }
 

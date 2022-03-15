@@ -39,7 +39,7 @@ class Educations extends Home_Controller {
 
             if ($this->form_validation->run() === false) {
                 $this->session->set_flashdata('error', validation_errors());
-                redirect(base_url('admin/educations'));
+                redirect(base_url('clinic-admin/educations'));
             } else {
                 
                 if(user()->role == 'staff'){$user_id = user()->user_id;}else{$user_id = user()->id;}
@@ -60,7 +60,7 @@ class Educations extends Home_Controller {
                     $id = $this->admin_model->insert($data, 'educations');
                     $this->session->set_flashdata('msg', trans('inserted-successfully')); 
                 }
-                redirect(base_url('admin/educations'));
+                redirect(base_url('clinic-admin/educations'));
 
             }
         }      
