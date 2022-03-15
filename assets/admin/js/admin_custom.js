@@ -29,7 +29,6 @@ function getPatientPhone(id){
 		type: "Post",
 		data: post_data,
 		success: function (data) {
-			console.log(data);
 			$("#phone").val(data);
 		}
 	});
@@ -54,6 +53,71 @@ function getPatientPhone(id){
 
   }
 
+  // View Appointment
+  function view_event(appointment_id){
+    var post_data = {
+      'id' :appointment_id,
+      'csrf_test_name' : csrf_token
+    };
+    var more_buttons = '<center class="text-white"><a onclick="changeAppointmentStatus(1,'+appointment_id+')" class="btn btn-primary btn-lg mr-30">Missed Appointment</a> <a onclick="changeAppointmentStatus(2,'+appointment_id+')" class="btn btn-success btn-lg mr-30">Complete Appointment</a> <a onclick="changeAppointmentStatus(3,'+appointment_id+')" class="btn btn-info btn-lg mr-30">Cancel Appointment</a> <a data-dismiss="modal" class="btn btn-danger btn-lg mr-30">Close</a></center>';
+
+    $.ajax({
+      url: base_url+"admin/appointment/fetch_particular_appointment",
+      type: "Post",
+      data: post_data,
+      success: function (data) {
+        $('#inlineRadio3').removeAttr("checked");
+        $('#inlineRadio4').removeAttr("checked");
+
+        $('#inlineRadio3').attr('disabled', true);
+        $('#inlineRadio4').attr('disabled', true);
+        
+        var timeStarting = moment(data['start_time'], ["HH:mm:ss"]).format("HH:mm");
+        $("#old_new_patient").hide();
+        $("#add_serial").hide();
+        
+        $('#doctors').select2('val',data['doctor_id']);
+        $('#doctors').attr('disabled', true);
+        
+        $('#date_field').val(data['date']);
+        $('#date_field').attr('disabled', true);
+        
+        $('#start_time option[value="'+timeStarting+'"]').attr("selected", "selected");
+        $('#slot_type').val(data['slot_time']);
+        $('#end_time').val(data['end_time']);
+        
+        $('#slot').val(data['number_of_slot']);
+        $('#slot').attr('disabled', true);;
+        
+        $('#cause').val(data['cause']);
+        $('#cause').attr('disabled', true);
+        
+        $('#chair_no').val(data['chair']);
+        $('#chair_no').attr('disabled', true);
+
+        if(data['type']=="online"){
+          $('#inlineRadio3').prop('checked', true);
+        }
+        
+        if(data['type']=="offline"){
+          $('#inlineRadio4').prop('checked', true);
+        }
+
+        $('#patients').select2('val',data['patient_id']);
+        $('#patients').attr('disabled', true);
+
+        $('#phone').val(data['patient_phone']);
+        $('#phone').attr('disabled', true);
+
+        $('#extra_notes').val(data['extra_notes']);
+        $('#extra_notes').attr('disabled', true);
+        findEndTime();
+        
+        $('#add_more_button').html(more_buttons);
+        $('#add-appointment-modal').modal('show');
+      }
+    });
+  }
 
   $(document).on('hide.bs.modal', function(){
     $('#inlineRadio3').removeAttr("disabled");
@@ -63,13 +127,11 @@ function getPatientPhone(id){
     
 
     // $('#doctors').select2('val','');
-    $('#doctors').val(1).trigger('change.select2');
+    $('#doctors').val("select").trigger('change.select2');
     $('#doctors').removeAttr("disabled");
 
-    $('#date_field').val("");
-    $('#date_field').removeAttr("disabled");
-
-    $('#start_time').val("");
+    // alert(moment().format("HH:mm"));
+    $('#start_time').val("12:00");
     $('#start_time').removeAttr("disabled");
 
     $('#slot_type').val("15");
@@ -85,7 +147,7 @@ function getPatientPhone(id){
     $('#cause').val("");
     $('#cause').removeAttr("disabled");
 
-    $('#chair_no').val("");
+    $('#chair_no').val("1");
     $('#chair_no').removeAttr("disabled");
 
     $('#inlineRadio3').prop('checked', true);
@@ -94,7 +156,7 @@ function getPatientPhone(id){
     $('#inlineRadio4').removeAttr("disabled");
 
     // $('#patients').select2('val',"");
-    $('#patients').val(1).trigger('change.select2');
+    $('#patients').val("select").trigger('change.select2');
     $('#patients').removeAttr("disabled");
 
     $('#phone').val("");
@@ -102,7 +164,11 @@ function getPatientPhone(id){
 
     $('#extra_notes').val("");
     $('#extra_notes').removeAttr("disabled");
-    findEndTime();
 
-    $('#add_more_button').html('<button type="submit" id="add_serial" class="btn btn-primary btn-lg ml-0 mt-10"><i class="fa fa-check"></i> <?php echo trans(add-serial) ?></button>');
+    add_button = `<button type="submit" id="add_serial" class="btn btn-primary btn-lg ml-0 mt-10"><i class="fa fa-check"></i> Add Serial</button>`;
+    $('#add_more_button').html(add_button);
+
+    $('#date_field').val(moment().format('YYYY-MM-DD'));
+    $('#date_field').removeAttr("disabled");
+    findEndTime();
   });
