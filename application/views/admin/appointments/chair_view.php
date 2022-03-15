@@ -76,10 +76,6 @@ get_instance()->load->helper('custom_helper');
                $doctor_id = '';
                if(isset($_REQUEST['chair_id']) && $_REQUEST['chair_id'] != ''){
                  $chairs = $_REQUEST['chair_id'];
-                 // echo "<pre>";
-                 // print_r($_REQUEST['chair_id']);
-                 // print_r($_REQUEST['doctor_id']);
-                 // die;
                }
                if(isset($_REQUEST['doctor_id']) && $_REQUEST['doctor_id'] != ''){
                  $doctor_id = 'AND a.doctor_id IN('.implode(',',$_REQUEST['doctor_id']).')';
@@ -107,7 +103,8 @@ get_instance()->load->helper('custom_helper');
              }
              ?>
              <div class="col-md-10 calender_filter">
-              <form id="submit_form" action="" method="get">
+              <form id="submit_form" action="" method="POST">
+                <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
                 Date 
                 <input type="date" name="sdate" class="col-md-2" id="sdate" required="" value="<?php echo $sdate; ?>" autocomplete="off">
 
@@ -118,7 +115,7 @@ get_instance()->load->helper('custom_helper');
                      <select name="doctor_id[]"  id="doctor_id_top" class="select select-initialized form-control" multiple="multiple">
                        <?php foreach($doctors_list as $key=>$doctor){
                         if(isset($_REQUEST['doctor_id']) && $_REQUEST['doctor_id'][$key]==$doctor->id){
-                          $doctor_selected = "selected";
+                          $doctor_selected = "selected='true'";
                         }
                         else{
                           $doctor_selected = "";
@@ -136,7 +133,7 @@ get_instance()->load->helper('custom_helper');
                      <?php 
                      foreach($chairs_list as $key=>$ch){
                      if(isset($_REQUEST['chair_id']) && $_REQUEST['chair_id'][$key]==$ch){
-                       $chair_selected = "selected";
+                       $chair_selected = "selected='true'";
                      }
                      else{
                        $chair_selected = "";
@@ -247,71 +244,7 @@ get_instance()->load->helper('custom_helper');
     $('#add-appointment-modal').modal('show');
   }
 
-  // View Appointment
-  function view_event(appointment_id){
-    var post_data = {
-      'id' :appointment_id,
-      'csrf_test_name' : csrf_token
-    };
-    var more_buttons = '<center class="text-white"><a onclick="changeAppointmentStatus(1,'+appointment_id+')" class="btn btn-primary btn-lg mr-30">Missed Appointment</a> <a onclick="changeAppointmentStatus(2,'+appointment_id+')" class="btn btn-success btn-lg mr-30">Complete Appointment</a> <a onclick="changeAppointmentStatus(3,'+appointment_id+')" class="btn btn-info btn-lg mr-30">Cancel Appointment</a> <a data-dismiss="modal" class="btn btn-danger btn-lg mr-30">Close</a></center>';
-
-    $.ajax({
-      url: base_url+"admin/appointment/fetch_particular_appointment",
-      type: "Post",
-      data: post_data,
-      success: function (data) {
-        $('#inlineRadio3').removeAttr("checked");
-        $('#inlineRadio4').removeAttr("checked");
-
-        $('#inlineRadio3').attr('disabled', true);
-        $('#inlineRadio4').attr('disabled', true);
-        
-        var timeStarting = moment(data['start_time'], ["HH:mm:ss"]).format("HH:mm");
-        $("#old_new_patient").hide();
-        $("#add_serial").hide();
-        
-        $('#doctors').select2('val',data['doctor_id']);
-        $('#doctors').attr('disabled', true);
-        
-        $('#date_field').val(data['date']);
-        $('#date_field').attr('disabled', true);
-        
-        $('#start_time option[value="'+timeStarting+'"]').attr("selected", "selected");
-        $('#slot_type').val(data['slot_time']);
-        $('#end_time').val(data['end_time']);
-        
-        $('#slot').val(data['number_of_slot']);
-        $('#slot').attr('disabled', true);;
-        
-        $('#cause').val(data['cause']);
-        $('#cause').attr('disabled', true);
-        
-        $('#chair_no').val(data['chair']);
-        $('#chair_no').attr('disabled', true);
-
-        if(data['type']=="online"){
-          $('#inlineRadio3').prop('checked', true);
-        }
-        
-        if(data['type']=="offline"){
-          $('#inlineRadio4').prop('checked', true);
-        }
-
-        $('#patients').select2('val',data['patient_id']);
-        $('#patients').attr('disabled', true);
-
-        $('#phone').val(data['patient_phone']);
-        $('#phone').attr('disabled', true);
-
-        $('#extra_notes').val(data['extra_notes']);
-        $('#extra_notes').attr('disabled', true);
-        findEndTime();
-        
-        $('#add_more_button').html(more_buttons);
-        $('#add-appointment-modal').modal('show');
-      }
-    });
-  }
+  
 
   // function closeModal(){
     

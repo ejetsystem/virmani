@@ -6,7 +6,7 @@
                             <label><?php echo 'Dentist/Doctor Name' ?></label>
                             <!-- <input type="text" name="doctor_name" id="doctor_name" class="form-control"> -->
                             <select name="doctors_id" id="doctors" class="form-control select2">
-                              <option value=""><?php echo trans('select') ?> </option>
+                              <option value="select"><?php echo trans('select') ?> </option>
                               <?php foreach ($doctors as $doctor): ?>
                                 <option  value="<?php echo html_escape($doctor->id); ?>"><?php echo  '<b>'.$doctor->name.'</b>'?></option>
                               <?php endforeach ?>
@@ -17,10 +17,10 @@
                           <div class="form-group plr-10">
                             <label><?php echo trans('date') ?></label>
                             <div class="input-group mb-3">
-                              <input type="text" class="form-control datepicker" name="date" id="date_field"  value="<?php echo date('Y-m-d') ?>" autocomplete="off">
-                              <div class="input-group-append">
+                              <input type="date" class="form-control" name="date" id="date_field"  value="<?php echo date('Y-m-d') ?>" autocomplete="off">
+                              <!-- <div class="input-group-append">
                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                              </div>
+                              </div> -->
                             </div>
                           </div>
                         </div>
@@ -34,9 +34,8 @@
                             <label><?php echo trans('start-time') ?></label>
                             <!-- <input type="text" class="form-control timepicker" name="start_time"  value="" autocomplete="off"> -->
                             <select class="form-control" name="start_time" id="start_time"  value="" onchange="findEndTime()">
-                              <option>Select--</option>
+                              <option value="select">Select--</option>
                               <?php 
-                              echo date('Y-m-d h:i:s');
                               $range=range(strtotime("10:00"),strtotime("19:45"),15*60);
                               foreach($range as $time){
                                 echo "<option value='".date("H:i",$time)."'>".date("h:i A",$time)."</option>";
@@ -148,7 +147,7 @@
                               <div class="form-group">
                                 <label><?php echo trans('patient') ?> <span class="text-danger">*</span></label>
                                 <select name="patient_id" id="patients" class="form-control select2" onchange="getPatientPhone(this.value);">
-                                  <option value=" "><?php echo trans('select') ?> </option>
+                                  <option value="select"><?php echo trans('select') ?> </option>
                                   <?php foreach ($patientses as $patient): ?>
                                     <option  value="<?php echo html_escape($patient->id); ?>"><?= '<b>'.$patient->name.'</b> - '.$patient->mr_number.' - '.$patient->mobile;?></option>
                                   <?php endforeach ?>

@@ -59,6 +59,8 @@
                     </td>
 
                     <td class="actions" width="15%">
+                      <a style="cursor: pointer;" onclick="view_event('<?php echo html_escape($amp->id); ?>')" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; &nbsp;
+
                       <a data-val="experience" data-id="<?php echo html_escape($amp->id); ?>" href="<?php echo base_url('admin/appointment/delete/'.html_escape($amp->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o"></i></a>
                     </td>
                   </tr>

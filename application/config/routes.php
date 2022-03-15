@@ -172,7 +172,10 @@ $route['clinic-admin/appointment/chair-view'] = 'admin/appointment/chairView';
 $route['clinic-admin/appointment/change-appointment-status'] = 'admin/appointment/changeAppointmentStatus';
 
 
-
+// Registration
+$route['clinic-admin/registration/doctor'] = 'admin/';
+$route['clinic-admin/registration/staff'] = 'admin/';
+$route['clinic-admin/registration/dealer'] = 'admin/';
 
 
 
