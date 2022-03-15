@@ -279,7 +279,7 @@ $("#form_addnotes_new").on('submit', (function (e) {
                 dataType: 'json',
 
                 success: function (data) {
-                    alert(data);
+                    
                     //successMsg('Record Deleted Successfully');
                     $('body').append("<div class='alert alert-success'><i class='fa fa-check'></i> Order successfully added!</div>");
                     

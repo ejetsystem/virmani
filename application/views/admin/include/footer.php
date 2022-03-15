@@ -307,8 +307,26 @@
 
 </script>
 
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+<script>
+function successMsg(msg) {
+     toastr.success(msg);
+ }
 
+ function errorMsg(msg) {
+     toastr.error(msg);
+ }
 
+ function infoMsg(msg) {
+     toastr.info(msg);
+ }
+
+ function warningMsg(msg) {
+     toastr.warning(msg);
+ }    
+ $('.datepicker').datepicker();
+</script>
 <?php if (isset($page) && $page == 'Appointment'): ?>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
   <script>
