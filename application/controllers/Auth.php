@@ -104,6 +104,8 @@ class Auth extends Home_Controller
                 }
             }elseif ($user->role == 'staff') {
                 $parent_id = $user->user_id;
+            }elseif ($user->role == 'doctor') {
+                $parent_id = $user->user_id;
             }else{
                 $parent_id = 0;
             }
@@ -127,9 +129,17 @@ class Auth extends Home_Controller
                 // success notification
                 if ($user->role == 'admin') {
                     $url = base_url('admin/dashboard');
-                }else if ($user->role == 'patient') {
+                }
+                else if ($user->role == 'patient') {
                     $url = base_url('admin/dashboard/patient');
-                } else {
+                }
+                else if ($user->role == 'staff') {
+                    $url = base_url('admin/staff');
+                } 
+                else if ($user->role == 'doctor') {
+                    $url = base_url('doctor/doctor/index');
+                } 
+                else {
                     $url = base_url('admin/dashboard/user');
                 }
                 echo json_encode(array('st'=>1,'url'=> $url));

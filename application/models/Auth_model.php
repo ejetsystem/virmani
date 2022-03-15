@@ -295,6 +295,27 @@ class Auth_model extends CI_Model {
            return $query->row();
         }
         else{
+            $result = $this->validate_doctor();
+            return $result;
+        }
+    }
+
+
+
+    // check valid Doctor
+    function validate_doctor()
+    {   
+        $this->db->select('d.*');
+        $this->db->from('doctors d');
+        $this->db->where('d.email',$this->input->post('user_name'));
+        $this->db->where('d.is_delete',0);
+        $this->db->limit(1);
+        $query = $this->db->get();   
+        if($query->num_rows() > 0)
+        {                 
+           return $query->row();
+        }
+        else{
             return FALSE;
         }
     }

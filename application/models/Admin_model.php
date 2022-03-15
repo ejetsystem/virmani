@@ -142,7 +142,6 @@ class Admin_model extends CI_Model {
     // select by function
     function select_by_user($table,$is_deleted='')
     {
-        echo $is_deleted;
         $this->db->select();
         $this->db->from($table);
         if ($this->session->userdata('role') == 'user') {
