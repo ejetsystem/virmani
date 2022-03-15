@@ -7,12 +7,12 @@
     <div class="row">
 
       <div class="col-md-12">
-            <a href="<?php echo base_url('admin/live_consults') ?>" class="pull-right btn btn-light-secondary mb-15"><i class="icon-calendar"></i> <?php echo trans('consultations') ?>  </a>
+            <a href="<?php echo base_url('clinic-admin/live_consults') ?>" class="pull-right btn btn-light-secondary mb-15"><i class="icon-calendar"></i> <?php echo trans('consultations') ?>  </a>
           </div>
 
       <div class="col-md-12">
 
-          <form method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('admin/live_consults/evisit_settings')?>" role="form" novalidate>
+          <form method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('clinic-admin/live_consults/evisit_settings')?>" role="form" novalidate>
           
             <div class="box add_area2" style="display: none;">
               <div class="box-header with-border">

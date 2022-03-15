@@ -13,7 +13,7 @@
 
         <div class="box-tools pull-right">
           <?php if (isset($page_title) && $page_title == "Edit"): ?>
-            <a href="<?php echo base_url('admin/advise_investigation') ?>" class="pull-right btn btn-light-secondary btn-sm mt-15"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a>
+            <a href="<?php echo base_url('clinic-admin/advise_investigation') ?>" class="pull-right btn btn-light-secondary btn-sm mt-15"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a>
           <?php else: ?>
             <a href="#" class="text-right btn btn-light-secondary btn-sm cancel_btn"><i class="fa fa-bars"></i><?php echo trans('all-diagnosis-tests') ?></a>
           <?php endif; ?>
@@ -93,9 +93,9 @@
                         <td><?php echo character_limiter($advise_investigation->details, 80); ?></td>
                         
                         <td class="actions" width="12%">
-                          <a href="<?php echo base_url('admin/advise_investigation/edit/'.html_escape($advise_investigation->id));?>" class="on-default edit-row" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; 
+                          <a href="<?php echo base_url('clinic-admin/advise_investigation/edit/'.html_escape($advise_investigation->id));?>" class="on-default edit-row" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; 
 
-                          <a data-val="Category" data-id="<?php echo html_escape($advise_investigation->id); ?>" href="<?php echo base_url('admin/advise_investigation/delete/'.html_escape($advise_investigation->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="<?php echo trans('delete') ?>"><i class="fa fa-trash-o"></i></a> &nbsp;
+                          <a data-val="Category" data-id="<?php echo html_escape($advise_investigation->id); ?>" href="<?php echo base_url('clinic-admin/advise_investigation/delete/'.html_escape($advise_investigation->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="<?php echo trans('delete') ?>"><i class="fa fa-trash-o"></i></a> &nbsp;
                         </td>
                     </tr>
                     

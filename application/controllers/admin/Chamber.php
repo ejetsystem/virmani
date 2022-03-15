@@ -50,7 +50,7 @@ class Chamber extends Home_Controller {
 
             if ($this->form_validation->run() === false) {
                 $this->session->set_flashdata('error', validation_errors());
-                redirect(base_url('admin/chamber'));
+                redirect(base_url('clinic-admin/chamber'));
             } else {
 
                 if ($id != '') {
@@ -80,7 +80,7 @@ class Chamber extends Home_Controller {
                     $total = get_total_value('chamber');
                     if (ckeck_plan_limit('chambers', $total) == FALSE) {
                         $this->session->set_flashdata('error', trans('reached-maximum-limit'));
-                        redirect(base_url('admin/chamber'));
+                        redirect(base_url('clinic-admin/chamber'));
                         exit();
                     }
                     
@@ -97,7 +97,7 @@ class Chamber extends Home_Controller {
                     $this->admin_model->edit_option($data_img, $id, 'chamber'); 
                 }
 
-                redirect(base_url('admin/chamber'));
+                redirect(base_url('clinic-admin/chamber'));
             }
         }      
         

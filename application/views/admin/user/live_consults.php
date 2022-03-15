@@ -19,7 +19,7 @@
 
             <div class="box-tools pull-right">
               <?php if (isset($page_title) && $page_title == "Edit"): ?>
-                <a href="<?php echo base_url('admin/live_consults') ?>" class="pull-right btn btn-light-primary mt-15 btn-sm"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a>
+                <a href="<?php echo base_url('clinic-admin/live_consults') ?>" class="pull-right btn btn-light-primary mt-15 btn-sm"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a>
               <?php else: ?>
                 <a href="#" class="text-right btn btn-light-secondary cancel_btn"><i class="fa fa-circle"></i> <?php echo trans('consultations') ?></a>
               <?php endif; ?>
@@ -78,7 +78,7 @@
               <?php endif; ?>
 
               <div class="box-tools pull-right">
-               <a href="<?php echo base_url('admin/live_consults/settings') ?>" class="pull-right btn btn-primary mt-15"><i class="icon-settings"></i> <?php echo trans('settings') ?></a>
+               <a href="<?php echo base_url('clinic-admin/live_consults/settings') ?>" class="pull-right btn btn-primary mt-15"><i class="icon-settings"></i> <?php echo trans('settings') ?></a>
               </div>
             </div>
 
@@ -184,7 +184,7 @@
                                   <a target="_blank" href="<?php echo base_url('admin/prescription?patient_id='.$amp->patient_id.'&appointment='.$amp->id);?>" class="btn btn-light-success btn-sm" data-toggle="tooltip" data-placement="top" title="<?php echo trans('create-prescription-for') ?> <?php echo html_escape($amp->name); ?>"><i class="fa fa-plus-circle fs-18"></i></a>
                                 <?php endif ?>
 
-                                <a href="<?php echo base_url('admin/live_consults/edit/'.$amp->id);?>" class="btn btn-light-danger btn-sm" data-toggle="tooltip" data-placement="top" title="<?php echo trans('edit') ?>"><i class="icon-note"></i></a>
+                                <a href="<?php echo base_url('clinic-admin/live_consults/edit/'.$amp->id);?>" class="btn btn-light-danger btn-sm" data-toggle="tooltip" data-placement="top" title="<?php echo trans('edit') ?>"><i class="icon-note"></i></a>
 
                               </td>
                           </tr>

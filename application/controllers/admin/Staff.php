@@ -37,7 +37,7 @@ class Staff extends Home_Controller {
             $check = $this->admin_model->check_duplicate_email($this->input->post('email'));
             if (!empty($check) && $id == '') {
                 $this->session->set_flashdata('error', trans('email-exist'));
-                redirect(base_url('admin/staff'));
+                redirect(base_url('clinic-admin/staff'));
             }
 
             //validate inputs
@@ -45,7 +45,7 @@ class Staff extends Home_Controller {
 
             if ($this->form_validation->run() === false) {
                 $this->session->set_flashdata('error', validation_errors());
-                redirect(base_url('admin/staff'));
+                redirect(base_url('clinic-admin/staff'));
             } else {
                 if ($id != '') {
                     $password = $this->input->post('password');
@@ -74,7 +74,7 @@ class Staff extends Home_Controller {
                     $total = get_total_value('staffs');
                     if (ckeck_plan_limit('staffs', $total) == FALSE) {
                         $this->session->set_flashdata('error', trans('reached-maximum-limit'));
-                        redirect(base_url('admin/staff'));
+                        redirect(base_url('clinic-admin/staff'));
                         exit();
                     }
                     $id = $this->admin_model->insert($data, 'staffs');
@@ -90,7 +90,7 @@ class Staff extends Home_Controller {
                     $this->admin_model->edit_option($data_img, $id, 'staffs'); 
                 }
 
-                redirect(base_url('admin/staff'));
+                redirect(base_url('clinic-admin/staff'));
 
             }
         }      
