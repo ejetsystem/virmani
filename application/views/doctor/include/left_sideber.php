@@ -30,12 +30,20 @@
               </a>
               <ul class="treeview-menu">
                 <li class="<?php if(isset($page_title) && $page_title == "Appointments"){echo "active";} ?>"><a href="<?php echo base_url('doctor/appointment/list') ?>"><i class="fa fa-long-arrow-right"></i><?php echo trans('lists') ?></a></li>
-                <li class="<?php if(isset($page_title) && $page_title == "Chair View"){echo "active";} ?>"><a href="<?php echo base_url('admin/appointment/chairView') ?>"><i class="fa fa-long-arrow-right"></i><?php echo trans('chair-view') ?></a></li>
-                <li class="<?php if(isset($page_title) && $page_title == "Appointment Calendar"){echo "active";} ?>"><a href="<?php echo base_url('admin/appointment/calendar') ?>"><i class="fa fa-long-arrow-right"></i><?php echo trans('callendar-view') ?></a></li>
-                <li class="<?php if(isset($page_title) && $page_title == "Appointment Schedule"){echo "active";} ?>"><a href="<?php echo base_url('admin/appointment/assign') ?>"><i class="fa fa-long-arrow-right"></i><?php echo trans('set-schedule') ?></a></li> 
+                <li class="<?php if(isset($page_title) && $page_title == "Chair View"){echo "active";} ?>"><a href="<?php echo base_url('doctor/appointment/chairView') ?>"><i class="fa fa-long-arrow-right"></i><?php echo trans('chair-view') ?></a></li>
+                <li class="<?php if(isset($page_title) && $page_title == "Appointment Calendar"){echo "active";} ?>"><a href="<?php echo base_url('doctor/appointment/calendar') ?>"><i class="fa fa-long-arrow-right"></i><?php echo trans('callendar-view') ?></a></li>
+                <li class="<?php if(isset($page_title) && $page_title == "Appointment Schedule"){echo "active";} ?>"><a href="<?php echo base_url('doctor/appointment/assign') ?>"><i class="fa fa-long-arrow-right"></i><?php echo trans('set-schedule') ?></a></li> 
               </ul>
             </li> 
           <?php endif; ?>
+
+
+          <li class="<?php if(isset($page_title) && $page_title == "Drugs"){echo "active";} ?>">
+            <a href="<?php echo base_url('doctor/drugs') ?>">
+              <i class="flaticon-medicine"></i> <span><?php echo trans('drugs') ?></span>
+            </a>
+          </li>
+
   
           <?php if (check_feature_access('profile-page') == TRUE): ?>
             <li class="treeview <?php if(isset($page_title) && $page_title == "Profile" || isset($page_title) && $page_title == "Educations" || isset($page_title) && $page_title == "Experience"){echo "active";} ?>">

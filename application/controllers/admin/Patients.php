@@ -11,7 +11,7 @@ class Patients extends Home_Controller {
     public function __construct() {
         parent::__construct();
         //check auth
-        if (!is_staff() && !is_user() && !is_patient()) {
+        if (!is_staff() && !is_user() && !is_patient() && !is_doctor()) {
             redirect(base_url());
         }
         $this->load->model('patient_model');

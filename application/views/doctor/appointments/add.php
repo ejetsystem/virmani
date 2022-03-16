@@ -12,10 +12,10 @@
             <div class="box-tools pull-right">
               <!-- <button class="btn btn-light-primary btn-sm pull-right mt-15 mr-5 ml-10" data-toggle="modal" data-target=".bd-example-modal-xl"> <i class="flaticon-medical mr-1"></i> Add Patient</button> -->
               
-              <a href="javascript:void(0);" data-toggle="modal" data-target="#add-appointment-modal" class="btn btn-light-primary btn-sm pull-right mt-15 mr-5 ml-10"><i class="flaticon-medical mr-1"></i> <?php echo trans('add-appointment') ?> </a>
+              <!-- <a href="javascript:void(0);" data-toggle="modal" data-target="#add-appointment-modal" class="btn btn-light-primary btn-sm pull-right mt-15 mr-5 ml-10"><i class="flaticon-medical mr-1"></i> <?php echo trans('add-appointment') ?> </a> -->
               <!-- <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#add-appointment-modal"><?php echo trans('appointment') ?></a> -->
 
-              <a href="<?php echo base_url('admin/appointment/all_list') ?>" class="btn btn-light-primary btn-sm pull-right mt-15"><i class="flaticon-calendar mr-1"></i> <?php echo trans('list-by-date') ?> </a>
+              <!-- <a href="<?php echo base_url('admin/appointment/all_list') ?>" class="btn btn-light-primary btn-sm pull-right mt-15"><i class="flaticon-calendar mr-1"></i> <?php echo trans('list-by-date') ?> </a> -->
             </div>
 
           </div>
@@ -30,19 +30,22 @@
                   <th><?php echo trans('patient-info') ?></th>
                   <th><?php echo trans('schedule-info') ?></th>
                   <th><?php echo trans('consultation-type') ?></th>
-                  <th><?php echo trans('action') ?></th>
+                  <!-- <th><?php echo trans('action') ?></th> -->
                 </tr>
               </thead>
               <tbody>
+                <!-- <?php echo "<pre>"; ?>
+                <?php print_r($appointments); ?>
+                <?php echo "</pre>"; ?> -->
                 <?php $i=1; foreach ($appointments as $amp): ?>
                 <tr id="row_<?php echo html_escape($amp->id); ?>">
 
                   <td><?= $i; ?></td>
                   <td><?php echo html_escape($amp->serial_id); ?></td>
                   <td>
-                    <p class="mb-0"><?php echo html_escape($amp->name); ?> (<?php echo html_escape($amp->mr_number); ?>)</p>
-                    <p class="mb-0"><?php echo html_escape($amp->mobile); ?></p>
-                    <p><?php echo html_escape($amp->email); ?></p>
+                    <p class="mb-0"><?php echo html_escape($amp->patient_name); ?> (<?php echo html_escape($amp->mr_number); ?>)</p>
+                    <p class="mb-0"><?php echo html_escape($amp->patient_phone); ?></p>
+                    <p><?php echo html_escape($amp->patient_email); ?></p>
                   </td>
 
                   <td>
@@ -58,11 +61,11 @@
                       <?php endif ?>
                     </td>
 
-                    <td class="actions" width="15%">
+                    <!-- <td class="actions" width="15%">
                       <a style="cursor: pointer;" onclick="view_event('<?php echo html_escape($amp->id); ?>')" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; &nbsp;
 
                       <a data-val="experience" data-id="<?php echo html_escape($amp->id); ?>" href="<?php echo base_url('admin/appointment/delete/'.html_escape($amp->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o"></i></a>
-                    </td>
+                    </td> -->
                   </tr>
 
                   <?php $i++; endforeach; ?>

@@ -1,5 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 class Appointment extends Home_Controller {
 
     public function __construct()
@@ -7,8 +11,7 @@ class Appointment extends Home_Controller {
         parent::__construct();
         $this->load->library('calendar');
         $this->load->helper('custom_helper');
-        //check auth
-        if (!is_staff() && !is_user() && !is_doctor()) {
+        if (!is_doctor()) {
             redirect(base_url());
         }
     }
@@ -307,7 +310,7 @@ public function calendar()
     //     $data['data'][$key]['end'] = $value->end_date;
     //     $data['data'][$key]['backgroundColor'] = "#00a65a";
     // }
-    $data['main_content'] = $this->load->view('admin/appointments/appointment_calendar',$data,TRUE);
+    $data['main_content'] = $this->load->view('doctor/appointments/appointment_calendar',$data,TRUE);
         //$this->load->view('admin/appointments/appointment_calendar', $data);   
     $data['doctors'] = $this->admin_model->select_all_doctors();
     $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
@@ -338,9 +341,9 @@ public function chairView()
     $data['page_title'] = 'Chair View';
     $data['AllAppointments'] = $this->admin_model->fetch_current_date_appointment();    
     $data['doctors'] = $this->admin_model->select_all_doctors();
+    $data['main_content'] = $this->load->view('admin/appointments/chair_view',$data,TRUE);
     $data['doctors_list'] = $this->admin_model->get_by_user('doctors');
     $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
-    $data['main_content'] = $this->load->view('admin/appointments/chair_view',$data,TRUE);
     $this->load->view('admin/index',$data);   
     
 }

@@ -73,18 +73,14 @@ get_instance()->load->helper('custom_helper');
                $chairs_list = array(1,2,3,4,5); 
                $chairs = array(1,2,3,4,5);
                $chair_id = 'all';
-               $doctor_id = '';
                if(isset($_REQUEST['chair_id']) && $_REQUEST['chair_id'] != ''){
                  $chairs = $_REQUEST['chair_id'];
-               }
-               if(isset($_REQUEST['doctor_id']) && $_REQUEST['doctor_id'] != ''){
-                 $doctor_id = 'AND a.doctor_id IN('.implode(',',$_REQUEST['doctor_id']).')';
                }
                $chair_colors = array('chair_green','chair_blue','chair_purple','chair_dbrown','chair_mgreen');
                foreach($splitimes as $stime){
                 $start_time = $stime.':00';
                 foreach($chairs as $chair){
-                  $sql = "SELECT a.*,patientses.name FROM appointments a inner join patientses on patientses.id = a.patient_id WHERE a.appointment_status=0 AND date = '".$sdate."' AND chair = '".$chair."' AND ('".$start_time."' BETWEEN `start_time` AND `end_time`) ".$doctor_id;
+                  $sql = "SELECT a.*,patientses.name FROM appointments a inner join patientses on patientses.id = a.patient_id WHERE a.appointment_status=0 AND date = '".$sdate."' AND chair = '".$chair."' AND ('".$start_time."' BETWEEN `start_time` AND `end_time`) AND doctor_id = '".$this->session->userdata('id')."'";
                   $query_check = $this->db->query($sql);
                   $res_check = $query_check->result();
 
@@ -110,20 +106,9 @@ get_instance()->load->helper('custom_helper');
 
                  <center class="col-md-4 d-inline-block">
                    <div>
-                     Doctor 
-
-                     <select name="doctor_id[]"  id="doctor_id_top" class="select select-initialized form-control" multiple="multiple">
-                       <?php foreach($doctors_list as $key=>$doctor){
-                        if(isset($_REQUEST['doctor_id']) && $_REQUEST['doctor_id'][$key]==$doctor->id){
-                          $doctor_selected = "selected='true'";
-                        }
-                        else{
-                          $doctor_selected = "";
-                        }
-                       ?>
-                         <option <?php echo $doctor_selected; ?> value="<?php echo $doctor->id;?>"><?php echo $doctor->name;?></option>
-                       <?php }?>
-                     </select>
+                     <label>Doctor Name</label>
+                     <input type="text" name="doctor_name" disabled value="<?php echo $this->session->userdata('name'); ?>"> 
+                     <input type="hidden" name="doctor_id" id="doctor_id" value="<?php echo $this->session->userdata('id'); ?>"> 
                    </div>
                  </center> 
 
@@ -240,26 +225,14 @@ get_instance()->load->helper('custom_helper');
     $('#date_field').val(dates);
     $('#start_time').val(time);
     $('#page').val("chair_view_page");
+    $('#phone').val("");
     findEndTime();
     $('#add-appointment-modal').modal('show');
   }
 
-  
-
-  // function closeModal(){
-    
-  //   $('#add-appointment-modal').modal('hide');
-  // }
-
-  
-
   $(document).ready(function () {
     $('#doctor_id_top,#chair_id_top').multiselect();
   });
-
-
-  
-
 
 </script>
 

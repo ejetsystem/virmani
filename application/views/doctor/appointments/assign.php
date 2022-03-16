@@ -12,7 +12,7 @@
           <?php $days = get_days();?>
 
           <div class="box-body">
-            <form method="post" class="validate-form" action="<?php echo base_url('admin/appointment/set')?>" role="form" enctype="multipart/form-data">
+            <form method="post" class="validate-form" action="<?php echo base_url('doctor/appointment/set')?>" role="form" enctype="multipart/form-data">
               
             <div class="row main_item">
               <?php $i=1; foreach ($days as $day): ?>

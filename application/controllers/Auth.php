@@ -137,7 +137,7 @@ class Auth extends Home_Controller
                     $url = base_url('admin/staff');
                 } 
                 else if ($user->role == 'doctor') {
-                    $url = base_url('doctor/doctor/index');
+                    $url = base_url('doctor/doctor');
                 } 
                 else {
                     $url = base_url('clinic-admin/dashboard/user');

@@ -53,7 +53,7 @@
           <h4 class="modal-title">&nbsp;</h4>
         </div>
         <div class="modal-body" id="render-patient-page">
-          <?php echo $this->load->view('admin/appointments/add_appointment_page',$data=array(),TRUE);?>
+          <?php echo $this->load->view('doctor/appointments/add_appointment_page',$data=array(),TRUE);?>
           
         </div>
       </div>

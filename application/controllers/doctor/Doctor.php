@@ -33,9 +33,6 @@ class Doctor extends Home_Controller {
 
         $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
         $data['appointments'] = $this->admin_model->get_doctor_appointments($this->session->userdata('id'));
-        // echo "<pre>";
-        // print_r($data['appointments']);
-        // die;
         $data['income_axis'] = json_encode(array_column($months, 'date'),JSON_NUMERIC_CHECK);
         $data['income_data'] = json_encode(array_column($incomes, 'total'),JSON_NUMERIC_CHECK);
         $data['net_income'] = $this->admin_model->get_user_income_by_year();
@@ -43,11 +40,6 @@ class Doctor extends Home_Controller {
         $data['staffs'] = $this->admin_model->get_count_by_user_id('staffs', user()->id);
         $data['patients'] = $this->admin_model->get_count_by_user_id('patientses', user()->id);
         $data['serials'] = $this->admin_model->get_count_serials();
-        // $data['doctors'] = $this->admin_model->select_all_doctors();
-        // $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
-        // echo "<pre>";
-        // print_r($data);
-        // die;
         $data['main_content'] = $this->load->view('doctor/dashboard',$data,TRUE);
         $this->load->view('doctor/index',$data);
     }

@@ -36,7 +36,7 @@
         center:'doctor_name',
         right:'month,agendaWeek,agendaDay'
       },
-      events:"<?php echo base_url(); ?>admin/appointment/load",
+      events:"<?php echo base_url(); ?>doctor/appointment/load",
       selectable:true,
       selectHelper:true,
 //      select:function(start, end, allDay)
@@ -100,7 +100,7 @@
                   var id = event.id;
                   var more_buttons = '<center class="text-white"><a onclick="changeAppointmentStatus(1,'+id+')" class="btn btn-primary btn-lg mr-30">Missed Appointment</a> <a onclick="changeAppointmentStatus(2,'+id+')" class="btn btn-success btn-lg mr-30">Complete Appointment</a> <a onclick="changeAppointmentStatus(3,'+id+')" class="btn btn-info btn-lg mr-30">Cancel Appointment</a> <a data-dismiss="modal" class="btn btn-danger btn-lg mr-30">Close</a></center>';
                   $.ajax({
-                    url:"<?php echo base_url(); ?>clinic-admin/appointment/fetch",
+                    url:"<?php echo base_url(); ?>doctor/appointment/fetch_particular_appointment",
                     type:"POST",
                     data:{
                       id:id,
@@ -119,7 +119,8 @@
                         $("#old_new_patient").hide();
                         $("#add_serial").hide();
                         
-                        $('#doctors').select2('val',data.doctor_id);
+                        $('#doctors').val(data.doctor_id);
+                        $('#doctors_name').val(data.doctor_name);
                         $('#doctors').attr('disabled', true);
                         
                         $('#date_field').val(data.date);
@@ -149,14 +150,17 @@
                         $('#patients').select2('val',data.patient_id);
                         $('#patients').attr('disabled', true);
 
-                        $('#phone').val(data.patient_phone);
-                        $('#phone').attr('disabled', true);
-
                         $('#extra_notes').val(data.extra_notes);
                         $('#extra_notes').attr('disabled', true);
                         findEndTime();
                         
                         $('#add_more_button').html(more_buttons);
+
+
+                        $('#phone').val("");
+                        $('#phone').val(data.patient_phone);
+                        $('#phone').attr('disabled', true);
+                                  
                         $('#add-appointment-modal').modal('show');
                       //   $('#doctor_name').val(data.doctor_name);
                       //   $("#patients").select2("val", data.patient_id);
