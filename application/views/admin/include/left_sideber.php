@@ -251,7 +251,7 @@
             </li> 
           <?php endif; ?>
  
-          <li class="<?php if(isset($page_title) && $page_title == "Drugs"){echo "active";} ?>">
+          <li class="<?php if((isset($page_title)) && (($page_title == "Drugs") || ($page_title == "Add Drug"))){echo "active";} ?>">
             <a href="<?php echo base_url('clinic-admin/drugs') ?>">
               <i class="flaticon-medicine"></i> <span><?php echo trans('drugs') ?></span>
             </a>

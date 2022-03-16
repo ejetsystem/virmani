@@ -268,6 +268,7 @@ $route['clinic-admin/prescription/all_prescription'] = 'admin/prescription/all_p
 
 //Drugs
 $route['clinic-admin/drugs'] = 'admin/drugs';
+$route['clinic-admin/add-drug'] = 'admin/drugs/addDrug';
 $route['clinic-admin/drugs/edit/(:any)'] = 'admin/drugs/edit/$1';
 $route['clinic-admin/drugs/delete/(:any)'] = 'admin/drugs/delete/$1';
 
