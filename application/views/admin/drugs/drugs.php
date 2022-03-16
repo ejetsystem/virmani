@@ -3,60 +3,9 @@
 
   <!-- Main content -->
   <section class="content container">
+ 
 
-    <div class="box add_area <?php if(isset($page_title) && $page_title == "Edit"){echo "d-block";}else{echo "hide";} ?>">
-      <div class="box-header with-border">
-        <?php if (isset($page_title) && $page_title == "Edit"): ?>
-          <h3 class="box-title"><?php echo trans('edit') ?></h3>
-        <?php else: ?>
-          <h3 class="box-title"><?php echo trans('create-new') ?> </h3>
-        <?php endif; ?>
-
-        <div class="box-tools pull-right">
-          <?php if (isset($page_title) && $page_title == "Edit"): ?>
-            <a href="<?php echo base_url('clinic-admin/drugs') ?>" class="pull-right btn btn-light-secondary btn-sm mt-15"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a>
-          <?php else: ?>
-            <a href="#" class="text-right btn btn-light-secondary btn-sm cancel_btn"><i class="fa fa-bars"></i> <?php echo trans('drugs') ?></a>
-          <?php endif; ?>
-        </div>
-      </div>
-
-      <div class="box-body">
-        <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('admin/drugs/add')?>" role="form" novalidate>
-
-          <div class="form-group">
-            <label><?php echo trans('name') ?> <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" required name="name" value="<?php echo html_escape($drug[0]['name']); ?>" >
-          </div>
-
-          <div class="form-group">
-            <label><?php echo trans('details') ?></label>
-            <textarea class="form-control" name="details" rows="6"><?php echo html_escape($drug[0]['details']); ?></textarea>
-          </div>
-
-          <input type="hidden" name="id" value="<?php echo html_escape($drug['0']['id']); ?>">
-          <!-- csrf token -->
-          <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
-
-          <div class="row m-t-30">
-            <div class="col-sm-12">
-              <?php if (isset($page_title) && $page_title == "Edit"): ?>
-                <button type="submit" class="btn btn-primary pull-left"><i class="ficon flaticon-check"></i> <?php echo trans('save-changes') ?></button>
-              <?php else: ?>
-                <button type="submit" class="btn btn-primary pull-left"><i class="ficon flaticon-check"></i> <?php echo trans('save-changes') ?></button>
-              <?php endif; ?>
-            </div>
-          </div>
-
-        </form>
-
-      </div>
-
-      
-    </div>
-
-
-    <?php if (isset($page_title) && $page_title != "Edit"): ?>
+    
 
     <div class="box list_area">
       <div class="box-header with-border">
@@ -67,7 +16,7 @@
         <?php endif; ?>
 
         <div class="box-tools pull-right">
-         <a href="#" class="pull-right btn btn-light-secondary btn-sm add_btn"><i class="fa fa-plus"></i> <?php echo trans('create-new') ?></a>
+         <a href="<?php echo base_url('clinic-admin/add-drug');?>" class="pull-right btn btn-light-secondary btn-sm mt-20"><i class="fa fa-plus"></i> <?php echo trans('create-new') ?></a>
         </div>
       </div>
 
@@ -109,7 +58,7 @@
 
       </div>
     </div>
-    <?php endif; ?>
+    
 
   </section>
 </div>

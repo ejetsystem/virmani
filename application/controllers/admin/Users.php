@@ -20,7 +20,6 @@ class Users extends Home_Controller {
     //all users list
     public function all_users($type)
     {
-
         $data = array();
         //initialize pagination
         $this->load->library('pagination');
@@ -45,7 +44,6 @@ class Users extends Home_Controller {
         $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
         $this->load->view('admin/index',$data);
     }
-
 
     //active or deactive post
     public function status_action($type, $id) 

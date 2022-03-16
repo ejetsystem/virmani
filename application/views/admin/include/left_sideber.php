@@ -119,7 +119,11 @@
             <i class="flaticon-money"></i> <span><?php echo trans('payments') ?></span>
           </a>
         </li>
-
+        <li class="<?php if(isset($page_title) && $page_title == "All Staff"){echo "active";} ?>">
+          <a href="<?php echo base_url('clinic-admin/registered-staff') ?>">
+            <i class="flaticon-money"></i> <span>Registrations</span>
+          </a>
+        </li>
         <!-- Check payment status -->
         <?php if (check_my_payment_status() == TRUE): ?>
 
@@ -251,7 +255,7 @@
             </li> 
           <?php endif; ?>
  
-          <li class="<?php if(isset($page_title) && $page_title == "Drugs"){echo "active";} ?>">
+          <li class="<?php if((isset($page_title)) && (($page_title == "Drugs") || ($page_title == "Add Drug"))){echo "active";} ?>">
             <a href="<?php echo base_url('clinic-admin/drugs') ?>">
               <i class="flaticon-medicine"></i> <span><?php echo trans('drugs') ?></span>
             </a>

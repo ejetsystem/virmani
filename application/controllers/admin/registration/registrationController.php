@@ -1,11 +1,15 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 
-class Drugs extends Home_Controller {
+class RegistrationController extends Home_Controller {
 
     public function __construct()
     {
         parent::__construct();
         //check auth
+        $this->load->model('staff_model');
         if (!is_staff() && !is_user()) {
             redirect(base_url());
         }
@@ -15,27 +19,18 @@ class Drugs extends Home_Controller {
     public function index()
     {
         $data = array();
-        $data['page_title'] = 'Drugs';      
-        $data['page'] = 'Drugs';   
+        $data['page_title'] = 'All Staff';      
+        $data['page'] = 'Staff';   
         $data['drug'] = FALSE;
         $data['drugs'] = $this->admin_model->select_by_user('drugs');
-        $data['main_content'] = $this->load->view('admin/drugs/drugs',$data,TRUE);
+        
+        //$resultlist = $this->staff_model->searchFullText("", 1);
+
+        //$data['resultlist'] = $resultlist;
         $data['doctors'] = $this->admin_model->select_all_doctors();
         $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
-        $this->load->view('admin/index',$data);
-    }
-
-
-    public function addDrug()
-    {
-        $data = array();
-        $data['page_title'] = 'Add Drug';      
-        $data['page'] = 'Drugs';   
-        $data['drug'] = FALSE;
-        $data['drugs'] = $this->admin_model->select_by_user('drugs');
-        $data['main_content'] = $this->load->view('admin/drugs/add_drug',$data,TRUE);
-        $data['doctors'] = $this->admin_model->select_all_doctors();
-        $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
+        $data['main_content'] = $this->load->view('admin/registration/index',$data,TRUE);
+        
         $this->load->view('admin/index',$data);
     }
 

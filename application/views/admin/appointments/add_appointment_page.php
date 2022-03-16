@@ -3,12 +3,14 @@
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label><?php echo 'Dentist/Doctor Name' ?></label>
+                            <label> <?php echo 'Dentist/Doctor Name' ?></label>
                             <!-- <input type="text" name="doctor_name" id="doctor_name" class="form-control"> -->
                             <select name="doctors_id" id="doctors" class="form-control select2">
                               <option value="select"><?php echo trans('select') ?> </option>
-                              <?php foreach ($doctors as $doctor): ?>
-                                <option  value="<?php echo html_escape($doctor->id); ?>"><?php echo  '<b>'.$doctor->name.'</b>'?></option>
+                              <?php
+                              
+                              foreach ($doctors as $doctor): ?>
+                                <option  value="<?php echo html_escape($doctor['id']); ?>"><?php echo  '<b>'.$doctor['name'].'</b>'?></option>
                               <?php endforeach ?>
                             </select>
                           </div>
