@@ -466,7 +466,7 @@ class Auth extends Home_Controller
                 $url = base_url('login');
                 echo json_encode(array('st'=>1, 'url' => $url));
             }
-
+            
         } else {
             echo json_encode(array('st'=>2));
         }

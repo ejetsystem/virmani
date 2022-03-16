@@ -115,9 +115,7 @@ if (!function_exists('check_status'))
 	}
 }
 
-
-
-	//get logged user
+//get logged user
 if (!function_exists('user')) 
 {
 	function user()
