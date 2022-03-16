@@ -19,7 +19,7 @@ class Drugs extends Home_Controller {
         $data['page'] = 'Drugs';   
         $data['drug'] = FALSE;
         $data['drugs'] = $this->admin_model->select_by_user('drugs');
-        $data['main_content'] = $this->load->view('admin/user/drugs',$data,TRUE);
+        $data['main_content'] = $this->load->view('admin/drugs/drugs',$data,TRUE);
         $data['doctors'] = $this->admin_model->select_all_doctors();
         $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
         $this->load->view('admin/index',$data);
