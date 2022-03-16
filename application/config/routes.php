@@ -288,5 +288,7 @@ $route['clinic-admin/experiences/add'] = 'admin/experiences/add';
 $route['clinic-admin/experiences/edit/(:any)'] = 'admin/experiences/edit/$1';
 $route['clinic-admin/experiences/delete/(:any)'] = 'admin/experiences/delete/$1';
 
+// all staff list
+$route['clinic-admin/registered-staff'] = 'admin/registration/registrationController';
 
  
