@@ -34,7 +34,7 @@
                         <span class="badge badge-pill badge-secondary-soft cus fs-18"><i class="icon-people"></i> <b><?php echo html_escape($amp->total_patients); ?></b></span>
                       </td>
                       <td class="actions" width="15%">
-                          <a href="<?php echo base_url('clinic-admin/appointment/list/'.$amp->date);?>" class="btn btn-light-secondary btn-sm" data-toggle="tooltip" data-placement="top" title=""><i class="icon-eye"></i> <?php echo trans('see-list') ?> </a>
+                          <a href="<?php echo base_url('admin/appointment/list/'.$amp->date);?>" class="btn btn-light-secondary btn-sm" data-toggle="tooltip" data-placement="top" title=""><i class="icon-eye"></i> <?php echo trans('see-list') ?> </a>
                       </td>
                   </tr>
                   

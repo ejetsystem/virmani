@@ -45,8 +45,8 @@
                     <tr id="row_<?php echo html_escape($amp->id); ?>" style="background: #<?php if($amp->status == 1){echo "eefaf6";}else{echo "fff";} ?>">
                         <td width="2%"><?php echo html_escape($amp->serial_id); ?></td>
                         <td>
-                          <p class="mb-0"><?php echo html_escape($amp->name); ?> (<?php echo html_escape($amp->mr_number); ?>)</p>
-                          <p class="mb-0"><?php echo html_escape($amp->mobile); ?></p>
+                          <p class="mb-0"><?php echo html_escape($amp->name); ?> (MR: #<?php echo html_escape($amp->mr_number); ?>)</p>
+                          <p class="mb-0"><?php echo trans('phone') ?>: <?php echo html_escape($amp->mobile); ?></p>
                           <p><?php echo html_escape($amp->email); ?></p>
                         </td>
                         <td>
@@ -59,7 +59,7 @@
                         </td>
                         <td>
                           <label class="badge badge-primary-soft brd-20"><i class="fa fa-calendar"></i> <?php echo my_date_show($amp->date); ?></label><br>
-                          <label class="badge badge-primary-soft brd-20"><i class="fa fa-clock-o"></i> <?php echo date('h:i A',strtotime($amp->start_time))." ".date('h:i A',strtotime($amp->end_time)); ?></label>
+                          <label class="badge badge-primary-soft brd-20"><i class="fa fa-clock-o"></i> <?php echo $amp->time; ?></label>
                         </td>
                         <td>
                           <?php $payment = check_appointment_payment($amp->id, $amp->user_id); ?>

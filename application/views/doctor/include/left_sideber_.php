@@ -103,13 +103,13 @@
       <?php if (is_user()): ?>
 
         <li class="<?php if(isset($page_title) && $page_title == "User Dashboard"){echo "active";} ?>">
-          <a href="<?php echo base_url('clinic-admin/dashboard/user') ?>">
+          <a href="<?php echo base_url('admin/dashboard/user') ?>">
             <i class="flaticon-dashboard"></i> <span><?php echo trans('dashboard') ?></span>
           </a>
         </li>
 
         <li class="<?php if(isset($page_title) && $page_title == "Subscription"){echo "active";} ?>">
-          <a href="<?php echo base_url('clinic-admin/subscription') ?>">
+          <a href="<?php echo base_url('admin/subscription') ?>">
             <i class="flaticon-wall-clock"></i> <span><?php echo trans('subscription') ?></span>
           </a>
         </li>
@@ -124,27 +124,27 @@
         <?php if (check_my_payment_status() == TRUE): ?>
 
           <li class="<?php if(isset($page_title) && $page_title == "Ratings"){echo "active";} ?>">
-            <a class="ml--8" href="<?php echo base_url('clinic-admin/profile/qr_code') ?>">
+            <a class="ml--8" href="<?php echo base_url('admin/profile/qr_code') ?>">
               <i class="fa fa-qrcode mr-0"></i> <span><?php echo trans('qr-code') ?></span>
             </a>
           </li>
 
           <li class="<?php if(isset($page_title) && $page_title == "Ratings"){echo "active";} ?>">
-            <a href="<?php echo base_url('clinic-admin/dashboard/rating') ?>">
+            <a href="<?php echo base_url('admin/dashboard/rating') ?>">
               <i class="flaticon-star"></i> <span><?php echo trans('rating-reviews') ?></span>
             </a>
           </li>
 
           <?php if (check_feature_access('chambers') == TRUE): ?>
             <li class="<?php if(isset($page_title) && $page_title == "Chambers"){echo "active";} ?>">
-              <a href="<?php echo base_url('clinic-admin/chamber') ?>">
+              <a href="<?php echo base_url('admin/chamber') ?>">
                 <i class="flaticon-maintenance"></i> <span><?php echo trans('chambers') ?></span>
               </a>
             </li>
           <?php endif ?>
 
           <li class="<?php if(isset($page_title) && $page_title == "Department"){echo "active";} ?>">
-            <a href="<?php echo base_url('clinic-admin/department') ?>">
+            <a href="<?php echo base_url('admin/department') ?>">
               <i class="flaticon-list-1"></i> <span><?php echo trans('departments') ?></span>
             </a>
           </li>
@@ -157,13 +157,13 @@
           </li>
 
           <li class="<?php if(isset($page_title) && $page_title == "Consultation Settings"){echo "active";} ?>">
-            <a href="<?php echo base_url('clinic-admin/live_consults/settings') ?>">
+            <a href="<?php echo base_url('admin/live_consults/settings') ?>">
               <i class="flaticon-settings-1"></i> <span><?php echo trans('consultation-settings') ?></span>
             </a>
           </li>
           
           <li class="<?php if(isset($page_title) && $page_title == "Consultations"){echo "active";} ?>">
-            <a href="<?php echo base_url('clinic-admin/live_consults') ?>">
+            <a href="<?php echo base_url('admin/live_consults') ?>">
              <i class="flaticon-chat"></i> <span> <?php echo trans('consultations') ?> </span>
             </a>
           </li>
@@ -171,7 +171,7 @@
 
           <?php if (check_feature_access('staffs') == TRUE): ?>
             <li class="<?php if(isset($page_title) && $page_title == "Staff"){echo "active";} ?>">
-              <a href="<?php echo base_url('clinic-admin/staff') ?>">
+              <a href="<?php echo base_url('admin/staff') ?>">
                 <i class="flaticon-teamwork"></i> <span><?php echo trans('staffs') ?></span>
               </a>
             </li>
@@ -179,7 +179,7 @@
             
             <?php //if (check_feature_access('doctors') == TRUE): ?>
             <li class="<?php if(isset($page_title) && $page_title == "Doctor"){echo "active";} ?>">
-              <a href="<?php echo base_url('clinic-admin/doctor') ?>">
+              <a href="<?php echo base_url('admin/doctor') ?>">
                 <i class="flaticon-teamwork"></i> <span><?php echo trans('doctors') ?></span>
               </a>
             </li>
@@ -199,10 +199,10 @@
               </a>
               <ul class="treeview-menu">
                 <?php if (check_feature_access('prescription') == TRUE): ?>
-                  <li><a href="<?php echo base_url('clinic-admin/prescription') ?>"><i class="fa fa-plus-circle"></i><?php echo trans('create-new') ?> </a></li>
+                  <li><a href="<?php echo base_url('admin/prescription') ?>"><i class="fa fa-plus-circle"></i><?php echo trans('create-new') ?> </a></li>
                 <?php endif; ?>
 
-                <li><a href="<?php echo base_url('clinic-admin/prescription/all_prescription') ?>"><i class="fa fa-file-text-o"></i><?php echo trans('prescriptions') ?></a></li>
+                <li><a href="<?php echo base_url('admin/prescription/all_prescription') ?>"><i class="fa fa-file-text-o"></i><?php echo trans('prescriptions') ?></a></li>
               </ul>
             </li> 
           <?php endif; ?>
@@ -227,7 +227,7 @@
           
           <?php if (check_feature_access('patients') == TRUE): ?>
             <li class="<?php if(isset($page_title) && $page_title == "Patients"){echo "active";} ?>">
-              <a href="<?php echo base_url('clinic-admin/patients') ?>">
+              <a href="<?php echo base_url('admin/patients') ?>">
                 <i class="flaticon-medical"></i> <span><?php echo trans('patients') ?></span>
               </a>
             </li>
@@ -243,16 +243,17 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="<?php if(isset($page_title) && $page_title == "Appointments"){echo "active";} ?>"><a href="<?php echo base_url('clinic-admin/appointment') ?>"><i class="fa fa-long-arrow-right"></i><?php echo trans('lists') ?></a></li>
-                <li class="<?php if(isset($page_title) && $page_title == "Chair View"){echo "active";} ?>"><a href="<?php echo base_url('clinic-admin/appointment/chairView') ?>"><i class="fa fa-long-arrow-right"></i><?php echo trans('chair-view') ?></a></li>
-                <li class="<?php if(isset($page_title) && $page_title == "Appointment Calendar"){echo "active";} ?>"><a href="<?php echo base_url('clinic-admin/appointment/calendar') ?>"><i class="fa fa-long-arrow-right"></i><?php echo trans('callendar-view') ?></a></li>
-                <li class="<?php if(isset($page_title) && $page_title == "Appointment Schedule"){echo "active";} ?>"><a href="<?php echo base_url('clinic-admin/appointment/assign') ?>"><i class="fa fa-long-arrow-right"></i><?php echo trans('set-schedule') ?></a></li>
+                <li class="<?php if(isset($page_title) && $page_title == "Appointments"){echo "active";} ?>"><a href="<?php echo base_url('admin/appointment') ?>"><i class="fa fa-long-arrow-right"></i><?php echo trans('lists') ?></a></li>
+                <li class="<?php if(isset($page_title) && $page_title == "Chair View"){echo "active";} ?>"><a href="<?php echo base_url('admin/appointment/chairView') ?>"><i class="fa fa-long-arrow-right"></i><?php echo trans('chair-view') ?></a></li>
+                <li class="<?php if(isset($page_title) && $page_title == "Appointment Calendar"){echo "active";} ?>"><a href="<?php echo base_url('admin/appointment/calendar') ?>"><i class="fa fa-long-arrow-right"></i><?php echo trans('callendar-view') ?></a></li>
+                <li class="<?php if(isset($page_title) && $page_title == "Appointment Schedule"){echo "active";} ?>"><a href="<?php echo base_url('admin/appointment/assign') ?>"><i class="fa fa-long-arrow-right"></i><?php echo trans('set-schedule') ?></a></li>
               </ul>
             </li> 
           <?php endif; ?>
- 
+
+
           <li class="<?php if(isset($page_title) && $page_title == "Drugs"){echo "active";} ?>">
-            <a href="<?php echo base_url('clinic-admin/drugs') ?>">
+            <a href="<?php echo base_url('admin/drugs') ?>">
               <i class="flaticon-medicine"></i> <span><?php echo trans('drugs') ?></span>
             </a>
           </li>
@@ -267,9 +268,9 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo base_url('clinic-admin/profile') ?>"><i class="fa fa-user-o"></i> <?php echo trans('personal-info') ?> </a></li>
-                <li><a href="<?php echo base_url('clinic-admin/educations') ?>"><i class="fa fa-graduation-cap"></i><?php echo trans('manage-education') ?></a></li>
-                <li><a href="<?php echo base_url('clinic-admin/experiences') ?>"><i class="fa fa-lightbulb-o"></i><?php echo trans('manage-experiences') ?></a></li>
+                <li><a href="<?php echo base_url('admin/profile') ?>"><i class="fa fa-user-o"></i> <?php echo trans('personal-info') ?> </a></li>
+                <li><a href="<?php echo base_url('admin/educations') ?>"><i class="fa fa-graduation-cap"></i><?php echo trans('manage-education') ?></a></li>
+                <li><a href="<?php echo base_url('admin/experiences') ?>"><i class="fa fa-lightbulb-o"></i><?php echo trans('manage-experiences') ?></a></li>
               </ul>
             </li> 
           <?php endif; ?>

@@ -65,7 +65,7 @@ class Appointment extends Home_Controller {
                 if($this->input->post('page')=='chair_view_page'){
                     redirect(base_url('clinic-admin/appointment/chair-view'));
                 }
-                redirect(base_url('admin/appointment'));
+                redirect(base_url('clinic-admin/appointment'));
             } 
             else {
             if ($patient_type == 1) {
@@ -177,7 +177,7 @@ public function empty_serial($date, $id)
 }
 
 
-public function list($dat)
+public function list($date)
 {
     $data = array();
     $data['page'] = 'Appointment';

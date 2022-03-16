@@ -23,6 +23,17 @@ if (!function_exists('is_user'))
 }
 
 	//check editor
+if (!function_exists('is_doctor')) 
+{
+	function is_doctor()
+	{
+	        // Get a reference to the controller object
+		$ci =& get_instance();
+		return $ci->auth_model->is_doctor();
+	}
+}
+
+	//check editor
 if (!function_exists('is_staff')) 
 {
 	function is_staff()

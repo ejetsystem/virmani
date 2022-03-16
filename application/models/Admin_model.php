@@ -944,7 +944,7 @@ class Admin_model extends CI_Model {
     //get user info
     function get_appointments_by_date($date)
     {
-        $this->db->select('a.*, p.name, p.mobile, p.mr_number');
+        $this->db->select('a.*, p.name, p.mobile, p.email, p.mr_number');
         $this->db->from('appointments a');
         $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
 
@@ -2330,6 +2330,18 @@ public function fetch_current_date_appointment(){
     $this->db->where('date',date("Y-m-d"));
     $query = $this->db->get();
     $query = $query->result_array();  
+    return $query;
+}
+
+public function get_doctor_appointments($doctor_id){
+    $this->db->select('a.*,a.id as appointment_no,p.name as patient_name,d.name as doctor_name,pc.phone1 as patient_phone');
+    $this->db->from('appointments a');
+    $this->db->where('doctor_id',$doctor_id);
+    $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
+    $this->db->join('doctors d', 'd.id = a.doctor_id', 'LEFT');
+    $this->db->join('patients_contact pc','pc.patient_id = a.patient_id', 'LEFT');
+    $query = $this->db->get();
+    $query = $query->result();  
     return $query;
 }
 

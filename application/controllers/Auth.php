@@ -64,7 +64,7 @@ class Auth extends Home_Controller
                 'email_verified' => 1
             );
             $this->common_model->update($edit_data, user()->id, 'users');
-            $url = base_url('admin/dashboard/user');
+            $url = base_url('clinic-admin/dashboard/user');
             echo json_encode(array('st'=>1,'url'=> $url));
         } else {
             $data['code'] = 'invalid';
@@ -140,7 +140,7 @@ class Auth extends Home_Controller
                     $url = base_url('doctor/doctor/index');
                 } 
                 else {
-                    $url = base_url('admin/dashboard/user');
+                    $url = base_url('clinic-admin/dashboard/user');
                 }
                 echo json_encode(array('st'=>1,'url'=> $url));
             }else{ 
@@ -534,9 +534,7 @@ class Auth extends Home_Controller
             redirect($_SERVER['HTTP_REFERER']);
         }
     }
-
-
-    //reset password
+    
     public function reset($code=1234)
     {
         $data = array(

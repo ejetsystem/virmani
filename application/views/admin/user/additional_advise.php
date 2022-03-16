@@ -13,7 +13,7 @@
 
         <div class="box-tools pull-right">
           <?php if (isset($page_title) && $page_title == "Edit"): ?>
-            <a href="<?php echo base_url('admin/additional_advises') ?>" class="pull-right btn btn-light-secondary btn-sm mt-15"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a>
+            <a href="<?php echo base_url('clinic-admin/additional_advises') ?>" class="pull-right btn btn-light-secondary btn-sm mt-15"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a>
           <?php else: ?>
             <a href="#" class="text-right btn btn-light-secondary btn-sm cancel_btn"><i class="fa fa-list"></i> <?php echo trans('all-additional-advises') ?></a>
           <?php endif; ?>
@@ -21,7 +21,7 @@
       </div>
 
       <div class="box-body">
-        <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('admin/additional_advises/add')?>" role="form" novalidate>
+        <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('clinic-admin/additional_advises/add')?>" role="form" novalidate>
 
           <div class="form-group">
             <label><?php echo trans('name') ?> <span class="text-danger">*</span></label>
@@ -90,9 +90,9 @@
                         <td><?php echo character_limiter($additional_advise->details, 80); ?></td>
                         
                         <td class="actions" width="12%">
-                          <a href="<?php echo base_url('admin/additional_advises/edit/'.html_escape($additional_advise->id));?>" class="on-default edit-row" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; 
+                          <a href="<?php echo base_url('clinic-admin/additional_advises/edit/'.html_escape($additional_advise->id));?>" class="on-default edit-row" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; 
 
-                          <a data-val="Category" data-id="<?php echo html_escape($additional_advise->id); ?>" href="<?php echo base_url('admin/additional_advises/delete/'.html_escape($additional_advise->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="<?php echo trans('delete') ?>"><i class="fa fa-trash-o"></i></a> &nbsp;
+                          <a data-val="Category" data-id="<?php echo html_escape($additional_advise->id); ?>" href="<?php echo base_url('clinic-admin/additional_advises/delete/'.html_escape($additional_advise->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="<?php echo trans('delete') ?>"><i class="fa fa-trash-o"></i></a> &nbsp;
                         </td>
                     </tr>
                     
