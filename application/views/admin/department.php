@@ -24,7 +24,7 @@
       </div>
 
       <div class="box-body">
-        <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('superadmin/department/add')?>" role="form" novalidate>
+        <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('clinic-admin/department/add')?>" role="form" novalidate>
 
           <div class="form-group">
               <label><?php echo trans('title') ?></label>

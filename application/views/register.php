@@ -28,8 +28,6 @@
 
     </div>
     <!-- End Left content -->
-
-
     <?php if (isset($page_title) && $page_title == 'Register'): ?>   
         <!-- Register form -->
         <div class="container">

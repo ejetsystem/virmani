@@ -54,7 +54,7 @@
         </div>
 
         <div class="profile_form">
-            <form method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/profile/update') ?>" role="form" class="form-horizontal">
+            <form method="post" enctype="multipart/form-data" action="<?php echo base_url('clinic-admin/profile/update') ?>" role="form" class="form-horizontal">
      
               <div class="nav-tabs-custom b-0">
                   <ul class="nav nav-tabs">

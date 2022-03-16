@@ -13,7 +13,7 @@
 
         <div class="box-tools pull-right">
           <?php if (isset($page_title) && $page_title == "Edit"): ?>
-            <a href="<?php echo base_url('admin/advises') ?>" class="pull-right btn btn-light-secondary btn-sm mt-15"><i class="fa fa-angle-left"></i> Back</a>
+            <a href="<?php echo base_url('clinic-admin/advises') ?>" class="pull-right btn btn-light-secondary btn-sm mt-15"><i class="fa fa-angle-left"></i> Back</a>
           <?php else: ?>
             <a href="#" class="text-right btn btn-light-secondary btn-sm cancel_btn"><i class="fa fa-list"></i> <?php echo trans('all-advises') ?></a>
           <?php endif; ?>
@@ -21,7 +21,7 @@
       </div>
 
       <div class="box-body">
-        <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('admin/advises/add')?>" role="form" novalidate>
+        <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('clinic-admin/advises/add')?>" role="form" novalidate>
 
           <div class="form-group">
             <label><?php echo trans('name') ?> <span class="text-danger">*</span></label>
@@ -90,9 +90,9 @@
                         <td><?php echo character_limiter($advis->details, 80); ?></td>
                         
                         <td class="actions" width="12%">
-                          <a href="<?php echo base_url('admin/advises/edit/'.html_escape($advis->id));?>" class="on-default edit-row" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; 
+                          <a href="<?php echo base_url('clinic-admin/advises/edit/'.html_escape($advis->id));?>" class="on-default edit-row" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; 
 
-                          <a data-val="Category" data-id="<?php echo html_escape($advis->id); ?>" href="<?php echo base_url('admin/advises/delete/'.html_escape($advis->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="<?php echo trans('delete') ?>"><i class="fa fa-trash-o"></i></a> &nbsp;
+                          <a data-val="Category" data-id="<?php echo html_escape($advis->id); ?>" href="<?php echo base_url('clinic-admin/advises/delete/'.html_escape($advis->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="<?php echo trans('delete') ?>"><i class="fa fa-trash-o"></i></a> &nbsp;
                         </td>
                     </tr>
                     

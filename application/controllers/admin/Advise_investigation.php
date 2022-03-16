@@ -11,7 +11,6 @@ class Advise_investigation extends Home_Controller {
         }
     }
 
-
     public function index()
     {
         $data = array();
@@ -24,7 +23,6 @@ class Advise_investigation extends Home_Controller {
         $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
         $this->load->view('admin/index',$data);
     }
-
 
     public function add()
     {	

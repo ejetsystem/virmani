@@ -21,7 +21,7 @@
       </div>
 
       <div class="box-body">
-        <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('admin/diagonosis/add')?>" role="form" novalidate>
+        <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('clinic-admin/diagonosis/add')?>" role="form" novalidate>
 
           <div class="form-group">
             <label><?php echo trans('name') ?> <span class="text-danger">*</span></label>

@@ -16,7 +16,7 @@
 
             <div class="box-tools pull-right">
               <?php if (isset($page_title) && $page_title == "Edit"): ?>
-                <a href="<?php echo base_url('admin/doctor') ?>" class="pull-right btn btn-light-primary mt-15 btn-sm"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a>
+                <a href="<?php echo base_url('clinic-admin/doctor') ?>" class="pull-right btn btn-light-primary mt-15 btn-sm"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a>
                 <?php else: ?>
                   <a href="#" class="text-right btn btn-light-secondary cancel_btn"><i class="fa fa-users"></i> <?php echo ('All Doctors') ?></a>
                 <?php endif; ?>
