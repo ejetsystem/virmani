@@ -32,6 +32,17 @@ class Auth_model extends CI_Model {
     }
 
     //is logged in
+    public function is_logged_doctor()
+    {
+        //check if user logged in
+        if ($this->session->userdata('logged_in') == TRUE && !empty($this->get_doctor($this->session->userdata('id')))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //is logged in
     public function is_logged_patient()
     {
         //check if user logged in
@@ -52,13 +63,22 @@ class Auth_model extends CI_Model {
                 $query = $this->db->get('staffs');
                 return $query->row();
             }
-        }elseif ($this->session->userdata('role') == 'patient') {
+        }
+        elseif ($this->session->userdata('role') == 'patient') {
             if ($this->is_logged_patient()) {
                 $this->db->where('id', $this->session->userdata('id'));
                 $query = $this->db->get('patientses');
                 return $query->row();
             }
-        } else {
+        } 
+        elseif ($this->session->userdata('role') == 'doctor') {
+            if ($this->is_logged_doctor()) {
+                $this->db->where('id', $this->session->userdata('id'));
+                $query = $this->db->get('doctors');
+                return $query->row();
+            }
+        } 
+        else {
             if ($this->is_logged_in()) {
                 $this->db->where('id', $this->session->userdata('id'));
                 $query = $this->db->get('users');
@@ -80,6 +100,14 @@ class Auth_model extends CI_Model {
     {
         $this->db->where('id', $id);
         $query = $this->db->get('staffs');
+        return $query->row();
+    }
+
+    //get user by id
+    public function get_doctor($id)
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get('doctors');
         return $query->row();
     }
 
@@ -119,6 +147,24 @@ class Auth_model extends CI_Model {
 
         //check role
         if (user()->role == 'user') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    //is Doctor
+    public function is_doctor()
+    {   
+        //get_header_info();
+        //check logged in
+        if (!$this->is_logged_doctor()) {
+            return false;
+        }
+
+        //check role
+        if (user()->role == 'doctor') {
             return true;
         } else {
             return false;

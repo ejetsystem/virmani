@@ -2333,5 +2333,17 @@ public function fetch_current_date_appointment(){
     return $query;
 }
 
+public function get_doctor_appointments($doctor_id){
+    $this->db->select('a.*,a.id as appointment_no,p.name as patient_name,d.name as doctor_name,pc.phone1 as patient_phone');
+    $this->db->from('appointments a');
+    $this->db->where('doctor_id',$doctor_id);
+    $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
+    $this->db->join('doctors d', 'd.id = a.doctor_id', 'LEFT');
+    $this->db->join('patients_contact pc','pc.patient_id = a.patient_id', 'LEFT');
+    $query = $this->db->get();
+    $query = $query->result();  
+    return $query;
+}
+
 
 }
