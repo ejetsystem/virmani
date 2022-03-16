@@ -944,7 +944,7 @@ class Admin_model extends CI_Model {
     //get user info
     function get_appointments_by_date($date)
     {
-        $this->db->select('a.*, p.name, p.mobile, p.mr_number');
+        $this->db->select('a.*, p.name, p.mobile, p.email, p.mr_number');
         $this->db->from('appointments a');
         $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
 

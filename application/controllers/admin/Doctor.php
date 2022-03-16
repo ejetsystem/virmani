@@ -125,7 +125,7 @@ class Doctor extends Home_Controller {
         // Insert in Doctors Insurance Table
     $this->admin_model->insert_doctors_insurance($doctors_insurance,'doctor_insurance_details');
     
-    redirect(base_url('admin/doctor'));
+    redirect(base_url('clinic-admin/doctor'));
 
   }
 
@@ -272,7 +272,7 @@ class Doctor extends Home_Controller {
         // Update in Doctors Insurance Table
     $this->admin_model->insert_doctors_insurance($doctors_insurance,'doctor_insurance_details',$this->input->post('insurance_id'));
 
-    redirect(base_url('admin/doctor'));
+    redirect(base_url('clinic-admin/doctor'));
   }
 
   public function delete_doctor($id){

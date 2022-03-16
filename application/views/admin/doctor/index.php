@@ -575,9 +575,9 @@
                             </td>
                             
                             <td class="actions" width="12%">
-                              <a href="<?php echo base_url('admin/doctor/edit/'.html_escape($doctor->id));?>" class="on-default edit-row" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; 
+                              <a href="<?php echo base_url('clinic-admin/doctor/edit/'.html_escape($doctor->id));?>" class="on-default edit-row" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; 
 
-                              <a data-val="Category" data-id="<?php echo html_escape($doctor->id); ?>" href="<?php echo base_url('admin/doctor/delete_doctor/'.html_escape($doctor->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="<?php echo trans('delete') ?>"><i class="fa fa-trash-o"></i></a> &nbsp;
+                              <a data-val="Category" data-id="<?php echo html_escape($doctor->id); ?>" href="<?php echo base_url('clinic-admin/doctor/delete_doctor/'.html_escape($doctor->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="<?php echo trans('delete') ?>"><i class="fa fa-trash-o"></i></a> &nbsp;
                             </td>
                           </tr>
 

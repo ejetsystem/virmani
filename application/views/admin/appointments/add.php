@@ -15,7 +15,7 @@
               <a href="javascript:void(0);" data-toggle="modal" data-target="#add-appointment-modal" class="btn btn-light-primary btn-sm pull-right mt-15 mr-5 ml-10"><i class="flaticon-medical mr-1"></i> <?php echo trans('add-appointment') ?> </a>
               <!-- <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#add-appointment-modal"><?php echo trans('appointment') ?></a> -->
 
-              <a href="<?php echo base_url('admin/appointment/all_list') ?>" class="btn btn-light-primary btn-sm pull-right mt-15"><i class="flaticon-calendar mr-1"></i> <?php echo trans('list-by-date') ?> </a>
+              <a href="<?php echo base_url('clinic-admin/appointment/all_list') ?>" class="btn btn-light-primary btn-sm pull-right mt-15"><i class="flaticon-calendar mr-1"></i> <?php echo trans('list-by-date') ?> </a>
             </div>
 
           </div>
@@ -61,7 +61,7 @@
                     <td class="actions" width="15%">
                       <a style="cursor: pointer;" onclick="view_event('<?php echo html_escape($amp->id); ?>')" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; &nbsp;
 
-                      <a data-val="experience" data-id="<?php echo html_escape($amp->id); ?>" href="<?php echo base_url('admin/appointment/delete/'.html_escape($amp->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o"></i></a>
+                      <a data-val="experience" data-id="<?php echo html_escape($amp->id); ?>" href="<?php echo base_url('clinic-admin/appointment/delete/'.html_escape($amp->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o"></i></a>
                     </td>
                   </tr>
 

@@ -14,7 +14,7 @@
 
           <div class="box-tools pull-right">
             <?php if (isset($page_title) && $page_title == "Edit"): ?>
-              <a href="<?php echo base_url('admin/patients') ?>" class="pull-right btn btn-light-secondary mt-15 btn-sm"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a>
+              <a href="<?php echo base_url('clinic-admin/patients') ?>" class="pull-right btn btn-light-secondary mt-15 btn-sm"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a>
               <?php else: ?>
                 <a href="#" class="text-right btn btn-light-secondary btn-sm cancel_btn"><i class="fa fa-bars"></i> <?php echo trans('all-patients') ?></a>
               <?php endif; ?>
@@ -486,7 +486,7 @@
                         <td><?php echo character_limiter($patients->present_address); ?></td>
 
                         <td>
-                          <a target="_blank" href="<?php echo base_url('admin/patients/all_prescriptions/'.html_escape($patients->id));?>" class="btn btn-light-primary btn-sm fs-12" data-placement="top" title=""><i class="fa fa-eye"></i> View</a>
+                          <a target="_blank" href="<?php echo base_url('clinic-admin/patients/all_prescriptions/'.html_escape($patients->id));?>" class="btn btn-light-primary btn-sm fs-12" data-placement="top" title=""><i class="fa fa-eye"></i> View</a>
                         </td>
 
                         <td class="actions" width="13%">
