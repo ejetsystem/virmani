@@ -18,7 +18,7 @@
             foreach ($patient_tests as $patient_tests_key => $patient_tests_value) {
                
                 ?>  
-                <tr>
+        <tr id="row_<?php echo $patient_tests_value['id']; ?>">
                     <td><?php echo date('d-m-Y', strtotime($patient_tests_value['report_date'])) ?></td>
                     <td><?php echo $patient_tests_value["test_name"] ?></td>
                     <td><?php echo $patient_tests_value["test_price"] ?></td>
@@ -26,15 +26,13 @@
                         <?php
                         if ($patient_tests_value['report_file'] != '') {
                             ?>
-                            <button class="btn btn-primary">View Report</button>
+                            <button onclick="showOpdPatientScan('<?php echo $patient_tests_value['id']; ?>');" class="btn btn-primary">View Report</button>
                             <?php
                         }
                         ?>
                     </td>
                     <td class="text-right">
-                        <a onclick="deleteOpdPatientLab('<?php echo $patient_tests_value['patient_id']; ?>', '<?php echo $patient_tests_value['id']; ?>')" class="btn btn-default btn-xs" data-toggle="tooltip" title=""  data-original-title="<?php echo $this->lang->line('delete'); ?>">
-                            <i class="fa fa-trash"></i>
-                        </a> 
+                        <a data-val="Category"  data-id="<?php echo $patient_tests_value['id']; ?>"  href="<?php echo base_url(); ?>admin/patients/deleteOpdPatientLab/<?php echo $patient_tests_value['patient_id']; ?>/<?php echo $patient_tests_value['id']; ?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                         <a href="#" onclick="viewDetail_test('<?php echo $patient_tests_value['id'] ?>', '<?php echo $patient_tests_value["patient_id"]; ?>')" class="btn btn-default btn-xs"  data-toggle="tooltip" title="Print" >
                             <i class="fa fa-print"></i></a>
                     </td>
@@ -163,6 +161,34 @@
         var res = a.split("-");
         $("#test_price").val(res[1]);
     }
-
+function showOpdPatientScan(id){
+    event.preventDefault();
+    var items = [];
+    $.ajax({
+             url: '<?php echo base_url(); ?>admin/patients/get_labReportImage',
+            type:'POST',
+            dataType: 'json',
+            data: {
+            postid : id,
+            csrf_test_name: csrf_token,
+        },
+            success: function(response){
+                console.log(response.data.length);
+                for(var i =0;i < response.data.length;i++){
+                    items.push({
+                        src: response.data[i]['src'],
+                        title: response.data[i]['title'],
+                    });
+                }
+            },
+            complete: function() {
+              $.magnificPopup.open({
+                items: items,
+                type: 'image',
+                gallery: { enabled: true }
+            });
+         }
+    });    
+}
 </script>
 

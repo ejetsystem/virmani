@@ -17,20 +17,16 @@
             foreach ($patient_scans as $patient_scans_key => $patient_scans_value) {
                 //print_r($value);
                 ?>  
-                <tr>
+                <tr id="row_<?php echo $patient_scans_value['id']; ?>">
                     <td><?php echo date('m-d-Y', strtotime($patient_scans_value['report_date'])) ?></td>
                     <td>
                         <?php $pks = explode("-", $patient_scans_value["scan_name"]);
                         echo $pks[0]; ?></td>
                     <td><?php echo $patient_scans_value["scan_price"] ?></td>
 
-                    <td>  <?php if ($patient_scans_value['report_file'] != '') { ?> <button class="btn btn-primary">View Report</button> <?php } ?></td>
+                    <td>  <?php if ($patient_scans_value['report_file'] != '') { ?> <button onclick="showOpdPatientScan('<?php echo $patient_scans_value['id']; ?>');"   class="btn btn-primary">View Report</button> <?php } ?></td>
                     <td class="text-right">
-
-
-                        <a onclick="deleteOpdPatientScan('<?php echo $patient_scans_value['patient_id']; ?>', '<?php echo $patient_scans_value['id']; ?>')" class="btn btn-default btn-xs" data-toggle="tooltip" title=""  data-original-title="<?php echo $this->lang->line('delete'); ?>">
-                            <i class="fa fa-trash"></i>
-                        </a> 
+                        <a data-val="Category"  data-id="<?php echo $patient_scans_value['id']; ?>"  href="<?php echo base_url(); ?>admin/patients/deleteOpdPatientScan/<?php echo $patient_scans_value['patient_id']; ?>/<?php echo $patient_scans_value['id']; ?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                         <a href="#" onclick="viewDetail_scan('<?php echo $patient_scans_value['id'] ?>', '<?php echo $patient_scans_value["patient_id"]; ?>')" class="btn btn-default btn-xs"  data-toggle="tooltip" title="Print" >
                             <i class="fa fa-print"></i>
                         </a>
@@ -45,7 +41,7 @@
 
     </tbody> 
 </table>
-
+ 
 
 <!-- Modal -->
 <div id="uploadModal" class="modal fade" role="dialog">
@@ -113,7 +109,14 @@
 
     </div>
 </div>
+<!--<button id="open-popup">Open popup</button>-->
 
+<div id="my-popup" class="mfp-hide white-popup">
+  Inline popup
+</div>
+ 
+<!--<link rel="stylesheet" href="<?php echo base_url(); ?>assets/admin/css/magnific-popup.css">
+<script src="<?php echo base_url(); ?>assets/admin/js/jquery.magnific-popup.js"></script>-->
 <script>
 
     $(document).ready(function () {
@@ -156,12 +159,47 @@
             });
         });
     });
-
+    
+  
     function getscanprice(a)
     {
         var res = a.split("-");
         $("#scan_price").val(res[1]);
     }
+   
+
+function showOpdPatientScan(id){
+//$('#open-popup').click(function( event ) {
+    event.preventDefault();
+    var items = [];
+    $.ajax({
+             url: '<?php echo base_url(); ?>admin/patients/get_xraysReportImage',
+            type:'POST',
+            dataType: 'json',
+            data: {
+            postid : id,
+            csrf_test_name: csrf_token,
+        },
+            success: function(response){
+                console.log(response.data.length);
+                for(var i =0;i < response.data.length;i++){
+                    items.push({
+                        src: response.data[i]['src'],
+                        title: response.data[i]['title'],
+                    });
+                }
+            },
+            complete: function() {
+              $.magnificPopup.open({
+                items: items,
+                type: 'image',
+                gallery: { enabled: true }
+            });
+         }
+    });    
+}
+    
+     
 
 </script>
 

@@ -42,7 +42,8 @@
 <script src="<?php echo base_url() ?>assets/admin/js/croppie.min.js"></script>
 
 <script src="<?php echo base_url();?>assets/admin/js/patients.js"></script>
-
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/admin/css/magnific-popup.css">
+<script src="<?php echo base_url(); ?>assets/admin/js/jquery.magnific-popup.js"></script>
 <!-- Modal for Add Appointment -->
   <div id="add-appointment-modal" class="modal fade " role="dialog">
     <div class="modal-dialog modal-dialog2 modal-lg" style="min-width: 70%">

@@ -597,7 +597,7 @@ class Patients extends Home_Controller {
         $array = array('status' => 'fail', 'error' => $msg, 'message' => '');
         }else{
             $title =  'lab_'.time();
-            $path = 'uploads/labs/';
+            $path = 'uploads/xrays/';
             $img =  $this->patient_model->upload_files($path, $title, $_FILES['file']);
              
             $report_file =  implode(",",$img);
@@ -937,6 +937,41 @@ class Patients extends Home_Controller {
                  echo json_encode(array('st' => 1, 'msg' => 'Your record is deleted successfully!!'));
 
               }
+              
+            public function get_xraysReportImage()
+            {
+                $data = [];
+                $result = $this->admin_model->get_by_column_attr('patient_scans','id',$_POST['postid']);
+               // print_r($result);
+                $image = explode(',',$result[0]->report_file);
+                foreach ($image as $key => $value) {
+                    $data[$key]['src'] = base_url().'uploads/xrays/'.$value;
+                    $data[$key]['title'] = $result[0]->scan_name;
+                }                 
+                echo json_encode(array('data' => $data));
+            }
+            
+             public function get_labReportImage()
+            {
+                $data = [];
+                $result = $this->admin_model->get_by_column_attr('patient_tests','id',$_POST['postid']);
+                $image = explode(',',$result[0]->report_file);
+                foreach ($image as $key => $value) {
+                    $data[$key]['src'] = base_url().'uploads/labs/'.$value;
+                    $data[$key]['title'] = $result[0]->scan_name;
+                }                 
+                echo json_encode(array('data' => $data));
+            }
+            
+            public function deleteOpdPatientScan($pateint_id,$id){
+                $this->patient_model->deleteIpdPatientScan($id);
+                echo json_encode(array('st' => 1, 'msg' => 'Your record is deleted successfully!!'));
+              }
+  
+            public function deleteOpdPatientLab($pateint_id,$id){
+                $this->patient_model->deleteIpdPatientLab($id);
+                echo json_encode(array('st' => 1, 'msg' => 'Your record is deleted successfully!!'));
+            }
 
             
             
