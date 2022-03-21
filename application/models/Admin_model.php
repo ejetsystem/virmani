@@ -1,13 +1,13 @@
 <?php
 class Admin_model extends CI_Model {
 
-    // insert function
-	public function insert($data,$table){
+// insert function
+    public function insert($data,$table){
         $this->db->insert($table,$data);        
         return $this->db->insert_id();
     }
 
-    // insert function
+// insert function
     public function get_by_column_attr($table,$attr,$value){
         $this->db->select();
         $this->db->from($table);
@@ -16,8 +16,8 @@ class Admin_model extends CI_Model {
         $query = $query->result();  
         return $query;
     }
-    
-    // get order by function
+
+// get order by function
     function get_order_by_attr($table,$attr,$order_by)
     {
         $this->db->select();
@@ -28,27 +28,27 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // edit function
+// edit function
     function edit_option($action, $id, $table){
         $this->db->where('id',$id);
         $this->db->update($table,$action);
         return;
     } 
 
-    // edit function
+// edit function
     function edit_option_md5($action, $id, $table){
         $this->db->where('md5(id)', $id);
         $this->db->update($table,$action);
         return;
     } 
 
-    // update function
+// update function
     function update($action,$id,$table){
         $this->db->where('id',$id);
         $this->db->update($table,$action);
     }
 
-    // delete function
+// delete function
     function delete($id,$table){
         if (settings()->type == 'live') {
             $this->db->delete($table, array('id' => $id));
@@ -56,31 +56,31 @@ class Admin_model extends CI_Model {
         return;
     }
 
-    // delete days
+// delete days
     function delete_assaign_days($user_id, $table){
         $this->db->delete($table, array('user_id' => $user_id));
         return;
     }
 
-    // delete time
+// delete time
     function delete_assaign_time($user_id, $table){
         $this->db->delete($table, array('user_id' => $user_id));
         return;
     }
 
-    // delete tags
+// delete tags
     function delete_assign_features($id, $table){
         $this->db->delete($table, array('package_id' => $id));
         return;
     }
 
-    // delete tags
+// delete tags
     function delete_by_prescription_id($prescription_id, $table){
         $this->db->delete($table, array('prescription_id' => $prescription_id));
         return;
     }
 
-    // delete
+// delete
     function delete_by_user($user_id, $table){
         if (settings()->type == 'live') {
             $this->db->delete($table, array('user_id' => $user_id));
@@ -88,7 +88,7 @@ class Admin_model extends CI_Model {
         return;
     }
 
-    // get function
+// get function
     function get_count($table)
     {
         $this->db->select();
@@ -98,7 +98,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // get function
+// get function
     function get_count_by_user_id($table, $user_id)
     {
         $this->db->select();
@@ -114,7 +114,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get function
+// get function
     function get($table)
     {
         $this->db->select();
@@ -126,7 +126,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // select by function
+// select by function
     function get_by_user($table)
     {
         $this->db->select();
@@ -139,7 +139,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // select by function
+// select by function
     function select_by_user($table,$is_deleted='')
     {
         $this->db->select();
@@ -154,14 +154,14 @@ class Admin_model extends CI_Model {
         if ($this->db->field_exists('is_delete', $table)){
             $this->db->where('is_delete', 0);
         }
-        
+
         $this->db->order_by('id','DESC');
         $query = $this->db->get();
         $query = $query->result();  
         return $query;
     }
 
-    // select by function
+// select by function
     function select_by_chamber($table)
     {
         $this->db->select();
@@ -173,7 +173,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // select function
+// select function
     function select($table)
     {
         $this->db->select();
@@ -184,7 +184,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // asc select function
+// asc select function
     function select_asc($table)
     {
         $this->db->select();
@@ -195,7 +195,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // select by id
+// select by id
     function select_option($id,$table)
     {
         $this->db->select();
@@ -206,7 +206,7 @@ class Admin_model extends CI_Model {
         return $query;
     } 
 
-    // select by id
+// select by id
     function get_by_id($id,$table)
     {
         $this->db->select();
@@ -217,7 +217,7 @@ class Admin_model extends CI_Model {
         return $query;
     } 
 
-    // get assaign days
+// get assaign days
     function get_user_days()
     {
         if ($this->session->userdata('role') == 'user') {
@@ -235,7 +235,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get assaign days
+// get assaign days
     function get_my_days($user_id)
     {
         $this->db->select();
@@ -247,7 +247,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get assaign days
+// get assaign days
     function get_time_by_days($day_id, $user_id)
     {
         $this->db->select();
@@ -261,7 +261,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get assaign days
+// get assaign days
     function get_time_by_id($id)
     {
         $this->db->select();
@@ -273,7 +273,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get assaign days
+// get assaign days
     function check_time($id, $date)
     {
         $this->db->select();
@@ -353,7 +353,7 @@ class Admin_model extends CI_Model {
 
 
 
-    //get report
+//get report
     function get_admin_income_by_year()
     {
         $this->db->select('r.*');
@@ -365,7 +365,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    //get report
+//get report
     function get_admin_income_by_date($date)
     {
         $this->db->select('r.*');
@@ -382,7 +382,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    //get payment report
+//get payment report
     function get_user_income_by_year()
     {
         $this->db->select('r.*');
@@ -395,7 +395,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    //get payment report
+//get payment report
     function get_user_income_by_date($date)
     {
         $this->db->select('r.*');
@@ -412,7 +412,7 @@ class Admin_model extends CI_Model {
         }
     }
 
-    //get report
+//get report
     function get_users_packages()
     {
         $this->db->select('count(p.id) as total, k.name');
@@ -435,7 +435,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    //get packages
+//get packages
     function get_previous_payments($user_id)
     {
         $this->db->select();
@@ -446,7 +446,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    //get category
+//get category
     public function get_category($id)
     {
         $this->db->where('id', $id);
@@ -454,7 +454,7 @@ class Admin_model extends CI_Model {
         return $query->row();
     }
 
-    //get category
+//get category
     public function get_category_option($id, $table)
     {
         $this->db->where('id', $id);
@@ -473,7 +473,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // get_settings
+// get_settings
     function get_settings()
     {
         $this->db->select('s.*, c.currency_code, c.currency_symbol');
@@ -485,7 +485,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get_settings
+// get_settings
     function get_currency_symbol($currency_code)
     {
         $this->db->select('*');
@@ -507,7 +507,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // select by id
+// select by id
     function select_option_md5($id,$table)
     {
         $this->db->select();
@@ -518,7 +518,7 @@ class Admin_model extends CI_Model {
         return $query;
     } 
 
-    //get user by id
+//get user by id
     public function get_user_by_slug($slug)
     {
         $this->db->where('slug', $slug);
@@ -567,7 +567,7 @@ class Admin_model extends CI_Model {
 
 
 
-    // get_categories
+// get_categories
     function get_categories(){
         $this->db->select();
         $this->db->from('category');
@@ -579,7 +579,7 @@ class Admin_model extends CI_Model {
     } 
 
 
-    // get_subcategories
+// get_subcategories
     function get_subcategories(){
         $this->db->select();
         $this->db->from('category');
@@ -592,7 +592,7 @@ class Admin_model extends CI_Model {
 
 
 
-    // get_subcategories
+// get_subcategories
     function sub_sub_categories(){
         $this->db->select();
         $this->db->from('category');
@@ -603,7 +603,7 @@ class Admin_model extends CI_Model {
     } 
 
 
-    // get_categories
+// get_categories
     function get_skills(){
         $this->db->select();
         $this->db->from('skills');
@@ -615,7 +615,7 @@ class Admin_model extends CI_Model {
     } 
 
 
-    // get_subcategories
+// get_subcategories
     function get_subskills(){
         $this->db->select();
         $this->db->from('skills');
@@ -626,7 +626,7 @@ class Admin_model extends CI_Model {
         return $query;
     } 
 
-    // get_categories
+// get_categories
     function get_experience(){
         $this->db->select();
         $this->db->from('experience');
@@ -638,7 +638,7 @@ class Admin_model extends CI_Model {
     } 
 
 
-    // get_subcategories
+// get_subcategories
     function get_subexperience(){
         $this->db->select();
         $this->db->from('experience');
@@ -649,7 +649,7 @@ class Admin_model extends CI_Model {
         return $query;
     } 
 
-    // get_categories
+// get_categories
     function get_portfolio_categories(){
         $this->db->select();
         $this->db->from('portfolio_category');
@@ -660,7 +660,7 @@ class Admin_model extends CI_Model {
     } 
 
 
-    // get portfolio
+// get portfolio
     function get_home_portfolio(){
         $this->db->select('p.*');
         $this->db->select('c.slug as category');
@@ -672,7 +672,7 @@ class Admin_model extends CI_Model {
     } 
 
 
-    // get blog posts
+// get blog posts
     function get_blog_posts($total, $limit, $offset){
         $this->db->select('b.*');
         $this->db->select('c.slug as category_slug, c.name as category, u.role');
@@ -682,7 +682,7 @@ class Admin_model extends CI_Model {
         $this->db->join('blog_category c', 'c.id = b.category_id', 'LEFT');
         $this->db->join('users u', 'u.id = b.user_id', 'LEFT');
         $this->db->limit($limit);
-        
+
         if ($total == 1) {
             $query = $this->db->get();
             $query = $query->num_rows();
@@ -695,7 +695,7 @@ class Admin_model extends CI_Model {
     } 
 
 
-    //get posts categories
+//get posts categories
     function get_category_by_slug($slug)
     {
         $this->db->select();
@@ -706,7 +706,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    //get posts categories
+//get posts categories
     function get_name_by_id($id,$table)
     {
         $this->db->select();
@@ -718,7 +718,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    //get posts categories
+//get posts categories
     function get_reports_by_prescription($id)
     {
         $this->db->select('d.*, a.name as test_name');
@@ -731,7 +731,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    //get category posts
+//get category posts
     function get_category_posts($total, $limit, $offset, $id)
     {
 
@@ -741,10 +741,10 @@ class Admin_model extends CI_Model {
         $this->db->join('blog_category as c', 'c.id = p.category_id', 'LEFT');
         $this->db->where('p.status', 1);
         $this->db->where('p.category_id', $id);
-        
+
         $this->db->order_by('p.id', 'DESC');
         $this->db->limit($limit);
-        
+
         if ($total == 1) {
             $query = $this->db->get();
             $query = $query->num_rows();
@@ -757,7 +757,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    //get category posts
+//get category posts
     function count_posts_by_categories($id)
     {
         $this->db->select('count(p.id) as total');
@@ -773,7 +773,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get_categories
+// get_categories
     function get_blog_categories(){
         $this->db->select();
         $this->db->from('blog_category');
@@ -783,9 +783,9 @@ class Admin_model extends CI_Model {
         return $query;
     } 
 
-    //get latest users
+//get latest users
     function get_latest_users(){
-        //$this->active_langs();
+//$this->active_langs();
         $this->db->select('u.*, p.status as payment_status,p.package_id, k.name as package');
         $this->db->from('users u');
         $this->db->join('payment p', 'p.user_id = u.id', 'LEFT');
@@ -799,7 +799,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // count user
+// count user
     function get_user_total(){
         $this->db->select();
         $this->db->from('users');
@@ -810,12 +810,12 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get all posts
+// get all posts
     function active_langs(){
         gets_active_langs();
     }
 
-    // get all posts
+// get all posts
     function get_latest_messages(){
         $this->db->select('c.*');
         $this->db->from('contacts c');
@@ -826,7 +826,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    //get tagfs
+//get tagfs
     function get_tags($post_id)
     {
         $this->db->select();
@@ -837,14 +837,14 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // delete tags
+// delete tags
     function delete_tags($post_id, $table){
         $this->db->delete($table, array('post_id' => $post_id));
         return;
     }
 
 
-    // get images by user
+// get images by user
     function get_total_info(){
         $this->db->select('p.id');
         $this->db->select('(SELECT count(posts.id)
@@ -852,7 +852,7 @@ class Admin_model extends CI_Model {
             WHERE (status = 1)
             )
             AS post',TRUE);
-        
+
         $this->db->select('(SELECT count(users.id)
             FROM users 
             WHERE (status = 1)
@@ -866,7 +866,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    //get user info
+//get user info
     function get_patient_info($id)
     {
         $this->db->select('p.*');
@@ -878,7 +878,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    //get user info
+//get user info
     function get_user_info()
     {
         $this->db->select('u.*');
@@ -894,7 +894,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    //get user info
+//get user info
     function get_count_serials()
     {
         $this->db->select('a.*');
@@ -905,7 +905,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    //get user info
+//get user info
     function get_expire_appointments()
     {
         $this->db->select('a.*');
@@ -922,7 +922,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    //get user info
+//get user info
     function get_appointments()
     {
         $this->db->select('a.*, p.name, p.mobile, p.email, p.mr_number');
@@ -941,7 +941,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    //get user info
+//get user info
     function get_appointments_by_date($date)
     {
         $this->db->select('a.*, p.name, p.mobile, p.email, p.mr_number');
@@ -959,7 +959,7 @@ class Admin_model extends CI_Model {
             $this->db->where('a.date', $date);
             $this->db->order_by('a.date', 'ASC');
         }
-        //$this->db->where('a.status', 0);
+//$this->db->where('a.status', 0);
         $this->db->order_by('a.serial_id', 'ASC');
         $query = $this->db->get();
         $query = $query->result();  
@@ -977,7 +977,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    //get_last_serial
+//get_last_serial
     function get_all_appointments()
     {
         $this->db->select('a.*');
@@ -990,7 +990,7 @@ class Admin_model extends CI_Model {
             $user_id = $this->session->userdata('parent');
         }
 
-        //$this->db->where('a.status', 1);
+//$this->db->where('a.status', 1);
         $this->db->group_by('a.date');
         $query = $this->db->get();
         $query = $query->result();  
@@ -1008,7 +1008,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    //get user info
+//get user info
     function get_patient_appointments($type='')
     {
         $this->db->select('a.*, p.name, p.mobile, p.mr_number, u.name as dr_name, u.currency, s.price, c.name as chamber, c.address as chamber_address');
@@ -1029,40 +1029,40 @@ class Admin_model extends CI_Model {
     }
 
 
-    // //get live consults
-    // function get_live_consults()
-    // {
-    //     $this->db->select('a.*, p.name as patient, p.mobile, p.mr_number, u.name as dr_name, c.name as chamber, c.address as chamber_address');
-    //     $this->db->from('live_consults a');
-    //     $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
-    //     $this->db->join('users u', 'u.id = a.user_id', 'LEFT');
-    //     $this->db->join('chamber c', 'c.uid = p.chamber_id', 'LEFT');
-    //     $this->db->where('a.chamber_id', $this->chamber->id);
-    //     $this->db->where('a.date >=', date('Y-m-d'));
-    //     $this->db->order_by('a.id', 'DESC');
-    //     $query = $this->db->get();
-    //     $query = $query->result();  
-    //     return $query;
-    // }
+// //get live consults
+// function get_live_consults()
+// {
+//     $this->db->select('a.*, p.name as patient, p.mobile, p.mr_number, u.name as dr_name, c.name as chamber, c.address as chamber_address');
+//     $this->db->from('live_consults a');
+//     $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
+//     $this->db->join('users u', 'u.id = a.user_id', 'LEFT');
+//     $this->db->join('chamber c', 'c.uid = p.chamber_id', 'LEFT');
+//     $this->db->where('a.chamber_id', $this->chamber->id);
+//     $this->db->where('a.date >=', date('Y-m-d'));
+//     $this->db->order_by('a.id', 'DESC');
+//     $query = $this->db->get();
+//     $query = $query->result();  
+//     return $query;
+// }
 
 
-    // //get live consults
-    // function get_patient_live_consults()
-    // {
-    //     $this->db->select('a.*, p.name as patient, p.mobile, p.mr_number, u.name as dr_name, c.name as chamber, c.address as chamber_address');
-    //     $this->db->from('live_consults a');
-    //     $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
-    //     $this->db->join('users u', 'u.id = a.user_id', 'LEFT');
-    //     $this->db->join('chamber c', 'c.uid = p.chamber_id', 'LEFT');
-    //     $this->db->where('a.patient_id', $this->session->userdata('id'));
-    //     $this->db->order_by('a.id', 'DESC');
-    //     $query = $this->db->get();
-    //     $query = $query->result();  
-    //     return $query;
-    // }
+// //get live consults
+// function get_patient_live_consults()
+// {
+//     $this->db->select('a.*, p.name as patient, p.mobile, p.mr_number, u.name as dr_name, c.name as chamber, c.address as chamber_address');
+//     $this->db->from('live_consults a');
+//     $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
+//     $this->db->join('users u', 'u.id = a.user_id', 'LEFT');
+//     $this->db->join('chamber c', 'c.uid = p.chamber_id', 'LEFT');
+//     $this->db->where('a.patient_id', $this->session->userdata('id'));
+//     $this->db->order_by('a.id', 'DESC');
+//     $query = $this->db->get();
+//     $query = $query->result();  
+//     return $query;
+// }
 
 
-    //get user info
+//get user info
     function get_single_appointments($id)
     {
         $this->db->select('a.*, p.name, p.mobile, p.email, p.mr_number, u.name as dr_name, u.currency');
@@ -1076,12 +1076,12 @@ class Admin_model extends CI_Model {
     }
 
 
-    //get_last_serial
+//get_last_serial
     function get_last_serial($date)
     {
         $this->db->select('a.*');
         $this->db->from('appointments a');
-        //$this->db->where('a.status', 0);
+//$this->db->where('a.status', 0);
         $this->db->where('a.date', $date);
         $this->db->order_by('a.id', 'DESC');
         $query = $this->db->get();
@@ -1091,7 +1091,7 @@ class Admin_model extends CI_Model {
 
 
 
-    //get_last_serial
+//get_last_serial
     function check_existing_patient($patient_id, $date)
     {
         $this->db->select('a.*');
@@ -1110,7 +1110,7 @@ class Admin_model extends CI_Model {
 
 
 
-    //count_todays_patient
+//count_todays_patient
     function count_todays_patient($date)
     {
         $this->db->select('a.*');
@@ -1123,7 +1123,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    //get prescription
+//get prescription
     function get_prescription_by_id($id)
     {
         $this->db->select('p.*');
@@ -1135,7 +1135,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // select function
+// select function
     function get_all_ratings()
     {
         $this->db->select('r.*, p.name as patient_name, p.thumb as patient_thumb');
@@ -1250,7 +1250,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    //get prescription
+//get prescription
     function get_prescription($id)
     {
         $this->db->select('p.*, u.name as user_name, u.degree, u.specialist, u.email, c.name as chamber_name, c.logo, c.title as chamber_title, c.address');
@@ -1296,7 +1296,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get prescriptions
+// get prescriptions
     function get_prescription_by_user($total, $limit, $offset){
         $this->db->select('p.*');
         $this->db->from('prescription p');
@@ -1316,7 +1316,7 @@ class Admin_model extends CI_Model {
     } 
 
 
-    // get prescriptions
+// get prescriptions
     function get_prescription_by_patient($total, $limit, $offset){
         $this->db->select('p.*');
         $this->db->from('prescription p');
@@ -1335,7 +1335,7 @@ class Admin_model extends CI_Model {
     } 
 
 
-    // get prescriptions
+// get prescriptions
     function get_prescriptions_by_patient($total, $limit, $offset, $id){
         $this->db->select('p.*');
         $this->db->from('prescription p');
@@ -1354,7 +1354,7 @@ class Admin_model extends CI_Model {
     } 
 
 
-    // get prescriptions
+// get prescriptions
     function get_doctors_by_patient($total, $limit, $offset){
         $this->db->select('p.*');
         $this->db->from('prescription p');
@@ -1373,7 +1373,7 @@ class Admin_model extends CI_Model {
         }
     } 
 
-    // get chamber
+// get chamber
     function get_chamber_row($uid)
     {
         if ($this->session->userdata('role') == 'staff') {
@@ -1392,7 +1392,7 @@ class Admin_model extends CI_Model {
                     $this->db->where('b.id', $staff->chamber_id);
                 }
                 $this->db->where('b.user_id', $this->session->userdata('parent'));
-                //$this->db->where('is_primary', 1);
+//$this->db->where('is_primary', 1);
             }
             $this->db->join('chamber_category c', 'c.id = b.category', 'LEFT');
             $this->db->order_by('id', 'ASC');
@@ -1424,11 +1424,11 @@ class Admin_model extends CI_Model {
         }
 
 
-        
+
     }
 
 
-    // get chamber
+// get chamber
     function get_chamber($uid)
     {
         $this->db->select('b.*, c.name as category_name');
@@ -1450,7 +1450,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // get chamber
+// get chamber
     function get_single_chamber($id)
     {
         $this->db->select('b.*, c.name as category_name');
@@ -1463,7 +1463,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // get chamber
+// get chamber
     function get_single_chamber_md5($id)
     {
         $this->db->select('b.*, c.name as category_name');
@@ -1476,7 +1476,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // get chamber
+// get chamber
     function get_primary_chamber()
     {
         $this->db->select('b.*');
@@ -1488,7 +1488,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get my chambers
+// get my chambers
     function get_my_all_chambers()
     {
         $this->db->select('b.*');
@@ -1499,7 +1499,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // get my chambers
+// get my chambers
     function get_user_chambers($user_id)
     {
         $this->db->select('b.*');
@@ -1510,7 +1510,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // get my chambers
+// get my chambers
     function get_staff_chambers($user_id, $chamber_id)
     {
         $this->db->select('b.*');
@@ -1565,7 +1565,7 @@ class Admin_model extends CI_Model {
         }
         return $query;
     }
-    
+
 
     function get_assign_package_features($package_id)
     {
@@ -1606,7 +1606,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get_payment
+// get_payment
     function get_my_payment()
     {
         if ($this->session->userdata('role') == 'user') {
@@ -1614,7 +1614,7 @@ class Admin_model extends CI_Model {
         } else {
             $user_id = $this->session->userdata('parent');
         }
-        
+
         $this->db->select();
         $this->db->from('payment');
         $this->db->where('user_id', $user_id);
@@ -1625,7 +1625,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get_payment
+// get_payment
     function get_user_payment_details($puid)
     {
         $this->db->select('p.*, k.name as package_name, k.slug, u.name as user_name, u.phone, u.address, u.email');
@@ -1638,7 +1638,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // get_payment
+// get_payment
     function get_users_payment_lists($user_id)
     {
         $this->db->select('p.*, k.name as package_name, k.slug, u.name as user_name, u.phone, u.address, u.email');
@@ -1653,7 +1653,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get_payment
+// get_payment
     function get_payment_lists()
     {
         $this->db->select('p.*, k.name as package_name, k.slug, u.name as user_name, u.phone, u.address, u.email, u.thumb');
@@ -1663,14 +1663,14 @@ class Admin_model extends CI_Model {
         $this->db->where('p.amount != ', '0.00');
         $this->db->where('p.status != ', 'expired');
         $this->db->order_by('p.id', 'DESC');
-        //$this->db->group_by('p.user_id');
+//$this->db->group_by('p.user_id');
         $query = $this->db->get();
         $query = $query->result();  
         return $query;
     }
 
 
-    // get_payment
+// get_payment
     function get_total_value($table, $date)
     {
         $this->db->select();
@@ -1684,7 +1684,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get_payment
+// get_payment
     function check_appointment_payment($appointment_id, $user_id)
     {
         $this->db->select('*');
@@ -1698,7 +1698,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get_payment
+// get_payment
     function get_user_payment($user_id)
     {
         $this->db->select('p.*, k.name as package');
@@ -1723,7 +1723,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // edit function
+// edit function
     function update_payment($action, $user_id, $table){
         $this->db->where('user_id', $user_id);
         $this->db->update($table,$action);
@@ -1732,7 +1732,7 @@ class Admin_model extends CI_Model {
 
 
 
-    // get_payment
+// get_payment
     function get_payment($payment_id)
     {
         $this->db->select();
@@ -1744,7 +1744,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get_payment
+// get_payment
     function get_package_by_slug($slug)
     {
         $this->db->select();
@@ -1755,13 +1755,13 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // get all users
+// get all users
     function get_all_users($total, $limit, $offset, $type){
         $this->db->select('u.*, p.status as payment_status,p.package_id, k.name as package');
         $this->db->from('users u');
         $this->db->join('payment p', 'p.user_id = u.id', 'LEFT');
         $this->db->join('package k', 'k.id = p.package_id', 'LEFT');
-        
+
         if (isset($_GET['sort']) && $_GET['sort'] != 'all') {
             $this->db->where('p.status', $_GET['sort']);
         }
@@ -1812,10 +1812,10 @@ class Admin_model extends CI_Model {
     }
 
 
-    // image upload function with resize option
+// image upload function with resize option
     function upload_image($max_size){
 
-            // set upload path
+// set upload path
         $config['upload_path']  = "./uploads/";
         $config['allowed_types']= 'gif|jpg|png|jpeg';
         $config['max_size']     = '92000';
@@ -1829,67 +1829,67 @@ class Admin_model extends CI_Model {
 
             $data = $this->upload->data();
 
-                // set upload path
+// set upload path
             $source             = "./uploads/".$data['file_name'] ;
             $destination_thumb  = "./uploads/thumbnail/" ;
             $destination_medium = "./uploads/medium/" ;
             $main_img = $data['file_name'];
-                // Permission Configuration
+// Permission Configuration
             chmod($source, 0777) ;
 
             /* Resizing Processing */
-                // Configuration Of Image Manipulation :: Static
+// Configuration Of Image Manipulation :: Static
             $this->load->library('image_lib') ;
             $img['image_library'] = 'GD2';
             $img['create_thumb']  = TRUE;
             $img['maintain_ratio']= TRUE;
 
-                /// Limit Width Resize
+/// Limit Width Resize
             $limit_medium   = $max_size ;
             $limit_thumb    = 150;
 
-                // Size Image Limit was using (LIMIT TOP)
+// Size Image Limit was using (LIMIT TOP)
             $limit_use  = $data['image_width'] > $data['image_height'] ? $data['image_width'] : $data['image_height'] ;
 
-                // Percentase Resize
+// Percentase Resize
             if ($limit_use > $limit_medium || $limit_use > $limit_thumb) {
                 $percent_medium = $limit_medium/$limit_use ;
                 $percent_thumb  = $limit_thumb/$limit_use ;
             }
 
-                //// Making THUMBNAIL ///////
+//// Making THUMBNAIL ///////
             $img['width']  = $limit_use > $limit_thumb ?  $data['image_width'] * $percent_thumb : $data['image_width'] ;
             $img['height'] = $limit_use > $limit_thumb ?  $data['image_height'] * $percent_thumb : $data['image_height'] ;
 
-                // Configuration Of Image Manipulation :: Dynamic
+// Configuration Of Image Manipulation :: Dynamic
             $img['thumb_marker'] = '_thumb-'.floor($img['width']).'x'.floor($img['height']) ;
             $img['quality']      = ' 100%' ;
             $img['source_image'] = $source ;
             $img['new_image']    = $destination_thumb ;
 
             $thumb_nail = $data['raw_name']. $img['thumb_marker'].$data['file_ext'];
-                // Do Resizing
+// Do Resizing
             $this->image_lib->initialize($img);
             $this->image_lib->resize();
             $this->image_lib->clear() ;
 
-                ////// Making MEDIUM /////////////
+////// Making MEDIUM /////////////
             $img['width']   = $limit_use > $limit_medium ?  $data['image_width'] * $percent_medium : $data['image_width'] ;
             $img['height']  = $limit_use > $limit_medium ?  $data['image_height'] * $percent_medium : $data['image_height'] ;
 
-                // Configuration Of Image Manipulation :: Dynamic
+// Configuration Of Image Manipulation :: Dynamic
             $img['thumb_marker'] = '_medium-'.floor($img['width']).'x'.floor($img['height']) ;
             $img['quality']      = '100%' ;
             $img['source_image'] = $source ;
             $img['new_image']    = $destination_medium ;
 
             $mid = $data['raw_name']. $img['thumb_marker'].$data['file_ext'];
-                // Do Resizing
+// Do Resizing
             $this->image_lib->initialize($img);
             $this->image_lib->resize();
             $this->image_lib->clear() ;
 
-                // set upload path
+// set upload path
             $images = 'uploads/medium/'.$mid;
             $thumb  = 'uploads/thumbnail/'.$thumb_nail;
             unlink($source) ;
@@ -1906,7 +1906,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    //multiple image upload with resize option
+//multiple image upload with resize option
     public function do_upload($photo) {                   
         $config['upload_path']  = "./uploads/";
         $config['allowed_types']= 'gif|jpg|png|jpeg';
@@ -1915,7 +1915,7 @@ class Admin_model extends CI_Model {
         $config['max_height']   = '20000';
 
         $this->load->library('upload', $config);                
-        
+
         if ($this->upload->do_upload($photo)) {
             $data       = $this->upload->data(); 
             /* PATH */
@@ -1926,27 +1926,27 @@ class Admin_model extends CI_Model {
             $destination_doctor_thumbnail    = "./uploads/doctor-thumbnail/" ;
             $destination_patientses    = "./uploads/patientses/" ;
 
-                // Permission Configuration
+// Permission Configuration
             chmod($source, 0777) ;
 
             /* Resizing Processing */
-                // Configuration Of Image Manipulation :: Static
+// Configuration Of Image Manipulation :: Static
             $this->load->library('image_lib') ;
             $img['image_library'] = 'GD2';
             $img['create_thumb']  = TRUE;
             $img['maintain_ratio']= TRUE;
 
-                /// Limit Width Resize
+/// Limit Width Resize
             $limit_big   = 2000 ;
             $limit_medium    = 1000 ;
             $limit_thumb    = 200 ;
             $limit_doc    = 5000 ;
             $limit_patients    = 5000 ;
 
-                // Size Image Limit was using (LIMIT TOP)
+// Size Image Limit was using (LIMIT TOP)
             $limit_use  = $data['image_width'] > $data['image_height'] ? $data['image_width'] : $data['image_height'] ;
 
-                // Percentase Resize
+// Percentase Resize
             if ($limit_use > $limit_big || $limit_use > $limit_thumb || $limit_use > $limit_medium || $limit_use > $limit_doc || $limit_use > $limit_patients) {
                 $percent_big = $limit_big/$limit_use ;
                 $percent_medium  = $limit_medium/$limit_use ;
@@ -1955,82 +1955,82 @@ class Admin_model extends CI_Model {
                 $percent_patients  = $limit_patients/$limit_use ;
             }
 
-                //// Making THUMBNAIL ///////
+//// Making THUMBNAIL ///////
             $img['width']  = $limit_use > $limit_thumb ?  $data['image_width'] * $percent_thumb : $data['image_width'] ;
             $img['height'] = $limit_use > $limit_thumb ?  $data['image_height'] * $percent_thumb : $data['image_height'] ;
 
-                // Configuration Of Image Manipulation :: Dynamic
+// Configuration Of Image Manipulation :: Dynamic
             $img['thumb_marker'] = '_thumb-'.floor($img['width']).'x'.floor($img['height']) ;
             $img['quality']      = '99%' ;
             $img['source_image'] = $source ;
             $img['new_image']    = $destination_thumb ;
 
             $thumb_nail = $data['raw_name']. $img['thumb_marker'].$data['file_ext'];
-                // Do Resizing
+// Do Resizing
             $this->image_lib->initialize($img);
             $this->image_lib->resize();
             $this->image_lib->clear() ;                 
 
-                //// Making MEDIUM ///////
+//// Making MEDIUM ///////
             $img['width']  = $limit_use > $limit_medium ?  $data['image_width'] * $percent_medium : $data['image_width'] ;
             $img['height'] = $limit_use > $limit_medium ?  $data['image_height'] * $percent_medium : $data['image_height'] ;
 
-                // Configuration Of Image Manipulation :: Dynamic
+// Configuration Of Image Manipulation :: Dynamic
             $img['thumb_marker'] = '_medium-'.floor($img['width']).'x'.floor($img['height']) ;
             $img['quality']      = '99%' ;
             $img['source_image'] = $source ;
             $img['new_image']    = $destination_medium ;
 
             $medium = $data['raw_name']. $img['thumb_marker'].$data['file_ext'];
-                // Do Resizing
+// Do Resizing
             $this->image_lib->initialize($img);
             $this->image_lib->resize();
             $this->image_lib->clear() ;               
 
-                ////// Making BIG /////////////
+////// Making BIG /////////////
             $img['width']   = $limit_use > $limit_big ?  $data['image_width'] * $percent_big : $data['image_width'] ;
             $img['height']  = $limit_use > $limit_big ?  $data['image_height'] * $percent_big : $data['image_height'] ;
 
-                // Configuration Of Image Manipulation :: Dynamic
+// Configuration Of Image Manipulation :: Dynamic
             $img['thumb_marker'] = '_big-'.floor($img['width']).'x'.floor($img['height']) ;
             $img['quality']      = '99%' ;
             $img['source_image'] = $source ;
             $img['new_image']    = $destination_big ;
 
             $album_picture = $data['raw_name']. $img['thumb_marker'].$data['file_ext'];
-                // Do Resizing
+// Do Resizing
             $this->image_lib->initialize($img);
             $this->image_lib->resize();
             $this->image_lib->clear() ;
 
-            ////// Making Doctor Thumbnail /////////////
+////// Making Doctor Thumbnail /////////////
             $img['width']   = $limit_use > $limit_big ?  $data['image_width'] * $percent_doc : $data['image_width'] ;
             $img['height']  = $limit_use > $limit_big ?  $data['image_height'] * $percent_doc : $data['image_height'] ;
 
-                // Configuration Of Image Manipulation :: Dynamic
+// Configuration Of Image Manipulation :: Dynamic
             $img['thumb_marker'] = '_big-'.floor($img['width']).'x'.floor($img['height']) ;
             $img['quality']      = '99%' ;
             $img['source_image'] = $source ;
             $img['new_image']    = $destination_doctor_thumbnail ;
 
             $doc_thumb = $data['raw_name']. $img['thumb_marker'].$data['file_ext'];
-                // Do Resizing
+// Do Resizing
             $this->image_lib->initialize($img);
             $this->image_lib->resize();
             $this->image_lib->clear() ;
 
-            ////// Making Patients Thumbnail /////////////
+////// Making Patients Thumbnail /////////////
             $img['width']   = $limit_use > $limit_big ?  $data['image_width'] * $percent_patients : $data['image_width'] ;
             $img['height']  = $limit_use > $limit_big ?  $data['image_height'] * $percent_patients : $data['image_height'] ;
 
-                // Configuration Of Image Manipulation :: Dynamic
+// Configuration Of Image Manipulation :: Dynamic
             $img['thumb_marker'] = '_big-'.floor($img['width']).'x'.floor($img['height']) ;
             $img['quality']      = '99%' ;
             $img['source_image'] = $source ;
             $img['new_image']    = $destination_patientses ;
 
             $patientses_thumb = $data['raw_name']. $img['thumb_marker'].$data['file_ext'];
-                // Do Resizing
+// Do Resizing
             $this->image_lib->initialize($img);
             $this->image_lib->resize();
             $this->image_lib->clear() ;
@@ -2055,9 +2055,9 @@ class Admin_model extends CI_Model {
 
 
 
-    // language start
+// language start
 
-    // get language
+// get language
     function get_language()
     {
         $this->db->select();
@@ -2068,7 +2068,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // get language
+// get language
     function get_language_values()
     {
         $this->db->select();
@@ -2079,13 +2079,13 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    // get language value pagination
+// get language value pagination
     function get_lang_values($total, $limit, $offset)
     {
         $this->db->select('*');
         $this->db->from('lang_values');
         $this->db->order_by('id','DESC');
-        
+
         if ($total == 1) {
             $query = $this->db->get();
             $query = $query->num_rows();
@@ -2098,7 +2098,7 @@ class Admin_model extends CI_Model {
     }
 
 
-    // get language value pagination
+// get language value pagination
     function get_lang_values_by_type($type)
     {
         $this->db->select('*');
@@ -2110,7 +2110,7 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
-    //check unique language keyword
+//check unique language keyword
     public function check_keyword($keyword)
     {
         $this->db->select('*');
@@ -2125,7 +2125,7 @@ class Admin_model extends CI_Model {
         }
     }
 
-    //check unique language name
+//check unique language name
     public function check_language($name)
     {
         $this->db->select('*');
@@ -2205,7 +2205,7 @@ class Admin_model extends CI_Model {
                 $this->db->delete($table);
             }
         }
-        
+
         for ($i=0; $i <count($d['insurance']) ; $i++) { 
             $notifications = (!empty($d['allow_notifications'][$i])) ? '1' : '0';
             $remarks = (isset($d['remarks'][$i])) ? $d['remarks'][$i] : '';
@@ -2253,14 +2253,14 @@ class Admin_model extends CI_Model {
     function insert_multiple_patient($array,$table,$id){
         foreach ($array as $key => $value) {
             $data = array(
-             'patients_id' => $id,
-             'type' => $value['type'], 
-             'name' => $value['name'], 
-             'amount' => $value['amount'], 
-             'balance_spent' => $value['balance_spent'], 
-             'balance_amount' => $value['balance_amount'], 
-             'created_at ' => my_date_now()
-         );
+                'patients_id' => $id,
+                'type' => $value['type'], 
+                'name' => $value['name'], 
+                'amount' => $value['amount'], 
+                'balance_spent' => $value['balance_spent'], 
+                'balance_amount' => $value['balance_amount'], 
+                'created_at ' => my_date_now()
+            );
             $this->db->insert($table,$data);
 
         }
@@ -2292,58 +2292,111 @@ class Admin_model extends CI_Model {
     }
 
     function fetch_all_appointment(){
-      $this->db->select('a.*,a.id as appointment_no,p.name as patient_name,d.name as doctor_name');
-      $this->db->from('appointments a');
-      $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
-      $this->db->join('doctors d', 'd.id = a.doctor_id', 'LEFT');
-      $this->db->order_by('id');
-      $query = $this->db->get();
-      $query = $query->result_array();  
-      return $query;
-  }
+        $this->db->select('a.*,a.id as appointment_no,p.name as patient_name,d.name as doctor_name');
+        $this->db->from('appointments a');
+        $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
+        $this->db->join('doctors d', 'd.id = a.doctor_id', 'LEFT');
+        $this->db->order_by('id');
+        $query = $this->db->get();
+        $query = $query->result_array();  
+        return $query;
+    }
 
-  function one_appointment($id){
-      $this->db->select('a.*,a.id as appointment_no,p.name as patient_name,d.name as doctor_name,pc.phone1 as patient_phone');
-      $this->db->from('appointments a');
-      $this->db->where('a.id',$id);
-      $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
-      $this->db->join('doctors d', 'd.id = a.doctor_id', 'LEFT');
-      $this->db->join('patients_contact pc','pc.patient_id = a.patient_id', 'LEFT');
-      $this->db->order_by('id');
-      $query = $this->db->get();
-      $query = $query->result_array();  
-      return $query;
-  }
+    function one_appointment($id){
+        $this->db->select('a.*,a.id as appointment_no,p.name as patient_name,d.name as doctor_name,pc.phone1 as patient_phone');
+        $this->db->from('appointments a');
+        $this->db->where('a.id',$id);
+        $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
+        $this->db->join('doctors d', 'd.id = a.doctor_id', 'LEFT');
+        $this->db->join('patients_contact pc','pc.patient_id = a.patient_id', 'LEFT');
+        $this->db->order_by('id');
+        $query = $this->db->get();
+        $query = $query->result_array();  
+        return $query;
+    }
 
-  public function get_patient_phone($id){
-    $this->db->select("*");
-    $this->db->from('patients_contact');
-    $this->db->where('patient_id', $id);
-    $query = $this->db->get();
-    $query = $query->row_array();  
-    return $query;
-}
+    public function get_patient_phone($id){
+        $this->db->select("*");
+        $this->db->from('patients_contact');
+        $this->db->where('patient_id', $id);
+        $query = $this->db->get();
+        $query = $query->row_array();  
+        return $query;
+    }
 
-public function fetch_current_date_appointment(){
-    $this->db->select("*");
-    $this->db->from('appointments');
-    $this->db->where('date',date("Y-m-d"));
-    $query = $this->db->get();
-    $query = $query->result_array();  
-    return $query;
-}
+    public function fetch_current_date_appointment(){
+        $this->db->select("*");
+        $this->db->from('appointments');
+        $this->db->where('date',date("Y-m-d"));
+        $query = $this->db->get();
+        $query = $query->result_array();  
+        return $query;
+    }
 
-public function get_doctor_appointments($doctor_id){
-    $this->db->select('a.*,a.id as appointment_no,p.name as patient_name,p.email as patient_email,p.mr_number,d.name as doctor_name,pc.phone1 as patient_phone');
-    $this->db->from('appointments a');
-    $this->db->where('doctor_id',$doctor_id);
-    $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
-    $this->db->join('doctors d', 'd.id = a.doctor_id', 'LEFT');
-    $this->db->join('patients_contact pc','pc.patient_id = a.patient_id', 'LEFT');
-    $query = $this->db->get();
-    $query = $query->result();  
-    return $query;
-}
+    public function get_doctor_appointments($doctor_id){
+        $this->db->select('a.*,a.id as appointment_no,p.name as patient_name,p.email as patient_email,p.mr_number,d.name as doctor_name,pc.phone1 as patient_phone');
+        $this->db->from('appointments a');
+        $this->db->where('doctor_id',$doctor_id);
+        $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
+        $this->db->join('doctors d', 'd.id = a.doctor_id', 'LEFT');
+        $this->db->join('patients_contact pc','pc.patient_id = a.patient_id', 'LEFT');
+        $query = $this->db->get();
+        $query = $query->result();  
+        return $query;
+    }
 
+    public function insert_multiple_staff($array,$table,$id){
+        foreach ($array as $key => $value) {
+            $data = array(
+                'staff_id' => $id,
+                'vaccination_type' => $value['vaccination_type'], 
+                'vaccination_date' => $value['vaccination_date'], 
+                'reminder_date_for_next' => $value['reminder_date_for_next'], 
+                'remarks' => $value['vaccination_remarks'], 
+                'medical_history' => $value['medical_history'], 
+                'updated_at ' => my_date_now()
+            );
+            $this->db->insert($table,$data);
 
+        }
+        return true;
+    }
+
+    public function insert_multiple_staff_bank($array,$table,$id){
+        foreach ($array as $key => $value) {
+            $data = array(
+                'staff_id' => $id,
+                'bank_name' => $value['bank_name'], 
+                'bank_account_number' => $value['bank_account_number'], 
+                'ifsc_code' => $value['ifsc_code'], 
+                'remarks' => $value['bank_remarks'], 
+                'updated_at ' => my_date_now()
+            );
+            $this->db->insert($table,$data);
+
+        }
+        return true;
+    }
+
+    public function insert_multiple_staff_insurance($array,$table,$id){
+        foreach ($array as $key => $value) {
+            $allow = ($value['allow_notifications']==1) ? 1 : 0;
+            $data = array(
+                'staff_id' => $id,
+                'insurance' => $value['insurance'], 
+                'insurance_date' => $value['insurance_date'], 
+                'renewal_date' => $value['renewal_date'], 
+                'amount_insured' => $value['amount_insured'], 
+                'amount_paid' => $value['amount_paid'], 
+                'allow_notifications' => $allow, 
+                'remarks' => $value['insurance_remarks'], 
+                'updated_at ' => my_date_now()
+            );
+            $this->db->insert($table,$data);
+
+        }
+        return true;
+    }
+
+    
 }

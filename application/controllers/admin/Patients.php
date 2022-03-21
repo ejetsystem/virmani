@@ -234,7 +234,6 @@ class Patients extends Home_Controller {
         );
 
         $patient_id = $this->admin_model->insert($patientses, 'patientses');
-        // $patient_id = 2;
 
         $data_img = $this->admin_model->do_upload('photo');
         if ($data_img) {

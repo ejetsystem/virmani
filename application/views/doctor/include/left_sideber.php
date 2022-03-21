@@ -37,13 +37,6 @@
             </li> 
           <?php endif; ?>
 
-
-          <li class="<?php if(isset($page_title) && $page_title == "Drugs"){echo "active";} ?>">
-            <a href="<?php echo base_url('doctor/drugs') ?>">
-              <i class="flaticon-medicine"></i> <span><?php echo trans('drugs') ?></span>
-            </a>
-          </li>
-
   
           <?php if (check_feature_access('profile-page') == TRUE): ?>
             <li class="treeview <?php if(isset($page_title) && $page_title == "Profile" || isset($page_title) && $page_title == "Educations" || isset($page_title) && $page_title == "Experience"){echo "active";} ?>">
@@ -65,7 +58,7 @@
       <?php endif ?>
 
     <li class="<?php if(isset($page_title) && $page_title == "Change Password"){echo "active";} ?>">
-      <a href="<?php echo base_url('change_password') ?>">
+      <a href="<?php echo base_url('doctor/doctor/change_password') ?>">
         <i class="flaticon-unlock"></i> <span><?php echo trans('change-password') ?></span>
       </a>
     </li>

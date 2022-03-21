@@ -34,42 +34,109 @@ class RegistrationController extends Home_Controller {
         $this->load->view('admin/index',$data);
     }
 
+    public function add_staff(){
+        $data = array();
+        $data['page_title'] = 'All Staff';      
+        $data['page'] = 'Staff';
+        $data['doctors'] = $this->admin_model->select_all_doctors();
+        $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
+        $data['main_content'] = $this->load->view('admin/registration/add_staff',$data,TRUE);
+        $this->load->view('admin/index',$data);
+    }
 
     public function add()
-    {	
+    {
+        // echo "<pre>";
+        // print_r($this->input->post());
+        // die;   
         if($_POST)
         {   
+
             $id = $this->input->post('id', true);
 
+            $check = $this->admin_model->check_duplicate_email($this->input->post('email'));
+            if (!empty($check) && $id == '') {
+                $this->session->set_flashdata('error', trans('email-exist'));
+                redirect(base_url('clinic-admin/staff'));
+            }
+
             //validate inputs
-            $this->form_validation->set_rules('name', trans('name'), 'required');
+            $this->form_validation->set_rules('name', trans('name'), 'required|max_length[100]');
 
             if ($this->form_validation->run() === false) {
                 $this->session->set_flashdata('error', validation_errors());
-                redirect(base_url('clinic-admin/drugs'));
+                redirect(base_url('clinic-admin/staff'));
             } else {
-                if(user()->role == 'staff'){$user_id = user()->user_id;}else{$user_id = user()->id;}
+                if ($id != '') {
+                    $password = $this->input->post('password');
+                } else {
+                    $password = hash_password($this->input->post('password'));
+                }
+
                 $data=array(
-                    'user_id' => $user_id,
+                    'user_id' => user()->id,
+                    'chamber_id' => $this->input->post('chamber_id', true),
                     'name' => $this->input->post('name', true),
-                    'details' => $this->input->post('details', true)
+                    'department' => $this->input->post('department', true),
+                    'father' => $this->input->post('father_name', true),
+                    'mother' => $this->input->post('mother_name', true),
+                    'gender' => $this->input->post('gender', true),
+                    'marital_status' => $this->input->post('marital_status', true),
+                    'blood_group' => $this->input->post('blood_group', true),
+                    'dob' => $this->input->post('dob', true),
+                    'date_of_joining' => $this->input->post('date_of_joining', true),
+                    'phone' => $this->input->post('phone', true),
+                    'qualification' => $this->input->post('qualification', true),
+                    'work_experience' => $this->input->post('work_exp', true),
+                    'specialization' => $this->input->post('specialization', true),
+                    'note' => $this->input->post('note', true),
+                    'current_address' => $this->input->post('address', true),
+                    'permanent_address' => $this->input->post('permanent_address', true),
+                    'pan' => $this->input->post('pan_number', true),
+                    'gst' => $this->input->post('gst_number', true),
+                    'slug' => str_slug($this->input->post('name', true)),
+                    'designation' => $this->input->post('designation', true),
+                    'password' => $password,
+                    'role' => 'staff',
+                    'created_at' => my_date_now(),
                 );
                 $data = $this->security->xss_clean($data);
-                
-                //if id available info will be edited
+
                 if ($id != '') {
-                    $this->admin_model->edit_option($data, $id, 'drugs');
+                    $this->admin_model->edit_option($data, $id, 'staffs');
                     $this->session->set_flashdata('msg', trans('updated-successfully')); 
                 } else {
-                    $id = $this->admin_model->insert($data, 'drugs');
+
+                    $total = get_total_value('staffs');
+                    if (ckeck_plan_limit('staffs', $total) == FALSE) {
+                        $this->session->set_flashdata('error', trans('reached-maximum-limit'));
+                        redirect(base_url('clinic-admin/staff'));
+                        exit();
+                    }
+                    $id = $this->admin_model->insert($data, 'staffs');
                     $this->session->set_flashdata('msg', trans('inserted-successfully')); 
                 }
-                redirect(base_url('clinic-admin/drugs'));
+
+                // upload logo
+                $data_img = $this->admin_model->do_upload('photo');
+                if($data_img){
+                    $data_img = array(
+                        'thumb' => $data_img['medium']
+                    );
+                    $this->admin_model->edit_option($data_img, $id, 'staffs'); 
+                }
+
+                $this->admin_model->insert_multiple_staff($this->input->post('vaccination'), 'staff_vaccination', $id);
+                $this->admin_model->insert_multiple_staff_bank($this->input->post('bank'), 'staff_bank_details', $id);
+                $this->admin_model->insert_multiple_staff_insurance($this->input->post('insurance'), 'staff_insurance_details', $id);
+
+                redirect(base_url('clinic-admin/registered-staff'));
 
             }
         }      
         
     }
+
 
     public function edit($id)
     {  

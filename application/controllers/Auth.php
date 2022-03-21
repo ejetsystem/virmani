@@ -110,6 +110,9 @@ class Auth extends Home_Controller
                 $parent_id = 0;
             }
 
+            // echo "<pre>";
+            // print_r($user);
+            // die;
             // if valid
             if(password_verify($this->input->post('password'), $user->password)){
 

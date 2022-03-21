@@ -292,7 +292,7 @@
                                 <a href="<?php echo base_url('clinic-admin/profile') ?>"><i class="icon-pencil"></i> <?php echo trans('update-profile') ?></a>
                               <?php endif ?>
                             <?php endif ?>
-                            <a href="<?php echo base_url('clinic-admin/dashboard/change_password') ?>"><i class="icon-lock"></i> <?php echo trans('change-password') ?></a>
+                            <a href="<?php echo base_url('doctor/doctor/change_password') ?>"><i class="icon-lock"></i> <?php echo trans('change-password') ?></a>
                           </div>
 
                           <div class="col-12 text-left">

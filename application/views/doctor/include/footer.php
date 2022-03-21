@@ -358,5 +358,44 @@ function successMsg(msg) {
     })
   </script> -->
 
+  <script>
+    $(function(){
+
+        $(document).on('submit', "#cahage_pass_form", function() {
+
+            $.post($('#cahage_pass_form').attr('action'), $('#cahage_pass_form').serialize(), function(json){
+
+                if (json.st == 1) {
+                    $('#cahage_pass_form')[0].reset();
+                    swal({
+                          title: 'Success !',
+                          text: "Password Changes Successfully",
+                          type: "success",
+                          showConfirmButton: true
+                    });
+                }else if (json.st == 2) {
+                    $('#cahage_pass_form')[0].reset();
+                    swal({
+                      title: "Oop's !" ,
+                      text: "Password and Confirm Password are not Matched",
+                      type: "error",
+                      showConfirmButton: true
+                    });
+                }else {
+                    $('#cahage_pass_form')[0].reset();
+                    swal({
+                      title: "Error !",
+                      text: "Old Password not found",
+                      type: "error",
+                      showConfirmButton: true
+                    });
+                }
+            },'json');
+            return false;
+        });
+
+    });
+  </script>
+
 </body>
 </html>

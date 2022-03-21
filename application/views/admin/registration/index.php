@@ -83,7 +83,7 @@
                     <h3 class="box-title">Registrations </h3>
                 <?php endif; ?>
                 <div class="pull-right">
-                    <a href="#" class="btn btn-primary"><i class="fa fa-plus"></i> Add Staff</a>
+                    <a href="<?php echo base_url('admin/registration\registrationController/add_staff') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Add Staff</a>
                     <a href="<?php echo base_url(); ?>clinic-admin/doctor" class="btn btn-primary"><i class="fa fa-plus"></i> Add Doctor</a>
                 </div>
             </div>
