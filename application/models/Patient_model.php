@@ -1752,34 +1752,50 @@ public function deleteIpdPatientLab($id) {
             'allowed_types' => 'jpg|jpeg|png',
             'overwrite'     => 1,                       
         );
-
         $this->load->library('upload', $config);
-
         $images = array();
-        
         foreach ($files['name'] as $key => $image) {
             $_FILES['images[]']['name']= $files['name'][$key];
             $_FILES['images[]']['type']= $files['type'][$key];
             $_FILES['images[]']['tmp_name']= $files['tmp_name'][$key];
             $_FILES['images[]']['error']= $files['error'][$key];
             $_FILES['images[]']['size']= $files['size'][$key];
-
             $fileName = $title .'_'. $image;
-
             $images[] = $fileName;
-
             $config['file_name'] = $fileName;
-
             $this->upload->initialize($config);
-
             if ($this->upload->do_upload('images[]')) {
                 $this->upload->data();
             } else {
                 return false;
             }
         }
-
+ 
         return $images;
+    }
+    
+    public function upload_single_file($path, $title, $file_name)
+    {
+        //Check whether user upload picture
+            if(!empty($_FILES[$file_name]['name'])){
+                $config['upload_path'] = $path;
+                $config['allowed_types'] = 'jpg|jpeg|png';
+                $config['file_name'] = $title.'_'.$_FILES[$file_name]['name'];
+                
+                //Load upload library and initialize configuration
+                $this->load->library('upload',$config);
+                $this->upload->initialize($config);
+                
+                if($this->upload->do_upload($file_name)){
+                    $uploadData = $this->upload->data();
+                    $picture = $uploadData['file_name'];
+                }else{
+                    $picture = '';
+                }
+            }else{
+                $picture = '';
+            }
+            return $picture;
     }
        
 
@@ -1787,4 +1803,4 @@ public function deleteIpdPatientLab($id) {
 
 }
 
-?>
+ 
