@@ -1092,12 +1092,14 @@ class Admin_model extends CI_Model {
 
 
 //get_last_serial
-    function check_existing_patient($patient_id, $date)
+    function check_existing_patient($patient_id, $date,$startTime,$endTime)
     {
         $this->db->select('a.*');
         $this->db->from('appointments a');
         $this->db->where('a.patient_id', $patient_id);
         $this->db->where('a.date', $date);
+        $this->db->where("a.start_time > '$startTime' ");
+        $this->db->where("a.end_time < '$endTime' ");
         $this->db->order_by('a.id', 'DESC');
         $query = $this->db->get();
         $query = $query->row();  

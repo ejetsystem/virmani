@@ -44,6 +44,9 @@ class Appointment extends Home_Controller {
     {
         if($_POST)
         {  
+             
+            $treatment_id = $this->input->post('treatment_id');
+            
             if(user()->role == 'staff'){$user_id = user()->user_id;}else{$user_id = user()->id;}
 
             $patient_type = $this->input->post('patient_type');
@@ -103,7 +106,7 @@ class Appointment extends Home_Controller {
             $time = $this->input->post('start_time').'-'.$this->input->post('end_time');
             $serial_id = $this->admin_model->get_last_serial($date);
             
-            $check_exist = $this->admin_model->check_existing_patient($patient_id, $date);
+            $check_exist = $this->admin_model->check_existing_patient($patient_id, $date,$this->input->post('start_time'),$this->input->post('end_time'));
             $data = array(
                 'chamber_id' => $this->chamber->uid,
                 'user_id' => $user_id,
@@ -125,17 +128,29 @@ class Appointment extends Home_Controller {
             );
             if ($check_exist == 1) {
                 $this->session->set_flashdata('error', trans('patient-already-registered')); 
-                redirect(base_url('clinic-admin/appointment')); 
+                redirect(base_url('clinic-admin/appointment/chair-view')); 
             }
 
             if (date('Y-m-d') > $date) {
                 $this->session->set_flashdata('error', trans('please-select-a-valid-date'));  
-                redirect(base_url('clinic-admin/appointment'));
+                redirect(base_url('clinic-admin/appointment/chair-view'));
             }
             $this->admin_model->insert($data, 'appointments');
+            $appointment_id = $this->db->insert_id();
+            
+            
             $this->session->set_flashdata('msg', trans('inserted-successfully')); 
             if($this->input->post('page')=='chair_view_page'){
-                redirect(base_url('clinic-admin/appointment/chair-view'));
+                if($treatment_id){
+                    $treat_data = array(
+                        'appointment_id' => $appointment_id,
+                        'treatment_id' => $treatment_id
+                    );
+                    $this->admin_model->insert($treat_data, 'appointment_treatmentplan');
+                    redirect(base_url('clinic-admin/patients/view/'.$patient_id.'/sittingplans'));
+                }else{ 
+                  redirect(base_url('clinic-admin/appointment/chair-view'));  
+                }
             }
             redirect(base_url('clinic-admin/appointment'));
 

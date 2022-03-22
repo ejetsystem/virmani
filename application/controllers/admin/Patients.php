@@ -539,6 +539,12 @@ class Patients extends Home_Controller {
          if(!empty($tabpage)){
             $data['tabpage'] = $tabpage; 
         }
+        if($tabpage == 'sittingplans')
+        {
+            $data['sitting_plan_list'] = $this->patient_model->getSittingPlanList($id);
+            $data['pending']=$this->patient_model->count_rows('treatmentplans','0');
+            $data['completed']=$this->patient_model->count_rows('treatmentplans','1');
+        }
         if($tabpage == 'labs')
         {
             $data['lab_tests'] = $this->patient_model->getLabtestsDetails();
@@ -553,6 +559,18 @@ class Patients extends Home_Controller {
         
         $data['main_content'] = $this->load->view('admin/patients/patient_view', $data, TRUE);
         $this->load->view('admin/index', $data);
+    }
+    
+    public function add_sitting()
+    {    
+        $treatmentid = $this->input->post('trtid');
+        $data = array(
+            'sitting' => $this->input->post('sitting')            
+        );
+        $this->db->where('treatmentplans_id', $treatmentid);
+        $this->db->update('teethinfo', $data);
+        $array = array('status' => 'success', 'error' => '', 'message' => $this->lang->line('success_message'));
+        echo json_encode($array);
     }
     
     public function add_lab(){
