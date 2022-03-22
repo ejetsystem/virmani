@@ -7,11 +7,10 @@
         <div class="col-md-2">
             <h5><strong>Pending Jobs : 0</strong></h5>
         </div>
-        <div class="col-md-7">
-            <a href="#" class="btn btn-primary btn-sm border_radius5 mb_5">Add Treatment Plan</a>
-            <a class="btn btn-primary btn-sm border_radius5" id="bt" onclick="toggle(this)">Treatment Plan  History</a>
-            <a class="btn btn-primary btn-sm border_radius5 mb_5" id="bt" onclick="toggle1(this)">All Complaints</a>
-            <a href="<?php echo base_url(); ?>admin/patient/viewtreatmentplan/123" class="btn btn-primary btn-sm border_radius5 mb_5">Print</a>
+        <div class="col-md-7 text-right">
+             
+            <a class="btn btn-primary btn-sm border_radius5 mb_5" href="<?php echo base_url(); ?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/sittingplans" id="bt" >Sitting Plan</a>
+            <a href="<?php echo base_url(); ?>admin/patients/viewtreatmentplan/123" class="btn btn-primary btn-sm border_radius5 mb_5">Print</a>
         </div>
     </div>
     <div class="table-responsive_" id="loadtoothinfo_treatment">
@@ -757,14 +756,15 @@ table {
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Courtesy (if any)</label>
-                                <input type="text" class="form-control" name="treatment_courtesy" id="" value="">
+                                <input type="text"  class="form-control" name="treatment_courtesy" id="treatment_courtesy" onkeypress="return isNumberKey(event)" value="">
+                                
                             </div>
                             <span id="errtext"></span>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Estimated Total Amount</label>
-                                <input type="text" class="form-control" name="treatment_courtesy" id="treatment_courtesy" onkeypress="return isNumberKey(event)" value="">
+                                <input type="text" readonly="" class="form-control" name="treatment_courtesy_total" id="" value="">
                             </div>
                             <span id="errtext"></span>
                         </div>

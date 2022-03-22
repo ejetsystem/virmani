@@ -69,16 +69,13 @@
 }
 </style>
 <div class="content-wrapper">
-
     <!-- Main content -->
-
     <section class="content container">
         <div class="box add_area d-block my-20">
             <div class="box-header with-border patot">
                 <div class="pat_list_top">
                     <h3><?php echo ucfirst($patients[0]['name']); ?></h3>
                     <p class="ram_text"><?php echo $patients[0]['present_address']; ?> </p>
-
                     <lable class="ram_text"><?php echo $contact[0]['phone1']; ?></lable>
                     <hr style="margin-bottom: 6px;">
                     <lable>Balance Payment:</lable><span>0</span><br>
@@ -102,6 +99,9 @@
                         </li>
                         <li class="nav-item" role="presentation">
                             <a class="nav-link  <?php echo ($tabpage == 'treatmentplans')? 'active' : '';?>" id="treatmentplan" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/treatmentplans" role="tab" aria-controls="treatmentplans" aria-selected="true">Treatment Plan</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link  <?php echo ($tabpage == 'sittingplans')? 'active' : '';?>" id="sittingplan" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/sittingplans" role="tab" aria-controls="sittingplans" aria-selected="true">Sitting Plan</a>
                         </li>
                         <li class="nav-item" role="presentation">
                             <a class="nav-link <?php echo ($tabpage == 'worksdone')? 'active' : '';?>" id="workdone" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/worksdone" role="tab" aria-controls="worksdone" aria-selected="false">Work Done</a>
@@ -213,6 +213,13 @@
                             <?php 
                             if($tabpage == 'treatmentplans'){
                                 echo $this->load->view('admin/patients/treatment_plan', $data, TRUE);
+                            }?>
+                        </div>
+                        
+                        <div class="tab-pane fade <?php echo ($tabpage == 'sittingplans')? 'show active' : '';?>" id="sittingplans" role="tabpanel" aria-labelledby="sittingplan">
+                            <?php 
+                            if($tabpage == 'sittingplans'){
+                                echo $this->load->view('admin/patients/sitting_plan', $data, TRUE);
                             }?>
                         </div>
 

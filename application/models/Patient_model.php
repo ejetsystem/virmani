@@ -1797,6 +1797,26 @@ public function deleteIpdPatientLab($id) {
             }
             return $picture;
     }
+    
+    
+    public function getSittingPlanList($id) {
+        $query = $this->db->select("treatmentplans.*,doctors.name as doctor_name,
+                teeth.teeth_number,teeth.teeth_note,teethinfo.type,teethinfo.sitting,teethinfo.toth_note,appointment_treatmentplan.id as app_treat_id")
+                ->join("doctors", "doctors.id = treatmentplans.doctor")
+                ->join("appointment_treatmentplan", "appointment_treatmentplan.treatment_id = treatmentplans.id",LEFT)
+                ->join("teethinfo", "teethinfo.treatmentplans_id = treatmentplans.id",LEFT)
+                ->join("teeth", "teeth.id = teethinfo.teeth_id",LEFT)
+                ->where("treatmentplans.patient_id", $id)
+                ->order_by('treatmentplans.id', ASC)
+                ->get("treatmentplans");
+        
+        return $query->result_array();
+    }
+    
+    public function count_rows($table,$status) {
+        $this->db->where(['status' => $status]);
+        return $this->db->get($table)->num_rows();
+    }
        
 
 

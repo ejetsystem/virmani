@@ -1,5 +1,8 @@
                     <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('clinic-admin/appointment/add')?>" role="form" novalidate>
-
+                        
+                        <input type="hidden" name="treatment_id" value="<?php if(!empty($_REQUEST['treatmentID'])){ echo $_REQUEST['treatmentID'];}?>">
+                        
+                        
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
@@ -114,7 +117,7 @@
                       </div>
                     </div>
 
-
+                        <?php if(empty($_REQUEST['treatment_patient'])){?>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group plr-10">
@@ -128,7 +131,7 @@
                           </div>
                         </div>
                       </div>
-
+                        
                       <div class="col-md-6" id="old_new_patient">
                         <div class="form-group plr-10">
                           <label> <?php echo trans('old-new-patient') ?> </label>
@@ -142,7 +145,8 @@
                         </div>
                       </div>
                      </div>
-
+                        <?php }?>
+                        <?php if(empty($_REQUEST['treatment_patient'])){?>
                         <div class="old_patient_area plr-10">
                           <div class="row">
                             <div class="col-md-6">
@@ -164,6 +168,9 @@
                             </div>
                           </div>
                         </div>
+                        <?php }else{?>
+                            <input type="hidden" name="patient_id" value="<?php if(!empty($_REQUEST['treatment_patient'])){ echo $_REQUEST['treatment_patient'];}?>">
+                        <?php }?>
 
                         <div class="new_patient_area plr-10 hide">
 
@@ -239,6 +246,6 @@
                       <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
                       <input type="hidden" name="page" id="page" value="">
                     <div id="add_more_button">
-                      <button type="submit" id="add_serial" class="btn btn-primary btn-lg ml-0 mt-10"><i class="fa fa-check"></i> <?php echo trans('add-serial') ?></button>
+                      <button type="submit" id="add_serial" class="btn btn-primary btn-lg ml-0 mt-10"><i class="fa fa-check"></i> Submit</button>
                     </div>
                   </form>
