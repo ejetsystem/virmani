@@ -2398,5 +2398,14 @@ class Admin_model extends CI_Model {
         return true;
     }
 
+    public function select_all($table){
+        $this->db->select();
+        $this->db->from($table);
+        $this->db->where('is_deleted',0);
+        $query = $this->db->get();
+        $query = $query->result();  
+        return $query;
+    }
+
     
 }

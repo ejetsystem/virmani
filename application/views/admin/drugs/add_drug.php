@@ -7,6 +7,10 @@
     <div class="box add_area <?php if(isset($page_title) && $page_title == "Add Drug"){echo "d-block";}else{echo "hide";} ?>">
       <div class="box-header with-border" >
        <h2 class="box-title">Add Medicine Details</h2>
+
+       <div class="pull-right">
+          <a href="<?php echo base_url('clinic-admin/drugs');?>" class="pull-right btn btn-light-secondary btn-sm"><i class="fa fa-angle-left"></i> Back </a>
+      </div>
       </div>
 
       <div class="box-body">

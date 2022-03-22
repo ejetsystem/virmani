@@ -270,6 +270,8 @@ $route['clinic-admin/prescription/all_prescription'] = 'admin/prescription/all_p
 $route['clinic-admin/drugs'] = 'admin/drugs';
 $route['clinic-admin/add-drug'] = 'admin/drugs/addDrug';
 $route['clinic-admin/drugs/edit/(:any)'] = 'admin/drugs/edit/$1';
+$route['clinic-admin/update-drug'] = 'admin/drugs/update';
+$route['clinic-admin/drugs/view-drug/(:any)'] = 'admin/drugs/getDetails/$1';
 $route['clinic-admin/drugs/delete/(:any)'] = 'admin/drugs/delete/$1';
 
 //Profile
