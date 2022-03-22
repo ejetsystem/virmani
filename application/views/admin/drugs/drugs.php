@@ -3,8 +3,8 @@
     <section class="content container">
         <style>
             .table>thead>tr>th,.table>tbody>tr>th {
-
-                white-space: nowrap;
+                font-weight: bold;
+                white-space: nowrap;                
             }
             .table-bordered>tbody>tr>th,.table-bordered>tbody>tr>td {
                 border: 1px solid #ccc;
@@ -27,29 +27,26 @@
             <div class="box-body">
 
                 <div class="col-md-12 col-sm-12 col-xs-12 scroll table-responsive">
-                    <table class="table datatable table-hover <?php
-                    if (count($drugs) > 10) {
-                        echo 'datatable';
-                    }
-                    ?>" id="dg_table">
+                    <table class="table datatable table-hover <?php if (count($drugs) > 10) { echo 'datatable';} ?>" id="dg_table">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th><?php echo 'Medicine name'; ?></th>
-                                <th><?php echo 'Medicine company' ?></th>
-                                <th><?php echo 'Medicine composition' ?></th>
-                                <th><?php echo 'Medicine category' ?></th>
-                                <th><?php echo 'Medicine Group' ?></th>
+                                <th><?php echo 'Name'; ?></th>
+                                <th><?php echo 'Company' ?></th>
+                                <th><?php echo 'Composition' ?></th>
+                                <th><?php echo 'Category' ?></th>
+                                <th><?php echo 'Group' ?></th>
                                 <th><?php echo 'Unit' ?></th>
                                 <th><?php echo 'Available Qty' ?></th>
-                                <th><?php echo 'Add Stock' ?></th>
+                                <th><?php echo 'Stock' ?></th>
+                                <th><?php echo 'Bad Stock' ?></th>
                                 <th><?php echo 'Action' ?></th>
                             </tr>
                         </thead>
                         <tbody>
-<?php $i = 1;
-foreach ($drugs as $drug):
-    ?>
+                            <?php $i = 1;
+                            foreach ($drugs as $drug):
+                                ?>
                                 <tr id="row_<?php echo html_escape($drug->id); ?>">
 
                                     <td><?= $i; ?></td>
@@ -61,6 +58,7 @@ foreach ($drugs as $drug):
                                     <td><?php echo $drug->medicine_group; ?></td>
                                     <td><?php echo $drug->unit; ?></td>
                                     <td><?php echo $drug->medicine_company; ?></td>
+                                    <td><button class="btn btn-primary">Add</button></td>
                                     <td><button class="btn btn-primary">Add</button></td>
                                     <td class="actions" width="22%">
 
