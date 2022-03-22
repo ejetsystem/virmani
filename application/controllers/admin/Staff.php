@@ -102,11 +102,145 @@ class Staff extends Home_Controller {
         $data = array();
         $data['page_title'] = 'Edit';   
         $data['staff'] = $this->admin_model->select_option($id, 'staffs');
+        $data['bank_details'] = $this->admin_model->get_by_column_attr('staff_bank_details','staff_id',$id);
+        $data['insurance_details'] = $this->admin_model->get_by_column_attr('staff_insurance_details','staff_id',$id);
+        $data['vaccination'] = $this->admin_model->get_by_column_attr('staff_vaccination','staff_id',$id);
         $data['chambers'] = $this->admin_model->select_by_user('chamber');
-        $data['main_content'] = $this->load->view('admin/user/staff',$data,TRUE);
         $data['doctors'] = $this->admin_model->select_all_doctors();
         $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
+        // echo "<pre>";
+        // print_r($data['staff']);
+        // die;
+        $data['main_content'] = $this->load->view('admin/user/staff_edit',$data,TRUE);
         $this->load->view('admin/index',$data);
+    }
+
+
+    public function update_staff() {
+        // echo "<pre>";
+        // print_r($this->input->post());
+        // die;
+        $staff_id = $this->input->post('staff_id');
+        $staff = array(
+                    'name' => $this->input->post('name', true),
+                    'department' => $this->input->post('department', true),
+                    'father' => $this->input->post('father_name', true),
+                    'mother' => $this->input->post('mother_name', true),
+                    'gender' => $this->input->post('gender', true),
+                    'marital_status' => $this->input->post('marital_status', true),
+                    'blood_group' => $this->input->post('blood_group', true),
+                    'dob' => $this->input->post('dob', true),
+                    'date_of_joining' => $this->input->post('date_of_joining', true),
+                    'phone' => $this->input->post('phone', true),
+                    'qualification' => $this->input->post('qualification', true),
+                    'work_experience' => $this->input->post('work_exp', true),
+                    'specialization' => $this->input->post('specialization', true),
+                    'note' => $this->input->post('note', true),
+                    'current_address' => $this->input->post('address', true),
+                    'permanent_address' => $this->input->post('permanent_address', true),
+                    'pan' => $this->input->post('pan_number', true),
+                    'gst' => $this->input->post('gst_number', true),
+                    'designation' => $this->input->post('designation', true),
+                    'password' => hash_password($this->input->post('password')),
+        );
+
+        // Update Patients Details
+        $this->admin_model->update($staff, $staff_id, 'staffs');
+
+        if(!empty($this->input->post('name'))){
+            $this->admin_model->update(array('password'=>hash_password($this->input->post('password'))), $staff_id, 'staffs');            
+        }
+
+        $data_img = $this->admin_model->do_upload('photo');
+        if ($data_img) {
+            $data_img = array(
+                'thumb' => $data_img['medium']
+            );
+            $this->admin_model->edit_option($data_img, $staff_id, 'staffs');
+        }
+
+        // staff_vaccination
+        foreach ($this->input->post('vaccination') as $key => $value) {
+            if (!empty($value['id'])) {
+                $staffs_vaccination1 = array(
+                    'vaccination_type' => $value['vaccination_type'],
+                    'vaccination_date' => $value['vaccination_date'],
+                    'reminder_date_for_next' => $value['reminder_date_for_next'],
+                    'remarks' => $value['vaccination_remarks'],
+                    'medical_history' => $value['medical_history'],
+                    'updated_at' => my_date_now()
+                );
+                $this->admin_model->update($staffs_vaccination1, $value['id'], 'staff_vaccination');
+            } else {
+                $staffs_vaccination2 = array(
+                    'staff_id' => $staff_id,
+                    'vaccination_type' => $value['vaccination_type'],
+                    'vaccination_date' => $value['vaccination_date'],
+                    'reminder_date_for_next' => $value['reminder_date_for_next'],
+                    'remarks' => $value['vaccination_remarks'],
+                    'medical_history' => $value['medical_history'],
+                    'updated_at' => my_date_now()
+                );
+                $this->admin_model->insert($staffs_vaccination2, 'staff_vaccination');
+            }
+        }
+
+        // Bank
+        foreach ($this->input->post('bank') as $key => $value) {
+            if (!empty($value['id'])) {
+                $staffs_bank1 = array(
+                    'bank_name' => $value['bank_name'],
+                    'bank_account_number' => $value['bank_account_number'],
+                    'ifsc_code' => $value['ifsc_code'],
+                    'remarks' => $value['bank_remarks'],
+                    'updated_at' => my_date_now()
+                );
+                $this->admin_model->update($staffs_bank1, $value['id'], 'staff_bank_details');
+            } else {
+                $staffs_bank2 = array(
+                    'staff_id' => $staff_id,
+                    'bank_name' => $value['bank_name'],
+                    'bank_account_number' => $value['bank_account_number'],
+                    'ifsc_code' => $value['ifsc_code'],
+                    'remarks' => $value['bank_remarks'],
+                    'updated_at' => my_date_now()
+                );
+                $this->admin_model->insert($staffs_bank2, 'staff_bank_details');
+            }
+        }
+
+        // Insurance
+        foreach ($this->input->post('insurance') as $key => $value) {
+            $allow = ($value['allow_notifications']==1) ? 1 : 0;
+            if (!empty($value['id'])) {
+                $staffs_insurance1 = array(
+                    'insurance' => $value['insurance'],
+                    'insurance_date' => $value['insurance_date'],
+                    'renewal_date' => $value['renewal_date'],
+                    'amount_insured' => $value['amount_insured'],
+                    'amount_paid' => $value['amount_paid'],
+                    'allow_notifications' => $allow,
+                    'remarks' => $value['insurance_remarks'],
+                    'updated_at' => my_date_now()
+                );
+                $this->admin_model->update($staffs_insurance1, $value['id'], 'staff_insurance_details');
+            } else {
+                $staff_insurance2 = array(
+                    'staff_id' => $staff_id,
+                    'insurance' => $value['insurance'],
+                    'insurance_date' => $value['insurance_date'],
+                    'renewal_date' => $value['renewal_date'],
+                    'amount_insured' => $value['amount_insured'],
+                    'amount_paid' => $value['amount_paid'],
+                    'allow_notifications' => $allow,
+                    'remarks' => $value['insurance_remarks'],
+                    'updated_at' => my_date_now()
+                );
+                $this->admin_model->insert($staff_insurance2, 'staff_insurance_details');
+            }
+        }
+
+        redirect(base_url('clinic-admin/staff'));
     }
 
     
@@ -137,6 +271,41 @@ class Staff extends Home_Controller {
         $this->admin_model->delete($id,'staffs'); 
         echo json_encode(array('st' => 1));
     }
+
+    public function deleteParticularVaccination()
+    {
+        $id = $this->input->post('id');
+        $deleted = $this->db->delete('staff_vaccination', array('id' => $id));
+        if ($deleted) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+    public function deleteParticularBank()
+    {
+        $id = $this->input->post('id');
+        $deleted = $this->db->delete('staff_bank_details', array('id' => $id));
+        if ($deleted) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+    public function deleteParticularInsurance()
+    {
+        $id = $this->input->post('id');
+        $deleted = $this->db->delete('staff_insurance_details', array('id' => $id));
+        if ($deleted) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+    
 
 }
 

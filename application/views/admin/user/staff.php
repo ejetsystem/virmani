@@ -2,9 +2,9 @@
 <div class="content-wrapper">
 
   <!-- Main content -->
-  <section class="content container">
+  <section class="content">
 
-    <div class="col-md-10 offset-md-1">
+    <div class="col-md-12">
       
       <div class="box add_area <?php if(isset($page_title) && $page_title == "Edit"){echo "d-block";}else{echo "hide";} ?>">
         

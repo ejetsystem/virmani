@@ -78,6 +78,8 @@ class RegistrationController extends Home_Controller {
                     'chamber_id' => $this->input->post('chamber_id', true),
                     'name' => $this->input->post('name', true),
                     'department' => $this->input->post('department', true),
+                    'email' => $this->input->post('email', true),
+                    'user_name' => $this->input->post('email', true),
                     'father' => $this->input->post('father_name', true),
                     'mother' => $this->input->post('mother_name', true),
                     'gender' => $this->input->post('gender', true),
@@ -130,7 +132,7 @@ class RegistrationController extends Home_Controller {
                 $this->admin_model->insert_multiple_staff_bank($this->input->post('bank'), 'staff_bank_details', $id);
                 $this->admin_model->insert_multiple_staff_insurance($this->input->post('insurance'), 'staff_insurance_details', $id);
 
-                redirect(base_url('clinic-admin/registered-staff'));
+                redirect(base_url('clinic-admin/staff'));
 
             }
         }      
