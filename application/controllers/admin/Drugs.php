@@ -120,7 +120,7 @@ class Drugs extends Home_Controller {
     public function getDetails()
     {
        $pharmacy_id = $this->input->get_post('pharmacy_id');
-       $data['drug'] = $this->admin_model->select_option($id, 'drugs');
+       $data['drug'] = $this->admin_model->select_option($pharmacy_id, 'drugs')[0];
        echo $this->load->view('admin/drugs/view_tpl',$data,true);
     }
     
