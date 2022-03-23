@@ -22,15 +22,17 @@ class RegistrationController extends Home_Controller {
         $data['page_title'] = 'All Staff';      
         $data['page'] = 'Staff';   
         $data['drug'] = FALSE;
-        $data['drugs'] = $this->admin_model->select_by_user('drugs');
         
-        //$resultlist = $this->staff_model->searchFullText("", 1);
-
-        //$data['resultlist'] = $resultlist;
+        $data['drugs'] = $this->admin_model->select_by_user('drugs');        
         $data['doctors'] = $this->admin_model->select_all_doctors();
         $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
+        $data['staffs_info'] = $this->admin_model->select_all_staff('staffs');
+
+        // echo "<pre>";
+        // print_r($data['staffs_info']);
+        // die;
+        $data['staff_doctors'] = array_merge($data['doctors'],json_decode(json_encode($data['staffs_info']), true));
         $data['main_content'] = $this->load->view('admin/registration/index',$data,TRUE);
-        
         $this->load->view('admin/index',$data);
     }
 
@@ -179,6 +181,55 @@ class RegistrationController extends Home_Controller {
         $this->admin_model->delete($id,'drugs'); 
         echo json_encode(array('st' => 1));
     }
+
+    public function view_registration($role,$id)
+    {
+        $data = array();
+        $data['page_title'] = 'View';   
+        
+        if($role == 'doctor'){
+            $data['doctors']['doctors'] = $this->admin_model->select_doctor_detail($id,'doctors');
+            $data['doctors']['vaccination'] = $this->admin_model->select_vaccination($id,'doctors_vaccination');
+            $data['doctors']['bank_details'] = $this->admin_model->select_bank($id,'doctor_bank_details');
+            $data['doctors']['insurance_details'] = $this->admin_model->select_insurance($id,'doctor_insurance_details');
+        }
+        elseif($role == 'staff'){
+            $data['staff']['staff'] = $this->admin_model->select_option($id, 'staffs');
+            $data['staff']['bank_details'] = $this->admin_model->get_by_column_attr('staff_bank_details','staff_id',$id);
+            $data['staff']['insurance_details'] = $this->admin_model->get_by_column_attr('staff_insurance_details','staff_id',$id);
+            $data['staff']['vaccination'] = $this->admin_model->get_by_column_attr('staff_vaccination','staff_id',$id);
+        }
+
+
+        $data['main_content'] = $this->load->view('admin/registration/view_registration',$data,TRUE);
+        $data['doctors'] = $this->admin_model->select_all_doctors();
+        $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
+        $this->load->view('admin/index',$data);
+    }
+
+    public function disable($role,$id){ 
+        if($role=='doctor'){
+            $this->admin_model->edit_option(array('is_delete'=>1), $id, 'doctors');
+            redirect(base_url("clinic-admin/registration/view/doctor/".$id)); 
+        }
+        elseif($role=='staff'){
+            $this->admin_model->edit_option(array('is_deleted'=>1), $id, 'staffs');
+            redirect(base_url("clinic-admin/registration/view/staff/".$id));            
+        }
+    }
+
+    public function enable($role,$id){ 
+        if($role=='doctor'){
+            $this->admin_model->edit_option(array('is_delete'=>0), $id, 'doctors');
+            redirect(base_url("clinic-admin/registration/view/doctor/".$id)); 
+        }
+        elseif($role=='staff'){
+            $this->admin_model->edit_option(array('is_deleted'=>0), $id, 'staffs');
+            redirect(base_url("clinic-admin/registration/view/staff/".$id));            
+        }
+    }
+
+    
 
 }
 

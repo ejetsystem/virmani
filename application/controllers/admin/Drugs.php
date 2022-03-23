@@ -121,8 +121,8 @@ class Drugs extends Home_Controller {
     {
        $data['drug'] = $this->admin_model->select_option($pharmacy_id, 'drugs')[0];
        $data['doctors'] = $this->admin_model->select_all_doctors();
-       $data['all_bad_stock'] = $this->admin_model->select_all('medicine_bad_stock');
-       $data['all_stock'] = $this->admin_model->select_all('medicine_batch_details');
+       $data['all_bad_stock'] = $this->admin_model->get_by_column_attr('medicine_bad_stock','medicine_id',$pharmacy_id);
+       $data['all_stock'] = $this->admin_model->get_by_column_attr('medicine_batch_details','medicine_id',$pharmacy_id);
         $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
        $data['main_content'] = $this->load->view('admin/drugs/view_tpl',$data,true);
         $this->load->view('admin/index',$data);

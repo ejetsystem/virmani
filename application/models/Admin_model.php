@@ -2158,7 +2158,7 @@ class Admin_model extends CI_Model {
     }
 
     function select_all_doctors(){
-        $this->db->select('*');
+        $this->db->select('*,phone1 as mobile');
         $this->db->from('doctors');
         $this->db->where('is_delete',0);
         $this->db->order_by('id');
@@ -2400,8 +2400,8 @@ class Admin_model extends CI_Model {
         return true;
     }
 
-    public function select_all($table){
-        $this->db->select();
+    public function select_all_staff($table){
+        $this->db->select("*,phone as mobile");
         $this->db->from($table);
         $this->db->where('is_deleted',0);
         $query = $this->db->get();

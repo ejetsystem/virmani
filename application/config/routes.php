@@ -293,5 +293,9 @@ $route['clinic-admin/experiences/delete/(:any)'] = 'admin/experiences/delete/$1'
 
 // all staff list
 $route['clinic-admin/registered-staff'] = 'admin/registration/registrationController';
+$route['clinic-admin/registration/view/(:any)/(:any)'] = 'admin/registration/registrationController/view_registration/$1/$2';
+$route['clinic-admin/registration/disable/(:any)/(:any)'] = 'admin/registration/registrationController/disable/$1/$2';
+$route['clinic-admin/registration/enable/(:any)/(:any)'] = 'admin/registration/registrationController/enable/$1/$2';
+
 
  
