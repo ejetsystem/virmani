@@ -545,6 +545,11 @@ class Patients extends Home_Controller {
             $data['pending']=$this->patient_model->count_rows('treatmentplans','0');
             $data['completed']=$this->patient_model->count_rows('treatmentplans','1');
         }
+        if($tabpage == 'worksdone')
+        {
+            $data['treatmentplans'] = $this->admin_model->select_patients(array('patient_id' => $id), 'treatmentplans');
+            $data['workdones'] = $this->patient_model->getWorkdoneReport($id);
+        }
         if($tabpage == 'labs')
         {
             $data['lab_tests'] = $this->patient_model->getLabtestsDetails();
@@ -569,6 +574,18 @@ class Patients extends Home_Controller {
         );
         $this->db->where('treatmentplans_id', $treatmentid);
         $this->db->update('teethinfo', $data);
+        $array = array('status' => 'success', 'error' => '', 'message' => $this->lang->line('success_message'));
+        echo json_encode($array);
+    }
+    
+    public function add_treatmentCode() {
+        $workdone_id = $this->input->post('workdone_id');
+        $data = array(
+            'workdoneon_id' => $this->input->post('job_id'),
+            'workdoneon' => $this->input->post('job_name')            
+        );
+        $this->db->where('id', $workdone_id);
+        $this->db->update('workdone', $data);
         $array = array('status' => 'success', 'error' => '', 'message' => $this->lang->line('success_message'));
         echo json_encode($array);
     }
@@ -603,6 +620,7 @@ class Patients extends Home_Controller {
         }
     echo json_encode($array);
   }
+  
   
   public function add_scan(){
     $this->form_validation->set_rules('scan_name', "scan_name", 'trim|required');
@@ -678,7 +696,91 @@ class Patients extends Home_Controller {
         </ul>
         <?php
     }
-
+public function getteeth_new()
+{
+  ?>
+<label>Tooth Notation</label>
+                <select class="form-control" name="teethcat_id_treatment" id="teethcat_id_treatment" onchange="gettecchnumbers_new(this.value)">
+                    <?php
+                    $this->db->select('*')->from('teeth_category');
+                    $this->db->order_by("teeth_category_name", "asc");
+                    $query1 = $this->db->get();
+                    $teethar_cat=$query1->result_array();
+                    foreach ($teethar_cat as $key => $teetharcat_data) {
+                        if($teetharcat_data['id']>5)
+                        {
+                    ?>
+                    <option value="<?php echo $teetharcat_data['id']; ?>" <?php if($teetharcat_data['id']=='4'){ echo "selected='selected'"; } ?>><?php echo $teetharcat_data['teeth_category_name']; ?></option>
+                        <?php
+                    }
+                    }
+                    ?>
+               </select>
+  <?php
+}
+public function getteethdata_new()
+{
+  ?>
+  <ul id="continents1_new_teeth">
+<?php 
+          $i=1;       
+            $this->db->select('*')->from('teeth');
+            $this->db->where('teeth_cat', 7);
+            $query = $this->db->get();
+            $teethar=$query->result_array();
+            foreach ($teethar as $key => $teethar_data) {
+        ?> 
+      
+        <li class="teeth_child<?php echo $i; ?>" ><a href="#" onclick="getRecord_teechinfo(<?php echo $teethar_data['id']; ?>,'<?php echo $teethar_data['teeth_note']; ?>','<?php echo $teethar_data['image']; ?>')" data-original-title="<?php echo $teethar_data['teeth_note']; ?>"></a></li>
+        <?php
+              $i++;
+              }  
+              ?>
+            </ul>
+  <?php
+}
+public function getteeth_per_new()
+{
+  ?>
+ <label>Tooth Notation</label>
+                <select class="form-control" name="teethcat_id_treatment" id="teethcat_id_treatment" onchange="gettecchnumbers_new(this.value)">
+                    <?php
+                    $this->db->select('*')->from('teeth_category');
+                    $this->db->order_by("teeth_category_name", "asc");
+                    $query1 = $this->db->get();
+                    $teethar_cat=$query1->result_array();
+                    foreach ($teethar_cat as $key => $teetharcat_data) {
+                        if($teetharcat_data['id']<=5)
+                        {
+                    ?>
+                    <option value="<?php echo $teetharcat_data['id']; ?>" <?php if($teetharcat_data['id']=='4'){ echo "selected='selected'"; } ?>><?php echo $teetharcat_data['teeth_category_name']; ?></option>
+                        <?php
+                    }
+                    }
+                    ?>
+               </select>
+  <?php
+}
+public function getteethdata_per_new()
+{
+  ?>
+   <ul id="continents1_new">
+<?php 
+          $i=1;       
+            $this->db->select('*')->from('teeth');
+            $this->db->where('teeth_cat', 4);
+            $query = $this->db->get();
+            $teethar=$query->result_array();
+            foreach ($teethar as $key => $teethar_data) {
+        ?>       
+        <li class="teethord<?php echo $i; ?>" ><a onclick="getRecord_teechinfo(<?php echo $teethar_data['id']; ?>,'<?php echo $teethar_data['teeth_note']; ?>','<?php echo $teethar_data['image']; ?>')" data-original-title="<?php echo $teethar_data['teeth_note']; ?>"></a></li>
+        <?php
+              $i++;
+              }  
+              ?>
+            </ul>
+  <?php
+}
     public function getteeth_per() {
         ?>
         <label>Tooth Notation</label>
@@ -729,6 +831,119 @@ class Patients extends Home_Controller {
         $result = $this->patient_model->getteethnumber($_POST['teethid']);
         echo $result;
     }
+    
+    public function add_workdone_report()
+    {
+        //$SQL = $this->db->query('select * FROM `patientses` WHERE id ="'.$_POST['wk_patient_id'].'"');
+       //$res_patient = $SQL->result();
+
+      if($_POST['individual_tooth_wrk']=='')
+      {
+        $individual_tooth_wrk='';
+      }else
+      {
+        $individual_tooth_wrk=$_POST['individual_tooth_wrk'];
+      }
+
+      if($_POST['workdoneon']=='')
+      {
+        $workdoneon='';
+      }else
+      {
+        $workdoneon=$_POST['workdoneon'];
+      }
+
+      $rand_nm=rand();
+
+      $wrkdone_data = array(
+              'patient_name' => $_POST['patient_name'],
+              'workdone_date' =>date('Y-m-d'),
+              'workdoneon' =>$workdoneon,
+              'workdone_doc' =>$_POST['workdone_doc'],
+              'wrk_special_notes' =>$_POST['wrk_special_notes'],
+              'amt_due_current_work' =>$_POST['amt_due_current_work'],
+              'if_any_amt' =>$_POST['if_any_amt'],
+              'prev_bal_amt' =>$_POST['prev_bal_amt'],
+              'adv_amt' =>$_POST['adv_amt'],
+              'print_tooth_id' =>$_POST['print_tooth_id'],
+              'print_tooth_name' =>$_POST['print_tooth_name'],
+              'individual_tooth_wrk' =>$individual_tooth_wrk,
+              'wk_patient_id' =>$_POST['wk_patient_id'],
+              'rmd'=>$rand_nm,
+              'wrk_apt_id'=>$_POST['wrk_apt_id'],
+              'added_date'=>date('Y-m-d')
+            ); 
+
+      $apt_data = array(
+              'id'=>$_POST['wrk_apt_id'],
+              'appointment_status'=>'Completed'
+            ); 
+
+        $patient_wrkdone = $this->patient_model->add_workkdonereport($wrkdone_data);
+
+        //$update_appointment= $this->patient_model->updateappointment($apt_data);
+
+  $amt=($_POST['amt_due_current_work']+$_POST['if_any_amt']+$_POST['prev_bal_amt'])-($_POST['adv_amt']);
+         $data_partial = array(
+              'amt_due_current_work' =>$_POST['amt_due_current_work'],
+              'if_any_amt' =>$_POST['if_any_amt'],
+              'prev_bal_amt' =>$_POST['prev_bal_amt'],
+              'adv_amt' =>$_POST['adv_amt'],
+              'pending_amount' =>$amt,
+              'wk_patient_id' =>$_POST['wk_patient_id'],
+              'workdone_id'=>$patient_wrkdone,
+              'date'=>date('Y-m-d')
+            ); 
+
+         $patient_payement = $this->patient_model->add_partialpaymemt($data_partial);
+
+
+       $amt=($_POST['amt_due_current_work']+$_POST['if_any_amt']+$_POST['prev_bal_amt'])-($_POST['adv_amt']);
+
+          $payment_detail = array(
+              'patient_id' =>$_POST['wk_patient_id'],
+              'paid_amount' =>$_POST['adv_amt'],
+              'balance_amount' =>$amt,
+              'total_amount' =>$_POST['adv_amt'],
+              'payment_mode' =>'cash',
+              'note' =>'patient bill',
+              'date'=>date('Y-m-d')
+
+            ); 
+
+          $addpayements = $this->patient_model->add_payments($payment_detail);
+
+
+  //      $tooth_data=array(
+  //            'workdone_id'=>$patient_wrkdone,
+  //            'tooth_patient_id'=>$_POST['wk_patient_id'],
+  //            'rmd'=>$rand_nm,
+  //            'treatmentplans_id'=>$workdoneon,
+  //            'added_date'=>date('Y-m-d')
+  //          ); 
+  //
+  //       $prescription_data=array(
+  //            'workdone_id'=>$patient_wrkdone,
+  //            'opd_id'=>$_POST['wk_patient_id'],
+  //            'rmd'=>$rand_nm,
+  //            'added_date'=>date('Y-m-d')
+  //          ); 
+  //
+  //        $treatment_data1=array(
+  //            'id'=>$workdoneon,
+  //            'workdone_id'=>$patient_wrkdone,
+  //            'status'=>$_POST['treatment_status'],
+  //            'completed_date'=>date('Y-m-d')
+  //          ); 
+  //      $patient_tooth = $this->patient_model->add_tooth_wrkdone($tooth_data);
+  //      $patient_prescription = $this->patient_model->add_prescription_wrkdone($prescription_data);
+  //      $treatmentplans = $this->patient_model->update_treatmentplans($treatment_data1);
+
+
+      $this->session->set_flashdata('msg', trans('inserted-successfully'));
+        redirect($_SERVER['HTTP_REFERER']);
+
+  }
 
     public function add_note_new() {
         $new = $this->input->post('addnew');

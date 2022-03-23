@@ -3,6 +3,9 @@
         margin: 0;
         padding: 0;
     }
+    .border_hr {
+        border: 1px solid #e0dddd;
+    }
     .pjob_tree ul, .pjob_tree #myUL {
         list-style-type: none;
     }
@@ -74,6 +77,7 @@
         <div class="box add_area d-block my-20">
             <div class="box-header with-border patot">
                 <div class="pat_list_top">
+                    <?php $patient_id = $patients[0]['id'];?>
                     <h3><?php echo ucfirst($patients[0]['name']); ?></h3>
                     <p class="ram_text"><?php echo $patients[0]['present_address']; ?> </p>
                     <lable class="ram_text"><?php echo $contact[0]['phone1']; ?></lable>
@@ -224,27 +228,10 @@
                         </div>
 
                         <div class="tab-pane fade <?php echo ($tabpage == 'worksdone')? 'show active' : '';?>" id="worksdone" role="tabpanel" aria-labelledby="workdone">
-                            <!--Start Appointments -->
-                            <div class="box box-light mt-20">
-                                <div class="box-body box-profile" id="refpatientdiv">
-                                    <input type="text" name="search" class="form-control col-2" placeholder="Search...">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-                                            <thead>
-                                                <tr role="row">
-                                                    <th rowspan="1" colspan="1" style="width: 282px;">Doctor Name</th>
-                                                    <th rowspan="1" colspan="1" style="width: 234px;">Start Time</th>
-                                                    <th rowspan="1" colspan="1" style="width: 130px;">Slot</th>
-                                                    <th rowspan="1" colspan="1" style="width: 347px;">Cause/Treatment</th>
-                                                    <th rowspan="1" colspan="1" style="width: 154px;">Chair</th>
-                                                    <th rowspan="1" colspan="1" style="width: 204px;">Work Done</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Appointments -->
+                            <?php 
+                            if($tabpage == 'worksdone'){
+                                echo $this->load->view('admin/patients/work_done', $data, TRUE);
+                            }?>
                         </div>
                         <div class="tab-pane fade  <?php echo ($tabpage == 'workdonehistory')? 'show active' : '';?>" id="workdonehistory" role="tabpanel" aria-labelledby="worksdonehistory">
                             Tab 5 content
