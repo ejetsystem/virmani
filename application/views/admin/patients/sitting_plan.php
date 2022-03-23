@@ -174,8 +174,8 @@
         });
 
         $(document).click(function () {
-
-            $('#treat_id_' + trtid).html($(".thVal").val());
+            var id = $(".thVal").parent().attr('id');
+            $('#' + id).html($(".thVal").val());
 
         });
     }

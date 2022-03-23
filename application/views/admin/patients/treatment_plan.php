@@ -181,20 +181,7 @@
         <hr>
 
         <div id="loaddata">
-            <div id="loadall" style="display:none;"><br> 
-                <h4 class="form_title">All Complaints</h4>
-
-
-                <div class="c_outer">  <div class="c_box"><p><span></span>Chief Complaints</p></div>  <div class="c_box2"><p><span></span>Other Findings</p></div><div class="c_box3"><p><span></span>Existing</p></div></div>
-                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer"><div class="dt-buttons btn-group btn-group2">               <a class="btn btn-default dt-button buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Copy"><span><i class="fa fa-files-o"></i></span></a> <a class="btn btn-default dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Excel"><span><i class="fa fa-file-excel-o"></i></span></a> <a class="btn btn-default dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="CSV"><span><i class="fa fa-file-text-o"></i></span></a> <a class="btn btn-default dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="PDF"><span><i class="fa fa-file-pdf-o"></i></span></a> <a class="btn btn-default dt-button buttons-print" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Print"><span><i class="fa fa-print"></i></span></a> <a class="btn btn-default dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="DataTables_Table_0" href="#" title="Columns"><span><i class="fa fa-columns"></i></span></a> </div><div id="DataTables_Table_0_filter" class="dataTables_filter"><label><input type="search" class="" placeholder="Search..." aria-controls="DataTables_Table_0"></label></div><table class="table table-striped table-bordered table-hover example dataTable no-footer dtr-inline" cellspacing="0" width="100%" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="width: 100%;">
-                        <thead>
-                            <tr role="row"><th width="25%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Tooth Number: activate to sort column ascending">Tooth Number</th><th width="25%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Notes &amp;amp; Diagnosis: activate to sort column ascending">Notes &amp; Diagnosis</th><th width="25%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Doctor: activate to sort column ascending">Doctor</th><th width="15%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Treatment Code: activate to sort column ascending">Treatment Code</th><th width="15%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="App Estimate: activate to sort column ascending">App Estimate</th><th width="10%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px;" aria-label="Action: activate to sort column ascending">Action</th></tr>
-                        </thead>
-                        <tbody> 
-
-                            <tr class="odd"><td valign="top" colspan="6" class="dataTables_empty">No data available in table <br> <br><img src="https://smart-hospital.in/shappresource/images/addnewitem.svg" width="150"><br><br> <span class="text-success bolds"><i class="fa fa-arrow-left"></i> Add new record or search with different criteria.</span></td></tr></tbody>
-                    </table><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Records: 0 to 0 of 0</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" id="DataTables_Table_0_previous"><i class="fa fa-angle-left"></i></a><span></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" id="DataTables_Table_0_next"><i class="fa fa-angle-right"></i></a></div></div>
-            </div>
+             
         </div>
 
     </div>
@@ -741,7 +728,7 @@ table {
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Estimated Amount</label>
-                                <input type="text" class="form-control" name="treatment_amount" id="treatment_amount" required onkeypress="return isNumberKey(event)" onkeyup="discount(this.value)">
+                                <input type="number" class="form-control" name="treatment_amount" id="treatment_amount" required onkeypress="return isNumberKey(event)" onkeyup="discount(this.value)">
                             </div>
                         </div>
 
@@ -756,7 +743,7 @@ table {
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Courtesy (if any)</label>
-                                <input type="text"  class="form-control" name="treatment_courtesy" id="treatment_courtesy" onkeypress="return isNumberKey(event)" value="">
+                                <input type="number"  min="0" class="form-control" name="treatment_courtesy" id="treatment_courtesy" onkeyup="discount(this.value)" onkeypress="return isNumberKey(event)" value="0">
                                 
                             </div>
                             <span id="errtext"></span>
@@ -764,7 +751,7 @@ table {
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Estimated Total Amount</label>
-                                <input type="text" readonly="" class="form-control" name="treatment_courtesy_total" id="" value="">
+                                <input type="text" readonly="" class="form-control" name="treatment_courtesy_total" id="treatment_courtesy_total" value="">
                             </div>
                             <span id="errtext"></span>
                         </div>

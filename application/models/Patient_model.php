@@ -25,6 +25,14 @@ class Patient_model extends CI_Model {
          $this->db->insert('patient_insurance_list', $data);
          return $this->db->insert_id();
     }
+    
+    public function getWorkdoneReport($p_id) {
+        $this->db->select('workdone.*,doctors.name')
+                ->join('doctors', 'doctors.id = workdone.workdone_doc')
+                ->from('workdone');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 
     public function add_workkdonereport($data)
     {
@@ -86,11 +94,11 @@ class Patient_model extends CI_Model {
 
             $this->db->where('id', $data['id']);
 
-            $this->db->update('payment', $data);
+            $this->db->update('payment_workdone', $data);
 
         } else {
 
-            $this->db->insert('payment', $data);
+            $this->db->insert('payment_workdone', $data);
 
             return $this->db->insert_id();
 
@@ -296,19 +304,11 @@ public function add_treatmentplan($data) {
 
 
     public function getPatientList() {
-
-
-
         $this->db->select('patients.*,users.username,users.id as user_tbl_id,users.is_active as user_tbl_active')
-
                 ->join('users', 'users.user_id = patients.id')
-
                 ->from('patients');
-
         $query = $this->db->get();
-
         return $query->result_array();
-
     }
 
 

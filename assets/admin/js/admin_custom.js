@@ -55,6 +55,7 @@ function getPatientPhone(id){
 
   // View Appointment
   function view_event(appointment_id){
+     
     var post_data = {
       'id' :appointment_id,
       'csrf_test_name' : csrf_token
@@ -63,9 +64,10 @@ function getPatientPhone(id){
 
     $.ajax({
       url: base_url+"admin/appointment/fetch_particular_appointment",
-      type: "Post",
+      type: "POST",
       data: post_data,
       success: function (data) {
+         
         $('#inlineRadio3').removeAttr("checked");
         $('#inlineRadio4').removeAttr("checked");
 
@@ -76,7 +78,8 @@ function getPatientPhone(id){
         $("#old_new_patient").hide();
         $("#add_serial").hide();
         
-        $('#doctors').select2('val',data['doctor_id']);
+        //$('#doctors').select2('val',data['doctor_id']);
+        $('#doctors').val(data['doctor_id']).trigger('change');
         $('#doctors').attr('disabled', true);
         
         $('#date_field').val(data['date']);
@@ -103,7 +106,8 @@ function getPatientPhone(id){
           $('#inlineRadio4').prop('checked', true);
         }
 
-        $('#patients').select2('val',data['patient_id']);
+        //$('#patients').select2('val',data['patient_id']);
+        $('#patients').val(data['patient_id']).trigger('change');
         $('#patients').attr('disabled', true);
 
         $('#phone').val(data['patient_phone']);

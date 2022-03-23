@@ -229,7 +229,7 @@ $("#form_addnotes_new").on('submit', (function (e) {
 
             var x=document.getElementById("treatment_amount").value;
 
-            var y=document.getElementById("distype").value;
+            var y=document.getElementById("treatment_courtesy").value;
 
             var z=document.getElementById("disamt").value;
             
@@ -241,9 +241,9 @@ $("#form_addnotes_new").on('submit', (function (e) {
                 }
 
             }else{
-                var newy=x-z;
+                var newy=x-y;
                 if(newy>=0){
-                $("#treatment_courtesy").val(newy);
+                $("#treatment_courtesy_total").val(newy);
                 
                 }
                 else{                                       
