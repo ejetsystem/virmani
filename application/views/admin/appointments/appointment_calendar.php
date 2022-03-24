@@ -119,7 +119,9 @@
                         $("#old_new_patient").hide();
                         $("#add_serial").hide();
                         
-                        $('#doctors').select2('val',data.doctor_id);
+                        $("#doctors").select2("val", '');
+                        $('#doctors').val(data.doctor_id).trigger("change");;
+                       // $('#doctors').select2('val',data.doctor_id);
                         $('#doctors').attr('disabled', true);
                         
                         $('#date_field').val(data.date);
@@ -145,8 +147,8 @@
                         if(data.type=="offline"){
                           $('#inlineRadio4').prop('checked', true);
                         }
-
-                        $('#patients').select2('val',data.patient_id);
+                        $("#patients").select2("val", '');
+                        $('#patients').val(data.patient_id).trigger("change");;
                         $('#patients').attr('disabled', true);
 
                         $('#phone').val(data.patient_phone);

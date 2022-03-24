@@ -561,6 +561,11 @@ class Patients extends Home_Controller {
             $data['scan_tests'] =  $this->patient_model->getScantestsDetails();
             $data['patient_scans']=$this->patient_model->getPatientscansDetails($id);
         }
+        if($tabpage == 'payments')
+        {
+            
+            $data['payments']=$this->patient_model->getPatientsPaymnetDetails($id);
+        }
         
         $data['main_content'] = $this->load->view('admin/patients/patient_view', $data, TRUE);
         $this->load->view('admin/index', $data);
@@ -912,7 +917,19 @@ public function getteethdata_per_new()
             ); 
 
           $addpayements = $this->patient_model->add_payments($payment_detail);
-
+          $balance = $this->patient_model->maxTotalAmount($_POST['wk_patient_id']);
+          
+          $payment_history = array(
+              'doctor_id'   => $_POST['workdone_doc'],
+              'patient_id' =>$_POST['wk_patient_id'],
+              'credit_amount' =>'0.00',
+              'debit_amount' =>$_POST['amt_due_current_work'],
+              'balance' =>($balance['balance'] + $_POST['amt_due_current_work']),
+              'payment_mode' =>'',
+              'description' =>'patient bill',
+             ); 
+          
+          $payements = $this->admin_model->insert($payment_history,'payment_history');
 
   //      $tooth_data=array(
   //            'workdone_id'=>$patient_wrkdone,
@@ -943,6 +960,24 @@ public function getteethdata_per_new()
       $this->session->set_flashdata('msg', trans('inserted-successfully'));
         redirect($_SERVER['HTTP_REFERER']);
 
+  }
+  
+  public function add_payment() {
+      $balance = $this->patient_model->maxTotalAmount($_POST['patient_id']);
+          
+          $payment_history = array(
+              'doctor_id'   => $_POST['doctor_id'],
+              'patient_id' =>$_POST['patient_id'],
+              'credit_amount' =>$_POST['price'],
+              'debit_amount' =>'0.00',
+              'balance' =>($balance['balance'] - $_POST['price']),
+              'payment_mode' => $_POST['payment_mode'],
+              'description' => $_POST['description'],
+             ); 
+          
+          $payements = $this->admin_model->insert($payment_history,'payment_history');
+      $array = array('status' => 'success', 'error' => '', 'message' => $this->lang->line('success_message'), 'trid' => $insid, 'ttype' => $this->input->post('trtypes'));
+        echo json_encode($array);
   }
 
     public function add_note_new() {

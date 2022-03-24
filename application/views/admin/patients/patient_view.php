@@ -122,6 +122,9 @@
                         <li class="nav-item" role="presentation">
                             <a class="nav-link <?php echo ($tabpage == 'xrays')? 'active' : '';?>" id="xray" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/xrays" role="tab" aria-controls="xrays" aria-selected="false">X-Ray</a>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link <?php echo ($tabpage == 'payments')? 'active' : '';?>" id="paymentTab" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/payments" role="tab" aria-controls="paymentsTab" aria-selected="false">Payments</a>
+                        </li>
                     </ul>
 
                     <!-- Tabs content -->
@@ -249,6 +252,12 @@
                             <?php 
                             if($tabpage == 'xrays'){
                                 echo $this->load->view('admin/patients/xrays_report', $data, TRUE);
+                            }?>
+                        </div>
+                        <div class="tab-pane fade <?php echo ($tabpage == 'payments')? 'show active' : '';?>" id="paymentsTab" role="tabpanel" aria-labelledby="paymentTab">
+                            <?php 
+                            if($tabpage == 'payments'){
+                                echo $this->load->view('admin/patients/payments_report', $data, TRUE);
                             }?>
                         </div>
 
