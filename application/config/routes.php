@@ -223,7 +223,7 @@ $route['clinic-admin/chamber/delete/(:any)'] = 'admin/chamber/delete/$1';
 $route['clinic-admin/department'] = 'admin/department';
 $route['clinic-admin/department/add'] = 'admin/department/add';
 $route['clinic-admin/department/edit/(:any)'] = 'admin/department/edit/$1';
-$route['clinic-admin/department/delete/(:any)'] = 'admin/department/delete//$1';
+$route['clinic-admin/department/delete/(:any)'] = 'admin/department/delete/$1';
 
 //Consultation Setting
 $route['clinic-admin/live_consults/settings'] = 'admin/live_consults/settings';
