@@ -215,7 +215,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Estimate</label>
-                                            <input name="estimate" id="estimate" placeholder="" type="text" class="form-control" value=""  onkeypress="return isNumberKey(event)"> 
+                                            <input name="estimate" id="estimate" placeholder="" type="text" class="form-control" value="" readonly=""  onkeypress="return isNumberKey(event)"> 
                                         </div>
                                     </div>
                                     <div class="col-md-8">
@@ -270,6 +270,19 @@
                                     <?php } ?>
                                 </select>
                             </div>
+                            
+                            
+                                    <div class="form-group">
+                                        <label>Treatment Code</label>
+                                        <input type="hidden" id="workdoneon" name="workdoneon" class="form-control" > 
+                                        <select name="workdoneon_id" id="workdoneon_id" class="form-control" onchange="choose_job(this);">
+                                            <option value="0">-- Job -- </option>
+                                            <?php foreach ($treatmentplans as $plandata) { ?>
+                                                        <option treatment_amount="<?php echo $plandata['amount']; ?>" treatment_job="<?php echo $plandata['job']; ?>" value="<?php echo $plandata['id']; ?>"><?php echo ucwords($plandata['job']); ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                
 
                             <div class="payment_bxblock pyatm">
                                 <h4><strong>Treatment</strong></h4>
@@ -421,6 +434,12 @@
     </div>
 
     <script type="text/javascript">
+ function choose_job($this){
+    var treatmentamount = $($this).find('option:selected').attr('treatment_amount');
+    var treatmentjob = $($this).find('option:selected').attr('treatment_job');
+    $('#workdoneon').val(treatmentjob);
+    $('#estimate').val(treatmentamount);
+ }
         function getDatavalue_wr(a)
         {
             if ($('#chkdiv1').is(":checked"))

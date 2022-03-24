@@ -863,7 +863,8 @@ public function getteethdata_per_new()
       $wrkdone_data = array(
               'patient_name' => $_POST['patient_name'],
               'workdone_date' =>date('Y-m-d'),
-              'workdoneon' =>$workdoneon,
+              'workdoneon' =>$_POST['workdoneon'],
+              'workdoneon_id' =>$_POST['workdoneon_id'],
               'workdone_doc' =>$_POST['workdone_doc'],
               'wrk_special_notes' =>$_POST['wrk_special_notes'],
               'amt_due_current_work' =>$_POST['amt_due_current_work'],
