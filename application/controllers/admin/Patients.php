@@ -867,6 +867,7 @@ public function getteethdata_per_new()
               'workdoneon_id' =>$_POST['workdoneon_id'],
               'workdone_doc' =>$_POST['workdone_doc'],
               'wrk_special_notes' =>$_POST['wrk_special_notes'],
+              'estimate' =>$_POST['estimate'],
               'amt_due_current_work' =>$_POST['amt_due_current_work'],
               'if_any_amt' =>$_POST['if_any_amt'],
               'prev_bal_amt' =>$_POST['prev_bal_amt'],
