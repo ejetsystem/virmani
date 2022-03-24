@@ -1817,6 +1817,18 @@ public function deleteIpdPatientLab($id) {
         $this->db->where(['status' => $status]);
         return $this->db->get($table)->num_rows();
     }
+    
+    public function maxTotalAmount($p_id) {
+       // SELECT MAX(income) AS "Maximum Income" FROM employees
+        $this->db->select("MAX(balance) AS balance");
+         $this->db->where(['patient_id' => $p_id]);
+        return $this->db->get('payment_history')->row_array();
+    }
+    
+    function getPatientsPaymnetDetails($id) {
+        $query = $this->db->where("patient_id", $id)->order_by('created_at','DESC')->get("payment_history");
+        return $query->result_array();
+    }
        
 
 
