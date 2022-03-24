@@ -18,19 +18,19 @@ if(isset($doctors) && count($doctors)>0){
 <div class="col-md-7 pt-25">
 <h3 class="profile-username"><?php echo $doctors['doctors']->name; ?></h3> 
 <div class="editviewdelete-icon">
-<a style="margin-right :10px;font-size: 18px;" href="#" class="change_password text-green" data-toggle="tooltip" title="" data-original-title="Change Password"> <i class="fa fa-key"></i></a>
+<a style="margin-right :10px;font-size: 18px;" href="#" class="change_password text-green" data-toggle="modal" data-target="#change_password_doctor"> <i class="fa fa-key"></i></a>
 
 <a style="margin-right :10px;font-size: 18px;" href="<?php echo base_url('clinic-admin/doctor/edit/').$doctors['doctors']->id;?>" data-toggle="tooltip" title="" class="text-light" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
 
 <?php  
 if($doctors['doctors']->is_delete==0){
 ?>
-<a style="margin-right :10px;font-size: 18px;" href="<?php echo base_url('clinic-admin/registration/disable/staff/').$staff['staff'][0]['id'];?>" class="text-red" data-toggle="tooltip" title="" onclick="return confirm('Are you sure you want to Delete this Record?');" data-original-title="Disable"> <i class="fa fa-trash"></i></a>
+<a style="margin-right :10px;font-size: 18px;" href="<?php echo base_url('clinic-admin/registration/disable/staff/').$doctors['doctors']->id;?>" class="text-red" data-toggle="tooltip" title="" onclick="return confirm('Are you sure you want to Delete this Record?');" data-original-title="Disable"> <i class="fa fa-trash"></i></a>
 <?php
 }
 else{
 ?>
-<a style="margin-right :10px;font-size: 18px;" href="<?php echo base_url('clinic-admin/registration/enable/staff/').$staff['staff'][0]['id'];?>" class="text-red" data-toggle="tooltip" title="" onclick="return confirm('Are you sure you want to Delete this Record?');" data-original-title="Disable"> <i class="fa fa-trash"></i></a>
+<a style="margin-right :10px;font-size: 18px;" href="<?php echo base_url('clinic-admin/registration/enable/staff/').$doctors['doctors']->id;?>" class="text-red" data-toggle="tooltip" title="" onclick="return confirm('Are you sure you want to Delete this Record?');" data-original-title="Disable"> <i class="fa fa-trash"></i></a>
 <?php
 }
 ?>
@@ -43,6 +43,40 @@ else{
 <div class="box-body">
 <p><?php echo $doctors['doctors']->id; ?></p>
 <p class="text-capitalize"><?php echo $doctors['doctors']->role; ?></p>
+
+<!-- The Modal -->
+<div class="modal fade" id="change_password_doctor">
+<div class="modal-dialog">
+<div class="modal-content">
+<form action="<?php echo base_url('clinic-admin/registration/change-password/doctors'); ?>" method="post">
+<input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
+<input type="hidden" name="id" value="<?php echo $doctors['doctors']->id; ?>">
+<!-- Modal Header -->
+<div class="modal-header">
+<h4 class="modal-title">Change Password</h4>
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<!-- Modal body -->
+<div class="modal-body">
+<div class="form-group">
+<label for="password">Password</label>
+<input type="password" class="form-control" name="new_pass" id="pass" autocomplete="off">
+</div>
+<div class="form-group">
+<label for="pwd">Confirm Password</label>
+<input type="password" class="form-control" name="confirm_pass" id="pwd">
+</div>
+</div>
+
+<!-- Modal footer -->
+<div class="modal-footer">
+<button type="submit" class="btn btn-primary" name="save" value="save">Save</button>
+</div>
+</form>
+</div>
+</div>
+</div>
 </div>
 </div>	
 </div>
@@ -179,7 +213,7 @@ else{
 <!-- For Vaccination -->
 <h4 class="form_title">Vaccination Information</h4>
 <div class="table-responsive around10 pt0">
-<table class="table datatable dataTable table-striped table-bordered table-hover">
+<table class="table table-striped table-bordered table-hover">
 <thead>
 <tr>
 <th>Vaccination Type</th>
@@ -221,7 +255,7 @@ else{
 <!-- For Insurance Information -->
 <h4 class="form_title">Insurance Information</h4>
 <div class="table-responsive around10 pt0">
-<table class="table datatable dataTable table-striped table-bordered table-hover">
+<table class="table  table-striped table-bordered table-hover">
 <thead>
 <tr>
 <th>Insurance</th>
@@ -265,7 +299,7 @@ else{
 <!-- For bank_details Information -->
 <h4 class="form_title">Bank Information</h4>
 <div class="table-responsive around10 pt0">
-<table class="table datatable dataTable table-striped table-bordered table-hover">
+<table class="table  table-striped table-bordered table-hover">
 <thead>
 <tr>
 <th>Bank Name</th>
@@ -353,7 +387,9 @@ elseif(isset($staff) && count($staff)>0){
 <div class="col-md-7 pt-25">
 <h3 class="profile-username"><?php echo $staff['staff'][0]['name']; ?></h3> 
 <div class="editviewdelete-icon">
-<a style="margin-right :10px;font-size: 18px;" href="#" class="change_password text-green" data-toggle="tooltip" title="" data-original-title="Change Password"> <i class="fa fa-key"></i></a> 
+
+<a style="margin-right :10px;font-size: 18px;" href="#" class="change_password text-green" data-toggle="modal" data-target="#change_password_staff"> <i class="fa fa-key"></i></a>
+
 <a style="margin-right :10px;font-size: 18px;" href="<?php echo base_url('clinic-admin/staff/edit/').$staff['staff'][0]['id'];?>" data-toggle="tooltip" title="" class="text-light" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
 <?php  
 
@@ -379,6 +415,40 @@ else{
 <p class="text-capitalize"><?php echo $staff['staff'][0]['role']; ?></p>
 <p class="text-capitalize"><?php echo $staff['staff'][0]['department']; ?></p>
 <p class="text-capitalize"><?php echo $staff['staff'][0]['designation']; ?></p>
+
+<!-- The Modal -->
+<div class="modal fade" id="change_password_staff">
+<div class="modal-dialog">
+<div class="modal-content">
+<form action="<?php echo base_url('clinic-admin/registration/change-password/staffs'); ?>" method="post">
+<input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
+<input type="hidden" name="id" value="<?php echo $staff['staff'][0]['id']; ?>">
+<!-- Modal Header -->
+<div class="modal-header">
+<h4 class="modal-title">Change Password</h4>
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<!-- Modal body -->
+<div class="modal-body">
+<div class="form-group">
+<label for="password">Password</label>
+<input type="password" class="form-control" name="new_pass" id="pass" autocomplete="off">
+</div>
+<div class="form-group">
+<label for="pwd">Confirm Password</label>
+<input type="password" class="form-control" name="confirm_pass" id="pwd">
+</div>
+</div>
+
+<!-- Modal footer -->
+<div class="modal-footer">
+<button type="submit" class="btn btn-primary" name="save" value="save">Save</button>
+</div>
+</form>
+</div>
+</div>
+</div>
 </div>
 </div>	
 </div>
@@ -505,7 +575,7 @@ else{
 <!-- For bank_details Information -->
 <h4 class="form_title">Bank Information</h4>
 <div class="table-responsive around10 pt0">
-<table class="table datatable dataTable table-striped table-bordered table-hover">
+<table class="table  table-striped table-bordered table-hover">
 <thead>
 <tr>
 <th>Bank Name</th>
@@ -544,7 +614,7 @@ else{
 <!-- For Vaccination -->
 <h4 class="form_title">Vaccination Information</h4>
 <div class="table-responsive around10 pt0">
-<table class="table datatable dataTable table-striped table-bordered table-hover">
+<table class="table  table-striped table-bordered table-hover">
 <thead>
 <tr>
 <th>Vaccination Type</th>
@@ -586,7 +656,7 @@ else{
 <!-- For Insurance Information -->
 <h4 class="form_title">Insurance Information</h4>
 <div class="table-responsive around10 pt0">
-<table class="table datatable dataTable table-striped table-bordered table-hover">
+<table class="table  table-striped table-bordered table-hover">
 <thead>
 <tr>
 <th>Insurance</th>

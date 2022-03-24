@@ -28,10 +28,31 @@ class RegistrationController extends Home_Controller {
         $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
         $data['staffs_info'] = $this->admin_model->select_all_staff('staffs');
 
+        if($this->input->post('search')=='search_full'){
+            if($this->input->post('role')=='doctor'){
+                $where = '';
+                if(!empty($this->input->post('search_text'))){
+                    $where = " AND name LIKE '".$this->input->post('search_text')."%'";
+                }
+                $data['staff_doctors'] = $this->db->query("SELECT *,phone1 as mobile FROM doctors WHERE role='".$this->input->post('role')."' AND user_id='".$this->session->userdata('id')."' AND is_delete='0'".$where)->result_array();
+            }
+            elseif($this->input->post('role')=='staff'){
+                $where = '';
+                if(!empty($this->input->post('search_text'))){
+                    $where = " AND name LIKE '".$this->input->post('search_text')."%'";
+                }
+                $data['staff_doctors'] = $this->db->query("SELECT *,phone as mobile FROM staffs WHERE role='".$this->input->post('role')."' AND user_id='".$this->session->userdata('id')."' AND is_deleted='0'".$where)->result_array();
+            }
+        }
+        else{
+            $data['staff_doctors'] = array_merge($data['doctors'],json_decode(json_encode($data['staffs_info']), true));
+        }
+        // die;
+        // $data['staff_doctors'] = array_merge($data['doctors'],json_decode(json_encode($data['staffs_info']), true));
+
         // echo "<pre>";
         // print_r($data['staffs_info']);
         // die;
-        $data['staff_doctors'] = array_merge($data['doctors'],json_decode(json_encode($data['staffs_info']), true));
         $data['main_content'] = $this->load->view('admin/registration/index',$data,TRUE);
         $this->load->view('admin/index',$data);
     }
@@ -229,7 +250,35 @@ class RegistrationController extends Home_Controller {
         }
     }
 
-    
+    public function change_password($table){
+        
+        if($table=='doctors'){
+            if($this->input->post('new_pass') == $this->input->post('confirm_pass')){
+                $password = hash_password($this->input->post('password'));
+                $id = $this->input->post('id');
+                $this->admin_model->edit_option(array('password'=>$password), $id,$table);
+                $this->session->set_flashdata('msg','Password Changes Successfully');
+                redirect(base_url("clinic-admin/registration/view/doctor/".$id));
+            }
+            else{
+                $this->session->set_flashdata('error','Password And Confirm Password Doest Not Match');
+                redirect(base_url("clinic-admin/registration/view/doctor/".$this->input->post('id')));
+            }
+        }
+        elseif($table == 'staffs'){
+            if($this->input->post('new_pass') == $this->input->post('confirm_pass')){
+                $password = hash_password($this->input->post('password'));
+                $id = $this->input->post('id');
+                $this->admin_model->edit_option(array('password'=>$password), $id,$table);
+                $this->session->set_flashdata('msg','Password Changes Successfully');
+                redirect(base_url("clinic-admin/registration/view/staff/".$id));
+            }
+            else{
+                $this->session->set_flashdata('error','Password And Confirm Password Doest Not Match');
+                redirect(base_url("clinic-admin/registration/view/staff/".$this->input->post('id')));
+            }
+        }
+    }
 
 }
 

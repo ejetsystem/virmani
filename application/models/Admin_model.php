@@ -201,6 +201,9 @@ class Admin_model extends CI_Model {
         $this->db->select();
         $this->db->from($table);
         $this->db->where('id', $id);
+        if($this->session->userdata('id')){
+            $this->db->where('user_id',$this->session->userdata('id'));
+        }
         $query = $this->db->get();
         $query = $query->result_array();  
         return $query;
@@ -2161,6 +2164,7 @@ class Admin_model extends CI_Model {
         $this->db->select('*,phone1 as mobile');
         $this->db->from('doctors');
         $this->db->where('is_delete',0);
+        $this->db->where('user_id',$this->session->userdata('id'));
         $this->db->order_by('id');
         $query = $this->db->get();
         $query = $query->result_array();  
@@ -2219,6 +2223,7 @@ class Admin_model extends CI_Model {
         $this->db->select('d.*,a.id as address_id,a.address_r,a.city_r,a.zip_r,a.country_r,a.address_o,a.city_o,a.zip_o, a.country_o,a.address_other,a.city_other,a.zip_other,a.country_other');
         $this->db->from($table.' d');
         $this->db->where('d.id',$d);
+        $this->db->where('d.user_id',$this->session->userdata('id'));
         $this->db->join('doctors_address a', 'a.doctor_id = d.id', 'LEFT');
         $query = $this->db->get();
         $query = $query->row();  
@@ -2406,6 +2411,7 @@ class Admin_model extends CI_Model {
         $this->db->select("*,phone as mobile");
         $this->db->from($table);
         $this->db->where('is_deleted',0);
+        $this->db->where('user_id',$this->session->userdata('id'));
         $query = $this->db->get();
         $query = $query->result();  
         return $query;

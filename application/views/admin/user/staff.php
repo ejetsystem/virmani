@@ -25,7 +25,7 @@
         </div>
 
         <div class="box-body">
-          <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('admin/registration/registrationController/add')?>" role="form" novalidate>
+          <form id="cat-form" action="<?php echo base_url('admin/registration/registrationController/add')?>" method="post" enctype="multipart/form-data" class="validate-form" role="form" novalidate>
           <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
 
           <div class="row">
@@ -259,7 +259,7 @@
                       </div>
                     </div>
                   </div>
-                  <a href="#" class="btn btn-primary add-more-vaccine" style="position: relative;right: -90%;">+ Add More</a>
+                  <p class="btn btn-primary add-more-vaccine" style="position: relative;right: -90%;">+ Add More</p>
                 </div>
               </div>
 
@@ -316,7 +316,7 @@
                       </div> 
                     </div>
                   </div>
-                  <a href="#" class="btn btn-primary add-more-banks" style="position: relative;right: -90%;">+ Add More</a>
+                  <p class="btn btn-primary add-more-banks" style="position: relative;right: -90%;">+ Add More</p>
                 </div>
               </div>
               <div class="row">
@@ -345,13 +345,13 @@
                       <div class="col-md-2">
                         <div class="form-group">
                           <label><?php echo ('Amount Insured') ?> <span class="text-danger">*</span></label>
-                          <input type="text" name="insurance[0][amount_insured]" required class="form-control">
+                          <input type="number" name="insurance[0][amount_insured]" required class="form-control">
                         </div>
                       </div> 
                       <div class="col-md-2">
                         <div class="form-group">
                           <label><?php echo ('Amount Paid') ?> <span class="text-danger">*</span></label>
-                          <input type="text" name="insurance[0][amount_paid]" required class="form-control">
+                          <input type="number" name="insurance[0][amount_paid]" required class="form-control">
                         </div>
                       </div> 
 
@@ -372,7 +372,7 @@
                       </div> 
                     </div>
                   </div>
-                  <a href="#" class="btn btn-primary add-more-insurances" style="position: relative;right: -90%;">+ Add More</a>
+                  <p class="btn btn-primary add-more-insurances" style="position: relative;right: -90%;">+ Add More</p>
                 </div>
               </div>
               <center>
@@ -554,7 +554,7 @@
             <div class="col-md-3">
             <div class="form-group">
             <label>Reminder Date for Next <span class="text-danger">*</span></label>
-            <input type="text" name="vaccination[`+count_vaccine+`][reminder_date_for_next]" id="reminder_date_for_next" required class="form-control">
+            <input type="date" name="vaccination[`+count_vaccine+`][reminder_date_for_next]" id="reminder_date_for_next" required class="form-control">
             </div>
             </div>
 
@@ -652,27 +652,27 @@
           <div class="col-md-2">
           <div class="form-group">
           <label>Insurance Date <span class="text-danger">*</span></label>
-          <input type="" name="insurance[`+count_insurances+`][insurance_date]" class="form-control">
+          <input type="date" name="insurance[`+count_insurances+`][insurance_date]" class="form-control">
           </div>
           </div>
 
           <div class="col-md-2">
           <div class="form-group">
           <label>Renewal Date <span class="text-danger">*</span></label>
-          <input type="" name="insurance[`+count_insurances+`][renewal_date]" class="form-control">
+          <input type="date" name="insurance[`+count_insurances+`][renewal_date]" class="form-control">
           </div>
           </div>
 
           <div class="col-md-2">
           <div class="form-group">
           <label>Amount Insured <span class="text-danger">*</span></label>
-          <input type="" name="insurance[`+count_insurances+`][amount_insured]" class="form-control">
+          <input type="number" name="insurance[`+count_insurances+`][amount_insured]" class="form-control">
           </div>
           </div> 
           <div class="col-md-2">
           <div class="form-group">
           <label>Amount Paid <span class="text-danger">*</span></label>
-          <input type="" name="insurance[`+count_insurances+`][amount_paid]" class="form-control">
+          <input type="number" name="insurance[`+count_insurances+`][amount_paid]" class="form-control">
           </div>
           </div> 
           
@@ -680,8 +680,8 @@
           <div class="form-group">
           <label>Allow Notifications</label>
           <br>
-          <input id="notifications" type="checkbox" value="1" name="insurance[`+count_insurances+`][allow_notifications]" class="">
-          <label for="notifications">Yes</label>
+          <input id="notifications`+count_insurances+`" type="checkbox" value="1" name="insurance[`+count_insurances+`][allow_notifications]" class="">
+          <label for="notifications`+count_insurances+`">Yes</label>
           </div>
           </div> 
           

@@ -223,7 +223,7 @@ $route['clinic-admin/chamber/delete/(:any)'] = 'admin/chamber/delete/$1';
 $route['clinic-admin/department'] = 'admin/department';
 $route['clinic-admin/department/add'] = 'admin/department/add';
 $route['clinic-admin/department/edit/(:any)'] = 'admin/department/edit/$1';
-$route['clinic-admin/department/delete/(:any)'] = 'admin/department/delete//$1';
+$route['clinic-admin/department/delete/(:any)'] = 'admin/department/delete/$1';
 
 //Consultation Setting
 $route['clinic-admin/live_consults/settings'] = 'admin/live_consults/settings';
@@ -296,6 +296,7 @@ $route['clinic-admin/registered-staff'] = 'admin/registration/registrationContro
 $route['clinic-admin/registration/view/(:any)/(:any)'] = 'admin/registration/registrationController/view_registration/$1/$2';
 $route['clinic-admin/registration/disable/(:any)/(:any)'] = 'admin/registration/registrationController/disable/$1/$2';
 $route['clinic-admin/registration/enable/(:any)/(:any)'] = 'admin/registration/registrationController/enable/$1/$2';
+$route['clinic-admin/registration/change-password/(:any)'] = 'admin/registration/registrationController/change_password/$1';
 
 
  
