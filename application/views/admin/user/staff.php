@@ -25,7 +25,7 @@
         </div>
 
         <div class="box-body">
-          <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('admin/registration/registrationController/add')?>" role="form" novalidate>
+          <form id="cat-form" action="<?php echo base_url('admin/registration/registrationController/add')?>" method="post" enctype="multipart/form-data" class="validate-form" role="form" novalidate>
           <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
 
           <div class="row">
