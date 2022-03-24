@@ -296,6 +296,7 @@ $route['clinic-admin/registered-staff'] = 'admin/registration/registrationContro
 $route['clinic-admin/registration/view/(:any)/(:any)'] = 'admin/registration/registrationController/view_registration/$1/$2';
 $route['clinic-admin/registration/disable/(:any)/(:any)'] = 'admin/registration/registrationController/disable/$1/$2';
 $route['clinic-admin/registration/enable/(:any)/(:any)'] = 'admin/registration/registrationController/enable/$1/$2';
+$route['clinic-admin/registration/change-password/(:any)'] = 'admin/registration/registrationController/change_password/$1';
 
 
  

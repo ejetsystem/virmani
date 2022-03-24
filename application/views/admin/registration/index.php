@@ -100,55 +100,36 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 class="form_title">Search</h4>
-                            <div class="clear"></div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <form role="form" action="http://localhost/dental/admin/staff" method="post" class="">
-                                <input type="hidden" name="ci_csrf_token" value="">                                        
-                                <div class="row">
-                                    <div class="col-sm-7">
-                                        <div class="form-group"> 
-                                            <label>Role</label><small class="req"> *</small>
-                                            <select name="role" class="form-control">
-                                                <option value="">Select</option>
-                                                <option value="Staff">Staff</option>
-                                                <option value="Doctor">Doctor</option>
-                                            </select>
-                                            <span class="text-danger"></span>
-                                        </div>  
-                                    </div>
+                    <h4 class="form_title">Search</h4>
+                    <form action="<?php echo base_url('clinic-admin/registered-staff'); ?>" method="POST">
+                        <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group"> 
+                                    <label>Role</label><span class="text-danger"> *</span>
+                                    <select name="role" class="form-control" required id="role">
+                                        <option value="">Select</option>
+                                        <option <?php echo ($this->input->post('role')=='staff') ? 'selected' : ''; ?> value="staff">Staff</option>
+                                        <option <?php echo ($this->input->post('role')=='doctor') ? 'selected' : ''; ?> value="doctor">Doctor</option>
+                                    </select>
+                                    <span class="text-danger"></span>
                                 </div>
-                            </form>
+                            </div>
 
-                        </div>
-
-
-                        <div class="col-md-4">
-
-                            <form role="form" action="http://localhost/dental/admin/staff" method="post" class="">
-                                <input type="hidden" name="ci_csrf_token" value="">          
-                                <div class="row">
-                                    <div class="col-sm-7">
-                                        <div class="form-group">
-                                            <label>Search By Keyword</label>
-                                            <input type="text" name="search_text" class="form-control" placeholder="Search By Staff ID, Name, Role etc...">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-5">
-                                        <label>&nbsp;</label>
-                                        <div class="form-group">
-                                            <button type="submit" name="search" value="search_full" class="btn btn-primary border_radius30 checkbox-toggle"><i class="fa fa-search"></i> Search</button>
-                                        </div>
-                                    </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Search By Keyword</label>
+                                    <input type="text" name="search_text" value="<?php echo $this->input->post('search_text') ?>" class="form-control" placeholder="Search By ID, Name">
                                 </div>
-                            </form>
+                            </div>
 
+                            <div class="col-sm-3 mt-25">
+                                <div class="form-group">
+                                    <button type="submit" name="search" value="search_full" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </form>
 
                     <!--Users Information-->
                     <div class="clear"></div>
