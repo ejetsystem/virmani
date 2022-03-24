@@ -112,7 +112,7 @@
 								<div class="table-responsive">
 									<table class="table table-striped table-bordered table-hover example" id="detail" cellspacing="0" width="100%" >
 										<thead>
-											<tr>
+											<tr class="success table-info">
 												<th>Inward Date</th>
 												<th>Batch no</th>
 												<th>Expire Date</th>
@@ -155,9 +155,9 @@
 
 							<div class="tab-pane" id="bad_stock">  
 								<div class="table-responsive">
-									<table class="table table-striped table-bordered table-hover example" cellspacing="0" width="100%" >
+									<table class="datatable table table-striped table-bordered table-hover example" cellspacing="0" width="100%" >
 										<thead>
-											<tr>
+											<tr class="success table-info">
 												<th>Outward Date</th>
 												<th>Batch no</th>
 												<th>Expire Date</th>

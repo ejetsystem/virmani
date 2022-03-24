@@ -138,8 +138,8 @@
                                 <div class="box-body box-profile" id="refpatientdiv">
                                     <div class="table-responsive">
                                         <table class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-                                            <thead>
-                                                <tr class="bg-info text-center">
+                                            <thead class="success table-info">
+                                                <tr class="bg-info_ text-center">
                                                     <th style="color: white !important;font-weight: bold;">Name</th>
                                                     <th style="color: white !important;font-weight: bold;">Relation</th>
                                                 </tr>
@@ -173,8 +173,8 @@
                                 <div class="box-body box-profile" id="refpatientdiv">
                                     <div class="table-responsive">
                                         <table class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-                                            <thead>
-                                                <tr class="bg-info">
+                                            <thead class="success table-info">
+                                                <tr>
                                                     <th style="color: white !important;font-weight: bold;">ID No</th>
                                                     <th style="color: white !important;font-weight: bold;">Name</th>
                                                 </tr>
@@ -201,7 +201,7 @@
                                     <div class="table-responsive">
                                         <table class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                                             <thead>
-                                                <tr role="row">
+                                                <tr role="row" class="success table-info">
                                                     <th rowspan="1" colspan="1" style="width: 282px;">Doctor Name</th>
                                                     <th rowspan="1" colspan="1" style="width: 234px;">Start Time</th>
                                                     <th rowspan="1" colspan="1" style="width: 130px;">Slot</th>

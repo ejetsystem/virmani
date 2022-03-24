@@ -92,9 +92,9 @@
 
                 <div class="box-body py-4 table-responsive">
 
-                  <table class="table m-10">
+                  <table class="table datatable m-10">
                       <thead class="border-0">
-                          <tr>
+                          <tr class="success table-info">
                               <th>
                                  <p>Zoom <?php echo trans('meeting-id') ?></p>
                                  <label class="badge badge-secondary-soft brd-20"><?php echo html_escape(evisit_settings(user()->id)->zoom_meeting_id) ?></badge>

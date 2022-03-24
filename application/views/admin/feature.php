@@ -108,7 +108,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12 scroll">
             <table class="table table-bordered datatable" id="dg_table">
                 <thead>
-                    <tr>
+                    <tr class="success table-info">
                         <th>#</th>
                         <th>Thumb</th>
                         <th>Name</th>

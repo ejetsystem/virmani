@@ -333,7 +333,7 @@
                         <div class="col-md-3">
                           <div class="form-group">
                             <label><?php echo ('Reminder Date for Next') ?> <span class="text-danger">*</span></label>
-                            <input type="text" name="reminder_date_for_next[]" id="reminder_date_for_next" required class="form-control">
+                            <input type="date" name="reminder_date_for_next[]" id="reminder_date_for_next" required class="form-control">
                           </div>
                         </div>
 
@@ -398,7 +398,7 @@
                         <div class="col-md-3">
                           <div class="form-group">
                             <label><?php echo ('Bank Account Number') ?> <span class="text-danger">*</span></label>
-                            <input type="text" name="bank_account_number[]" required class="form-control">
+                            <input type="number" name="bank_account_number[]" required class="form-control">
                           </div>
                         </div>
 
@@ -438,27 +438,27 @@
                         <div class="col-md-2">
                           <div class="form-group">
                             <label><?php echo ('Insurance Date') ?> <span class="text-danger">*</span></label>
-                            <input type="text" name="insurance_date[]" required class="form-control">
+                            <input type="date" name="insurance_date[]" required class="form-control">
                           </div>
                         </div>
 
                         <div class="col-md-2">
                           <div class="form-group">
                             <label><?php echo ('Renewal Date') ?> <span class="text-danger">*</span></label>
-                            <input type="text" name="renewal_date[]" required class="form-control">
+                            <input type="date" name="renewal_date[]" required class="form-control">
                           </div>
                         </div>
 
                         <div class="col-md-2">
                           <div class="form-group">
                             <label><?php echo ('Amount Insured') ?> <span class="text-danger">*</span></label>
-                            <input type="text" name="amount_insured[]" required class="form-control">
+                            <input type="number" name="amount_insured[]" required class="form-control">
                           </div>
                         </div> 
                         <div class="col-md-2">
                           <div class="form-group">
                             <label><?php echo ('Amount Paid') ?> <span class="text-danger">*</span></label>
-                            <input type="text" name="amount_paid[]" required class="form-control">
+                            <input type="number" name="amount_paid[]" required class="form-control">
                           </div>
                         </div> 
                         
@@ -536,9 +536,9 @@
                  <div class="box-body">
 
                   <div class="col-md-12 col-sm-12 col-xs-12 scroll table-responsive">
-                    <table class="table table-hover">
+                    <table class="table datatable table-hover">
                       <thead>
-                        <tr>
+                        <tr class="success table-info">
                           <th>#</th>
                           <th><?php echo trans('thumb') ?></th>
                           <th><?php echo trans('informations') ?></th>

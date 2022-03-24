@@ -8,9 +8,9 @@
 
       <div class="box-body">
         <div class="col-md-12 col-sm-12 col-xs-12 scroll">
-            <table class="table table-hover <?php if(count($contacts) > 10){echo "datatable";} ?>">
+            <table class="table table-hover datatable">
                 <thead>
-                    <tr>
+                    <tr class="success table-info">
                         <th>#</th>
                         <th><?php echo trans('name') ?></th>
                         <th><?php echo trans('email') ?></th>

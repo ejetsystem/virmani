@@ -24,7 +24,7 @@
 
             <table class=" table table-bordered <?php if(isset($appointments) && count($appointments) >= 2){echo "datatable";} ?>">
               <thead>
-                <tr>
+                <tr class="success table-info">
                   <th>#</th>
                   <th><?php echo trans('serial-no') ?></th>
                   <th><?php echo trans('patient-info') ?></th>

@@ -29,7 +29,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12 scroll table-responsive">
                         <table class="table datatable table-hover <?php if (count($drugs) > 10) { echo 'datatable';} ?>" id="dg_table">
                             <thead>
-                                <tr>
+                                <tr class="success table-info">
                                     <th>#</th>
                                     <th><?php echo 'Name'; ?></th>
                                     <th><?php echo 'Company' ?></th>

@@ -109,9 +109,9 @@
           <div class="box-body">
             
             <div class="col-md-12 col-sm-12 col-xs-12 scroll table-responsive">
-                <table class="table table-hover">
+                <table class="table table-hover datatable">
                     <thead>
-                        <tr>
+                        <tr class="success table-info">
                             <th>#</th>
                             <th><?php echo trans('thumb') ?></th>
                             <th><?php echo trans('informations') ?></th>

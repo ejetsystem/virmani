@@ -57,9 +57,9 @@
             <?php endif; ?>
             
           <div class="col-md-12 col-sm-12 col-xs-12 scroll table-responsive mt-20 p-0">
-              <table class="table table-bordered table-hover <?php if(count($categories) > 1){echo "datatable";} ?>" id="dg_table">
+              <table class="table table-bordered table-hover datatable" id="dg_table">
                   <thead>
-                      <tr>
+                      <tr class="success table-info">
                           <th>#</th>
                           <th><?php echo trans('name') ?></th>
                           <th><?php echo trans('action') ?></th>

@@ -1,8 +1,8 @@
  
 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#uploadModal"><i class="fa fa-plus"></i> ADD LAB</button>
 <table class="table table-bordered table-hover datatable">
-    <thead class="table-primary">
-        <tr>
+    <thead>
+        <tr class="success table-info">
             <th scope="col">Date</th>
             <th scope="col">Test Name</th>
             <th scope="col">Price</th>
