@@ -2303,7 +2303,7 @@ class Admin_model extends CI_Model {
         $this->db->from('appointments a');
         $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
         $this->db->join('doctors d', 'd.id = a.doctor_id', 'LEFT');
-        $this->db->where('a.chamber_id', $this->chamber->uid);
+        $this->db->where('a.user_id',$this->session->userdata('id'));
         $this->db->order_by('id');
         $query = $this->db->get();
         $query = $query->result_array();  
@@ -2317,7 +2317,7 @@ class Admin_model extends CI_Model {
         $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
         $this->db->join('doctors d', 'd.id = a.doctor_id', 'LEFT');
         $this->db->join('patients_contact pc','pc.patient_id = a.patient_id', 'LEFT');
-        //$this->db->where('a.chamber_id', $this->chamber->uid);
+        $this->db->where('a.user_id',$this->session->userdata('id'));
         $this->db->order_by('id');
         $query = $this->db->get();
         $query = $query->result_array();  
