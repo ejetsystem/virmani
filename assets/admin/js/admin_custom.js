@@ -67,7 +67,7 @@ function getPatientPhone(id){
       type: "POST",
       data: post_data,
       success: function (data) {
-         
+        console.log(data); 
         $('#inlineRadio3').removeAttr("checked");
         $('#inlineRadio4').removeAttr("checked");
 
@@ -80,6 +80,7 @@ function getPatientPhone(id){
         
         //$('#doctors').select2('val',data['doctor_id']);
         $('#doctors').val(data['doctor_id']).trigger('change');
+        alert(data['doctor_id']);
         $('#doctors').attr('disabled', true);
         
         $('#date_field').val(data['date']);

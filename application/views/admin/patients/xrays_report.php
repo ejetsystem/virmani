@@ -1,8 +1,8 @@
  
 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#uploadModal"><i class="fa fa-plus"></i> ADD SCAN</button>
 <table class="table table-bordered table-hover datatable">
-    <thead class="table-primary">
-        <tr>
+    <thead>
+        <tr class="success table-info">
             <th scope="col">Date</th>
             <th scope="col">Scan Name</th>
             <th scope="col">Price</th>

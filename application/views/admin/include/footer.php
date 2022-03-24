@@ -144,7 +144,7 @@
     <div class="col-md-3">
     <div class="form-group">
     <label><?php echo ('Reminder Date for Next') ?> <span class="text-danger">*</span></label>
-    <input type="text" name="reminder_date_for_next[]" id="reminder_date_for_next" required class="form-control">
+    <input type="date" name="reminder_date_for_next[]" id="reminder_date_for_next" required class="form-control">
     </div>
     </div>
 
@@ -196,7 +196,7 @@
     <div class="col-md-3">
     <div class="form-group">
     <label><?php echo ('Bank Account Number') ?> <span class="text-danger">*</span></label>
-    <input type="" name="bank_account_number[]" class="form-control">
+    <input type="number" name="bank_account_number[]" class="form-control">
     </div>
     </div>
 
@@ -248,27 +248,27 @@
     <div class="col-md-2">
     <div class="form-group">
     <label><?php echo ('Insurance Date') ?> <span class="text-danger">*</span></label>
-    <input type="" name="insurance_date[]" class="form-control">
+    <input type="date" name="insurance_date[]" class="form-control">
     </div>
     </div>
 
     <div class="col-md-2">
     <div class="form-group">
     <label><?php echo ('Renewal Date') ?> <span class="text-danger">*</span></label>
-    <input type="" name="renewal_date[]" class="form-control">
+    <input type="date" name="renewal_date[]" class="form-control">
     </div>
     </div>
 
     <div class="col-md-2">
     <div class="form-group">
     <label><?php echo ('Amount Insured') ?> <span class="text-danger">*</span></label>
-    <input type="" name="amount_insured[]" class="form-control">
+    <input type="number" name="amount_insured[]" class="form-control">
     </div>
     </div> 
     <div class="col-md-2">
     <div class="form-group">
     <label><?php echo ('Amount Paid') ?> <span class="text-danger">*</span></label>
-    <input type="" name="amount_paid[]" class="form-control">
+    <input type="number" name="amount_paid[]" class="form-control">
     </div>
     </div> 
     

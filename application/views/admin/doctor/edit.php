@@ -346,7 +346,7 @@
                           <div class="col-md-3">
                             <div class="form-group">
                               <label><?php echo ('Reminder Date for Next') ?> <span class="text-danger">*</span></label>
-                              <input type="text" value="<?php echo html_escape($vaccine->reminder_date_for_next); ?>" name="reminder_date_for_next[]" id="reminder_date_for_next" required class="form-control">
+                              <input type="date" value="<?php echo html_escape($vaccine->reminder_date_for_next); ?>" name="reminder_date_for_next[]" id="reminder_date_for_next" required class="form-control">
                             </div>
                           </div>
 
@@ -429,7 +429,7 @@
                           <div class="col-md-3">
                             <div class="form-group">
                               <label><?php echo ('Bank Account Number') ?> <span class="text-danger">*</span></label>
-                              <input type="text" name="bank_account_number[]" value="<?php echo html_escape($bank->bank_account_number); ?>" required class="form-control">
+                              <input type="number" name="bank_account_number[]" value="<?php echo html_escape($bank->bank_account_number); ?>" required class="form-control">
                             </div>
                           </div>
 
@@ -485,27 +485,27 @@
                           <div class="col-md-2">
                             <div class="form-group">
                               <label><?php echo ('Insurance Date') ?> <span class="text-danger">*</span></label>
-                              <input type="text" name="insurance_date[]" value="<?php echo html_escape($insurance->insurance_date); ?>" required class="form-control">
+                              <input type="date" name="insurance_date[]" value="<?php echo html_escape($insurance->insurance_date); ?>" required class="form-control">
                             </div>
                           </div>
 
                           <div class="col-md-2">
                             <div class="form-group">
                               <label><?php echo ('Renewal Date') ?> <span class="text-danger">*</span></label>
-                              <input type="text" name="renewal_date[]" value="<?php echo html_escape($insurance->renewal_date); ?>" required class="form-control">
+                              <input type="date" name="renewal_date[]" value="<?php echo html_escape($insurance->renewal_date); ?>" required class="form-control">
                             </div>
                           </div>
 
                           <div class="col-md-2">
                             <div class="form-group">
                               <label><?php echo ('Amount Insured') ?> <span class="text-danger">*</span></label>
-                              <input type="text" name="amount_insured[]" value="<?php echo html_escape($insurance->amount_insured); ?>" required class="form-control">
+                              <input type="number" name="amount_insured[]" value="<?php echo html_escape($insurance->amount_insured); ?>" required class="form-control">
                             </div>
                           </div> 
                           <div class="col-md-2">
                             <div class="form-group">
                               <label><?php echo ('Amount Paid') ?> <span class="text-danger">*</span></label>
-                              <input type="text" name="amount_paid[]" value="<?php echo html_escape($insurance->amount_paid); ?>" required class="form-control">
+                              <input type="number" name="amount_paid[]" value="<?php echo html_escape($insurance->amount_paid); ?>" required class="form-control">
                             </div>
                           </div> 
 
@@ -513,8 +513,8 @@
                             <div class="form-group">
                               <label><?php echo ('Allow Notifications') ?></label>
                               <br>
-                              <input id="notifications" type="checkbox" value="1" name="allow_notifications[]" class="" <?= ($insurance->allow_notifications==1) ? 'checked' : '' ?>>
-                              <label for="notifications"><?php echo ('Yes') ?></label>
+                              <input id="notifications<?php echo $insurance->insurance_id?>" type="checkbox" value="1" name="allow_notifications[]" class="" <?= ($insurance->allow_notifications==1) ? 'checked' : '' ?>>
+                              <label for="notifications<?php echo $insurance->insurance_id?>"><?php echo ('Yes') ?></label>
                             </div>
                           </div> 
 
@@ -547,29 +547,6 @@
                     <input type="submit" class="btn btn-primary btn-lg mr-5 ml-5" name="save" value="Update">
                   </div>
                 </center>
-
-                <!-- End -->
-
-                <!-- <div class="form-group <?php if(isset($page_title) && $page_title == 'Edit'){echo 'hide';} ?>">
-                  <label><?php echo trans('password') ?> </label>
-                  <input type="text" class="form-control" <?php if(isset($page_title) && $page_title != 'Edit'){echo 'required';} ?> name="password" value="<?php echo html_escape($staff[0]['password']); ?>" >
-                </div>
-
-
-                <input type="hidden" name="id" value="<?php echo html_escape($staff['0']['id']); ?>"> -->
-                <!-- csrf token -->
-                <!-- <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
-
-                <div class="row m-t-30">
-                  <div class="col-sm-12">
-                    <?php if (isset($page_title) && $page_title == "Edit"): ?>
-                      <button type="submit" class="btn btn-primary pull-left"><i class="ficon flaticon-check"></i> <?php echo trans('save-changes') ?></button>
-                      <?php else: ?>
-                        <button type="submit" class="btn btn-primary btn-lg pull-left"><i class="ficon flaticon-check"></i> <?php echo trans('save') ?></button>
-                      <?php endif; ?>
-                    </div>
-                  </div> -->
-
                 </form>
 
               </div>
@@ -594,9 +571,9 @@
                  <div class="box-body">
 
                   <div class="col-md-12 col-sm-12 col-xs-12 scroll table-responsive">
-                    <table class="table table-hover">
+                    <table class="datatable table table-hover">
                       <thead>
-                        <tr>
+                        <tr class="success table-info">
                           <th>#</th>
                           <th><?php echo trans('thumb') ?></th>
                           <th><?php echo trans('informations') ?></th>

@@ -72,9 +72,9 @@
       <div class="box-body">
         
         <div class="col-md-12 col-sm-12 col-xs-12 scroll">
-            <table class="table table-hover <?php if(count($diagonosises) > 10){echo 'datatable';} ?>" id="dg_table">
+            <table class="table table-hover datatable" id="dg_table">
                 <thead>
-                    <tr>
+                    <tr class="success table-info">
                         <th>#</th>
                         <th><?php echo trans('name') ?></th>
                         <th><?php echo trans('details') ?></th>

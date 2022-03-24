@@ -16,7 +16,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12 scroll">
                 <table class="table table-hover">
                     <thead>
-                        <tr>
+                        <tr class="success table-info">
                             <th>#</th>
                             <th>Doctors Info</th>
                             <th>Schedule</th>

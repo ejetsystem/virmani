@@ -150,7 +150,7 @@
                                 <div class="tab-pane table-responsive no-padding" id="tab_2">
                                     <table class="table datatable dataTable no-footer table-striped table-bordered table-hover" id="servertable" cellspacing="0" width="100%">
                                         <thead>
-                                            <tr>
+                                            <tr class="success table-info">
                                                 <th>Staff ID</th>
                                                 <th>Name</th>
                                                 <th>Role</th>
@@ -273,7 +273,7 @@
 
 
 
-                    <h4 class="form_title">Dealers Information</h4>
+                    <!-- <h4 class="form_title">Dealers Information</h4>
 
                     <div class="row">
 
@@ -305,7 +305,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div><!--./col-md-3-->
+                        </div>
                         <div class="col-lg-3 col-md-4 col-sm-6 img_div_modal">
                             <div class="staffinfo-box">
                                 <div class="staffleft-box">
@@ -334,7 +334,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div><!--./col-md-3-->
+                        </div>
                         <div class="col-lg-3 col-md-4 col-sm-6 img_div_modal">
                             <div class="staffinfo-box">
                                 <div class="staffleft-box">
@@ -363,11 +363,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div><!--./col-md-3-->
+                        </div>
 
 
 
-                    </div>
+                    </div> -->
                 </div>
 
             </div>

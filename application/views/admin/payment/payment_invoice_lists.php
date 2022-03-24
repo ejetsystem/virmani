@@ -12,7 +12,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12 scroll table-responsive p-0">
           <table class="table table-hover <?php if(count($payments) > 10){echo "datatable";} ?> cushover" id="dg_table">
               <thead>
-                  <tr>
+                  <tr class="success table-info">
                       <th>#</th>
                       <th><?php echo trans('plan') ?></th>
                       <th><?php echo trans('billing-cycle') ?></th>

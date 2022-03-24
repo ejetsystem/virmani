@@ -74,9 +74,9 @@
     </div>
 
       <div class="col-md-12 col-sm-12 col-xs-12 scroll table-responsive p-0">
-          <table class="table table-hover <?php if(count($faqs) > 10){echo "datatable";} ?>" id="dg_tables">
+          <table class="table table-hover datatable" id="dg_tables">
               <thead>
-                  <tr>
+                  <tr class="success table-info">
                       <th>#</th>
                       <th><?php echo trans('title') ?></th>
                       <th><?php echo trans('details') ?></th>

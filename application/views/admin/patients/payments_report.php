@@ -2,8 +2,8 @@
 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#uploadModal"><i class="fa fa-plus"></i> ADD PAYMENT</button>
 <div class="table-responsive">
 <table class="table table-bordered table-hover datatable">
-    <thead class="table-primary">
-        <tr>
+    <thead>
+        <tr class="success table-info">
             <th scope="col">Date</th>
             <th scope="col">Description</th>
             <th scope="col">Debit</th>

@@ -5,8 +5,8 @@
     <h4 class="form_title">Sitting Plan</h4>
     <div class="table-responsive">
         <table class="table table-bordered table-hover datatable">
-            <thead class="table-primary">
-                <tr>
+            <thead>
+                <tr class="success table-info">
                     <th scope="col">S.No</th>
                     <th scope="col">Date</th>
                     <th scope="col">Sitting</th>

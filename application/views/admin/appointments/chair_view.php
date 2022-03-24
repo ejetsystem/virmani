@@ -3,7 +3,7 @@
 get_instance()->load->helper('custom_helper');
 ?>
 <style>
-  .table>thead>tr>th {
+  /*.table>thead>tr>th {
     border-top: 1px solid #c1c1c1  !important;
     padding: 0.4rem !important;
     background: #015ba9;
@@ -12,7 +12,7 @@ get_instance()->load->helper('custom_helper');
  .table>tbody>tr>td {border-top: 1px solid #c1c1c1  !important;
     padding: 0.4rem !important;
 
-  }
+  }*/
   .modal-header{
     background: #007bff;
     color:#fff;
@@ -156,7 +156,7 @@ get_instance()->load->helper('custom_helper');
         <div class="pptm_chview" id="pptm_chview_block">
           <table class="table table-striped_ table-bordered table-hover" cellspacing="0" width="100%">
             <thead>
-              <tr>
+              <tr class="success table-info">
                 <th width="16%">Slot Time</th>
                 <?php foreach($chairs as $ch){ ?>
                   <th width="16%">Chair <?php echo $ch; ?></th>

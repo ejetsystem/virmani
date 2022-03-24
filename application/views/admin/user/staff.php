@@ -299,7 +299,7 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label><?php echo ('Bank Account Number') ?> <span class="text-danger">*</span></label>
-                          <input type="text" name="bank[0][bank_account_number]" required class="form-control">
+                          <input type="number" name="bank[0][bank_account_number]" required class="form-control">
                         </div>
                       </div>
                       <div class="col-md-3">
@@ -470,9 +470,9 @@
           <div class="box-body">
             
             <div class="col-md-12 col-sm-12 col-xs-12 scroll table-responsive">
-                <table class="table table-hover">
+                <table class="table table-hover datatable">
                     <thead>
-                        <tr>
+                        <tr class="success table-info">
                             <th>#</th>
                             <th><?php echo trans('thumb') ?></th>
                             <th><?php echo trans('informations') ?></th>
@@ -602,7 +602,7 @@
           <div class="col-md-3">
           <div class="form-group">
           <label>Bank Account Number <span class="text-danger">*</span></label>
-          <input type="" name="bank[`+count_banks+`][bank_account_number]" class="form-control">
+          <input type="number" name="bank[`+count_banks+`][bank_account_number]" class="form-control">
           </div>
           </div>
 

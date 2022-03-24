@@ -94,7 +94,7 @@
                   
                   <table class="table table-hover datatable">
                       <thead>
-                          <tr>
+                          <tr class="success table-info">
                               <th>#</th>
                               <th><?php echo trans('serial-no') ?></th>
                               <th><?php echo trans('patient-info') ?></th>

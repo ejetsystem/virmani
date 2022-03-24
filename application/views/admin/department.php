@@ -68,9 +68,9 @@
       </div>
 
       <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
-          <table class="table table-hover <?php if(count($departments) > 100){echo "datatable";} ?>" id="dg_tables">
+          <table class="table table-hover datatable" id="dg_tables">
               <thead>
-                  <tr>
+                  <tr class="success table-info">
                       <th>#</th>
                       <th><?php echo trans('name') ?></th>
                       <th><?php echo trans('action') ?></th>

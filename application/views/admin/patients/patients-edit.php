@@ -482,7 +482,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 scroll table-responsive">
                   <table class="table table-hover <?php if(count($patientses) > 10){echo "datatable";} ?>">
                     <thead>
-                      <tr>
+                      <tr class="success table-info">
                         <th>#</th>
                         <th><?php echo trans('mr.-no') ?></th>
                         <th><?php echo trans('name') ?></th>

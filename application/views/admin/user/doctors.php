@@ -10,9 +10,9 @@
 				    </div>
 
 					<div class="box-body table-responsive">
-						<table class="table table-hover datatables" id="dg_table">
+						<table class="table table-hover datatable" id="dg_table">
 							<thead>
-								<tr>
+								<tr class="success table-info">
 									<th>#</th>
 									<th><?php echo trans('thumb') ?></th>
 									<th>

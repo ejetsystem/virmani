@@ -56,9 +56,9 @@
           
         <div class="box">
         <div class="table-responsive">
-            <table class="table table-hover m-0">
+            <table class="table table-hover m-0 datatable">
                 <thead>
-                    <tr>
+                    <tr class="success table-info">
                         <th>#</th>
                         <th><?php echo trans('avatar') ?></th>
                         <th><?php echo trans('name') ?></th>
