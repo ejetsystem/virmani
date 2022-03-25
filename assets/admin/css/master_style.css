@@ -17180,7 +17180,8 @@ thead.border-0 tr th {
 
 /* RGV ---------------- */
 table {
-        table-layout: fixed;
+/*        table-layout: fixed;*/
+white-space: nowrap;
     }
 
 

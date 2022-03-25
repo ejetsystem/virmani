@@ -20,6 +20,7 @@
                             <th scope="col">Work Done</th>
                             <th scope="col">Treatment Code</th>
                             <th scope="col">Doctor</th>
+                            <th scope="col">Notes & Diagnosis</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -37,6 +38,7 @@
     <?php } ?>
                                 </td>
                                 <td><?php echo $workdone['name'] ?></td>
+                                <td><?php echo $workdone['notesdiagnosis'] ?></td>
                                 <td>
                                     <a data-val="Category"  data-id="<?php echo $workdone['id'] ?>"  href="<?php echo base_url(); ?>admin/patients/getteethinfodelete/<?php echo $workdone['id'] ?>/<?php echo $patient_id ?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                                 </td>
@@ -137,7 +139,7 @@
                         </div>
                     </div>
                     <div class="newteeth" id="container_new">
-                        <input type="hidden" name="print_tooth_name" id="tooth_no_note" value="">
+                        
                         <input type="hidden" name="print_tooth_id" required="" id="teethsid" value=""> 
                         <ul id="continents1_new">
                             <?php
@@ -214,18 +216,31 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
+                                        <label>Treatment Code</label>
+                                        <input type="hidden" id="workdoneon" name="workdoneon" class="form-control" > 
+                                        <select name="workdoneon_id" id="workdoneon_id" class="form-control" onchange="choose_job(this);">
+                                            <option value="0">-- Job -- </option>
+                                            <?php foreach ($treatmentplans as $plandata) { ?>
+                                                        <option treatment_amount="<?php echo $plandata['amount']; ?>" treatment_job="<?php echo $plandata['job']; ?>" value="<?php echo $plandata['id']; ?>"><?php echo ucwords($plandata['job']); ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                        <div class="form-group">
                                             <label>Estimate</label>
                                             <input name="estimate" id="estimate" placeholder="" type="text" class="form-control" value="" readonly=""  onkeypress="return isNumberKey(event)"> 
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Amount Due for Todays's Work.</label>
                                             <input name="amt_due_current_work" id="amt_due_current_work" placeholder="" type="text" class="form-control" value=""  onkeypress="return isNumberKey(event)"> 
                                         </div>
                                     </div>
-
-                                    <div class="col-md-4">
+                                    
+                                    <input name="if_any_amt" placeholder="" type="hidden" class="form-control" value="0" onkeypress="return isNumberKey(event)">
+                                    <input name="prev_bal_amt" placeholder="" type="hidden" class="form-control" value="0" onkeypress="return isNumberKey(event)">
+                                    <input name="adv_amt" placeholder="" type="hidden" class="form-control" value="0" onkeypress="return isNumberKey(event)">
+<!--                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label>If Any.</label>
                                             <input name="if_any_amt" placeholder="" type="text" class="form-control" value="0" onkeypress="return isNumberKey(event)">
@@ -251,7 +266,7 @@
                                             <label>Adv.</label>
                                             <input name="adv_amt" placeholder="" type="text" class="form-control" value="0" onkeypress="return isNumberKey(event)">
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                 </div>
                             </div>
@@ -260,6 +275,12 @@
 
                         <div class="col-md-6 mt-20">
                             <h4><strong>&nbsp;</strong></h4>
+                            
+                            
+                            <div class="form-group">
+                                <label><strong>Teeth Name</strong> (Please select above any teeth!)</label>
+                                <input type="text" name="print_tooth_name" id="tooth_no_note"  value="" required="" class="readonly form-control">
+                            </div>
                             <div class="form-group">
                                 <label><strong>By Doctor</strong></label>
                                 <!-- <input type="text" name="supplier" class="form-control" required> -->
@@ -270,20 +291,7 @@
                                     <?php } ?>
                                 </select>
                             </div>
-                            
-                            
-                                    <div class="form-group">
-                                        <label>Treatment Code</label>
-                                        <input type="hidden" id="workdoneon" name="workdoneon" class="form-control" > 
-                                        <select name="workdoneon_id" id="workdoneon_id" class="form-control" onchange="choose_job(this);">
-                                            <option value="0">-- Job -- </option>
-                                            <?php foreach ($treatmentplans as $plandata) { ?>
-                                                        <option treatment_amount="<?php echo $plandata['amount']; ?>" treatment_job="<?php echo $plandata['job']; ?>" value="<?php echo $plandata['id']; ?>"><?php echo ucwords($plandata['job']); ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                
-
+                             
                             <div class="payment_bxblock pyatm">
                                 <h4><strong>Treatment</strong></h4>
                                 <div class="row">
@@ -433,7 +441,12 @@
         </div>
     </div>
 
-    <script type="text/javascript">
+<script type="text/javascript">
+    $(".readonly").on('keydown paste focus mousedown', function(e){
+        if(e.keyCode != 9) // ignore tab
+            e.preventDefault();
+    });
+        
  function choose_job($this){
     var treatmentamount = $($this).find('option:selected').attr('treatment_amount');
     var treatmentjob = $($this).find('option:selected').attr('treatment_job');

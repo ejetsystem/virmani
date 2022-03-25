@@ -235,10 +235,6 @@
     </div>
 
     <style type="text/css">
-table {
-  table-layout: fixed;
-}
-
 
         .edbts {  float: right; color: #fff !important;}
         .acd {  background: #8f3f00;}

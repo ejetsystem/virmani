@@ -120,7 +120,7 @@
 
                               <td>
                                 <label class="badge badge-primary-soft brd-20"><i class="fa fa-calendar"></i> <?php echo my_date_show($amp->date); ?></label><br>
-                                <label class="badge badge-primary-soft brd-20"><i class="fa fa-clock-o"></i> <?php echo $amp->time; ?></label>
+                                <label class="badge badge-primary-soft brd-20"><i class="fa fa-clock-o"></i> <?php echo date('h:i A',strtotime($amp->start_time)).'-'.date('h:i A',strtotime($amp->end_time)); ?></label>
                               </td>
 
                               <td>

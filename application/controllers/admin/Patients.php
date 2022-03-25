@@ -866,7 +866,7 @@ public function getteethdata_per_new()
               'workdoneon' =>$_POST['workdoneon'],
               'workdoneon_id' =>$_POST['workdoneon_id'],
               'workdone_doc' =>$_POST['workdone_doc'],
-              'wrk_special_notes' =>$_POST['wrk_special_notes'],
+              'notesdiagnosis' =>$_POST['notesdiagnosis'],
               'estimate' =>$_POST['estimate'],
               'amt_due_current_work' =>$_POST['amt_due_current_work'],
               'if_any_amt' =>$_POST['if_any_amt'],
@@ -924,9 +924,11 @@ public function getteethdata_per_new()
           $payment_history = array(
               'doctor_id'   => $_POST['workdone_doc'],
               'patient_id' =>$_POST['wk_patient_id'],
+              'workdone_id' => $patient_wrkdone,
               'credit_amount' =>'0.00',
               'debit_amount' =>$_POST['amt_due_current_work'],
               'balance' =>($balance['balance'] + $_POST['amt_due_current_work']),
+              'amount_type' =>'1',
               'payment_mode' =>'',
               'description' =>'patient bill',
              ); 

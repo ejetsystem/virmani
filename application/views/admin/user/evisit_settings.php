@@ -92,26 +92,35 @@
 
                 <div class="box-body py-4 table-responsive">
 
-                  <table class="table datatable m-10">
+                  <table class="table datatable_ m-10">
                       <thead class="border-0">
                           <tr class="success table-info">
                               <th>
-                                 <p>Zoom <?php echo trans('meeting-id') ?></p>
+                                 Zoom <?php echo trans('meeting-id') ?>
+                              </th>
+                              <th>
+                                 Zoom <?php echo trans('meeting-password') ?>
+                              </th>
+                              <th>
+                                 <?php echo trans('consultation-fees') ?>
+                              </th>
+                              <th>
+                                 <?php echo trans('status') ?>
+                              </th>
+                          </tr>
+                      </thead>
+                      <tbody
+                          <tr>
+                              <th>
                                  <label class="badge badge-secondary-soft brd-20"><?php echo html_escape(evisit_settings(user()->id)->zoom_meeting_id) ?></badge>
                               </th>
-
                               <th>
-                                 <p>Zoom <?php echo trans('meeting-password') ?></p>
                                  <label class="badge badge-secondary-soft brd-20"><?php echo html_escape(evisit_settings(user()->id)->zoom_meeting_password) ?></badge>
                               </th>
-
                               <th>
-                                 <p><?php echo trans('consultation-fees') ?></p>
                                  <label class="badge badge-primary-soft brd-20"><?php echo currency_symbol(user()->currency); ?><?php echo html_escape(evisit_settings(user()->id)->price) ?></badge>
                               </th>
-
                               <th>
-                                 <p><?php echo trans('status') ?></p>
                                   <?php if (evisit_settings(user()->id)->status == 1):?>
                                     <label class="badge badge-success-soft brd-20"><i class="ficon flaticon-check"></i> <?php echo trans('active') ?></label>
                                   <?php else: ?>
@@ -121,12 +130,12 @@
                           </tr>
 
                           <tr>
-                            <th>
+                              <th colspan="4">
                                 <p>Zoom <?php echo trans('invitation-link') ?></p>
                                 <label class="badge badge-secondary-soft brd-20"><?php echo evisit_settings(user()->id)->invitation_link; ?></badge>
                             </th>
                           </tr>
-                      </thead>
+                                </tbody>
                   </table>
 
                 </div>
