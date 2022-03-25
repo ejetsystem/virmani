@@ -200,7 +200,7 @@
                       <div class="col-md-2">
                         <div class="form-group">
                           <label><?php echo ('Zip') ?> <span class="text-danger">*</span></label>
-                          <input type="text" name="zip_r" id="zip_r" required class="form-control">
+                          <input type="number" name="zip_r" id="zip_r" required class="form-control">
                         </div>
                       </div>
 
@@ -247,7 +247,7 @@
                       <div class="col-md-2">
                         <div class="form-group">
                           <label><?php echo ('Zip') ?></label>
-                          <input type="text" name="zip_o" id="zip_o" class="form-control">
+                          <input type="number" name="zip_o" id="zip_o" class="form-control">
                         </div>
                       </div>
 
@@ -294,7 +294,7 @@
                       <div class="col-md-2">
                         <div class="form-group">
                           <label><?php echo ('Zip') ?></label>
-                          <input type="text" name="zip_other" id="zip_other" class="form-control">
+                          <input type="number" name="zip_other" id="zip_other" class="form-control">
                         </div>
                       </div>
 
