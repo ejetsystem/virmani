@@ -4,9 +4,10 @@
 		<div>
 			<select class="form-control select2 drugs w90" name="drugs[]">
 				<option value=""><?php echo trans('select-drug') ?></option>
-				<?php foreach ($drugs as $drug): ?>
+				<?php 
+                                foreach ($drugs as $drug): ?>
 					<option <?php if(isset($item['drug_id']) && $item['drug_id'] == $drug->id){echo "selected";} ?> value="<?php echo html_escape($drug->id); ?>">
-						<?php echo html_escape($drug->name); ?>
+						<?php echo html_escape($drug->medicine_name); ?>
 					</option>
 				<?php endforeach ?>
 			</select>
