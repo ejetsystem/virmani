@@ -15,6 +15,48 @@
           </div>
 
           <div class="box-body">
+            <h4 class="form_title">Search</h4>
+            
+            <form method="POST" action="<?php echo base_url('admin/report'); ?>">
+              <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
+              <div class="row">
+                <div class="col-3">
+                  <div class="form-group">
+                    <label>Select Doctor</label>
+                    <select id="doctor_id" name="doctor_id" class="form-control">
+                      <?php  
+                      if(count($payment_history) > 0){
+                        $i = 1;
+                        foreach($payment_history as $key=>$ph){
+                      ?>
+                      <option value="<?php echo $ph->doctor_id ?>"><?php echo $ph->doctor_name ?></option>
+                      <?php      
+                        }
+                      }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-3">
+                  <div class="form-group">
+                    <label>Start Date</label>
+                    <input type="date" name="start" id="start" class="form-control">
+                  </div>
+                </div>
+
+                <div class="col-3">
+                  <div class="form-group">
+                    <label>End Date</label>
+                    <input type="date" name="end" id="end" class="form-control">
+                  </div>
+                </div>
+
+                <div class="col-3">
+                  <button class="btn btn-primary btn-lg mt-30" name="search" value="search">Search</button>
+                </div>
+              </div>
+            </form>
 
             <div class="col-md-12 col-sm-12 col-xs-12 scroll table-responsive">
               <table class="table table-hover datatable">
