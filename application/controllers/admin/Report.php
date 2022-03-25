@@ -28,6 +28,16 @@ class Report extends Home_Controller {
         $data['main_content'] = $this->load->view('admin/payment/index', $data, TRUE);
         $this->load->view('admin/index',$data);
     }
+
+    public function getWorkDone()
+    {
+        $workdone_id = $this->input->post('workdone_id');
+        $work_done = $this->admin_model->getWorkDone($workdone_id);
+        header('Content-Type: application/json');
+        echo json_encode($work_done[0]);
+    }
+
+    
     
 }
 

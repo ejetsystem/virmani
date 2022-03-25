@@ -2422,6 +2422,17 @@ class Admin_model extends CI_Model {
         $this->db->from('payment_history p');
         $this->db->join('doctors d', 'd.id = p.doctor_id', 'LEFT');
         $this->db->where('d.user_id',$this->session->userdata('id'));
+        $this->db->where('p.amount_type',1);
+        $query = $this->db->get();
+        $query = $query->result();
+        return $query;
+    }
+
+    public function getWorkDone($workdone_id){
+        $this->db->select('w.*,d.name as doctor_name');
+        $this->db->from('workdone w');
+        $this->db->join('doctors d', 'd.id = w.workdone_doc', 'LEFT');
+        $this->db->where('w.id',$workdone_id);
         $query = $this->db->get();
         $query = $query->result();
         return $query;
