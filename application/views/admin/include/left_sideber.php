@@ -254,6 +254,24 @@
               </ul>
             </li> 
           <?php endif; ?>
+
+
+          <!--Start Report -->
+          <?php if (check_feature_access('report') == TRUE): ?>
+            <li class="treeview <?php if(isset($page) && $page == "Report"){echo "active";} ?>">
+              <a href="#"><i class="flaticon-appointment"></i>
+                <span><?php echo trans('report') ?></span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li class="<?php if(isset($page_title) && $page_title == "Payment History"){echo "active";} ?>"><a href="<?php echo base_url('admin/report') ?>"><i class="fa fa-long-arrow-right"></i><?php echo trans('payments') ?></a></li>
+              </ul>
+            </li> 
+          <?php endif; ?>
+          <!--End Report -->
+
  
           <li class="<?php if((isset($page_title)) && (($page_title == "Drugs") || ($page_title == "Add Drug"))){echo "active";} ?>">
             <a href="<?php echo base_url('clinic-admin/drugs') ?>">

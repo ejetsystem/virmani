@@ -2417,5 +2417,15 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
+    public function payment_history(){
+        $this->db->select('p.*,d.name as doctor_name');
+        $this->db->from('payment_history p');
+        $this->db->join('doctors d', 'd.id = p.doctor_id', 'LEFT');
+        $this->db->where('d.user_id',$this->session->userdata('id'));
+        $query = $this->db->get();
+        $query = $query->result();
+        return $query;
+    }
+
     
 }
