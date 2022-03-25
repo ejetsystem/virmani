@@ -188,7 +188,7 @@ class Doctor extends Home_Controller {
      'qualification' => $this->input->post('qualification'),   
      'email' => $this->input->post('email'),   
      'email2' => $this->input->post('email2'),   
-     'password' => $this->input->post('password'),   
+     ///'password' => hash_password($this->input->post('password')),   
      'speciality' => $this->input->post('speciality'),   
      'phone1' => $this->input->post('phone1'),   
      'phone2' => $this->input->post('phone2'),   
@@ -198,7 +198,9 @@ class Doctor extends Home_Controller {
      'gst_number' => $this->input->post('gst_number'),   
      'updated_at' => date("Y-m-d h:i:s"),   
    );
-
+    if(!empty($this->input->post('password'))){
+    $doctors['password'] = hash_password($this->input->post('password'));
+    }
         // Update Doctors Details
     $this->admin_model->update($doctors,$this->input->post('id'),'doctors');
 

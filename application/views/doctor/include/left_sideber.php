@@ -3,17 +3,17 @@
     <ul class="sidebar-menu" data-widget="tree">
       
         <li class="<?php if(isset($page_title) && $page_title == "User Dashboard"){echo "active";} ?>">
-          <a href="<?php echo base_url('clinic-admin/dashboard/user') ?>">
+          <a href="<?php echo base_url('doctor/dashboard/user') ?>">
             <i class="flaticon-dashboard"></i> <span><?php echo trans('dashboard') ?></span>
           </a>
         </li>
 
-      <?php if (is_staff() || is_doctor()): ?>
+      <?php if (is_doctor()): ?>
         <?php if (check_my_payment_status() == TRUE): ?>
           
           <?php if (check_feature_access('patients') == TRUE): ?>
             <li class="<?php if(isset($page_title) && $page_title == "Patients"){echo "active";} ?>">
-              <a href="<?php echo base_url('admin/patients') ?>">
+              <a href="<?php echo base_url('doctor/patients') ?>">
                 <i class="flaticon-medical"></i> <span><?php echo trans('patients') ?></span>
               </a>
             </li>
@@ -36,6 +36,22 @@
               </ul>
             </li> 
           <?php endif; ?>
+            
+            <?php if (check_feature_access('online-consultation') == TRUE): ?>
+           
+
+          <li class="<?php if(isset($page_title) && $page_title == "Consultation Settings"){echo "active";} ?>">
+            <a href="<?php echo base_url('doctor/live_consults/settings') ?>">
+              <i class="flaticon-settings-1"></i> <span><?php echo trans('consultation-settings') ?></span>
+            </a>
+          </li>
+          
+          <li class="<?php if(isset($page_title) && $page_title == "Consultations"){echo "active";} ?>">
+            <a href="<?php echo base_url('doctor/live_consults') ?>">
+             <i class="flaticon-chat"></i> <span> <?php echo trans('consultations') ?> </span>
+            </a>
+          </li>
+          <?php endif ?>
 
   
           <?php if (check_feature_access('profile-page') == TRUE): ?>

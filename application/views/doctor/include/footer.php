@@ -5,7 +5,9 @@
   <a href="<?php echo base_url() ?>"><?php echo html_escape($settings->copyright) ?></a>
 </footer>
 
-<?php include'js_msg_list.php'; ?>
+<?php //include '/admin/include/js_msg_list.php';
+$this->load->view('admin/include/js_msg_list');
+?>
 
 <?php $success = $this->session->flashdata('msg'); ?>
 <?php $error = $this->session->flashdata('error'); ?>

@@ -943,6 +943,20 @@ class Admin_model extends CI_Model {
         $query = $query->result();  
         return $query;
     }
+    
+    function get_appointmentsByID($user_id)
+    {
+        $this->db->select('a.*, p.name, p.mobile, p.email, p.mr_number');
+        $this->db->from('appointments a');
+        $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
+        $this->db->where('a.chamber_id', $this->chamber->uid);
+        $this->db->where('a.doctor_id',$user_id); 
+        $this->db->where('a.is_delete',0);
+        $this->db->order_by('a.date', 'DESC');
+        $query = $this->db->get();
+        $query = $query->result();  
+        return $query;
+    }
 
 //get user info
     function get_appointments_by_date($date)
