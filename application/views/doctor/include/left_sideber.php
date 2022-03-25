@@ -3,7 +3,7 @@
     <ul class="sidebar-menu" data-widget="tree">
       
         <li class="<?php if(isset($page_title) && $page_title == "User Dashboard"){echo "active";} ?>">
-          <a href="<?php echo base_url('clinic-admin/dashboard/user') ?>">
+          <a href="<?php echo base_url('doctor/doctor') ?>">
             <i class="flaticon-dashboard"></i> <span><?php echo trans('dashboard') ?></span>
           </a>
         </li>
