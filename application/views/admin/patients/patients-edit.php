@@ -152,7 +152,7 @@
                 </div>
 
                 <!-- Email -->
-                <div class="row">
+                <!-- <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
                       <label><?php echo ('Email'); ?> </label>
@@ -166,6 +166,34 @@
                       <input type="text" name="email2" id="email2" class="form-control"value="<?php echo html_escape($contact[0]['email2']); ?>">
                     </div>
                   </div>
+                </div> -->
+
+
+                <!-- Email -->
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label><?php echo ('Email'); ?> </label>
+                      <input type="text" name="email" id="email" class="form-control" value="<?php echo html_escape($contact[0]['email']); ?>">
+                      <span class="text-danger my-5" id="email_exist_error_message"></span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label><?php echo ('Email 2'); ?> </label>
+                      <input type="text" name="email2" id="email2" class="form-control" value="<?php echo html_escape($contact[0]['email2']); ?>">
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label><?php echo ('Password'); ?> <span class="text-danger"> * </span> </label>
+                      <input type="text" name="password" id="password" class="form-control">
+                      <span class="text-danger my-5" id="password_error_message"></span>
+                    </div>
+                  </div>
+
                 </div>
 
                 <!-- Address -->

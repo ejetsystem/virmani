@@ -25,7 +25,7 @@
         </div>
 
         <div class="box-body">
-          <form id="cat-form" action="<?php echo base_url('admin/registration/registrationController/add')?>" method="post" enctype="multipart/form-data" class="validate-form" role="form" novalidate>
+          <form id="cat-form" action="<?php echo base_url('admin/registration/registrationController/add')?>" method="post" enctype="multipart/form-data" class="validate-form check_email_validate" role="form" novalidate>
           <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
 
           <div class="row">
@@ -153,13 +153,15 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label><?php echo ('Email') ?> <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" placeholder="Enter Email" required name="email" id="email">
+                <input type="text" class="form-control" placeholder="Enter Email" required name="email" id="email" onkeyup="checkEmailExist(this.value)">
+                <span class="text-danger my-5" id="email_exist_error_message"></span>
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
                 <label><?php echo ('Password') ?> <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" required placeholder="Enter Password" required name="password" id="password">
+                <span class="text-danger my-5" id="password_error_message"></span>
               </div>
             </div>
           </div>

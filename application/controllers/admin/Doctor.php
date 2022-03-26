@@ -199,7 +199,7 @@ class Doctor extends Home_Controller {
      'updated_at' => date("Y-m-d h:i:s"),   
    );
     if(!empty($this->input->post('password'))){
-    $doctors['password'] = hash_password($this->input->post('password'));
+      $doctors['password'] = hash_password($this->input->post('password'));
     }
         // Update Doctors Details
     $this->admin_model->update($doctors,$this->input->post('id'),'doctors');

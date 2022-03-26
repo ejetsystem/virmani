@@ -2452,5 +2452,54 @@ class Admin_model extends CI_Model {
         return $query;
     }
 
+    public function checkEmailExsist($email){
+        $this->db->select('*');
+        $this->db->from('doctors');
+        $this->db->where('email',$email);
+        $this->db->limit(1);
+        $query = $this->db->get();   
+        
+        if($query->num_rows() == 1)
+        {                 
+           return $query->row();
+        }else{
+            $result = $this->checkEmailExsist_staff($email);
+            return $result;
+        }
+    }
+
+    function checkEmailExsist_staff($email)
+    {   
+        $this->db->select('*');
+        $this->db->from('staffs');
+        $this->db->where('email',$email);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+        {                 
+           return $query->row();
+        }
+        else{
+            $result = $this->checkEmailExsist_patient($email);
+            return $result;
+        }
+    }
+
+    function checkEmailExsist_patient($email)
+    {   
+        $this->db->select('*');
+        $this->db->from('patientses');
+        $this->db->where('email',$email);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+        {                 
+           return $query->row();
+        }
+        else{
+            return FALSE;
+        }
+    }
+
     
 }

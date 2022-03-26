@@ -225,7 +225,7 @@ class Patients extends Home_Controller {
             'age' => $this->input->post('age', true),
             'weight' => $this->input->post('weight', true),
             'sex' => $this->input->post('sex', true),
-            'password' => $password,
+            'password' => hash_password($this->input->post('password')),
             'title' => $this->input->post('title', true),
             'guardian' => $this->input->post('guardian', true),
             'present_address' => $this->input->post('present_address', true),
@@ -319,7 +319,7 @@ class Patients extends Home_Controller {
                     'weight' => $this->input->post('weight', true),
                     'sex' => $this->input->post('sex', true),
                     'mobile' => $this->input->post('mobile', true),
-                    'password' => hash_password('1234'),
+                    'password' => hash_password($this->input->post('password')),
                     'present_address' => $this->input->post('present_address', true),
                     'permanent_address' => $this->input->post('permanent_address', true),
                     'created_at' => my_date_now()
@@ -377,12 +377,15 @@ class Patients extends Home_Controller {
             'age' => $this->input->post('age', true),
             'weight' => $this->input->post('weight', true),
             'sex' => $this->input->post('sex', true),
-            'password' => $password,
             'title' => $this->input->post('title', true),
             'guardian' => $this->input->post('guardian', true),
             'present_address' => $this->input->post('present_address', true),
             'permanent_address' => $this->input->post('permanent_address', true)
         );
+
+        if(!empty($this->input->post('password'))){
+          $patientses['password'] = hash_password($this->input->post('password'));
+        }
 
         // Update Patients Details
         $this->admin_model->update($patientses, $this->input->post('patient_id'), 'patientses');
@@ -393,7 +396,7 @@ class Patients extends Home_Controller {
             $data_img = array(
                 'thumb' => $data_img['patients']
             );
-            $this->admin_model->edit_option($data_img, $patient_id, 'patientses');
+            $this->admin_model->edit_option($data_img,$this->input->post('patient_id'),'patientses');
         }
 
 

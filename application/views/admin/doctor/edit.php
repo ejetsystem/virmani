@@ -128,7 +128,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label><?php echo ('Password'); ?> </label>
-                      <input type="text" class="form-control" name="password" id="password" value="<?php echo html_escape($doctors->password); ?>" >
+                      <input type="text" class="form-control" name="password" id="password">
                     </div>
                   </div>
                   
