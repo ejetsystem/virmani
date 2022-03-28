@@ -569,7 +569,7 @@
                               </b> -->
                               <p class="mb-0"><?php echo html_escape($doctor->email); ?></p>
                               <p class="mb-0 text-capitalize"><?php echo html_escape($doctor->gender); ?></p>
-                              <p class="mb-0"><?php echo html_escape($doctor->dob); ?></p>
+                              <p class="mb-0"><?php echo html_escape(date('Y-m-d',strtotime($doctor->dob))); ?></p>
                             </td>
 
                             <td>

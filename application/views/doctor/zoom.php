@@ -114,7 +114,7 @@
             userName: USER_NAME,
             passWord: PASSWORD,
             leaveUrl: "<?php echo $leave_url; ?>",
-            role: 0
+            role: 1
         };
 
 

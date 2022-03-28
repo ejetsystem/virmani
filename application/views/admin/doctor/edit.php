@@ -74,7 +74,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label><?php echo trans('age') ?> </label>
-                          <input type="number" class="form-control" name="age" id="age" value="<?php echo html_escape(date_diff(date_create(date('Y-m-d',strtotime($doctors->dob))), date_create(date('Y-m-d')))->format('%y')); ?>" >
+                          <input type="number" class="form-control" name="age" id="age" value="<?php echo $doctors->dob; ?>" >
                         </div>
                       </div>
 
@@ -82,7 +82,7 @@
                         <div class="form-group">
                           <label><?php echo ('Marital Status'); ?> </label>
                           <select class="form-control" required name="marital_status" id="marital_status" value="<?php echo html_escape($staff[0]['marital-status']); ?>" >
-                            <option <?php if($doctors->marital_status=='Select'){ echo "selected"; } ?> value="Select">Select</option>
+                            <option  value="">Select</option>
                             <option <?php if($doctors->marital_status=='Single'){ echo "selected"; } ?> value="Single">Single</option>
                             <option <?php if($doctors->marital_status=='Married'){ echo "selected"; } ?> value="Married">Married</option>
                             <option <?php if($doctors->marital_status=='Widowed'){ echo "selected"; } ?> value="Widowed">Widowed</option>
