@@ -214,75 +214,87 @@ class Patients extends Home_Controller {
     }
 
     public function add() {
-        $user_id = $this->session->userdata('id');
+        if(empty($this->admin_model->checkEmailExsist($this->input->post('email')))){
+            $user_id = $this->session->userdata('id');
 
-        $patientses = array(
-            'chamber_id' => $this->chamber->uid,
-            'user_id' => $user_id,
-            'mr_number' => random_string('numeric', 5),
-            'name' => $this->input->post('name', true),
-            'email' => $this->input->post('email', true),
-            'age' => $this->input->post('age', true),
-            'weight' => $this->input->post('weight', true),
-            'sex' => $this->input->post('sex', true),
-            'password' => hash_password($this->input->post('password')),
-            'title' => $this->input->post('title', true),
-            'guardian' => $this->input->post('guardian', true),
-            'present_address' => $this->input->post('present_address', true),
-            'permanent_address' => $this->input->post('permanent_address', true),
-            'created_at' => my_date_now()
-        );
-
-        $patient_id = $this->admin_model->insert($patientses, 'patientses');
-
-        $data_img = $this->admin_model->do_upload('photo');
-        if ($data_img) {
-            $data_img = array(
-                'thumb' => $data_img['patients']
+            $patientses = array(
+                'chamber_id' => $this->chamber->uid,
+                'user_id' => $user_id,
+                'mr_number' => random_string('numeric', 5),
+                'name' => $this->input->post('name', true),
+                'email' => $this->input->post('email', true),
+                'age' => $this->input->post('age', true),
+                'weight' => $this->input->post('weight', true),
+                'sex' => $this->input->post('sex', true),
+                'password' => hash_password($this->input->post('password')),
+                'title' => $this->input->post('title', true),
+                'guardian' => $this->input->post('guardian', true),
+                'present_address' => $this->input->post('present_address', true),
+                'permanent_address' => $this->input->post('permanent_address', true),
+                'created_at' => my_date_now()
             );
-            $this->admin_model->edit_option($data_img, $patient_id, 'patientses');
+
+            $patient_id = $this->admin_model->insert($patientses, 'patientses');
+
+            $all_users = $data=array(
+                'email' => $this->input->post('email', true),
+                'created_at' => my_date_now()
+            );
+            $this->admin_model->insert($all_users, 'all_users');
+
+            $data_img = $this->admin_model->do_upload('photo');
+            if ($data_img) {
+                $data_img = array(
+                    'thumb' => $data_img['patients']
+                );
+                $this->admin_model->edit_option($data_img, $patient_id, 'patientses');
+            }
+
+            $patients_contact = array(
+                'patient_id' => $patient_id,
+                'phone1' => $this->input->post('phone1', true),
+                'phone2' => $this->input->post('phone2', true),
+                'phone3' => $this->input->post('phone3', true),
+                'phone4' => $this->input->post('phone4', true),
+                'email' => $this->input->post('email', true),
+                'email2' => $this->input->post('email2', true),
+                'address_r' => $this->input->post('address_r', true),
+                'city_r' => $this->input->post('city_r', true),
+                'zip_r' => $this->input->post('zip_r', true),
+                'country_r' => $this->input->post('country_r', true),
+                'address_o' => $this->input->post('address_o', true),
+                'city_o' => $this->input->post('city_o', true),
+                'zip_o' => $this->input->post('zip_o', true),
+                'country_o' => $this->input->post('country_o', true),
+                'address_other' => $this->input->post('address_other', true),
+                'city_other' => $this->input->post('city_other', true),
+                'zip_other' => $this->input->post('zip_other', true),
+                'country_other' => $this->input->post('country_other', true),
+                'physician' => $this->input->post('physician', true),
+                'reffered_by' => $this->input->post('reffered_by', true),
+                'doctor_name' => $this->input->post('doctor_name', true),
+                'phone' => $this->input->post('phone', true),
+                'relationship_type' => $this->input->post('relationship_type', true),
+                'medical_history_allergies' => $this->input->post('history_allergies', true),
+                'special_notes' => $this->input->post('special_notes', true),
+                'created_at ' => my_date_now()
+            );
+
+            $this->admin_model->insert($patients_contact, 'patients_contact');
+
+
+            $this->admin_model->insert_multiple_patient($this->input->post('insurance_loan'), 'patients_insurance_loan', $patient_id);
+
+            // print_r($this->input->post('insurance_loan'));
+            // print_r($_FILES);
+            // die;
+
+            redirect(base_url('clinic-admin/patients'));
         }
-
-        $patients_contact = array(
-            'patient_id' => $patient_id,
-            'phone1' => $this->input->post('phone1', true),
-            'phone2' => $this->input->post('phone2', true),
-            'phone3' => $this->input->post('phone3', true),
-            'phone4' => $this->input->post('phone4', true),
-            'email' => $this->input->post('email', true),
-            'email2' => $this->input->post('email2', true),
-            'address_r' => $this->input->post('address_r', true),
-            'city_r' => $this->input->post('city_r', true),
-            'zip_r' => $this->input->post('zip_r', true),
-            'country_r' => $this->input->post('country_r', true),
-            'address_o' => $this->input->post('address_o', true),
-            'city_o' => $this->input->post('city_o', true),
-            'zip_o' => $this->input->post('zip_o', true),
-            'country_o' => $this->input->post('country_o', true),
-            'address_other' => $this->input->post('address_other', true),
-            'city_other' => $this->input->post('city_other', true),
-            'zip_other' => $this->input->post('zip_other', true),
-            'country_other' => $this->input->post('country_other', true),
-            'physician' => $this->input->post('physician', true),
-            'reffered_by' => $this->input->post('reffered_by', true),
-            'doctor_name' => $this->input->post('doctor_name', true),
-            'phone' => $this->input->post('phone', true),
-            'relationship_type' => $this->input->post('relationship_type', true),
-            'medical_history_allergies' => $this->input->post('history_allergies', true),
-            'special_notes' => $this->input->post('special_notes', true),
-            'created_at ' => my_date_now()
-        );
-
-        $this->admin_model->insert($patients_contact, 'patients_contact');
-
-
-        $this->admin_model->insert_multiple_patient($this->input->post('insurance_loan'), 'patients_insurance_loan', $patient_id);
-
-        // print_r($this->input->post('insurance_loan'));
-        // print_r($_FILES);
-        // die;
-
-        redirect(base_url('clinic-admin/patients'));
+        else{
+            $this->session->set_flashdata('error', "Email Already Exists");
+            redirect(base_url('clinic-admin/patients'));
+        }
     }
 
     // add patient from prescription

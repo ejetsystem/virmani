@@ -204,7 +204,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputFile">Current Address</label>
-                    <div><textarea name="address" class="form-control" required=""></textarea>
+                    <div><textarea name="address" class="form-control"></textarea>
                     </div>
                     <span class="text-danger"></span></div>
                   </div>

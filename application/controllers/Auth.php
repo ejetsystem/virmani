@@ -161,9 +161,8 @@ class Auth extends Home_Controller
     // register new user
     public function register_user()
     {
-        
         if($_POST){
-
+          if(empty($this->admin_model->checkEmailExsist($this->input->post('email')))){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('email', trans('email'), 'required');
             $this->form_validation->set_rules('password', trans('password'), 'trim|required|max_length[16]');
@@ -222,6 +221,12 @@ class Auth extends Home_Controller
                         );
                         $data = $this->security->xss_clean($data);
                         $id = $this->common_model->insert($data, 'users');
+
+                        $all_users = $data=array(
+                            'email' => $this->input->post('email', true),
+                            'created_at' => my_date_now()
+                        );
+                        $this->admin_model->insert($all_users, 'all_users');
 
                         $user = $this->auth_model->validate_id(md5($id));
                         $data = array(
@@ -293,6 +298,12 @@ class Auth extends Home_Controller
                 }
 
             }
+          }
+          else{
+            $this->session->set_flashdata('error', "Email Already Exists");
+            $url = base_url('register');
+            echo json_encode(array('st'=>1, 'url' => $url));
+          }  
         }
 
     }

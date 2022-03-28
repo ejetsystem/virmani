@@ -1008,7 +1008,7 @@ function checkEmailExist(email){
 
         $.ajax({
             type: "POST",
-            url: base_url + "admin/Dashboard/checkEmailExsist",
+            url: base_url + "CheckEmailExist/checkEmailExsist",
             data: post_data,
             success: function (response) {
               console.log(response);
@@ -1035,7 +1035,7 @@ $(".check_email_validate").submit(function(e){
     return false;
   }
   else{
-    $("#email_exist_error_message").text('Enter Email');
+    $("#email_exist_error_message").text('');
   }
 
   if($("#password").val() ==''){
@@ -1044,7 +1044,7 @@ $(".check_email_validate").submit(function(e){
     e.preventDefault();
   }
   else{
-    $("#password_error_message").text('Enter Password');
+    $("#password_error_message").text('');
   }
 
   

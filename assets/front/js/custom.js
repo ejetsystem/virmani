@@ -517,3 +517,30 @@
 
 
 })(jQuery);
+
+
+function checkEmailExist(email){
+  var post_data = {
+            'email': email,
+            'csrf_test_name' : csrf_token,
+        };
+
+        $.ajax({
+            type: "POST",
+            url: $("#base_url").val() + "CheckEmailExist/checkEmailExsist",
+            data: post_data,
+            success: function (response) {
+              console.log(response);
+              if(response=='true'){
+                $("#email_exist_error_message").text('This email is Already Exist');
+                $(".check_email_validate").submit(function(e){
+                  $("#email").focus();
+                  e.preventDefault();
+                });
+              }
+              else{
+                $("#email_exist_error_message").text(''); 
+              }
+            }
+        });
+}

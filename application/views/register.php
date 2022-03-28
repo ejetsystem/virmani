@@ -69,7 +69,8 @@
                                 <div class="col-12 mb-2">
                                     <div class="form-group">
                                         <label><?php echo trans('email') ?></label>
-                                        <input type="email" class="form-control" name="email" placeholder="<?php echo trans('your-email-address') ?>">
+                                        <input type="email" id="email" class="form-control" name="email" placeholder="<?php echo trans('your-email-address') ?>" onkeyup="checkEmailExist(this.value)">
+                                        <span class="text-danger my-5" id="email_exist_error_message"></span>
                                     </div>
                                 </div>
 
@@ -105,7 +106,7 @@
                                 <div class="col-md-12 center">
                                     <input type="hidden" name="plan" value="<?php if(isset($_GET['plan'])){echo html_escape($_GET['plan']);}else{echo "basic";} ?>">
                                     <input type="hidden" name="billing" value="<?php if(isset($_GET['billing'])){echo html_escape($_GET['billing']);}else{echo "monthly";} ?>">
-                                    <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
+                                    <input type="hidden" id="csrf" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
                                     <button type="submit" class="btn btn-primary btn-block mt-4 mb-0 register_button"><?php echo trans('register') ?></button>
                                 </div>
                             </div>

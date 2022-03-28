@@ -31,67 +31,79 @@ class Staff extends Home_Controller {
     {	
         if($_POST)
         {   
+            if(empty($this->admin_model->checkEmailExsist($this->input->post('email')))){
+                $id = $this->input->post('id', true);
 
-            $id = $this->input->post('id', true);
-
-            $check = $this->admin_model->check_duplicate_email($this->input->post('email'));
-            if (!empty($check) && $id == '') {
-                $this->session->set_flashdata('error', trans('email-exist'));
-                redirect(base_url('clinic-admin/staff'));
-            }
-
-            //validate inputs
-            $this->form_validation->set_rules('name', trans('name'), 'required|max_length[100]');
-
-            if ($this->form_validation->run() === false) {
-                $this->session->set_flashdata('error', validation_errors());
-                redirect(base_url('clinic-admin/staff'));
-            } else {
-                if ($id != '') {
-                    $password = $this->input->post('password');
-                } else {
-                    $password = hash_password($this->input->post('password'));
+                $check = $this->admin_model->check_duplicate_email($this->input->post('email'));
+                if (!empty($check) && $id == '') {
+                    $this->session->set_flashdata('error', trans('email-exist'));
+                    redirect(base_url('clinic-admin/staff'));
                 }
 
-                $data=array(
-                    'user_id' => user()->id,
-                    'chamber_id' => $this->input->post('chamber_id', true),
-                    'name' => $this->input->post('name', true),
-                    'email' => $this->input->post('email', true),
-                    'slug' => str_slug($this->input->post('name', true)),
-                    'designation' => $this->input->post('designation', true),
-                    'password' => hash_password($this->input->post('password')),
-                    'role' => 'staff',
-                    'created_at' => my_date_now(),
-                );
-                $data = $this->security->xss_clean($data);
+                //validate inputs
+                $this->form_validation->set_rules('name', trans('name'), 'required|max_length[100]');
 
-                if ($id != '') {
-                    $this->admin_model->edit_option($data, $id, 'staffs');
-                    $this->session->set_flashdata('msg', trans('updated-successfully')); 
+                if ($this->form_validation->run() === false) {
+                    $this->session->set_flashdata('error', validation_errors());
+                    redirect(base_url('clinic-admin/staff'));
                 } else {
-
-                    $total = get_total_value('staffs');
-                    if (ckeck_plan_limit('staffs', $total) == FALSE) {
-                        $this->session->set_flashdata('error', trans('reached-maximum-limit'));
-                        redirect(base_url('clinic-admin/staff'));
-                        exit();
+                    if ($id != '') {
+                        $password = $this->input->post('password');
+                    } else {
+                        $password = hash_password($this->input->post('password'));
                     }
-                    $id = $this->admin_model->insert($data, 'staffs');
-                    $this->session->set_flashdata('msg', trans('inserted-successfully')); 
-                }
 
-                // upload logo
-                $data_img = $this->admin_model->do_upload('photo');
-                if($data_img){
-                    $data_img = array(
-                        'thumb' => $data_img['medium']
+                    $data=array(
+                        'user_id' => user()->id,
+                        'chamber_id' => $this->input->post('chamber_id', true),
+                        'name' => $this->input->post('name', true),
+                        'email' => $this->input->post('email', true),
+                        'slug' => str_slug($this->input->post('name', true)),
+                        'designation' => $this->input->post('designation', true),
+                        'password' => hash_password($this->input->post('password')),
+                        'role' => 'staff',
+                        'created_at' => my_date_now(),
                     );
-                    $this->admin_model->edit_option($data_img, $id, 'staffs'); 
+                    $data = $this->security->xss_clean($data);
+
+
+                    if ($id != '') {
+                        $this->admin_model->edit_option($data, $id, 'staffs');
+                        $this->session->set_flashdata('msg', trans('updated-successfully')); 
+                    } else {
+
+                        $total = get_total_value('staffs');
+                        if (ckeck_plan_limit('staffs', $total) == FALSE) {
+                            $this->session->set_flashdata('error', trans('reached-maximum-limit'));
+                            redirect(base_url('clinic-admin/staff'));
+                            exit();
+                        }
+                        $id = $this->admin_model->insert($data, 'staffs');
+                        $all_users = $data=array(
+                            'email' => $this->input->post('email', true),
+                            'created_at' => my_date_now()
+                        );
+                        $this->admin_model->insert($all_users, 'all_users');
+                        
+                        $this->session->set_flashdata('msg', trans('inserted-successfully')); 
+                    }
+
+                    // upload logo
+                    $data_img = $this->admin_model->do_upload('photo');
+                    if($data_img){
+                        $data_img = array(
+                            'thumb' => $data_img['medium']
+                        );
+                        $this->admin_model->edit_option($data_img, $id, 'staffs'); 
+                    }
+
+                    redirect(base_url('clinic-admin/staff'));
+
                 }
-
+            }
+            else{
+                $this->session->set_flashdata('error', "This email is Already Exist");
                 redirect(base_url('clinic-admin/staff'));
-
             }
         }      
         
@@ -123,6 +135,8 @@ class Staff extends Home_Controller {
         $staff_id = $this->input->post('staff_id');
         $staff = array(
                     'name' => $this->input->post('name', true),
+                    'email' => $this->input->post('email', true),
+                    'user_name' => $this->input->post('email', true),
                     'department' => $this->input->post('department', true),
                     'father' => $this->input->post('father_name', true),
                     'mother' => $this->input->post('mother_name', true),
@@ -141,13 +155,12 @@ class Staff extends Home_Controller {
                     'pan' => $this->input->post('pan_number', true),
                     'gst' => $this->input->post('gst_number', true),
                     'designation' => $this->input->post('designation', true),
-                    'password' => hash_password($this->input->post('password')),
         );
 
         // Update Patients Details
         $this->admin_model->update($staff, $staff_id, 'staffs');
 
-        if(!empty($this->input->post('name'))){
+        if(!empty($this->input->post('password'))){
             $this->admin_model->update(array('password'=>hash_password($this->input->post('password'))), $staff_id, 'staffs');            
         }
 

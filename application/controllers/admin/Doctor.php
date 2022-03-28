@@ -29,103 +29,116 @@ class Doctor extends Home_Controller {
 
   public function add()
   {
-    $user_id = $this->session->userdata('id');
-    $doctors = array(
-     'user_id' => $user_id,   
-     'name' => $this->input->post('name'),   
-     'gender' => $this->input->post('gender'),   
-     'dob' => $this->input->post('dob'),   
-     'role' => "doctor",   
-     'marital_status' => $this->input->post('marital_status'),   
-     'blood_group' => $this->input->post('blood_group'),   
-     'qualification' => $this->input->post('qualification'),   
-     'email' => $this->input->post('email'),   
-     'email2' => $this->input->post('email2'),   
-     'password' => hash_password($this->input->post('password')),   
-     'speciality' => $this->input->post('speciality'),   
-     'phone1' => $this->input->post('phone1'),   
-     'phone2' => $this->input->post('phone2'),   
-     'phone3' => $this->input->post('phone3'),   
-     'phone4' => $this->input->post('phone4'),   
-     'pan_number' => $this->input->post('pan_number'),   
-     'gst_number' => $this->input->post('gst_number'),   
-     'created_at' => date("Y-m-d h:i:s"),   
-     'updated_at' => date("Y-m-d h:i:s"),   
-   );
+    if(empty($this->admin_model->checkEmailExsist($this->input->post('email')))){
+      $user_id = $this->session->userdata('id');
+      $doctors = array(
+       'user_id' => $user_id,   
+       'name' => $this->input->post('name'),   
+       'gender' => $this->input->post('gender'),   
+       'dob' => $this->input->post('dob'),   
+       'role' => "doctor",   
+       'marital_status' => $this->input->post('marital_status'),   
+       'blood_group' => $this->input->post('blood_group'),   
+       'qualification' => $this->input->post('qualification'),   
+       'email' => $this->input->post('email'),   
+       'email2' => $this->input->post('email2'),   
+       'password' => hash_password($this->input->post('password')),   
+       'speciality' => $this->input->post('speciality'),   
+       'phone1' => $this->input->post('phone1'),   
+       'phone2' => $this->input->post('phone2'),   
+       'phone3' => $this->input->post('phone3'),   
+       'phone4' => $this->input->post('phone4'),   
+       'pan_number' => $this->input->post('pan_number'),   
+       'gst_number' => $this->input->post('gst_number'),   
+       'created_at' => date("Y-m-d h:i:s"),   
+       'updated_at' => date("Y-m-d h:i:s"),   
+     );
 
-        // Insert in Doctors Table
-    $id = $this->admin_model->insert($doctors,'doctors');
+          // Insert in Doctors Table
+      $id = $this->admin_model->insert($doctors,'doctors');
 
-    $data_img = $this->admin_model->do_upload('photo');
-    if($data_img){
-      $data_img = array(
-        'thumb' => $data_img['doc']
+      $all_users = $data=array(
+          'email' => $this->input->post('email', true),
+          'created_at' => my_date_now()
       );
-      $this->admin_model->edit_option($data_img, $id, 'doctors'); 
+      $this->admin_model->insert($all_users, 'all_users');
+
+      $data_img = $this->admin_model->do_upload('photo');
+      if($data_img){
+        $data_img = array(
+          'thumb' => $data_img['doc']
+        );
+        $this->admin_model->edit_option($data_img, $id, 'doctors'); 
+      }
+
+      $doctors_address = array(
+       'doctor_id' => $id,   
+       'address_r' => $this->input->post('address_r'),   
+       'city_r' => $this->input->post('city_r'),   
+       'zip_r' => $this->input->post('zip_r'),   
+       'country_r' => $this->input->post('country_r'),   
+       'address_o' => $this->input->post('address_o'),   
+       'city_o' => $this->input->post('city_o'),   
+       'zip_o' => $this->input->post('zip_o'),   
+       'country_o' => $this->input->post('country_o'),   
+       'address_other' => $this->input->post('address_other'),   
+       'city_other' => $this->input->post('city_other'),   
+       'zip_other' => $this->input->post('zip_other'),   
+       'country_other' => $this->input->post('country_other'),     
+       'created_at' => date("Y-m-d h:i:s"),   
+       'updated_at' => date("Y-m-d h:i:s"),   
+     );
+
+          // Insert in Doctors Address Table
+      $this->admin_model->insert($doctors_address,'doctors_address');
+
+      $doctors_vaccination = array(
+        'doctor_id' => $id,
+        'vaccination_type' => $this->input->post('vaccination_type'),
+        'vaccination_date' => $this->input->post('vaccination_date'),
+        'reminder_date_for_next' => $this->input->post('reminder_date_for_next'),
+        'remarks' => $this->input->post('vaccination_remarks'),
+        'medical_history' => $this->input->post('medical_history'),
+        'updated_at' => date("Y-m-d h:i:s"),
+      );
+
+          // Insert in Doctors Vaccination Table
+      $this->admin_model->insert_doctors_vaccination($doctors_vaccination,'doctors_vaccination');
+
+      $doctors_bank = array(
+        'doctor_id' => $id,
+        'bank_name' => $this->input->post('bank_name'),
+        'bank_account_number' => $this->input->post('bank_account_number'),
+        'ifsc_code' => $this->input->post('ifsc_code'),
+        'remarks' => $this->input->post('bank_remarks'),
+        'updated_at' => date("Y-m-d h:i:s"),
+      );
+
+          // Insert in Doctors Bank Table
+      $this->admin_model->insert_doctors_banks($doctors_bank,'doctor_bank_details');
+      
+      $doctors_insurance = array(
+        'doctor_id' => $id,
+        'insurance' => $this->input->post('insurance'),
+        'insurance_date' => $this->input->post('insurance_date'),
+        'renewal_date' => $this->input->post('renewal_date'),
+        'amount_insured' => $this->input->post('amount_insured'),
+        'amount_paid' => $this->input->post('amount_paid'),
+        'allow_notifications' => $this->input->post('allow_notifications'),
+        'remarks' => $this->input->post('remarks'),
+        'updated_at' => date("Y-m-d h:i:s"),
+      );
+
+          // Insert in Doctors Insurance Table
+      $this->admin_model->insert_doctors_insurance($doctors_insurance,'doctor_insurance_details');
+      
+      redirect(base_url('clinic-admin/doctor'));
     }
 
-    $doctors_address = array(
-     'doctor_id' => $id,   
-     'address_r' => $this->input->post('address_r'),   
-     'city_r' => $this->input->post('city_r'),   
-     'zip_r' => $this->input->post('zip_r'),   
-     'country_r' => $this->input->post('country_r'),   
-     'address_o' => $this->input->post('address_o'),   
-     'city_o' => $this->input->post('city_o'),   
-     'zip_o' => $this->input->post('zip_o'),   
-     'country_o' => $this->input->post('country_o'),   
-     'address_other' => $this->input->post('address_other'),   
-     'city_other' => $this->input->post('city_other'),   
-     'zip_other' => $this->input->post('zip_other'),   
-     'country_other' => $this->input->post('country_other'),     
-     'created_at' => date("Y-m-d h:i:s"),   
-     'updated_at' => date("Y-m-d h:i:s"),   
-   );
-
-        // Insert in Doctors Address Table
-    $this->admin_model->insert($doctors_address,'doctors_address');
-
-    $doctors_vaccination = array(
-      'doctor_id' => $id,
-      'vaccination_type' => $this->input->post('vaccination_type'),
-      'vaccination_date' => $this->input->post('vaccination_date'),
-      'reminder_date_for_next' => $this->input->post('reminder_date_for_next'),
-      'remarks' => $this->input->post('vaccination_remarks'),
-      'medical_history' => $this->input->post('medical_history'),
-      'updated_at' => date("Y-m-d h:i:s"),
-    );
-
-        // Insert in Doctors Vaccination Table
-    $this->admin_model->insert_doctors_vaccination($doctors_vaccination,'doctors_vaccination');
-
-    $doctors_bank = array(
-      'doctor_id' => $id,
-      'bank_name' => $this->input->post('bank_name'),
-      'bank_account_number' => $this->input->post('bank_account_number'),
-      'ifsc_code' => $this->input->post('ifsc_code'),
-      'remarks' => $this->input->post('bank_remarks'),
-      'updated_at' => date("Y-m-d h:i:s"),
-    );
-
-        // Insert in Doctors Bank Table
-    $this->admin_model->insert_doctors_banks($doctors_bank,'doctor_bank_details');
-    
-    $doctors_insurance = array(
-      'doctor_id' => $id,
-      'insurance' => $this->input->post('insurance'),
-      'insurance_date' => $this->input->post('insurance_date'),
-      'renewal_date' => $this->input->post('renewal_date'),
-      'amount_insured' => $this->input->post('amount_insured'),
-      'amount_paid' => $this->input->post('amount_paid'),
-      'allow_notifications' => $this->input->post('allow_notifications'),
-      'remarks' => $this->input->post('remarks'),
-      'updated_at' => date("Y-m-d h:i:s"),
-    );
-
-        // Insert in Doctors Insurance Table
-    $this->admin_model->insert_doctors_insurance($doctors_insurance,'doctor_insurance_details');
-    
-    redirect(base_url('clinic-admin/doctor'));
+    else{
+      $this->session->set_flashdata('error', "Email Already Exists");
+      redirect(base_url('clinic-admin/doctor'));
+    }
 
   }
 
