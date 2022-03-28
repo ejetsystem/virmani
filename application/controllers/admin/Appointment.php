@@ -387,6 +387,17 @@ public function changeAppointmentStatus() {
 }
 
 
+// Waiting room
+public function waiting_room(){
+   $data = array();
+   $data['page'] = 'Appointment';
+   $data['page_title'] = 'Waiting Room';
+   $data['appointments'] = $this->admin_model->getAppointmentByStatus(user()->id,4);
+   $data['main_content'] = $this->load->view('admin/appointments/waiting_room',$data,TRUE);
+   $data['doctors'] = $this->admin_model->select_all_doctors();
+   $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
+   $this->load->view('admin/index',$data); 
+}
 
 }
 

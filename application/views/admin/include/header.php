@@ -185,10 +185,10 @@
                 
                 <?php if (check_my_payment_status() == TRUE): ?>
                   <?php if (check_feature_access('staffs') == TRUE): ?>
-                    <a class="dropdown-item" href="<?php echo base_url('clinic-admin/staff') ?>"><?php echo trans('staff') ?></a>
+                    <a class="dropdown-item" href="<?php echo base_url('clinic-admin/staff/add-staff') ?>"><?php echo trans('staff') ?></a>
                   <?php endif; ?>
                   <?php if (check_feature_access('patients') == TRUE): ?>
-                    <a class="dropdown-item" href="<?php echo base_url('clinic-admin/patients') ?>"><?php echo trans('patient') ?></a>
+                    <a class="dropdown-item" href="<?php echo base_url('clinic-admin/patients/add-patient') ?>"><?php echo trans('patient') ?></a>
                   <?php endif; ?>
                   <?php if (check_feature_access('appointments') == TRUE): ?>
                     <!-- <a class="dropdown-item" href="<?php //echo base_url('admin/appointment') ?>"><?php // echo trans('appointment') ?></a> -->
@@ -196,7 +196,7 @@
                   <?php endif; ?>
                 <?php endif; ?>
 
-                <a class="dropdown-item" href="<?php echo base_url('clinic-admin/drugs') ?>"><?php echo trans('drug') ?></a>
+                <a class="dropdown-item" href="<?php echo base_url('clinic-admin/add-drug') ?>"><?php echo trans('drug') ?></a>
               </div>
             </div>
           <?php endif ?>

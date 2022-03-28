@@ -2466,5 +2466,18 @@ class Admin_model extends CI_Model {
             return FALSE;
         }
     }
+
+
+    public function getAppointmentByStatus($user_id,$status){
+        $this->db->select('a.*,d.name as doctor_name,p.name as patient_name');
+        $this->db->from('appointments a');
+        $this->db->where('a.user_id',$user_id);
+        $this->db->where_in('a.appointment_status',array($status,5));
+        $this->db->join('doctors d', 'd.id = a.doctor_id', 'LEFT');
+        $this->db->join('patientses p', 'p.id = a.patient_id', 'LEFT');
+        $query = $this->db->get();
+        $query = $query->result();  
+        return $query;
+    }
     
 }

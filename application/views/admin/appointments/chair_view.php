@@ -54,6 +54,11 @@ get_instance()->load->helper('custom_helper');
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">Chair View</h3>
+            <div class="pull-right">
+              <a class="btn btn-primary active" href="<?php echo base_url('clinic-admin/appointment/chairView'); ?>" title="">Chair View</a>
+              <a class="btn btn-primary" href="<?php echo base_url('clinic-admin/appointment/calendar'); ?>" title="">Calendar View</a>
+              <a class="btn btn-primary" href="<?php echo base_url('clinic-admin/appointment/waiting-room'); ?>" title="">Waiting Room</a>
+            </div>
           </div>
           <div class="box-body">
             <div class="app_filtersblock">
@@ -84,7 +89,7 @@ get_instance()->load->helper('custom_helper');
                foreach($splitimes as $stime){
                 $start_time = $stime.':00';
                 foreach($chairs as $chair){
-                  $sql = "SELECT a.*,patientses.name FROM appointments a inner join patientses on patientses.id = a.patient_id WHERE a.appointment_status=0 AND date = '".$sdate."' AND chair = '".$chair."' AND ('".$start_time."' BETWEEN `start_time` AND `end_time`) ".$doctor_id;
+                  $sql = "SELECT a.*,patientses.name FROM appointments a inner join patientses on patientses.id = a.patient_id WHERE a.appointment_status IN(0,4) AND date = '".$sdate."' AND chair = '".$chair."' AND ('".$start_time."' BETWEEN `start_time` AND `end_time`) ".$doctor_id;
                   $query_check = $this->db->query($sql);
                   $res_check = $query_check->result();
 
@@ -204,6 +209,16 @@ get_instance()->load->helper('custom_helper');
                        }
                        ?>
                        <a href="javascript://" onclick="view_event(<?php echo $ainfo[0]['id']; ?>);">
+                        
+                        <?php
+                        if($ainfo[0]['appointment_status']==0){
+                        ?>
+                        <p class="text-white">
+                          <label>Arrived : </label><input type="checkbox" value="4" name="appointment_status" id="appointment_status" onchange="changeAppointmentStatus(this.value,'<?php echo $ainfo[0]['id'] ?>')">
+                        </p>
+                        <?php  
+                        }
+                        ?>
                         <p><?php echo $ainfo[0]['name'];?></p>
                         <p><?php echo $ainfo[0]['cause'];?></p>
                         <p><strong>Doctor:</strong> <?php echo $doctor_d;?></p>

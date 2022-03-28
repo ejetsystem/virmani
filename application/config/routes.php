@@ -157,6 +157,7 @@ $route['clinic-admin/doctor/delete_doctor/10'] = 'admin/doctor/delete_doctor/$1'
 //Patients
 $route['clinic-admin/patients'] = 'admin/patients';
 $route['clinic-admin/patients/add'] = 'admin/patients/add';
+$route['clinic-admin/patients/add-patient'] = 'admin/patients/add_patient_form';
 $route['clinic-admin/patients/edit/(:any)'] = 'admin/patients/edit/$1';
 $route['clinic-admin/patients/view/(:any)'] = 'admin/patients/view_patient/$1';
 $route['clinic-admin/patients/view/(:any)/(:any)'] = 'admin/patients/view_patient/$1/$2';
@@ -180,6 +181,7 @@ $route['clinic-admin/appointment/all_list'] = 'admin/appointment/all_list';
 $route['clinic-admin/appointment/chairView'] = 'admin/appointment/chairView';
 $route['clinic-admin/appointment/calendar'] = 'admin/appointment/calendar';
 $route['clinic-admin/appointment/assign'] = 'admin/appointment/assign';
+$route['clinic-admin/appointment/waiting-room'] = 'admin/appointment/waiting_room';
 
 
  
@@ -293,6 +295,7 @@ $route['clinic-admin/experiences/delete/(:any)'] = 'admin/experiences/delete/$1'
 
 // all staff list
 $route['clinic-admin/registered-staff'] = 'admin/registration/registrationController';
+$route['clinic-admin/staff/add-staff'] = 'admin/registration/registrationController/add_staff';
 $route['clinic-admin/registration/view/(:any)/(:any)'] = 'admin/registration/registrationController/view_registration/$1/$2';
 $route['clinic-admin/registration/disable/(:any)/(:any)'] = 'admin/registration/registrationController/disable/$1/$2';
 $route['clinic-admin/registration/enable/(:any)/(:any)'] = 'admin/registration/registrationController/enable/$1/$2';

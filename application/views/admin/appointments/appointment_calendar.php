@@ -12,6 +12,11 @@
         <div class="box">
           <div class="box-header with-border">
             <h3 class="box-title">Appointment Calendar</h3>
+            <div class="pull-right">
+          <a class="btn btn-primary" href="<?php echo base_url('clinic-admin/appointment/chairView'); ?>" title="">Chair View</a>
+          <a class="btn btn-primary active" href="<?php echo base_url('clinic-admin/appointment/calendar'); ?>" title="">Calendar View</a>
+          <a class="btn btn-primary" href="<?php echo base_url('clinic-admin/appointment/waiting-room'); ?>" title="">Waiting Room</a>
+        </div>
           </div>
 
           <div class="box-body">
