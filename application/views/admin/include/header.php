@@ -197,6 +197,9 @@
                 <?php endif; ?>
 
                 <a class="dropdown-item" href="<?php echo base_url('clinic-admin/add-drug') ?>"><?php echo trans('drug') ?></a>
+
+                <a class="dropdown-item" href="<?php echo base_url('clinic-admin/doctor/add-doctor') ?>"><?php echo trans('doctor') ?></a>
+
               </div>
             </div>
           <?php endif ?>

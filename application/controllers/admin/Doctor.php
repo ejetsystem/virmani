@@ -27,6 +27,21 @@ class Doctor extends Home_Controller {
   }
 
 
+  public function add_doctor()
+  {
+    $data = array();
+    $data['page_title'] = 'Doctor';      
+    $data['page'] = 'Doctor';   
+    $data['doctor'] = FALSE;
+    $data['doctors'] = $this->admin_model->select_by_user('doctors',0);
+    $data['chamber_category'] = $this->admin_model->select_chamber_by_user('chamber_category');
+    $data['main_content'] = $this->load->view('admin/doctor/add_doctor',$data,TRUE);
+    $data['doctors'] = $this->admin_model->select_all_doctors();
+    $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
+    $this->load->view('admin/index',$data);
+  }
+
+
   public function add()
   {
     if(empty($this->admin_model->checkEmailExsist($this->input->post('email')))){

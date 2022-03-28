@@ -146,6 +146,7 @@ $route['setup'] = 'auth/setup';
 //Doctor
 $route['clinic-admin/doctor'] = 'admin/doctor';
 $route['clinic-admin/doctor/add'] = 'admin/doctor/add';
+$route['clinic-admin/doctor/add-doctor'] = 'admin/doctor/add_doctor';
 $route['clinic-admin/doctor/delete'] = 'admin/doctor/delete';
 $route['clinic-admin/doctor/update'] = 'admin/doctor/update';
 
