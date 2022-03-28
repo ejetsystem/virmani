@@ -60,7 +60,7 @@ class Staff extends Home_Controller {
                     'email' => $this->input->post('email', true),
                     'slug' => str_slug($this->input->post('name', true)),
                     'designation' => $this->input->post('designation', true),
-                    'password' => $password,
+                    'password' => hash_password($this->input->post('password')),
                     'role' => 'staff',
                     'created_at' => my_date_now(),
                 );

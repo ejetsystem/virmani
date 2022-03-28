@@ -1,4 +1,3 @@
-
 <div class="content-wrapper">
 
   <!-- Main content -->
@@ -22,7 +21,7 @@
           </div>
 
           <div class="box-body">
-            <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('admin/patients/add')?>" role="form" novalidate>
+            <form id="cat-form" method="post" enctype="multipart/form-data" class="check_email_validate validate-form" action="<?php echo base_url('admin/patients/add')?>" role="form" novalidate>
 
               <div class="row">
                 <div class="col-md-3">
@@ -65,7 +64,7 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label><?php echo ('Gender') ?> <span class="text-danger">*</span></label>
-                        <select class="form-control" required name="sex" value="<?php echo html_escape($patients[0]['sex']); ?>">
+                        <select class="form-control" required name="sex" value="">
                           <option>Select</option>
                           <option value="male">Male</option>
                           <option value="female">Female</option>
@@ -91,7 +90,7 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label><?php echo trans('weight') ?> </label>
-                        <input type="text" class="form-control" name="weight" value="<?php echo html_escape($patients[0]['weight']); ?>" >
+                        <input type="number" class="form-control" name="weight" value="<?php echo html_escape($patients[0]['weight']); ?>" >
                       </div>
                     </div>
 
@@ -151,19 +150,29 @@
 
                 <!-- Email -->
                 <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <div class="form-group">
                       <label><?php echo ('Email'); ?> </label>
-                      <input type="text" name="email" id="email" class="form-control">
+                      <input type="text" name="email" id="email" onkeyup="checkEmailExist(this.value)" class="form-control">
+                      <span class="text-danger my-5" id="email_exist_error_message"></span>
                     </div>
                   </div>
 
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                     <div class="form-group">
                       <label><?php echo ('Email 2'); ?> </label>
                       <input type="text" name="email2" id="email2" class="form-control">
                     </div>
                   </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label><?php echo ('Password'); ?> <span class="text-danger"> * </span> </label>
+                      <input type="text" name="password" id="password" required class="form-control">
+                      <span class="text-danger my-5" id="password_error_message"></span>
+                    </div>
+                  </div>
+
                 </div>
 
                 <!-- Address -->
@@ -271,7 +280,7 @@
                   <div class="col-md-2">
                     <div class="form-group">
                       <label><?php echo ('Reffered By') ?></label>
-                      <select name="reffered_by" id="reffered_by" class="form-control">
+                      <select onchange="getrefname(this.value)" name="reffered_by" id="reffered_by" class="form-control">
                         <option value="">Select </option>
                         <option value="Doctor">Doctor</option>
                         <option value="Patient">Patient</option>
@@ -283,7 +292,7 @@
 
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label><?php echo ('Enter Doctor Name') ?></label>
+                      <label id="reffered_change"><?php echo ('Enter Name') ?></label>
                       <input type="text" name="doctor_name" id="doctor_name" class="form-control">
                     </div>
                   </div>
@@ -351,21 +360,21 @@
                 <div class="col-md-2">
                   <div class="form-group">
                     <label><?php echo ('Amount') ?></label>
-                    <input type="text" name="insurance_loan[0][amount]" id="" class="form-control">
+                    <input type="number" name="insurance_loan[0][amount]" id="amount0" class="form-control">
                   </div>
                 </div>
 
                 <div class="col-md-2">
                   <div class="form-group">
                     <label><?php echo ('Amount Spent') ?></label>
-                    <input type="text" name="insurance_loan[0][balance_spent]" id="" class="form-control">
+                    <input type="number" onkeyup="getBalanceAmount(0,this.value)" name="insurance_loan[0][balance_spent]" id="balance_spent0" class="form-control">
                   </div>
                 </div>
 
                 <div class="col-md-3">
                   <div class="form-group">
                     <label><?php echo ('Balance Amount') ?></label>
-                    <input type="text" name="insurance_loan[0][balance_amount]" id="" class="form-control">
+                    <input type="number" name="insurance_loan[0][balance_amount]" id="balance_amount0" class="form-control">
                   </div>
                 </div>
               </div>
@@ -373,55 +382,6 @@
             <span class="btn btn-primary add-more-insurance-loan" style="position: relative;right: -90%;"><i class="fa fa-plus" aria-hidden="true"></i> Add More</span>
             <!-- Insurance/Loan Information End-->
 
-
-
-
-              <!-- <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label><?php echo trans('age') ?></label>
-                    <input type="text" class="form-control" name="age" value="<?php echo html_escape($patients[0]['age']); ?>" >
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label><?php echo trans('weight') ?> </label>
-                    <input type="text" class="form-control" name="weight" value="<?php echo html_escape($patients[0]['weight']); ?>" >
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label><?php echo trans('present-address') ?></label>
-                    <textarea class="form-control" name="present_address" rows="6"><?php echo html_escape($patients[0]['present_address']); ?></textarea>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label><?php echo trans('permanent-address') ?></label>
-                    <textarea class="form-control" name="permanent_address" rows="6"><?php echo html_escape($patients[0]['permanent_address']); ?></textarea>
-                  </div>
-                </div>
-
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label><?php echo trans('gender') ?> <span class="text-danger"></span></label>
-                    <div class="radio radio-info radio-inline mt-10">
-                      <input type="radio" id="inlineRadio1" checked="" <?php if($patients[0]['sex']==2){echo "checked";} ?> value="1" name="sex">
-                      <label for="inlineRadio1"> <?php echo trans('male') ?> </label>
-                      <input type="radio" id="inlineRadio2" <?php if($patients[0]['sex']==2){echo "checked";} ?>  value="2" name="sex">
-                      <label for="inlineRadio2"> <?php echo trans('female') ?> </label>
-                    </div>
-                  </div>
-                </div>
-
-              </div> -->
-              
-
-              <!-- <input type="hidden" name="id" value="<?php echo html_escape($patients['0']['id']); ?>"> -->
-              <!-- csrf token -->
               <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
 
               <div class="row m-t-30">
@@ -429,7 +389,7 @@
                   <?php if (isset($page_title) && $page_title == "Edit"): ?>
                     <button type="submit" class="btn btn-primary pull-left"><i class="ficon flaticon-check"></i> <?php echo trans('save-changes') ?></button>
                     <?php else: ?>
-                      <button type="submit" class="btn btn-primary pull-left"><i class="ficon flaticon-check"></i> <?php echo trans('save') ?></button>
+                      <center><button type="submit" class="btn btn-primary btn-lg"><i class="ficon flaticon-check"></i> <?php echo trans('save') ?></button></center>
                     <?php endif; ?>
                   </div>
                 </div>
@@ -555,21 +515,21 @@
             <div class="col-md-2">
             <div class="form-group">
             <label><?php echo ('Amount') ?></label>
-            <input type="text" name="insurance_loan[`+count_insurance_loan+`][amount]" id="" class="form-control">
+            <input type="number" name="insurance_loan[`+count_insurance_loan+`][amount]" id="amount`+count_insurance_loan+`" class="form-control">
             </div>
             </div>
 
             <div class="col-md-2">
             <div class="form-group">
             <label><?php echo ('Amount Spent') ?></label>
-            <input type="text" name="insurance_loan[`+count_insurance_loan+`][balance_spent]" id="" class="form-control">
+            <input type="number" name="insurance_loan[`+count_insurance_loan+`][balance_spent]" id="balance_spent`+count_insurance_loan+`" onkeyup="getBalanceAmount('`+count_insurance_loan+`',this.value)" class="form-control">
             </div>
             </div>
 
             <div class="col-md-2">
             <div class="form-group">
             <label><?php echo ('Balance Amount') ?></label>
-            <input type="text" name="insurance_loan[`+count_insurance_loan+`][balance_amount]" id="" class="form-control">
+            <input type="number" name="insurance_loan[`+count_insurance_loan+`][balance_amount]" id="balance_amount`+count_insurance_loan+`" class="form-control">
             </div>
             </div>
 
@@ -588,6 +548,28 @@
 
         function deleteInsuranceLoan(id){
           $("#del-insurance"+id).remove();
+        }
+
+        function getrefname(reffered_by){
+          if(reffered_by =='Doctor'){
+            $("#reffered_change").text("Enter Doctor Name");
+          }
+          if(reffered_by =='Patient'){
+            $("#reffered_change").text("Enter Patient Name");
+          }
+          if(reffered_by =='Staff'){
+            $("#reffered_change").text("Enter Staff Name");
+          }
+          if(reffered_by =='Other'){
+            $("#reffered_change").text("Enter Name");
+          }
+          
+        }
+
+        function getBalanceAmount(id,amount_spent){
+          var amount = $("#amount"+id).val();
+          var balance_amount = amount - amount_spent;
+          $("#balance_amount"+id).val(balance_amount);
         }
 
       </script>

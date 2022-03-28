@@ -164,4 +164,15 @@ class Dashboard extends Home_Controller {
         }
     }
 
+
+    public function checkEmailExsist(){
+        $email = $this->input->post('email');
+        if(!empty($this->admin_model->checkEmailExsist($email))){
+            echo "true";
+        }
+        else{
+            echo "false";
+        }
+    }
+
 }
