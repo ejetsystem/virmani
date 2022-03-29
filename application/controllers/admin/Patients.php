@@ -216,7 +216,7 @@ class Patients extends Home_Controller {
     public function add() {
         if(empty($this->admin_model->checkEmailExsist($this->input->post('email')))){
             $user_id = $this->session->userdata('id');
-
+            $password = substr(md5(mt_rand()), 0, 9);
             $patientses = array(
                 'chamber_id' => $this->chamber->uid,
                 'user_id' => $user_id,
@@ -226,7 +226,7 @@ class Patients extends Home_Controller {
                 'age' => $this->input->post('age', true),
                 'weight' => $this->input->post('weight', true),
                 'sex' => $this->input->post('sex', true),
-                'password' => hash_password($this->input->post('password')),
+                'password' => hash_password($password),
                 'title' => $this->input->post('title', true),
                 'guardian' => $this->input->post('guardian', true),
                 'present_address' => $this->input->post('present_address', true),
@@ -241,6 +241,12 @@ class Patients extends Home_Controller {
                 'created_at' => my_date_now()
             );
             $this->admin_model->insert($all_users, 'all_users');
+
+
+            // Send Credentials to Patient
+            $subject = "Your Credentials";
+            $msg = "Hello Patient<br> We have Created Your Account, Please use these credentials to login your account <br> <h3>Login Details</h3> <p> Email : ".$this->input->post('email')."</p> <p> Password : ".$password."</p>";
+            $this->email_model->send_email($this->input->post('email'), $subject, $msg);
 
             $data_img = $this->admin_model->do_upload('photo');
             if ($data_img) {
@@ -301,6 +307,7 @@ class Patients extends Home_Controller {
     public function add_pateint() {
         if ($_POST) {
 
+            $password = substr(md5(mt_rand()), 0, 9);
             $check = $this->admin_model->check_duplicate_email($this->input->post('email'));
             if (!empty($check)) {
                 echo json_encode(array('st' => 0, 'msg' => trans('email-exist')));
@@ -331,13 +338,18 @@ class Patients extends Home_Controller {
                     'weight' => $this->input->post('weight', true),
                     'sex' => $this->input->post('sex', true),
                     'mobile' => $this->input->post('mobile', true),
-                    'password' => hash_password($this->input->post('password')),
+                    'password' => hash_password($password),
                     'present_address' => $this->input->post('present_address', true),
                     'permanent_address' => $this->input->post('permanent_address', true),
                     'created_at' => my_date_now()
                 );
                 $data = $this->security->xss_clean($data);
                 $insert = $this->admin_model->insert($data, 'patientses');
+
+                // Send Credentials to Patient
+                $subject = "Your Credentials";
+                $msg = "Hello Patient<br> We have Created Your Account, Please use these credentials to login your account <br> <h3>Login Details</h3> <p> Email : ".$this->input->post('email')."</p> <p> Password : ".$password."</p>";
+                $this->email_model->send_email($this->input->post('email'), $subject, $msg);
 
                 if ($insert) {
                     echo json_encode(array('st' => 1, 'msg' => trans('inserted-successfully')));
@@ -394,10 +406,6 @@ class Patients extends Home_Controller {
             'present_address' => $this->input->post('present_address', true),
             'permanent_address' => $this->input->post('permanent_address', true)
         );
-
-        if(!empty($this->input->post('password'))){
-          $patientses['password'] = hash_password($this->input->post('password'));
-      }
 
         // Update Patients Details
       $this->admin_model->update($patientses, $this->input->post('patient_id'), 'patientses');

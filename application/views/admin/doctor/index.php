@@ -126,14 +126,6 @@
 
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label><?php echo ('Password'); ?> <span class="text-danger">*</span> </label>
-                      <input type="text" class="form-control" name="password" required id="password">
-                      <span class="text-danger my-5" id="password_error_message"></span>
-                    </div>
-                  </div>
-                  
-                  <div class="col-md-4">
-                    <div class="form-group">
                       <label><?php echo ('Speciality') ?> </label>
                       <select class="form-control" name="speciality" id="speciality" value="<?php echo html_escape($staff[0]['speciality']); ?>">
                         <option>Select Speciality</option>

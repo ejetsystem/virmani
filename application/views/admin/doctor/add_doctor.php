@@ -18,7 +18,7 @@
               <?php if (isset($page_title) && $page_title == "Edit"): ?>
                 <a href="<?php echo base_url('admin/doctor') ?>" class="pull-right btn btn-light-primary mt-15 btn-sm"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a>
                 <?php else: ?>
-                  <a href="#" class="text-right btn btn-light-secondary cancel_btn"><i class="fa fa-users"></i> <?php echo ('All Doctors') ?></a>
+                  <a href="<?php echo base_url('clinic-admin/doctor') ?>" class="text-right btn btn-light-secondary mt-10"><i class="fa fa-users"></i> <?php echo ('All Doctors') ?></a>
                 <?php endif; ?>
               </div>
             </div>
@@ -121,14 +121,6 @@
                       <label><?php echo ('Qualification') ?> </label>
                       <input type="text" class="form-control" name="qualification" id="qualification" value="<?php echo html_escape($staff[0]['qualification']); ?>" >
 
-                    </div>
-                  </div>
-
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label><?php echo ('Password'); ?> <span class="text-danger">*</span> </label>
-                      <input type="text" class="form-control" name="password" required id="password">
-                      <span class="text-danger my-5" id="password_error_message"></span>
                     </div>
                   </div>
 

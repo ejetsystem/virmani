@@ -46,6 +46,7 @@ class Doctor extends Home_Controller {
   {
     if(empty($this->admin_model->checkEmailExsist($this->input->post('email')))){
       $user_id = $this->session->userdata('id');
+      $password = substr(md5(mt_rand()), 0, 9);
       $doctors = array(
        'user_id' => $user_id,   
        'name' => $this->input->post('name'),   
@@ -55,9 +56,9 @@ class Doctor extends Home_Controller {
        'marital_status' => $this->input->post('marital_status'),   
        'blood_group' => $this->input->post('blood_group'),   
        'qualification' => $this->input->post('qualification'),   
-       'email' => $this->input->post('email'),   
-       'email2' => $this->input->post('email2'),   
-       'password' => hash_password($this->input->post('password')),   
+       'email' => $this->input->post('email'),
+       'password' => hash_password($password),   
+       'email2' => $this->input->post('email2'),
        'speciality' => $this->input->post('speciality'),   
        'phone1' => $this->input->post('phone1'),   
        'phone2' => $this->input->post('phone2'),   
@@ -78,6 +79,12 @@ class Doctor extends Home_Controller {
       );
       $this->admin_model->insert($all_users, 'all_users');
 
+      // Send Credentials to Doctor
+      $subject = "Your Credentials";
+      $msg = "Hello Doctor<br> We have Created Your Account, Please use these credentials to login your account <br> <h3>Login Details</h3> <p> Email : ".$this->input->post('email')."</p> <p> Password : ".$password."</p>";
+      $this->email_model->send_email($this->input->post('email'), $subject, $msg);
+
+      // Upload Photo
       $data_img = $this->admin_model->do_upload('photo');
       if($data_img){
         $data_img = array(
@@ -216,7 +223,6 @@ class Doctor extends Home_Controller {
      'qualification' => $this->input->post('qualification'),   
      'email' => $this->input->post('email'),   
      'email2' => $this->input->post('email2'),   
-     ///'password' => hash_password($this->input->post('password')),   
      'speciality' => $this->input->post('speciality'),   
      'phone1' => $this->input->post('phone1'),   
      'phone2' => $this->input->post('phone2'),   
@@ -226,9 +232,6 @@ class Doctor extends Home_Controller {
      'gst_number' => $this->input->post('gst_number'),   
      'updated_at' => date("Y-m-d h:i:s"),   
    );
-    if(!empty($this->input->post('password'))){
-      $doctors['password'] = hash_password($this->input->post('password'));
-    }
         // Update Doctors Details
     $this->admin_model->update($doctors,$this->input->post('id'),'doctors');
 

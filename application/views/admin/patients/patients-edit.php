@@ -186,14 +186,6 @@
                     </div>
                   </div>
 
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label><?php echo ('Password'); ?> <span class="text-danger"> * </span> </label>
-                      <input type="text" name="password" id="password" class="form-control">
-                      <span class="text-danger my-5" id="password_error_message"></span>
-                    </div>
-                  </div>
-
                 </div>
 
                 <!-- Address -->

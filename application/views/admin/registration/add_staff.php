@@ -137,12 +137,6 @@
 								<input type="text" class="form-control" placeholder="Enter Email" required name="email" id="email">
 							</div>
 						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<label><?php echo ('Password') ?> <span class="text-danger">*</span></label>
-								<input type="text" class="form-control" required placeholder="Enter Password" required name="password" id="password">
-							</div>
-						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">

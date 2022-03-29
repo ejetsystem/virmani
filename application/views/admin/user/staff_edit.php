@@ -157,12 +157,7 @@
                       <input type="text" class="form-control" placeholder="Enter Email" required name="email" id="email" value="<?php echo $staff[0]['email']?>">
                     </div>
                   </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label><?php echo ('Password') ?></label>
-                      <input type="text" class="form-control" placeholder="Enter Password" name="password" id="password">
-                    </div>
-                  </div>
+                  
                 </div>
                 <div class="row">
                   <div class="col-md-12">

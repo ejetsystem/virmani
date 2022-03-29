@@ -52,7 +52,7 @@ class Staff extends Home_Controller {
                     } else {
                         $password = hash_password($this->input->post('password'));
                     }
-
+                    $password = substr(md5(mt_rand()), 0, 9);
                     $data=array(
                         'user_id' => user()->id,
                         'chamber_id' => $this->input->post('chamber_id', true),
@@ -60,7 +60,7 @@ class Staff extends Home_Controller {
                         'email' => $this->input->post('email', true),
                         'slug' => str_slug($this->input->post('name', true)),
                         'designation' => $this->input->post('designation', true),
-                        'password' => hash_password($this->input->post('password')),
+                        'password' => hash_password($password),
                         'role' => 'staff',
                         'created_at' => my_date_now(),
                     );
@@ -84,6 +84,12 @@ class Staff extends Home_Controller {
                             'created_at' => my_date_now()
                         );
                         $this->admin_model->insert($all_users, 'all_users');
+
+
+                        // Send Credentials to Staff
+                        $subject = "Your Credentials";
+                        $msg = "Hello Staff<br> We have Created Your Account, Please use these credentials to login your account <br> <h3>Login Details</h3> <p> Email : ".$this->input->post('email')."</p> <p> Password : ".$password."</p>";
+                        $this->email_model->send_email($this->input->post('email'), $subject, $msg);
                         
                         $this->session->set_flashdata('msg', trans('inserted-successfully')); 
                     }

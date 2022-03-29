@@ -18,19 +18,29 @@ class Email_model extends CI_Model {
                 //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
                 $mail->isSMTP(); 
 
-                $mail->Host     = $this->settings->mail_host;
+                // $mail->Host     = $this->settings->mail_host;
+                // $mail->SMTPAuth = true;
+                // $mail->Username = $this->settings->mail_username;
+                // $mail->Password = base64_decode($this->settings->mail_password);
+
+                $mail->Host     = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
-                $mail->Username = $this->settings->mail_username;
-                $mail->Password = base64_decode($this->settings->mail_password);
+                $mail->Username = "1999surajverma@gmail.com";
+                $mail->Password = "Suraj1234@";
+
+                
                 if ($this->settings->mail_port == 587) {
                     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;       //Enable implicit TLS encryption
                 } else {
                     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;          //Enable implicit SSL encryption
                 }
-                $mail->Port     = $this->settings->mail_port;       
+                // $mail->Port     = $this->settings->mail_port;       
+                $mail->Port     = "587";       
 
+                $mail->SMTPSecure = "tls";
                 //Recipients
-                $mail->setFrom($this->settings->mail_username, $this->settings->site_name);
+                // $mail->setFrom($this->settings->mail_username, $this->settings->site_name);
+                $mail->setFrom = "1999surajverma@gmail.com";
                 $mail->addAddress($email_to);     //Add a recipient
              
                 //Content
