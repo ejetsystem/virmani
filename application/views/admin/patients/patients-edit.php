@@ -22,9 +22,9 @@
           </div>
 
           <div class="box-body">
-            <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('clinic-admin/patients/update')?>" role="form" novalidate>
+            <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form check_email_validate" action="<?php echo base_url('clinic-admin/patients/update')?>" role="form" novalidate>
 
-              <input type="hidden" required name="patient_id" value="<?php echo html_escape($patients[0]['id']); ?>">
+              <input type="hidden"  name="patient_id" value="<?php echo html_escape($patients[0]['id']); ?>">
 
               <div class="row">
                 <div class="col-md-3">
@@ -45,14 +45,15 @@
                   <div class="row">
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label><?php echo ('Title') ?> <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" required name="title" value="<?php echo html_escape($patients[0]['title']); ?>">
+                        <label><?php echo ('Title') ?> </label>
+                        <input type="text" class="form-control"  name="title" value="<?php echo html_escape($patients[0]['title']); ?>">
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
                         <label><?php echo trans('name') ?> <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" required name="name" value="<?php echo html_escape($patients[0]['name']); ?>" >
+                        <input type="text" class="form-control" required name="name" id="name" value="<?php echo html_escape($patients[0]['name']); ?>" >
+                        <span class="text-danger" id="name_error_message"></span>
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -66,8 +67,8 @@
                   <div class="row">
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label><?php echo ('Gender') ?> <span class="text-danger">*</span></label>
-                        <select class="form-control" required name="sex" value="<?php echo html_escape($patients[0]['sex']); ?>">
+                        <label><?php echo ('Gender') ?> </label>
+                        <select class="form-control"  name="sex" value="<?php echo html_escape($patients[0]['sex']); ?>">
                           <option>Select</option>
                           <option <?= (html_escape($patients[0]['sex'])=='male') ? 'selected' : '' ?> value="male">Male</option>
                           <option <?= (html_escape($patients[0]['sex'])=='female') ? 'selected' : '' ?> value="female">Female</option>
@@ -118,63 +119,47 @@
 
               <div class="">
                 <h3 class="border-bottom pb-20">Contact Information</h3>
-                <input type="hidden" required name="contact_id" value="<?php echo html_escape($contact[0]['id']); ?>">
+                <input type="hidden"  name="contact_id" value="<?php echo html_escape($contact[0]['id']); ?>">
                 <!-- Phone -->
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
                       <label><?php echo ('Phone 1') ?> <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" required name="phone1" id="phone1" value="<?php echo html_escape($contact[0]['phone1']); ?>" >
-
+                      <input type="text" class="form-control" required name="phone1" id="phone" required value="<?php echo html_escape($contact[0]['phone1']); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                      <span class="text-danger" id="number_error_message"></span>
                     </div>
                   </div>
 
                   <div class="col-md-3">
                     <div class="form-group">
                       <label><?php echo ('Phone 2'); ?> </label>
-                      <input type="text" class="form-control" name="phone2" id="phone2" value="<?php echo html_escape($contact[0]['phone2']); ?>" >
+                      <input type="text" class="form-control" name="phone2" id="phone2" value="<?php echo html_escape($contact[0]['phone2']); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                     </div>
                   </div>
                   
                   <div class="col-md-3">
                     <div class="form-group">
                       <label><?php echo ('Phone 3') ?> </label>
-                      <input type="text" class="form-control" name="phone3" id="phone3" value="<?php echo html_escape($contact[0]['phone3']); ?>" >
+                      <input type="text" class="form-control" name="phone3" id="phone3" value="<?php echo html_escape($contact[0]['phone3']); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                     </div>
                   </div>
 
                   <div class="col-md-3">
                     <div class="form-group">
                       <label><?php echo ('Phone 4') ?> </label>
-                      <input type="text" class="form-control" name="phone4" id="phone4" value="<?php echo html_escape($contact[0]['phone4']); ?>" >
+                      <input type="text" class="form-control" name="phone4" id="phone4" value="<?php echo html_escape($contact[0]['phone4']); ?>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                     </div>
                   </div>
                 </div>
 
-                <!-- Email -->
-                <!-- <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label><?php echo ('Email'); ?> </label>
-                      <input type="text" name="email" id="email" class="form-control"value="<?php echo html_escape($contact[0]['email']); ?>">
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label><?php echo ('Email 2'); ?> </label>
-                      <input type="text" name="email2" id="email2" class="form-control"value="<?php echo html_escape($contact[0]['email2']); ?>">
-                    </div>
-                  </div>
-                </div> -->
 
 
                 <!-- Email -->
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label><?php echo ('Email'); ?> </label>
-                      <input type="text" name="email" id="email" class="form-control" value="<?php echo html_escape($contact[0]['email']); ?>">
+                      <label><?php echo ('Email'); ?> <span class="text-danger">*</span></label>
+                      <input type="text" name="email" required id="email" class="form-control" value="<?php echo html_escape($contact[0]['email']); ?>">
                       <span class="text-danger my-5" id="email_exist_error_message"></span>
                     </div>
                   </div>
@@ -359,7 +344,7 @@
                 <div class="col-md-2">
                   <div class="form-group">
                     
-                    <input type="hidden" required name="insurance_loan[<?= $key ?>][id]" value="<?php echo $i['id'] ?>">
+                    <input type="hidden"  name="insurance_loan[<?= $key ?>][id]" value="<?php echo $i['id'] ?>">
 
                     <label><?php echo ('Select Type') ?></label>
                     <select class="form-control" name="insurance_loan[<?= $key ?>][type]" id="insurance_type">

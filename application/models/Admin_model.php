@@ -168,6 +168,9 @@ class Admin_model extends CI_Model {
         $this->db->from($table);
         $this->db->where('chamber_id', $this->chamber->uid);
         $this->db->order_by('id','DESC');
+        if ($this->db->field_exists('is_delete', $table)){
+            $this->db->where('is_delete', 0);
+        }
         $query = $this->db->get();
         $query = $query->result();  
         return $query;
@@ -2441,6 +2444,20 @@ class Admin_model extends CI_Model {
         $query = $query->result();
         return $query;
     }
+
+    public function doctor_list_of_payment_history(){
+        $this->db->select('p.*,d.name as doctor_name');
+        $this->db->from('payment_history p');
+        $this->db->join('doctors d', 'd.id = p.doctor_id', 'LEFT');
+        $this->db->where('d.user_id',$this->session->userdata('id'));
+        $this->db->where('p.amount_type',1);
+        $this->db->group_by('d.id');
+        $query = $this->db->get();
+        $query = $query->result();
+        return $query;
+    }
+
+    
 
     public function getWorkDone($workdone_id){
         $this->db->select('w.*,d.name as doctor_name');

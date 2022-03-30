@@ -24,7 +24,7 @@
             </div>
 
             <div class="box-body">
-              <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('clinic-admin/doctor/update')?>" role="form" novalidate>
+              <form id="cat-form" method="post" enctype="multipart/form-data" class="check_email_validate validate-form" action="<?php echo base_url('clinic-admin/doctor/update')?>" role="form" novalidate>
                 <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
 
                 <input type="hidden" name="id" value="<?php echo $doctors->id;?>">
@@ -48,14 +48,14 @@
                     <div class="row">
                       <div class="col-md-4">  
                         <div class="form-group">
-                          <label><?php echo trans('name') ?> <span class="text-danger">*</span></label>
-                          <input type="text" class="form-control" required name="name" id="name" value="<?php echo html_escape($doctors->name); ?>" >
+                          <label><?php echo trans('name') ?> </label>
+                          <input type="text" class="form-control"  name="name" id="name" value="<?php echo html_escape($doctors->name); ?>" >
                         </div>
                       </div>
                       <div class="col-md-4">  
                         <div class="form-group">
-                          <label><?php echo trans('gender') ?> <span class="text-danger">*</span></label>
-                          <select class="form-control" required name="gender" id="gender" value="<?php echo html_escape($staff[0]['gender']); ?>">
+                          <label><?php echo trans('gender') ?> </label>
+                          <select class="form-control"  name="gender" id="gender" value="<?php echo html_escape($staff[0]['gender']); ?>">
                             <option>Select</option>
                             <option <?php if($doctors->gender=='male'){ echo "selected"; } ?> value="male">Male</option>
                             <option <?php if($doctors->gender=='female'){ echo "selected"; } ?> value="female">Female</option>
@@ -64,8 +64,8 @@
                       </div>
                       <div class="col-md-4">  
                         <div class="form-group">
-                          <label><?php echo ('Date of Birth') ?> <span class="text-danger">*</span></label>
-                          <input type="date" class="form-control" required name="dob" id="dob" value="<?php echo html_escape(date('Y-m-d',strtotime($doctors->dob))); ?>" >
+                          <label><?php echo ('Date of Birth') ?> </label>
+                          <input type="date" class="form-control"  name="dob" id="dob" value="<?php echo html_escape(date('Y-m-d',strtotime($doctors->dob))); ?>" >
                         </div>
                       </div>
                     </div>
@@ -81,7 +81,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label><?php echo ('Marital Status'); ?> </label>
-                          <select class="form-control" required name="marital_status" id="marital_status" value="<?php echo html_escape($staff[0]['marital-status']); ?>" >
+                          <select class="form-control"  name="marital_status" id="marital_status" value="<?php echo html_escape($staff[0]['marital-status']); ?>" >
                             <option  value="">Select</option>
                             <option <?php if($doctors->marital_status=='Single'){ echo "selected"; } ?> value="Single">Single</option>
                             <option <?php if($doctors->marital_status=='Married'){ echo "selected"; } ?> value="Married">Married</option>
@@ -198,22 +198,22 @@
 
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label><?php echo ('City') ?> <span class="text-danger">*</span></label>
-                          <input type="text" name="city_r" id="city_r" required class="form-control" value="<?php echo html_escape($doctors->city_r); ?>">
+                          <label><?php echo ('City') ?> </label>
+                          <input type="text" name="city_r" id="city_r"  class="form-control" value="<?php echo html_escape($doctors->city_r); ?>">
                         </div>
                       </div>
 
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label><?php echo ('Zip') ?> <span class="text-danger">*</span></label>
-                          <input type="text" name="zip_r" id="zip_r" required class="form-control" value="<?php echo html_escape($doctors->zip_r); ?>">
+                          <label><?php echo ('Zip') ?> </label>
+                          <input type="text" name="zip_r" id="zip_r"  class="form-control" value="<?php echo html_escape($doctors->zip_r); ?>">
                         </div>
                       </div>
 
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label><?php echo ('Country') ?> <span class="text-danger">*</span></label>
-                          <input type="text" name="country_r" id="country_r" required class="form-control" value="<?php echo html_escape($doctors->country_r); ?>">
+                          <label><?php echo ('Country') ?> </label>
+                          <input type="text" name="country_r" id="country_r"  class="form-control" value="<?php echo html_escape($doctors->country_r); ?>">
                         </div>
                       </div>
                     </div>
@@ -223,8 +223,8 @@
                     <h3 class="border-bottom">Address Information</h3>
                     <div class="row">
                       <div class="col-md-12">
-                        <label><?php echo ('Email'); ?> <span class="text-danger">*</span></label>
-                        <input type="text" name="email" id="email" required class="form-control" value="<?php echo html_escape($doctors->email); ?>">
+                        <label><?php echo ('Email'); ?> </label>
+                        <input type="text" name="email" id="email"  class="form-control" value="<?php echo html_escape($doctors->email); ?>">
                       </div>
                       
                     </div>
@@ -327,26 +327,26 @@
                         ?>
                         <div class="row" id="del-vac<?php echo html_escape($vaccine->vaccination_id); ?>">
                           
-                          <input type="hidden" value="<?php echo html_escape($vaccine->vaccination_id); ?>" name="vaccination_id[]" id="vaccination_id" required>
+                          <input type="hidden" value="<?php echo html_escape($vaccine->vaccination_id); ?>" name="vaccination_id[]" id="vaccination_id" >
 
                           <div class="col-md-2">
                             <div class="form-group">
-                              <label><?php echo ('Vaccination Type') ?> <span class="text-danger">*</span></label>
-                              <input type="text" value="<?php echo html_escape($vaccine->vaccination_type); ?>" name="vaccination_type[]" id="vaccination_type" required class="form-control">
+                              <label><?php echo ('Vaccination Type') ?> </label>
+                              <input type="text" value="<?php echo html_escape($vaccine->vaccination_type); ?>" name="vaccination_type[]" id="vaccination_type"  class="form-control">
                             </div>
                           </div>
 
                           <div class="col-md-2">
                             <div class="form-group">
-                              <label><?php echo ('Vaccination Date') ?> <span class="text-danger">*</span></label>
-                              <input type="date" value="<?php echo html_escape($vaccine->vaccination_date); ?>" name="vaccination_date[]" id="vaccination_date" required class="form-control">
+                              <label><?php echo ('Vaccination Date') ?> </label>
+                              <input type="date" value="<?php echo html_escape($vaccine->vaccination_date); ?>" name="vaccination_date[]" id="vaccination_date"  class="form-control">
                             </div>
                           </div>
 
                           <div class="col-md-3">
                             <div class="form-group">
-                              <label><?php echo ('Reminder Date for Next') ?> <span class="text-danger">*</span></label>
-                              <input type="date" value="<?php echo html_escape($vaccine->reminder_date_for_next); ?>" name="reminder_date_for_next[]" id="reminder_date_for_next" required class="form-control">
+                              <label><?php echo ('Reminder Date for Next') ?> </label>
+                              <input type="date" value="<?php echo html_escape($vaccine->reminder_date_for_next); ?>" name="reminder_date_for_next[]" id="reminder_date_for_next"  class="form-control">
                             </div>
                           </div>
 
@@ -389,8 +389,8 @@
                     <div class="row">
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label><?php echo ('PAN Number') ?> <span class="text-danger">*</span></label>
-                          <input type="text" value="<?php echo html_escape($doctors->pan_number); ?>" name="pan_number" id="pan_number" required class="form-control">
+                          <label><?php echo ('PAN Number') ?> </label>
+                          <input type="text" value="<?php echo html_escape($doctors->pan_number); ?>" name="pan_number" id="pan_number"  class="form-control">
                         </div>
                       </div>
 
@@ -417,26 +417,26 @@
                         ?>
                         <div class="row" id="del-bank<?php echo html_escape($bank->bank_id); ?>">
 
-                          <input type="hidden" value="<?php echo html_escape($bank->bank_id); ?>" name="bank_id[]" id="bank_id" required>
+                          <input type="hidden" value="<?php echo html_escape($bank->bank_id); ?>" name="bank_id[]" id="bank_id" >
 
                           <div class="col-md-2">
                             <div class="form-group">
-                              <label><?php echo ('Bank Name') ?> <span class="text-danger">*</span></label>
-                              <input type="text" name="bank_name[]" value="<?php echo html_escape($bank->bank_name); ?>" required class="form-control">
+                              <label><?php echo ('Bank Name') ?> </label>
+                              <input type="text" name="bank_name[]" value="<?php echo html_escape($bank->bank_name); ?>"  class="form-control">
                             </div>
                           </div>
 
                           <div class="col-md-3">
                             <div class="form-group">
-                              <label><?php echo ('Bank Account Number') ?> <span class="text-danger">*</span></label>
-                              <input type="number" name="bank_account_number[]" value="<?php echo html_escape($bank->bank_account_number); ?>" required class="form-control">
+                              <label><?php echo ('Bank Account Number') ?> </label>
+                              <input type="number" name="bank_account_number[]" value="<?php echo html_escape($bank->bank_account_number); ?>"  class="form-control">
                             </div>
                           </div>
 
                           <div class="col-md-3">
                             <div class="form-group">
-                              <label><?php echo ('IFSC Code') ?> <span class="text-danger">*</span></label>
-                              <input type="text" name="ifsc_code[]" value="<?php echo html_escape($bank->ifsc_code); ?>" required class="form-control">
+                              <label><?php echo ('IFSC Code') ?> </label>
+                              <input type="text" name="ifsc_code[]" value="<?php echo html_escape($bank->ifsc_code); ?>"  class="form-control">
                             </div>
                           </div>
 
@@ -473,39 +473,39 @@
                         ?>
                         <div class="row" id="del-insure<?php echo html_escape($insurance->insurance_id); ?>">
 
-                          <input type="hidden" value="<?php echo html_escape($insurance->insurance_id); ?>" name="insurance_id[]" id="insurance_id" required>
+                          <input type="hidden" value="<?php echo html_escape($insurance->insurance_id); ?>" name="insurance_id[]" id="insurance_id" >
 
                           <div class="col-md-2">
                             <div class="form-group">
-                              <label><?php echo ('Insurance') ?> <span class="text-danger">*</span></label>
-                              <input type="text" name="insurance[]" value="<?php echo html_escape($insurance->insurance); ?>" required class="form-control">
+                              <label><?php echo ('Insurance') ?> </label>
+                              <input type="text" name="insurance[]" value="<?php echo html_escape($insurance->insurance); ?>"  class="form-control">
                             </div>
                           </div>
 
                           <div class="col-md-2">
                             <div class="form-group">
-                              <label><?php echo ('Insurance Date') ?> <span class="text-danger">*</span></label>
-                              <input type="date" name="insurance_date[]" value="<?php echo html_escape($insurance->insurance_date); ?>" required class="form-control">
+                              <label><?php echo ('Insurance Date') ?> </label>
+                              <input type="date" name="insurance_date[]" value="<?php echo html_escape($insurance->insurance_date); ?>"  class="form-control">
                             </div>
                           </div>
 
                           <div class="col-md-2">
                             <div class="form-group">
-                              <label><?php echo ('Renewal Date') ?> <span class="text-danger">*</span></label>
-                              <input type="date" name="renewal_date[]" value="<?php echo html_escape($insurance->renewal_date); ?>" required class="form-control">
+                              <label><?php echo ('Renewal Date') ?> </label>
+                              <input type="date" name="renewal_date[]" value="<?php echo html_escape($insurance->renewal_date); ?>"  class="form-control">
                             </div>
                           </div>
 
                           <div class="col-md-2">
                             <div class="form-group">
-                              <label><?php echo ('Amount Insured') ?> <span class="text-danger">*</span></label>
-                              <input type="number" name="amount_insured[]" value="<?php echo html_escape($insurance->amount_insured); ?>" required class="form-control">
+                              <label><?php echo ('Amount Insured') ?> </label>
+                              <input type="number" name="amount_insured[]" value="<?php echo html_escape($insurance->amount_insured); ?>"  class="form-control">
                             </div>
                           </div> 
                           <div class="col-md-2">
                             <div class="form-group">
-                              <label><?php echo ('Amount Paid') ?> <span class="text-danger">*</span></label>
-                              <input type="number" name="amount_paid[]" value="<?php echo html_escape($insurance->amount_paid); ?>" required class="form-control">
+                              <label><?php echo ('Amount Paid') ?> </label>
+                              <input type="number" name="amount_paid[]" value="<?php echo html_escape($insurance->amount_paid); ?>"  class="form-control">
                             </div>
                           </div> 
 

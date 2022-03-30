@@ -489,7 +489,7 @@
                 <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
                 <div class="col-sm-7">
                     <div class="form-group">
-                        <label>Notes &amp; Diagnosis</label>
+                        <label>Notes &amp; Diagnosis <span class="text-danger">*</span></label>
                         <textarea class="form-control" name="toth_note" id="tooths_notes" rows="8" required=""></textarea> 
                     </div>
                 </div> 
@@ -690,7 +690,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Treatment Type</label>
+                        <label>Treatment Type <span class="text-danger">*</span></label>
                         <select name="treatment_type" id="treatment_type" class="form-control" required="">
 
                             <option value=""><?php echo $this->lang->line('select') ?></option>
@@ -709,7 +709,7 @@
                         <input type="hidden" class="form-control" name="treatmentplans_id" id="treatmentplans_id1" >
                     </div>
                     <div class="form-group">
-                        <label>Primary Doctor Name</label>
+                        <label>Primary Doctor Name <span class="text-danger">*</span></label>
 
                         <select name="treatment_doctor" id="treatment_doctor1" class="form-control" required="">
 
@@ -724,7 +724,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Estimated Amount</label>
-                                <input type="number" class="form-control" name="treatment_amount" id="treatment_amount" required onkeypress="return isNumberKey(event)" onkeyup="discount(this.value)">
+                                <input type="number" class="form-control" name="treatment_amount" id="treatment_amount" onkeypress="return isNumberKey(event)" onkeyup="discount(this.value)">
                             </div>
                         </div>
 
@@ -776,7 +776,7 @@
                     <div class="box-footer">
                         <div class="float-right" id="save_divs">                        
                             <button type="submit" class="btn btn-primary" value="save">Save</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="closeview();">Fill Later</button>
+                            <!-- <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="closeview();">Fill Later</button> -->
                         </div>
                     </div>
                     <div class="float-right" id="view_divs" style="display: none;">       

@@ -595,13 +595,34 @@ public function view_patient($id,$tabpage='patientinfo') {
 }
 
 public function add_sitting()
-{    
+{
     $treatmentid = $this->input->post('trtid');
     $data = array(
         'sitting' => $this->input->post('sitting')            
     );
     $this->db->where('treatmentplans_id', $treatmentid);
     $this->db->update('teethinfo', $data);
+
+    if($this->input->post('patient_id')){
+        $this->db->select("t.*,at.*");
+        $this->db->from("teethinfo t");
+        $this->db->join('appointment_treatmentplan at', 'at.treatment_id = t.id', 'LEFT');
+        $this->db->where("t.tooth_patient_id",$this->input->post('patient_id'));
+        $this->db->where("t.sitting",$this->input->post('sitting'));
+        $this->db->limit(1);
+        $query = $this->db->get();
+        $query = $query->result();
+        if(count($query) > 0) {
+            $appointment_plan = array(
+                'appointment_id' => $query[0]->appointment_id,            
+                'treatment_id' => $this->input->post('trtid'),            
+                'created_at' => my_date_now(),            
+                'updated_at' => my_date_now()            
+            );
+            $this->admin_model->insert($appointment_plan,'appointment_treatmentplan');
+        }
+    }
+
     $array = array('status' => 'success', 'error' => '', 'message' => $this->lang->line('success_message'));
     echo json_encode($array);
 }

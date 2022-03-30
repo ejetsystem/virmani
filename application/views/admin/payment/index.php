@@ -25,9 +25,9 @@
                     <label>Select Doctor</label>
                     <select id="doctor_id" name="doctor_id" class="form-control">
                       <?php  
-                      if(count($payment_history) > 0){
+                      if(count($doctor_list_payment_history) > 0){
                         $i = 1;
-                        foreach($payment_history as $key=>$ph){
+                        foreach($doctor_list_payment_history as $key=>$ph){
                       ?>
                       <option value="<?php echo $ph->doctor_id ?>"><?php echo $ph->doctor_name ?></option>
                       <?php      

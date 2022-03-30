@@ -72,6 +72,7 @@
                   <div class="form-group">
                     <label><?php echo trans('name') ?> <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" required name="name" id="name">
+                    <span class="text-danger" id="name_error_message"></span>
                   </div>  
                 </div>
 
@@ -89,8 +90,8 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label><?php echo trans('gender') ?> <span class="text-danger">*</span></label></label>
-                    <select class="form-control" required name="gender" id="gender">
+                    <label><?php echo trans('gender') ?> </label></label>
+                    <select class="form-control"  name="gender" id="gender">
                       <option>Select</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
@@ -130,8 +131,8 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label><?php echo ('Date of Birth') ?> <span class="text-danger">*</span></label>
-                    <input type="date" class="form-control" required name="dob" id="dob"  >
+                    <label><?php echo ('Date of Birth') ?> </label>
+                    <input type="date" class="form-control"  name="dob" id="dob" max="<?php echo date('Y-m-d'); ?>">
                   </div>
                 </div>
               </div>
@@ -146,14 +147,15 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label><?php echo ('Phone') ?></label>
-                <input type="number" placeholder="Enter Your Phone" class="form-control" name="phone" id="phone">
+                <label><?php echo ('Phone') ?> <span class="text-danger">*</span></label>
+                <input type="text" placeholder="Enter Your Phone" class="form-control" name="phone" id="phone" required maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                <span class="text-danger" id="number_error_message"></span>
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
                 <label><?php echo ('Email') ?> <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" placeholder="Enter Email" required name="email" id="email" onkeyup="checkEmailExist(this.value)">
+                <input type="email" class="form-control" placeholder="Enter Email"  name="email" id="email" onkeyup="checkEmailExist(this.value)" required>
                 <span class="text-danger my-5" id="email_exist_error_message"></span>
               </div>
             </div>
@@ -197,8 +199,8 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="exampleInputFile">Current Address</label>
-                    <div><textarea name="address" class="form-control"></textarea>
+                    <label for="exampleInputFile">Current Address <span class="text-danger"> * </span></label>
+                    <div><textarea name="address" class="form-control" ></textarea>
                     </div>
                     <span class="text-danger"></span></div>
                   </div>
@@ -221,22 +223,22 @@
                     <div class="row">
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label><?php echo ('Vaccination Type') ?> <span class="text-danger">*</span></label>
-                          <input type="text" name="vaccination[0][vaccination_type]" id="vaccination_type" required class="form-control">
-                        </div>
-                      </div>
-
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <label><?php echo ('Vaccination Date') ?> <span class="text-danger">*</span></label>
-                          <input type="date" name="vaccination[0][vaccination_date]" id="vaccination_date" required class="form-control">
+                          <label><?php echo ('Vaccination Type') ?> </label>
+                          <input type="text" name="vaccination[0][vaccination_type]" id="vaccination_type"  class="form-control">
                         </div>
                       </div>
 
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label><?php echo ('Reminder Date for Next') ?> <span class="text-danger">*</span></label>
-                          <input type="date" name="vaccination[0][reminder_date_for_next]" id="reminder_date_for_next" required class="form-control">
+                          <label><?php echo ('Vaccination Date') ?> </label>
+                          <input type="date" name="vaccination[0][vaccination_date]" id="vaccination_date"  class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label><?php echo ('Reminder Date for Next') ?> </label>
+                          <input type="date" name="vaccination[0][reminder_date_for_next]" id="reminder_date_for_next" class="form-control" min="<?php echo date('Y-m-d'); ?>">
                         </div>
                       </div>
 
@@ -267,8 +269,8 @@
                   <div class="row">
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label><?php echo ('PAN Number') ?> <span class="text-danger">*</span></label>
-                        <input type="text" name="pan_number" id="pan_number" required class="form-control">
+                        <label><?php echo ('PAN Number') ?> </label>
+                        <input type="text" name="pan_number" id="pan_number"  class="form-control">
                       </div>
                     </div>
 
@@ -288,20 +290,20 @@
                     <div class="row">
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label><?php echo ('Bank Name') ?> <span class="text-danger">*</span></label>
-                          <input type="text" name="bank[0][bank_name]" required class="form-control">
+                          <label><?php echo ('Bank Name') ?> </label>
+                          <input type="text" name="bank[0][bank_name]"  class="form-control">
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label><?php echo ('Bank Account Number') ?> <span class="text-danger">*</span></label>
-                          <input type="number" name="bank[0][bank_account_number]" required class="form-control">
+                          <label><?php echo ('Bank Account Number') ?> </label>
+                          <input type="number" name="bank[0][bank_account_number]"  class="form-control">
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label><?php echo ('IFSC Code') ?> <span class="text-danger">*</span></label>
-                          <input type="text" name="bank[0][ifsc_code]" required class="form-control">
+                          <label><?php echo ('IFSC Code') ?> </label>
+                          <input type="text" name="bank[0][ifsc_code]"  class="form-control">
                         </div>
                       </div>
                       <div class="col-md-2">
@@ -322,32 +324,32 @@
                     <div class="row">
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label><?php echo ('Insurance') ?> <span class="text-danger">*</span></label>
-                          <input type="text" name="insurance[0][insurance]" required class="form-control">
+                          <label><?php echo ('Insurance') ?> </label>
+                          <input type="text" name="insurance[0][insurance]"  class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label><?php echo ('Insurance Date') ?> </label>
+                          <input type="date" name="insurance[0][insurance_date]"  class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label><?php echo ('Renewal Date') ?> </label>
+                          <input type="date" name="insurance[0][renewal_date]"  class="form-control" min="<?php echo date('Y-m-d'); ?>">
                         </div>
                       </div>
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label><?php echo ('Insurance Date') ?> <span class="text-danger">*</span></label>
-                          <input type="date" name="insurance[0][insurance_date]" required class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <label><?php echo ('Renewal Date') ?> <span class="text-danger">*</span></label>
-                          <input type="date" name="insurance[0][renewal_date]" required class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="form-group">
-                          <label><?php echo ('Amount Insured') ?> <span class="text-danger">*</span></label>
-                          <input type="number" name="insurance[0][amount_insured]" required class="form-control">
+                          <label><?php echo ('Amount Insured') ?> </label>
+                          <input type="number" name="insurance[0][amount_insured]"  class="form-control">
                         </div>
                       </div> 
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label><?php echo ('Amount Paid') ?> <span class="text-danger">*</span></label>
-                          <input type="number" name="insurance[0][amount_paid]" required class="form-control">
+                          <label><?php echo ('Amount Paid') ?> </label>
+                          <input type="number" name="insurance[0][amount_paid]"  class="form-control">
                         </div>
                       </div> 
 
@@ -374,75 +376,11 @@
               <center>
                 <div class="mx-auto w-100">
                   <input type="submit" class="btn btn-primary btn-lg mr-5 ml-5" name="save" value="Save">
-                  <a href="#" class="btn btn-danger btn-lg mr-5 ml-5">Cancel</a>
+                  <a href="<?php echo base_url('clinic-admin/staff'); ?>" class="btn btn-danger btn-lg mr-5 ml-5">Cancel</a>
                 </div>
               </center>
               <!-- End -->
             </form>
-          <!-- <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('clinic-admin/staff/add')?>" role="form" novalidate>
-
-            <div class="form-group">
-              <div class="avatar-upload text-center">
-                    <div class="avatar-edit">
-                        <input type='file' name="photo" id="imageUpload" accept=".png, .jpg, .jpeg" />
-                        <label for="imageUpload"></label>
-                    </div>
-                    <div class="avatar-preview">
-                        <div id="imagePreview" style="background-image: url(<?php echo base_url($staff[0]['thumb']); ?>);">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label><?php echo trans('chambers') ?></label>
-                <select class="selectfield textfield--grey col-sm-12 select2 w-100" name="chamber_id" required>
-                    <option value=""><?php echo trans('select') ?></option>
-                    <option <?php if($staff[0]['chamber_id'] == '0'){echo "selected";} ?> value="all"><?php echo trans('all-chamber') ?></option>
-                    <?php foreach ($chambers as $chamber): ?>
-                        <option value="<?php echo html_escape($chamber->id); ?>" <?php if($chamber->id == $staff[0]['chamber_id']){echo "selected";} ?>>
-                            <?php echo html_escape($chamber->name); ?>
-                        </option>
-                    <?php endforeach ?>
-                </select>
-            </div>
-
-            <div class="form-group">
-              <label><?php echo trans('name') ?> <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" required name="name" value="<?php echo html_escape($staff[0]['name']); ?>" >
-            </div>
-
-            <div class="form-group">
-              <label><?php echo trans('designation') ?> <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" required name="designation" value="<?php echo html_escape($staff[0]['designation']); ?>" >
-            </div>
-
-            <div class="form-group">
-              <label><?php echo trans('email').' ('.trans('username').')' ?> <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" required name="email" value="<?php echo html_escape($staff[0]['email']); ?>" >
-            </div>
-
-            <div class="form-group <?php if(isset($page_title) && $page_title == 'Edit'){echo 'hide';} ?>">
-              <label><?php echo trans('password') ?> <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" <?php if(isset($page_title) && $page_title != 'Edit'){echo 'required';} ?> name="password" value="<?php echo html_escape($staff[0]['password']); ?>" >
-            </div>
-            
-
-            <input type="hidden" name="id" value="<?php echo html_escape($staff['0']['id']); ?>">
-            
-            <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
-
-            <div class="row m-t-30">
-              <div class="col-sm-12">
-                <?php if (isset($page_title) && $page_title == "Edit"): ?>
-                  <button type="submit" class="btn btn-primary pull-left"><i class="ficon flaticon-check"></i> <?php echo trans('save-changes') ?></button>
-                <?php else: ?>
-                  <button type="submit" class="btn btn-primary btn-lg pull-left"><i class="ficon flaticon-check"></i> <?php echo trans('save') ?></button>
-                <?php endif; ?>
-              </div>
-            </div>
-
-          </form> -->
 
         </div>
 
@@ -532,25 +470,25 @@
     $(document).ready(function(){
       count_vaccine = 1;
       $('.add-more-vaccine').click(function(){
-        add_vaccination = `<div class="row" id="delete-vaccination`+count_vaccination+`">
+        add_vaccination = `<div class="row" id="delete-vaccination`+count_vaccine+`">
             <div class="col-md-2">
             <div class="form-group">
-            <label>Vaccination Type <span class="text-danger">*</span></label>
-            <input type="text" name="vaccination[`+count_vaccine+`][vaccination_type]" id="vaccination_type" required class="form-control">
-            </div>
-            </div>
-
-            <div class="col-md-2">
-            <div class="form-group">
-            <label>Vaccination Date <span class="text-danger">*</span></label>
-            <input type="date" name="vaccination[`+count_vaccine+`][vaccination_date]" id="vaccination_date" required class="form-control">
+            <label>Vaccination Type </label>
+            <input type="text" name="vaccination[`+count_vaccine+`][vaccination_type]" id="vaccination_type"  class="form-control">
             </div>
             </div>
 
             <div class="col-md-3">
             <div class="form-group">
-            <label>Reminder Date for Next <span class="text-danger">*</span></label>
-            <input type="date" name="vaccination[`+count_vaccine+`][reminder_date_for_next]" id="reminder_date_for_next" required class="form-control">
+            <label>Vaccination Date </label>
+            <input type="date" name="vaccination[`+count_vaccine+`][vaccination_date]" id="vaccination_date"  class="form-control">
+            </div>
+            </div>
+
+            <div class="col-md-3">
+            <div class="form-group">
+            <label>Reminder Date for Next </label>
+            <input type="date" name="vaccination[`+count_vaccine+`][reminder_date_for_next]" id="reminder_date_for_next" class="form-control" min="<?php echo date('Y-m-d'); ?>">
             </div>
             </div>
 
@@ -564,16 +502,10 @@
             <div class="col-md-2">
             <div class="form-group">
             <label>Medical History</label>
-            <input type="text" name="vaccination[`+count_vaccine+`][medical_history]" id="medical_history" class="form-control">
+            <input type="text" name="vaccination[`+count_vaccine+`][medical_history]" id="medical_history" class="form-control w-100 d-inline-block">
+            <p class="btn btn-danger w-100 d-inline-block" onclick="deleteVaccination(`+count_vaccine+`)"> Delete</p>
             </div>
-            </div>
-            
-            <div class="col-md-1" style="margin-top: 13px;">
-            <div class="form-group">
-            <label></label>
-            <p class="btn btn-danger" onclick="deleteVaccination(`+count_vaccine+`)"> Delete</p>
-            </div>
-            </div>
+            </div>            
 
             </div>`;
             $("#vaccination-container").append(add_vaccination);
@@ -645,17 +577,17 @@
           </div>
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-3">
           <div class="form-group">
           <label>Insurance Date <span class="text-danger">*</span></label>
           <input type="date" name="insurance[`+count_insurances+`][insurance_date]" class="form-control">
           </div>
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-3">
           <div class="form-group">
           <label>Renewal Date <span class="text-danger">*</span></label>
-          <input type="date" name="insurance[`+count_insurances+`][renewal_date]" class="form-control">
+          <input type="date" name="insurance[`+count_insurances+`][renewal_date]" class="form-control" min="<?php echo date('Y-m-d'); ?>">
           </div>
           </div>
 

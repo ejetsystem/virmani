@@ -48,12 +48,13 @@
                         <div class="form-group">
                           <label><?php echo trans('name') ?> <span class="text-danger">*</span></label>
                           <input type="text" class="form-control" required name="name" id="name" value="<?php echo html_escape($staff[0]['name']); ?>" >
+                          <span class="text-danger" id="name_error_message"></span>
                         </div>
                       </div>
                       <div class="col-md-4">  
                         <div class="form-group">
-                          <label><?php echo trans('gender') ?> <span class="text-danger">*</span></label>
-                          <select class="form-control" required name="gender" id="gender" value="<?php echo html_escape($staff[0]['gender']); ?>">
+                          <label><?php echo trans('gender') ?> </label>
+                          <select class="form-control"  name="gender" id="gender" value="<?php echo html_escape($staff[0]['gender']); ?>">
                             <option>Select</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
@@ -62,8 +63,8 @@
                       </div>
                       <div class="col-md-4">  
                         <div class="form-group">
-                          <label><?php echo ('Date of Birth') ?> <span class="text-danger">*</span></label>
-                          <input type="date" class="form-control" required name="dob" id="dob" value="<?php echo html_escape($staff[0]['gender']); ?>" >
+                          <label><?php echo ('Date of Birth') ?> </label>
+                          <input type="date" class="form-control"  name="dob" id="dob" value="<?php echo html_escape($staff[0]['gender']); ?>" >
                         </div>
                       </div>
                     </div>
@@ -79,7 +80,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label><?php echo ('Marital Status'); ?> </label>
-                          <select class="form-control" required name="marital_status" id="marital_status" value="<?php echo html_escape($staff[0]['marital-status']); ?>" >
+                          <select class="form-control"  name="marital_status" id="marital_status" value="<?php echo html_escape($staff[0]['marital-status']); ?>" >
                             <option>Select</option>
                             <option value="">Select</option>
                             <option value="Single">Single</option>
@@ -142,9 +143,9 @@
                 <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label><?php echo ('Phone 1') ?> </label>
-                      <input type="text" class="form-control" name="phone1" id="phone1" value="<?php echo html_escape($staff[0]['phone1']); ?>" >
-
+                      <label><?php echo ('Phone 1') ?> <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" required name="phone1" id="phone" value="<?php echo html_escape($staff[0]['phone1']); ?>" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                      <span class="text-danger" id="number_error_message"></span>  
                     </div>
                   </div>
 
@@ -185,22 +186,22 @@
 
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label><?php echo ('City') ?> <span class="text-danger">*</span></label>
-                          <input type="text" name="city_r" id="city_r" required class="form-control">
+                          <label><?php echo ('City') ?> </label>
+                          <input type="text" name="city_r" id="city_r"  class="form-control">
                         </div>
                       </div>
 
                       <div class="col-md-2">
                         <div class="form-group">
-                          <label><?php echo ('Zip') ?> <span class="text-danger">*</span></label>
-                          <input type="number" name="zip_r" id="zip_r" required class="form-control">
+                          <label><?php echo ('Zip') ?> </label>
+                          <input type="number" name="zip_r" id="zip_r"  class="form-control">
                         </div>
                       </div>
 
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label><?php echo ('Country') ?> <span class="text-danger">*</span></label>
-                          <input type="text" name="country_r" id="country_r" required class="form-control">
+                          <label><?php echo ('Country') ?> </label>
+                          <input type="text" name="country_r" id="country_r"  class="form-control">
                         </div>
                       </div>
                     </div>
@@ -211,7 +212,7 @@
                     <div class="row">
                       <div class="col-md-12">
                         <label><?php echo ('Email'); ?> <span class="text-danger">*</span></label>
-                        <input type="text" name="email" id="email" onkeyup="checkEmailExist(this.value)" required class="form-control">
+                        <input type="text" name="email" id="email" required onkeyup="checkEmailExist(this.value)"  class="form-control">
                         <span class="text-danger my-5" id="email_exist_error_message"></span>
                       </div>
 
@@ -312,22 +313,22 @@
                       <div class="row">
                         <div class="col-md-2">
                           <div class="form-group">
-                            <label><?php echo ('Vaccination Type') ?> <span class="text-danger">*</span></label>
-                            <input type="text" name="vaccination_type[]" id="vaccination_type" required class="form-control">
+                            <label><?php echo ('Vaccination Type') ?> </label>
+                            <input type="text" name="vaccination_type[]" id="vaccination_type"  class="form-control">
                           </div>
                         </div>
 
                         <div class="col-md-2">
                           <div class="form-group">
-                            <label><?php echo ('Vaccination Date') ?> <span class="text-danger">*</span></label>
-                            <input type="date" name="vaccination_date[]" id="vaccination_date" required class="form-control">
+                            <label><?php echo ('Vaccination Date') ?> </label>
+                            <input type="date" name="vaccination_date[]" id="vaccination_date"  class="form-control">
                           </div>
                         </div>
 
                         <div class="col-md-3">
                           <div class="form-group">
-                            <label><?php echo ('Reminder Date for Next') ?> <span class="text-danger">*</span></label>
-                            <input type="date" name="reminder_date_for_next[]" id="reminder_date_for_next" required class="form-control">
+                            <label><?php echo ('Reminder Date for Next') ?> </label>
+                            <input type="date" name="reminder_date_for_next[]" id="reminder_date_for_next"  class="form-control">
                           </div>
                         </div>
 
@@ -358,8 +359,8 @@
                     <div class="row">
                       <div class="col-md-3">
                         <div class="form-group">
-                          <label><?php echo ('PAN Number') ?> <span class="text-danger">*</span></label>
-                          <input type="text" name="pan_number" id="pan_number" required class="form-control">
+                          <label><?php echo ('PAN Number') ?> </label>
+                          <input type="text" name="pan_number" id="pan_number"  class="form-control">
                         </div>
                       </div>
 
@@ -384,22 +385,22 @@
                       <div class="row">
                         <div class="col-md-2">
                           <div class="form-group">
-                            <label><?php echo ('Bank Name') ?> <span class="text-danger">*</span></label>
-                            <input type="text" name="bank_name[]" required class="form-control">
+                            <label><?php echo ('Bank Name') ?> </label>
+                            <input type="text" name="bank_name[]"  class="form-control">
                           </div>
                         </div>
 
                         <div class="col-md-3">
                           <div class="form-group">
-                            <label><?php echo ('Bank Account Number') ?> <span class="text-danger">*</span></label>
-                            <input type="number" name="bank_account_number[]" required class="form-control">
+                            <label><?php echo ('Bank Account Number') ?> </label>
+                            <input type="number" name="bank_account_number[]"  class="form-control">
                           </div>
                         </div>
 
                         <div class="col-md-3">
                           <div class="form-group">
-                            <label><?php echo ('IFSC Code') ?> <span class="text-danger">*</span></label>
-                            <input type="text" name="ifsc_code[]" required class="form-control">
+                            <label><?php echo ('IFSC Code') ?> </label>
+                            <input type="text" name="ifsc_code[]"  class="form-control">
                           </div>
                         </div>
 
@@ -424,35 +425,35 @@
                       <div class="row">
                         <div class="col-md-2">
                           <div class="form-group">
-                            <label><?php echo ('Insurance') ?> <span class="text-danger">*</span></label>
-                            <input type="text" name="insurance[]" required class="form-control">
+                            <label><?php echo ('Insurance') ?> </label>
+                            <input type="text" name="insurance[]"  class="form-control">
                           </div>
                         </div>
 
                         <div class="col-md-2">
                           <div class="form-group">
-                            <label><?php echo ('Insurance Date') ?> <span class="text-danger">*</span></label>
-                            <input type="date" name="insurance_date[]" required class="form-control">
+                            <label><?php echo ('Insurance Date') ?> </label>
+                            <input type="date" name="insurance_date[]"  class="form-control">
                           </div>
                         </div>
 
                         <div class="col-md-2">
                           <div class="form-group">
-                            <label><?php echo ('Renewal Date') ?> <span class="text-danger">*</span></label>
-                            <input type="date" name="renewal_date[]" required class="form-control">
+                            <label><?php echo ('Renewal Date') ?> </label>
+                            <input type="date" name="renewal_date[]"  class="form-control">
                           </div>
                         </div>
 
                         <div class="col-md-2">
                           <div class="form-group">
-                            <label><?php echo ('Amount Insured') ?> <span class="text-danger">*</span></label>
-                            <input type="number" name="amount_insured[]" required class="form-control">
+                            <label><?php echo ('Amount Insured') ?> </label>
+                            <input type="number" name="amount_insured[]"  class="form-control">
                           </div>
                         </div> 
                         <div class="col-md-2">
                           <div class="form-group">
-                            <label><?php echo ('Amount Paid') ?> <span class="text-danger">*</span></label>
-                            <input type="number" name="amount_paid[]" required class="form-control">
+                            <label><?php echo ('Amount Paid') ?> </label>
+                            <input type="number" name="amount_paid[]"  class="form-control">
                           </div>
                         </div> 
 
