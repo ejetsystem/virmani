@@ -104,14 +104,14 @@
 
                         <div class="col-md-6">
                          <div class="form-group">
+                             <?php $chairs_list = $this->admin_model->get_chair_list_with_status();?>
                            <label><?php echo('Choose Chair') ?></label>
                            <select name="chair_no" id="chair_no" class="form-control" autocomplete="off">
-                            <option value="0"> Choose Chair</option>
-                            <option value="1"> Chair-1</option>
-                            <option value="2"> Chair-2</option>
-                            <option value="3"> Chair-3</option>
-                            <option value="4"> Chair-4</option>
-                            <option value="5"> Chair-5</option> 
+                            <option value=" ">Choose Chair</option>
+                            <?php foreach($chairs_list as $chair):?>
+                            <option value="<?php echo $chair->id?>"><?php echo $chair->name?></option>
+                            <?php endforeach?>
+                             
                           </select>
                         </div>
                       </div>

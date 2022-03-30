@@ -45,7 +45,7 @@
                             <td><?php echo $count; ?></td>
                             <td><?php echo $dt; ?></td>
                             <td class="doodleEdit_ editDescr" ondblclick="updateVal(this)" id="treat_id_<?php echo $treat["id"]; ?>" attr_treat_id="<?php echo $treat["id"]; ?>">
-                                <?php echo ($treat['sitting']) ? $treat['sitting'] : "No"; ?>
+                                <?php echo ($treat['sitting']) ? $treat['sitting'] : ""; ?>
                             </td>
                             <td>
                                 <?php if (empty($treat['app_treat_id'])) { ?>
@@ -130,22 +130,24 @@
                 $.ajax({
                     url: '<?php echo base_url(); ?>admin/patients/add_sitting',
                     type: "POST",
-                    data: {trtid: trtid, sitting: org_val, csrf_test_name: csrf_token},
+                    data: {patient_id: '<?php echo $patients[0]['id'];?>',trtid: trtid, sitting: org_val, csrf_test_name: csrf_token},
                     success: function (data) {
                         if (data.status == "fail") {
                             var message = "";
                             $.each(data.error, function (index, value) {
                                 message += value;
                             });
-                            errorMsg(message);
+                            
                         } else {
-                            successMsg(data.message);
+                            location.reload();
+                            //successMsg(data.message);
                             $.ajax({
                                 url: '<?php echo base_url(); ?>admin/patients/changestatus',
                                 type: "POST",
                                 data: {patient_id: trtid, csrf_test_name: csrf_token},
                                 success: function (data) {
                                     //  $('#tratmenthistory').html(data); 
+                                    
                                 }
                             });
                             $.ajax({

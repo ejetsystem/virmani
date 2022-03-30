@@ -75,12 +75,12 @@ get_instance()->load->helper('custom_helper');
                $ci =& get_instance(); 
                $appintment_info=array();
 
-              // $chairs_list = array(1,2,3,4,5); 
-               $chairs = $chairs_list;
+               $chairs_list = array(1,2,3,4,5); 
+               $chairs = array(1,2,3,4,5);
                $chair_id = 'all';
                $doctor_id = '';
                if(isset($_REQUEST['chair_id']) && $_REQUEST['chair_id'] != ''){
-                 $chairs = $chairs_search_list;
+                 $chairs = $_REQUEST['chair_id'];
                }
                if(isset($_REQUEST['doctor_id']) && $_REQUEST['doctor_id'] != ''){
                  $doctor_id = 'AND a.doctor_id IN('.implode(',',$_REQUEST['doctor_id']).')';
@@ -88,8 +88,8 @@ get_instance()->load->helper('custom_helper');
                $chair_colors = array('chair_green','chair_blue','chair_purple','chair_dbrown','chair_mgreen');
                foreach($splitimes as $stime){
                 $start_time = $stime.':00';
-                foreach($chairs as  $chair){
-                  $sql = "SELECT a.*,patientses.name FROM appointments a inner join patientses on patientses.id = a.patient_id WHERE a.appointment_status IN(0,4) AND date = '".$sdate."' AND chair = '".$chair->id."' AND ('".$start_time."' BETWEEN `start_time` AND `end_time`) ".$doctor_id;
+                foreach($chairs as $chair){
+                  $sql = "SELECT a.*,patientses.name FROM appointments a inner join patientses on patientses.id = a.patient_id WHERE a.appointment_status IN(0,4) AND date = '".$sdate."' AND chair = '".$chair."' AND ('".$start_time."' BETWEEN `start_time` AND `end_time`) ".$doctor_id;
                   $query_check = $this->db->query($sql);
                   $res_check = $query_check->result();
 
@@ -98,15 +98,14 @@ get_instance()->load->helper('custom_helper');
                      $rcheck = (array) $rcheck;  
                      if(multi_array_search($rcheck['id'], $appintment_info)){ 
                      } else { 
-                       $appintment_info[$stime][$chair->id][] = $rcheck; 
+                       $appintment_info[$stime][$chair][] = $rcheck; 
                      }  
                    }  
                  } else {
-                   $appintment_info[$stime][$chair->id][] = 'Allot';
+                   $appintment_info[$stime][$chair][] = 'Allot';
                  }  
                }   
              }
-              
              ?>
              <div class="col-md-10 calender_filter">
               <form id="submit_form" action="" method="POST">
@@ -138,15 +137,14 @@ get_instance()->load->helper('custom_helper');
                    <select name="chair_id[]"  id="chair_id_top" class="form-control" multiple="multiple">
                      <?php 
                      foreach($chairs_list as $key=>$ch){
-                         $found = false;
-                            foreach ($chairs_search_list as $array) {
-                              if($ch->id == $array->id) {
-                                 $found = true; 
-                                 break;
-                               }
-                            } 
-                         ?>
-                      <option <?php echo ($found === true) ? 'selected' : '';  ?>  value="<?php echo $ch->id; ?>"><?php echo $ch->name; ?></option>
+                     if(isset($_REQUEST['chair_id']) && $_REQUEST['chair_id'][$key]==$ch){
+                       $chair_selected = "selected='true'";
+                     }
+                     else{
+                       $chair_selected = "";
+                     } 
+                     ?>
+                      <option <?php echo $chair_selected; ?> value="<?php echo $ch; ?>">Chair <?php echo $ch; ?></option>
                     <?php } ?>
                   </select>
                 </div>
@@ -166,7 +164,7 @@ get_instance()->load->helper('custom_helper');
               <tr class="success table-info">
                 <th width="16%">Slot Time</th>
                 <?php foreach($chairs as $ch){ ?>
-                  <th width="16%"><?php echo $ch->name; ?></th>
+                  <th width="16%">Chair <?php echo $ch; ?></th>
                 <?php } ?> 
               </tr>
             </thead>

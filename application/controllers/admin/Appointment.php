@@ -349,12 +349,18 @@ public function fetch_particular_appointment(){
 public function chairView()
 {
     $data = array();
+    $chair_ids = '';
     $data['page'] = 'Appointment';
     $data['page_title'] = 'Chair View';
     $data['AllAppointments'] = $this->admin_model->fetch_current_date_appointment();    
     $data['doctors'] = $this->admin_model->select_all_doctors();
     $data['doctors_list'] = $this->admin_model->get_by_user('doctors');
     $data['patientses'] = $this->admin_model->select_by_chamber('patientses');
+    if(isset($_REQUEST['chair_id']) && $_REQUEST['chair_id'] != ''){
+        $chair_ids = $_REQUEST['chair_id'];
+        $data['chairs_search_list'] = $this->admin_model->get_chair_list_with_search($chair_ids);
+      }
+    $data['chairs_list'] = $this->admin_model->get_chair_list_with_status();
     $data['main_content'] = $this->load->view('admin/appointments/chair_view',$data,TRUE);
     $this->load->view('admin/index',$data);   
     

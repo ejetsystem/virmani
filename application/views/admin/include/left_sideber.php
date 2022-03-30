@@ -140,12 +140,18 @@
           </li>
 
           <?php if (check_feature_access('chambers') == TRUE): ?>
-            <li class="<?php if(isset($page_title) && $page_title == "Chambers"){echo "active";} ?>">
+<!--            <li class="<?php if(isset($page_title) && $page_title == "Chambers"){echo "active";} ?>">
               <a href="<?php echo base_url('clinic-admin/chamber') ?>">
                 <i class="flaticon-maintenance"></i> <span><?php echo trans('chambers') ?></span>
               </a>
-            </li>
+            </li>-->
           <?php endif ?>
+            
+            <li class="<?php if(isset($page_title) && $page_title == "Chairs"){echo "active";} ?>">
+              <a href="<?php echo base_url('clinic-admin/chairs') ?>">
+                <i class="flaticon-maintenance"></i> <span>Chairs</span>
+              </a>
+            </li>
 
           <li class="<?php if(isset($page_title) && $page_title == "Department"){echo "active";} ?>">
             <a href="<?php echo base_url('clinic-admin/department') ?>">

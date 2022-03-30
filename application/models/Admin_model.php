@@ -515,7 +515,7 @@ class Admin_model extends CI_Model {
     {
         $this->db->select();
         $this->db->from($table);
-        $this->db->where(md5('id'), $id);
+        $this->db->where('md5(id)', $id);
         $query = $this->db->get();
         $query = $query->row();  
         return $query;
@@ -2479,5 +2479,38 @@ class Admin_model extends CI_Model {
         $query = $query->result();  
         return $query;
     }
+    
+    public function get_chair_with_doctor() {
+        $this->db->select('ch.*,d.name as doctor_name');
+        $this->db->from('chairs ch');
+        $this->db->join('doctors d', 'd.id = ch.doctor_id', 'LEFT');
+        $this->db->where('ch.user_id',$this->session->userdata('id'));
+        $query = $this->db->get();
+        $query = $query->result();  
+        return $query;
+    }
+    
+    public function get_chair_list_with_status() {
+        $this->db->select('ch.*');
+        $this->db->from('chairs ch');
+        $this->db->where('ch.status','1');
+        
+        $this->db->where('ch.user_id',$this->session->userdata('id'));
+        $query = $this->db->get();
+        $query = $query->result();  
+        return $query;
+    }
+    
+    public function get_chair_list_with_search($chair_ids) {
+        $this->db->select('ch.*');
+        $this->db->from('chairs ch');
+        $this->db->where('ch.status','1');
+        $this->db->where_in('ch.id',$chair_ids);
+        $this->db->where('ch.user_id',$this->session->userdata('id'));
+        $query = $this->db->get();
+        $query = $query->result();  
+        return $query;
+    }
+    
     
 }

@@ -597,9 +597,27 @@ public function view_patient($id,$tabpage='patientinfo') {
 public function add_sitting()
 {    
     $treatmentid = $this->input->post('trtid');
-    $data = array(
+   
+    $data = array('tooth_patient_id' => $this->input->post('patient_id'), 'sitting' => $this->input->post('sitting'));
+    $query = $this->db->where($data)->get('teethinfo');
+    if ($query->num_rows() > 0) {
+        $teethinfo = $query->row_array();
+       
+        $data = array('treatment_id' => $teethinfo['treatmentplans_id']);
+        $query = $this->db->where($data)->get('appointment_treatmentplan');
+        $app_treats = $query->row_array();
+        
+        $treat_data = array(
+            'appointment_id' => $app_treats['appointment_id'],
+            'treatment_id' => $treatmentid
+        );
+        $this->admin_model->insert($treat_data, 'appointment_treatmentplan');
+    }else{
+        $this->db->delete('appointment_treatmentplan', array('treatment_id' => $treatmentid));
+    }  
+     $data = array(
         'sitting' => $this->input->post('sitting')            
-    );
+    );        
     $this->db->where('treatmentplans_id', $treatmentid);
     $this->db->update('teethinfo', $data);
     $array = array('status' => 'success', 'error' => '', 'message' => $this->lang->line('success_message'));

@@ -119,7 +119,7 @@
                             <div class="form-group">
                               <label><?php echo('Choose Chair') ?></label>
                               <select name="chair_no" id="chair_no" class="form-control" autocomplete="off">
-                               <option value="0"> Choose Chair</option>
+                               <option value=""> Choose Chair</option>
                                <option value="1"> Chair-1</option>
                                <option value="2"> Chair-2</option>
                                <option value="3"> Chair-3</option>

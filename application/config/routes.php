@@ -302,5 +302,12 @@ $route['clinic-admin/registration/disable/(:any)/(:any)'] = 'admin/registration/
 $route['clinic-admin/registration/enable/(:any)/(:any)'] = 'admin/registration/registrationController/enable/$1/$2';
 $route['clinic-admin/registration/change-password/(:any)'] = 'admin/registration/registrationController/change_password/$1';
 
+//Chairs management
+$route['clinic-admin/chairs'] = 'admin/chairs';
+$route['clinic-admin/chairs/add'] = 'admin/chairs/add';
+$route['clinic-admin/chairs/set_primary/(:any)'] = 'admin/chairs/set_primary/$1';
+$route['clinic-admin/chairs/edit/(:any)'] = 'admin/chairs/edit/$1';
+$route['clinic-admin/chairs/delete/(:any)'] = 'admin/chairs/delete/$1';
+
 
  
