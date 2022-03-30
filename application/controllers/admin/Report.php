@@ -36,6 +36,9 @@ class Report extends Home_Controller {
         else{
             $data['payment_history'] = $this->admin_model->payment_history();
         }
+
+        $data['doctor_list_payment_history'] = $this->admin_model->doctor_list_of_payment_history();
+        
         $data['main_content'] = $this->load->view('admin/payment/index', $data, TRUE);
         $this->load->view('admin/index',$data);
     }

@@ -26,6 +26,7 @@ class Prescription extends Home_Controller {
         $data['additional_adviseses'] = $this->admin_model->select_by_user('additional_advises');
         $data['adviseses'] = $this->admin_model->select_by_user('advises');
         $data['advise_investigations'] = $this->admin_model->select_by_user('advise_investigations');
+        $data['medicine_category'] = $this->admin_model->get_order_by_attr('medicine_category','id','ASC');
         $data['drugs'] = $this->admin_model->select_by_user('drugs');
         $data['patients'] = $this->admin_model->select_by_chamber('patientses');
         $data['user'] = $this->admin_model->get_user_info();
@@ -475,7 +476,6 @@ public function add_drug()
 {   
     if($_POST)
     {   
-
             //validate inputs
         $this->form_validation->set_rules('name', trans('name'), 'required');
         $this->form_validation->set_rules('details', trans('age'), 'trim');
@@ -486,7 +486,8 @@ public function add_drug()
        
         $data=array(
             'user_id' => user()->id,
-            'name' => $this->input->post('name', true),
+            'medicine_name' => $this->input->post('name', true),
+            'medicine_category_id' => $this->input->post('medicine_category_id', true),
             'details' => $this->input->post('details', true),
         );
         $data = $this->security->xss_clean($data);

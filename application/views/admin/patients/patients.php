@@ -42,14 +42,15 @@
                   <div class="row">
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label><?php echo ('Title') ?> <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" required name="title" value="<?php echo html_escape($patients[0]['email']); ?>">
+                        <label><?php echo ('Title') ?> </label>
+                        <input type="text" class="form-control"  name="title" value="<?php echo html_escape($patients[0]['email']); ?>">
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
                         <label><?php echo trans('name') ?> <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" required name="name" value="<?php echo html_escape($patients[0]['name']); ?>" >
+                        <input type="text" class="form-control" required name="name" id="name" value="<?php echo html_escape($patients[0]['name']); ?>" >
+                        <span class="text-danger" id="name_error_message"></span>
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -63,8 +64,8 @@
                   <div class="row">
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label><?php echo ('Gender') ?> <span class="text-danger">*</span></label>
-                        <select class="form-control" required name="sex" value="">
+                        <label><?php echo ('Gender') ?> </label>
+                        <select class="form-control"  name="sex" value="">
                           <option>Select</option>
                           <option value="male">Male</option>
                           <option value="female">Female</option>
@@ -121,8 +122,8 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label><?php echo ('Phone 1') ?> <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" required name="phone1" id="phone1" value="<?php echo html_escape($staff[0]['phone1']); ?>" >
-
+                      <input type="text" class="form-control" required name="phone1" id="phone" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                      <span class="text-danger" id="number_error_message"></span>
                     </div>
                   </div>
 
@@ -152,8 +153,8 @@
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label><?php echo ('Email'); ?> </label>
-                      <input type="text" name="email" id="email" onkeyup="checkEmailExist(this.value)" class="form-control">
+                      <label><?php echo ('Email'); ?> <span class="text-danger">*</span></label>
+                      <input type="text" name="email" required id="email" onkeyup="checkEmailExist(this.value)" class="form-control">
                       <span class="text-danger my-5" id="email_exist_error_message"></span>
                     </div>
                   </div>

@@ -129,22 +129,22 @@
     add_vaccination = `<div class="row" id="delete-vaccination`+count_vaccination+`">
     <div class="col-md-2">
     <div class="form-group">
-    <label><?php echo ('Vaccination Type') ?> <span class="text-danger">*</span></label>
-    <input type="text" name="vaccination_type[]" id="vaccination_type" required class="form-control">
+    <label><?php echo ('Vaccination Type') ?> </label>
+    <input type="text" name="vaccination_type[]" id="vaccination_type" class="form-control">
     </div>
     </div>
 
     <div class="col-md-2">
     <div class="form-group">
-    <label><?php echo ('Vaccination Date') ?> <span class="text-danger">*</span></label>
-    <input type="date" name="vaccination_date[]" id="vaccination_date" required class="form-control">
+    <label><?php echo ('Vaccination Date') ?> </label>
+    <input type="date" name="vaccination_date[]" id="vaccination_date" class="form-control">
     </div>
     </div>
 
     <div class="col-md-3">
     <div class="form-group">
-    <label><?php echo ('Reminder Date for Next') ?> <span class="text-danger">*</span></label>
-    <input type="date" name="reminder_date_for_next[]" id="reminder_date_for_next" required class="form-control">
+    <label><?php echo ('Reminder Date for Next') ?> </label>
+    <input type="date" name="reminder_date_for_next[]" id="reminder_date_for_next" class="form-control">
     </div>
     </div>
 
@@ -188,21 +188,21 @@
     add_bank = `<div class="row" id="delete-bank`+count_bank+`">
     <div class="col-md-2">
     <div class="form-group">
-    <label><?php echo ('Bank Name') ?> <span class="text-danger">*</span></label>
+    <label><?php echo ('Bank Name') ?> </label>
     <input type="" name="bank_name[]" class="form-control">
     </div>
     </div>
 
     <div class="col-md-3">
     <div class="form-group">
-    <label><?php echo ('Bank Account Number') ?> <span class="text-danger">*</span></label>
+    <label><?php echo ('Bank Account Number') ?> </label>
     <input type="number" name="bank_account_number[]" class="form-control">
     </div>
     </div>
 
     <div class="col-md-3">
     <div class="form-group">
-    <label><?php echo ('IFSC Code') ?> <span class="text-danger">*</span></label>
+    <label><?php echo ('IFSC Code') ?> </label>
     <input type="" name="ifsc_code[]" class="form-control">
     </div>
     </div>
@@ -240,34 +240,34 @@
     add_insurance = `<div class="row" id="insurance-bank`+count_insurance+`">
     <div class="col-md-2">
     <div class="form-group">
-    <label><?php echo ('Insurance') ?> <span class="text-danger">*</span></label>
+    <label><?php echo ('Insurance') ?> </label>
     <input type="" name="insurance[]" class="form-control">
     </div>
     </div>
 
     <div class="col-md-2">
     <div class="form-group">
-    <label><?php echo ('Insurance Date') ?> <span class="text-danger">*</span></label>
+    <label><?php echo ('Insurance Date') ?> </label>
     <input type="date" name="insurance_date[]" class="form-control">
     </div>
     </div>
 
     <div class="col-md-2">
     <div class="form-group">
-    <label><?php echo ('Renewal Date') ?> <span class="text-danger">*</span></label>
+    <label><?php echo ('Renewal Date') ?> </label>
     <input type="date" name="renewal_date[]" class="form-control">
     </div>
     </div>
 
     <div class="col-md-2">
     <div class="form-group">
-    <label><?php echo ('Amount Insured') ?> <span class="text-danger">*</span></label>
+    <label><?php echo ('Amount Insured') ?> </label>
     <input type="number" name="amount_insured[]" class="form-control">
     </div>
     </div> 
     <div class="col-md-2">
     <div class="form-group">
-    <label><?php echo ('Amount Paid') ?> <span class="text-danger">*</span></label>
+    <label><?php echo ('Amount Paid') ?> </label>
     <input type="number" name="amount_paid[]" class="form-control">
     </div>
     </div> 

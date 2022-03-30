@@ -1,7 +1,7 @@
 <label class="control-label p-0" for="example-input-normal"><?php echo trans('drugs') ?> <span class="text-danger">*</span></label>
 <div class="d_flexs align-spaces">
 	<div class="flex-between">
-		<div>
+		<div class="col-lg-4">
 			<select class="form-control select2 drugs w90" name="drugs[]">
 				<option value=""><?php echo trans('select-drug') ?></option>
 				<?php 
@@ -12,6 +12,21 @@
 				<?php endforeach ?>
 			</select>
 		</div>
+
+		<div class="col-lg-4">
+			<select class="form-control select2" name="patient_id">
+				<option value=""><?php echo trans('select-patient') ?></option>
+				<?php  
+				foreach($patients as $pat){
+				?>
+				<option value="<?php echo $pat->id; ?>"><?php echo $pat->name; ?></option>
+				<?php  
+				}	
+				?>
+			</select>
+		</div>
+
+		
 
 		<div>
 			<?php if (isset($p) && $p == 0): ?>

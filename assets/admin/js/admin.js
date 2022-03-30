@@ -1028,11 +1028,13 @@ function checkEmailExist(email){
 
 
 $(".check_email_validate").submit(function(e){
+  
+
   if($("#email").val() ==''){
     $("#email").focus();
     $("#email_exist_error_message").text('Enter Email');
     e.preventDefault();
-    return false;
+    
   }
   else{
     $("#email_exist_error_message").text('');
@@ -1047,5 +1049,48 @@ $(".check_email_validate").submit(function(e){
     $("#password_error_message").text('');
   }
 
+  if(validateEmail($("#email").val()) !='true'){
+    $("#email").focus();
+    $("#email_exist_error_message").text('Enter Valid Email');
+    e.preventDefault();
+    
+  }
+
+  if($("#phone").val().length ==0){
+    $("#phone").focus();
+    $("#number_error_message").text('Phone is required');
+    e.preventDefault();
+    
+  }
+  else if($("#phone").val().length !=10){
+    $("#phone").focus();
+    $("#number_error_message").text('Enter only 10 digits');
+    e.preventDefault();
+    
+  }
+  else{
+    $("#number_error_message").text('');
+  }
+
+  if($("#name").val() ==''){
+    $("#name").focus();
+    $("#name_error_message").text('Enter Name');
+    e.preventDefault();
+    
+  }
+  else{
+    $("#name_error_message").text('');
+  }
   
 });
+
+
+function validateEmail (emailAdress)
+{
+  let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  if (emailAdress.match(regexEmail)) {
+    return "true"; 
+  } else {
+    return "false"; 
+  }
+}

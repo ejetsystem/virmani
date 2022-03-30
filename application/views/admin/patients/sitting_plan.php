@@ -131,7 +131,8 @@
                     url: '<?php echo base_url(); ?>admin/patients/add_sitting',
                     type: "POST",
                     data: {patient_id: '<?php echo $patients[0]['id'];?>',trtid: trtid, sitting: org_val, csrf_test_name: csrf_token},
-                    success: function (data) {
+                      success: function (data) {
+                        location.reload();
                         if (data.status == "fail") {
                             var message = "";
                             $.each(data.error, function (index, value) {

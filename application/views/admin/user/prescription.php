@@ -112,9 +112,11 @@
   								<div class="row m-t-10">
   									<div class="form-group col-sm-12 ajax_drug">
     										<!-- load durgs by ajax -->
+                        
                         <?php include 'ajax_drug.php'; ?>
                         <p class="drug_error_text error hide">* <?php echo trans('drug-is-required') ?></p>
     								</div>
+
                     </div>
                     <div class="row"> 
     									<div class="form-group col-sm-4">
@@ -323,6 +325,16 @@
                 <label><?php echo trans('name') ?> <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" required name="name">
               </div>
+
+                 <div class="form-group">
+                    <label><?php echo ('Medicine Category') ?> <span class="text-danger">*</span></label>
+                    <select class="form-control" required name="medicine_category_id" id="medicine_category_id">
+                      <option>Select</option>
+                      <?php foreach($medicine_category as $mcategory){?>
+                      <option value="<?php echo $mcategory->id?>"><?php echo $mcategory->medicine_category?></option>
+                      <?php }?>
+                  </select>
+                </div>
 
               <!-- csrf token -->
               <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">

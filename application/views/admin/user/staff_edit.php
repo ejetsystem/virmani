@@ -25,7 +25,7 @@
             </div>
 
             <div class="box-body">
-              <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form" action="<?php echo base_url('admin/Staff/update_staff')?>" role="form" novalidate>
+              <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form check_email_validate" action="<?php echo base_url('admin/Staff/update_staff')?>" role="form" novalidate>
                 <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
 
                 <div class="row">
@@ -71,8 +71,9 @@
                       </div>
                       <div class="col-md-4"> 
                         <div class="form-group">
-                          <label><?php echo trans('name') ?> <span class="text-danger">*</span></label>
-                          <input type="text" class="form-control" value="<?php echo $staff[0]['name'] ?>" required name="name" id="name">
+                          <label><?php echo trans('name') ?> <span class="text-danger"> * </span></label>
+                          <input required type="text" class="form-control" value="<?php echo $staff[0]['name'] ?>"  name="name" id="name">
+                          <span class="text-danger" id="name_error_message"></span>
                         </div>  
                       </div>
 
@@ -90,8 +91,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label><?php echo trans('gender') ?> <span class="text-danger">*</span></label></label>
-                          <select class="form-control" required name="gender" id="gender">
+                          <label><?php echo trans('gender') ?> </label></label>
+                          <select class="form-control"  name="gender" id="gender">
                             <option>Select</option>
                             <option <?php echo ($staff[0]['gender']=="male") ? 'selected' : '' ?> value="male">Male</option>
                             <option <?php echo ($staff[0]['gender']=="female") ? 'selected' : '' ?> value="female">Female</option>
@@ -131,8 +132,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label><?php echo ('Date of Birth') ?> <span class="text-danger">*</span></label>
-                          <input type="date" class="form-control" required name="dob" id="dob" value="<?php echo $staff[0]['dob']?>">
+                          <label><?php echo ('Date of Birth') ?> </label>
+                          <input type="date" class="form-control"  name="dob" id="dob" value="<?php echo $staff[0]['dob']?>" max="<?php echo date('Y-m-d'); ?>">
                         </div>
                       </div>
                     </div>
@@ -147,14 +148,15 @@
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label><?php echo ('Phone') ?></label>
-                      <input type="number" placeholder="Enter Your Phone" class="form-control" name="phone" id="phone" value="<?php echo $staff[0]['phone']?>">
+                      <label><?php echo ('Phone') ?> <span class="text-danger"> * </span></label>
+                      <input type="text" require placeholder="Enter Your Phone" class="form-control" name="phone" id="phone" value="<?php echo $staff[0]['phone']?>" minlength="10"  maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
+                      <span class="text-danger" id="number_error_message"></span>
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label><?php echo ('Email') ?> <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" placeholder="Enter Email" required name="email" id="email" value="<?php echo $staff[0]['email']?>">
+                      <label><?php echo ('Email') ?> <span class="text-danger"> * </span></label>
+                      <input type="text" require class="form-control" placeholder="Enter Email"  name="email" id="email" value="<?php echo $staff[0]['email']?>">
                     </div>
                   </div>
                   
@@ -197,8 +199,8 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="exampleInputFile">Current Address</label>
-                          <div><textarea name="address" class="form-control" required=""><?php echo $staff[0]['current_address']?></textarea>
+                          <label for="exampleInputFile">Current Address </label>
+                          <div><textarea name="address" class="form-control" =""><?php echo $staff[0]['current_address']?></textarea>
                           </div>
                           <span class="text-danger"></span></div>
                         </div>
@@ -230,22 +232,22 @@
                                 <div class="col-md-2">
                                   <input type="hidden" name="vaccination[<?php echo $k?>][id]" value="<?php echo $v->id?>">
                                   <div class="form-group">
-                                    <label><?php echo ('Vaccination Type') ?> <span class="text-danger">*</span></label>
-                                    <input type="text" value="<?php echo $v->vaccination_type?>" name="vaccination[<?php echo $k?>][vaccination_type]" id="vaccination_type" required class="form-control">
+                                    <label><?php echo ('Vaccination Type') ?> </label>
+                                    <input type="text" value="<?php echo $v->vaccination_type?>" name="vaccination[<?php echo $k?>][vaccination_type]" id="vaccination_type"  class="form-control">
                                   </div>
                                 </div>
 
                                 <div class="col-md-2">
                                   <div class="form-group">
-                                    <label><?php echo ('Vaccination Date') ?> <span class="text-danger">*</span></label>
-                                    <input type="date" value="<?php echo $v->vaccination_date?>" name="vaccination[<?php echo $k?>][vaccination_date]" id="vaccination_date" required class="form-control">
+                                    <label><?php echo ('Vaccination Date') ?> </label>
+                                    <input type="date" value="<?php echo $v->vaccination_date?>" name="vaccination[<?php echo $k?>][vaccination_date]" id="vaccination_date"  class="form-control">
                                   </div>
                                 </div>
 
                                 <div class="col-md-3">
                                   <div class="form-group">
-                                    <label><?php echo ('Reminder Date for Next') ?> <span class="text-danger">*</span></label>
-                                    <input type="date" value="<?php echo $v->reminder_date_for_next?>" name="vaccination[<?php echo $k?>][reminder_date_for_next]" id="reminder_date_for_next" required class="form-control">
+                                    <label><?php echo ('Reminder Date for Next') ?></label>
+                                    <input type="date" value="<?php echo $v->reminder_date_for_next?>" name="vaccination[<?php echo $k?>][reminder_date_for_next]" id="reminder_date_for_next" class="form-control">
                                   </div>
                                 </div>
 
@@ -291,8 +293,8 @@
                         <div class="row">
                           <div class="col-md-3">
                             <div class="form-group">
-                              <label><?php echo ('PAN Number') ?> <span class="text-danger">*</span></label>
-                              <input type="text" value="<?php echo $staff[0]['pan'] ?>" name="pan_number" id="pan_number" required class="form-control">
+                              <label><?php echo ('PAN Number') ?> </label>
+                              <input type="text" value="<?php echo $staff[0]['pan'] ?>" name="pan_number" id="pan_number"  class="form-control">
                             </div>
                           </div>
 
@@ -320,20 +322,20 @@
                             <div class="col-md-2">
                               <input type="hidden" name="bank[<?php echo $k?>][id]" value="<?php echo $b->id?>">
                               <div class="form-group">
-                                <label><?php echo ('Bank Name') ?> <span class="text-danger">*</span></label>
-                                <input type="text" value="<?php echo $b->bank_name ?>" name="bank[<?php echo $k?>][bank_name]" required class="form-control">
+                                <label><?php echo ('Bank Name') ?> </label>
+                                <input type="text" value="<?php echo $b->bank_name ?>" name="bank[<?php echo $k?>][bank_name]"  class="form-control">
                               </div>
                             </div>
                             <div class="col-md-3">
                               <div class="form-group">
-                                <label><?php echo ('Bank Account Number') ?> <span class="text-danger">*</span></label>
-                                <input type="text" value="<?php echo $b->bank_account_number ?>" name="bank[<?php echo $k?>][bank_account_number]" required class="form-control">
+                                <label><?php echo ('Bank Account Number') ?> </label>
+                                <input type="text" value="<?php echo $b->bank_account_number ?>" name="bank[<?php echo $k?>][bank_account_number]"  class="form-control">
                               </div>
                             </div>
                             <div class="col-md-3">
                               <div class="form-group">
-                                <label><?php echo ('IFSC Code') ?> <span class="text-danger">*</span></label>
-                                <input type="text" value="<?php echo $b->ifsc_code ?>" name="bank[<?php echo $k?>][ifsc_code]" required class="form-control">
+                                <label><?php echo ('IFSC Code') ?> </label>
+                                <input type="text" value="<?php echo $b->ifsc_code ?>" name="bank[<?php echo $k?>][ifsc_code]"  class="form-control">
                               </div>
                             </div>
                             <div class="col-md-2">
@@ -376,32 +378,32 @@
                             <div class="col-md-2">
                               <input type="hidden" value="<?php echo $in->id?>" name="insurance[<?php echo $k?>][id]">
                               <div class="form-group">
-                                <label><?php echo ('Insurance') ?> <span class="text-danger">*</span></label>
-                                <input type="text" value="<?php echo $in->insurance?>" name="insurance[<?php echo $k?>][insurance]" required class="form-control">
+                                <label><?php echo ('Insurance') ?> </label>
+                                <input type="text" value="<?php echo $in->insurance?>" name="insurance[<?php echo $k?>][insurance]"  class="form-control">
                               </div>
                             </div>
                             <div class="col-md-2">
                               <div class="form-group">
-                                <label><?php echo ('Insurance Date') ?> <span class="text-danger">*</span></label>
-                                <input type="date" value="<?php echo $in->insurance_date?>" name="insurance[<?php echo $k?>][insurance_date]" required class="form-control">
+                                <label><?php echo ('Insurance Date') ?> </label>
+                                <input type="date" value="<?php echo $in->insurance_date?>" name="insurance[<?php echo $k?>][insurance_date]"  class="form-control">
                               </div>
                             </div>
                             <div class="col-md-2">
                               <div class="form-group">
-                                <label><?php echo ('Renewal Date') ?> <span class="text-danger">*</span></label>
-                                <input type="date" value="<?php echo $in->renewal_date?>" name="insurance[<?php echo $k?>][renewal_date]" required class="form-control">
+                                <label><?php echo ('Renewal Date') ?> </label>
+                                <input type="date" value="<?php echo $in->renewal_date?>" name="insurance[<?php echo $k?>][renewal_date]"  class="form-control" min="<?php echo date('Y-m-d'); ?>">
                               </div>
                             </div>
                             <div class="col-md-2">
                               <div class="form-group">
-                                <label><?php echo ('Amount Insured') ?> <span class="text-danger">*</span></label>
-                                <input type="number" value="<?php echo $in->amount_insured?>" name="insurance[<?php echo $k?>][amount_insured]" required class="form-control">
+                                <label><?php echo ('Amount Insured') ?> </label>
+                                <input type="number" value="<?php echo $in->amount_insured?>" name="insurance[<?php echo $k?>][amount_insured]"  class="form-control">
                               </div>
                             </div> 
                             <div class="col-md-2">
                               <div class="form-group">
-                                <label><?php echo ('Amount Paid') ?> <span class="text-danger">*</span></label>
-                                <input type="text" value="<?php echo $in->amount_paid?>" name="insurance[<?php echo $k?>][amount_paid]" required class="form-control">
+                                <label><?php echo ('Amount Paid') ?> </label>
+                                <input type="text" value="<?php echo $in->amount_paid?>" name="insurance[<?php echo $k?>][amount_paid]"  class="form-control">
                               </div>
                             </div> 
 
@@ -542,22 +544,22 @@
         add_vaccination = `<div class="row" id="delete-vaccination`+count_vaccine+`">
         <div class="col-md-2">
         <div class="form-group">
-        <label>Vaccination Type <span class="text-danger">*</span></label>
-        <input type="text" name="vaccination[`+count_vaccine+`][vaccination_type]" id="vaccination_type" required class="form-control">
+        <label>Vaccination Type </label>
+        <input type="text" name="vaccination[`+count_vaccine+`][vaccination_type]" id="vaccination_type"  class="form-control">
         </div>
         </div>
 
         <div class="col-md-2">
         <div class="form-group">
-        <label>Vaccination Date <span class="text-danger">*</span></label>
-        <input type="date" name="vaccination[`+count_vaccine+`][vaccination_date]" id="vaccination_date" required class="form-control">
+        <label>Vaccination Date </label>
+        <input type="date" name="vaccination[`+count_vaccine+`][vaccination_date]" id="vaccination_date"  class="form-control">
         </div>
         </div>
 
         <div class="col-md-3">
         <div class="form-group">
-        <label>Reminder Date for Next <span class="text-danger">*</span></label>
-        <input type="date" name="vaccination[`+count_vaccine+`][reminder_date_for_next]" id="reminder_date_for_next" required class="form-control">
+        <label>Reminder Date for Next </label>
+        <input type="date" name="vaccination[`+count_vaccine+`][reminder_date_for_next]" id="reminder_date_for_next" class="form-control">
         </div>
         </div>
 
@@ -597,21 +599,21 @@
           add_bank = `<div class="row" id="delete-bank`+count_banks+`">
           <div class="col-md-2">
           <div class="form-group">
-          <label>Bank Name <span class="text-danger">*</span></label>
+          <label>Bank Name </label>
           <input type="" name="bank[`+count_banks+`][bank_name]" class="form-control">
           </div>
           </div>
 
           <div class="col-md-3">
           <div class="form-group">
-          <label>Bank Account Number <span class="text-danger">*</span></label>
+          <label>Bank Account Number </label>
           <input type="" name="bank[`+count_banks+`][bank_account_number]" class="form-control">
           </div>
           </div>
 
           <div class="col-md-3">
           <div class="form-group">
-          <label>IFSC Code <span class="text-danger">*</span></label>
+          <label>IFSC Code </label>
           <input type="" name="bank[`+count_banks+`][ifsc_code]" class="form-control">
           </div>
           </div>
@@ -645,34 +647,34 @@
         add_insurance = `<div class="row" id="insurance-bank`+count_insurances+`">
         <div class="col-md-2">
         <div class="form-group">
-        <label>Insurance <span class="text-danger">*</span></label>
+        <label>Insurance </label>
         <input type="" name="insurance[`+count_insurances+`][insurance]" class="form-control">
         </div>
         </div>
 
         <div class="col-md-2">
         <div class="form-group">
-        <label>Insurance Date <span class="text-danger">*</span></label>
+        <label>Insurance Date </label>
         <input type="date" name="insurance[`+count_insurances+`][insurance_date]" class="form-control">
         </div>
         </div>
 
         <div class="col-md-2">
         <div class="form-group">
-        <label>Renewal Date <span class="text-danger">*</span></label>
-        <input type="date" name="insurance[`+count_insurances+`][renewal_date]" class="form-control">
+        <label>Renewal Date </label>
+        <input type="date" name="insurance[`+count_insurances+`][renewal_date]" class="form-control" min="<?php echo date('Y-m-d'); ?>">
         </div>
         </div>
 
         <div class="col-md-2">
         <div class="form-group">
-        <label>Amount Insured <span class="text-danger">*</span></label>
+        <label>Amount Insured </label>
         <input type="number" name="insurance[`+count_insurances+`][amount_insured]" class="form-control">
         </div>
         </div> 
         <div class="col-md-2">
         <div class="form-group">
-        <label>Amount Paid <span class="text-danger">*</span></label>
+        <label>Amount Paid </label>
         <input type="" name="insurance[`+count_insurances+`][amount_paid]" class="form-control">
         </div>
         </div> 
@@ -708,54 +710,107 @@
 
     <script>
       function deleteParticularVaccination(id){
-          if(confirm("Are you sure you want to delete this ?") == true){
-              $.ajax({
-                type: "POST",
-                data: {
-                  'id' : id,
-                  'csrf_test_name' : csrf_token,
-                },
-               // contentType: "application/json; charset=utf-8",
-                url: base_url+'admin/Staff/deleteParticularVaccination',
-                success: function (data) {
-                  $('.delete-particular-vaccination-'+id).remove();
-                }
-              });
-            }
+          swal({
+                 title: "Are you sure?",
+                 text: "You will not be able to recover this data !",
+                 type: "warning",
+                 showCancelButton: true,
+                 confirmButtonColor: "#DD6B55",
+                 confirmButtonText: "Yes, delete it!",
+                 cancelButtonText: "No, cancel plx!",
+                 closeOnConfirm: false,
+                 closeOnCancel: false 
+             },
+             function(isConfirm) {
+                 if (isConfirm) {
+                     $.ajax({
+                       type: "POST",
+                       data: {
+                         'id' : id,
+                         'csrf_test_name' : csrf_token,
+                       },
+                      // contentType: "application/json; charset=utf-8",
+                       url: base_url+'admin/Staff/deleteParticularVaccination',
+                       success: function (data) {
+                         $('.delete-particular-vaccination-'+id).remove();
+                         swal("Deleted!", "Data Successfully has been deleted.", "success");
+                       }
+                     });
+                 } else {
+                     swal("Cancelled", "Your Data is safe :)", "error");
+                 }
+             }
+         );
         }
 
       function deleteParticularBank(id){
-          if(confirm("Are you sure you want to delete this ?") == true){
-              $.ajax({
-                type: "POST",
-                data: {
-                  'id' : id,
-                  'csrf_test_name' : csrf_token,
-                },
-               // contentType: "application/json; charset=utf-8",
-                url: base_url+'admin/Staff/deleteParticularBank',
-                success: function (data) {
-                  $('.delete-particular-bank-'+id).remove();
-                }
-              });
-            }
+        swal({
+               title: "Are you sure?",
+               text: "You will not be able to recover this data !",
+               type: "warning",
+               showCancelButton: true,
+               confirmButtonColor: "#DD6B55",
+               confirmButtonText: "Yes, delete it!",
+               cancelButtonText: "No, cancel plx!",
+               closeOnConfirm: false,
+               closeOnCancel: false 
+           },
+           function(isConfirm) {
+               if (isConfirm) {
+                   // swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                   alert();
+                   $.ajax({
+                     type: "POST",
+                     data: {
+                       'id' : id,
+                       'csrf_test_name' : csrf_token,
+                     },
+                    // contentType: "application/json; charset=utf-8",
+                     url: base_url+'admin/Staff/deleteParticularBank',
+                     success: function (data) {
+                       $('.delete-particular-bank-'+id).remove();
+                       swal("Deleted!", "Data Successfully has been deleted.", "success");
+                     }
+                   });
+               } else {
+                   swal("Cancelled", "Your Data is safe :)", "error");
+               }
+           }
+       );
         }
       
       function deleteParticularInsurance(id){
-          if(confirm("Are you sure you want to delete this ?") == true){
-              $.ajax({
-                type: "POST",
-                data: {
-                  'id' : id,
-                  'csrf_test_name' : csrf_token,
-                },
-               // contentType: "application/json; charset=utf-8",
-                url: base_url+'admin/Staff/deleteParticularInsurance',
-                success: function (data) {
-                  $('.delete-particular-insurance-'+id).remove();
-                }
-              });
-            }
-        }
+        swal({
+               title: "Are you sure?",
+               text: "You will not be able to recover this data !",
+               type: "warning",
+               showCancelButton: true,
+               confirmButtonColor: "#DD6B55",
+               confirmButtonText: "Yes, delete it!",
+               cancelButtonText: "No, cancel plx!",
+               closeOnConfirm: false,
+               closeOnCancel: false 
+           },
+           function(isConfirm) {
+               if (isConfirm) {
+                   $.ajax({
+                     type: "POST",
+                     data: {
+                       'id' : id,
+                       'csrf_test_name' : csrf_token,
+                     },
+                    // contentType: "application/json; charset=utf-8",
+                     url: base_url+'admin/Staff/deleteParticularInsurance',
+                     success: function (data) {
+                       $('.delete-particular-insurance-'+id).remove();
+                       swal("Deleted!", "Data Successfully has been deleted.", "success");
+                     }
+                   });
+               } else {
+                   swal("Cancelled", "Your Data is safe :)", "error");
+               }
+           }
+       );
+        }   
       
     </script>
