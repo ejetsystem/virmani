@@ -13,7 +13,8 @@
 			</select>
 		</div>
 
-		<div class="col-lg-4">
+		<div class="col-lg-4 mt-0">
+			<label>Patient</label>
 			<select class="form-control select2" name="patient_id">
 				<option value=""><?php echo trans('select-patient') ?></option>
 				<?php  

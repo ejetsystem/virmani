@@ -136,7 +136,6 @@ public function edit($type, $id)
 
 public function preview()
 {   
-
     $remove_session = array(
         'diagonosis' => false,
         'ad_advices' => false,
@@ -148,6 +147,7 @@ public function preview()
     $this->session->set_userdata($remove_session); 
     $this->session->set_userdata('prescription_id', $this->input->post('prescription_id')); 
     $this->session->set_userdata('appoinment_id', $this->input->post('appoinment_id')); 
+    $this->session->set_userdata('patient_id', $this->input->post('patient_id')); 
     $this->session->set_userdata('old_items', $this->input->post('old_items')); 
     
     if ($this->input->post('prescription_id') == 0) {
@@ -215,7 +215,7 @@ if (!empty($this->input->post('next_duration')) && !empty($this->input->post('ne
     $this->session->set_userdata('next_visit', '');
 }
 
-$this->session->set_userdata('patient_id', $this->input->post('patient_name'));
+$this->session->set_userdata('patient_id', $this->input->post('patient_id'));
 
 
 if(isset($hide) && !empty($hide)){
