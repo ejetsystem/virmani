@@ -110,10 +110,60 @@ function getDatavalue(a)
 }
 
 
+function getMilkvalue(a)
+{
+    if ($('#chkmilk').is(":checked"))
+    {
+        $.ajax({
+            url: base_url + 'admin/patients/getteeth_edit',
+            method: 'post',
+            data: {csrf_test_name: csrf_token},
+            success: function (response) {
+                $("#loadteeeth_edit").html(response);
+            }
+        });
+        $.ajax({
+            url: base_url + 'admin/patients/getteethdata_edit',
+            method: 'post',
+            data: {csrf_test_name: csrf_token},
+            success: function (response) {
+                $("#container").html(response);
+            }
+        });
+
+    } else
+    {
+        $.ajax({
+            url: base_url + 'admin/patients/getteeth_per_edit',
+            method: 'post',
+            data: {csrf_test_name: csrf_token},
+            success: function (response) {
+                $("#loadteeeth_edit").html(response);
+            }
+        });
+        $.ajax({
+            url: base_url + 'admin/patients/getteethdata_per_edit',
+            method: 'post',
+            data: {csrf_test_name: csrf_token},
+            success: function (response) {
+                $("#container").html(response);
+            }
+        });
+    }
+}
+
+
 function getvalue1(a, b, c)
 {
     $("#job_name1").val(a);
     $("#job_id1").val(b);
+    $("#treatment_amount1").val(c);
+}
+
+function getvalue12(a, b, c)
+{
+    $("#job_name1_edit").val(a);
+    $("#job_id1_edit").val(b);
     $("#treatment_amount1").val(c);
 }
 
@@ -216,6 +266,36 @@ $("#form_addnotes_new").on('submit', (function (e) {
     });
 }));
 
+// //Update New teeth
+// $("#form_updatenotes_new").on('submit', (function (e) { 
+//     // e.preventDefault();
+//     var patient_id = $('#patient_id').val();
+//     $.ajax({
+//         url: base_url + 'admin/patients/update_note_new',
+//         type: "POST",
+//         data: new FormData(this),
+//         dataType: 'json',
+//         contentType: false,
+//         cache: false,
+//         processData: false,
+//         success: function (data) {
+//         if (data.status == "fail") {
+//             var message = "";
+//             $.each(data.error, function (index, value) {
+//                 message += value;
+//             });
+//             errorMsg(message);
+//         } else {
+//             location.replace(base_url +'clinic-admin/patients/view/'+patient_id+'#prescription');
+//             location.reload();
+//            // treatment_edit(data.trid,data.ttype);
+//         }
+//         },
+//         error: function () {
+//         }
+//     });
+// }));
+
   function isNumberKey(evt)
     {
       var charCode = (evt.which) ? evt.which : event.keyCode;
@@ -293,20 +373,32 @@ $("#form_addnotes_new").on('submit', (function (e) {
 
     }
         
-        function gettecchnumbers_treatment(a)
-            { 
-                   $.ajax({
-                        url: base_url + 'admin/patients/getteethlist_treatment',
-                        type: "POST",
-                        data: {teeth_cat_id:a,csrf_test_name: csrf_token},
-                        success: function (data) {
-                            //$("#teeth_data_div").show();
-                           // $("#teeth_data_div_treatment").html(data);
+    function gettecchnumbers_treatment(a)
+    { 
+        $.ajax({
+            url: base_url + 'admin/patients/getteethlist_treatment',
+            type: "POST",
+            data: {teeth_cat_id:a,csrf_test_name: csrf_token},
+            success: function (data) {
+        $("#container").html(data);
 
-                             $("#container").html(data);
+        } 
+        })
+    }
 
-                        } 
-                    })
-            } 
+    function gettecchnumbers_treatment_edit(a)
+    { 
+        $.ajax({
+            url: base_url + 'admin/patients/getteethlist_treatment_edit',
+            type: "POST",
+            data: {teeth_cat_id:a,csrf_test_name: csrf_token},
+            success: function (data) {
+        $("#teeth_category_edit").html(data);
+
+        } 
+        })
+    }
+
+     
 
  

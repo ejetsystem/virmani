@@ -1,7 +1,7 @@
 <?php
-//ini_set('display_errors', '1');
-//ini_set('display_startup_errors', '1');
-//error_reporting(E_ALL);
+// ini_set('display_errors', '1');
+// ini_set('display_startup_errors', '1');
+// error_reporting(E_ALL);
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
@@ -743,6 +743,31 @@ public function getteeth() {
     <?php
 }
 
+public function getteeth_edit() {
+    ?>
+    <label>Tooth Notation</label>
+    <select class="form-control" name="teethcat_id_treatment_edit" id="teethcat_id_treatment_edit" onchange="gettecchnumbers_treatment_edit(this.value)">
+        <?php
+        $this->db->select('*')->from('teeth_category');
+        $this->db->order_by("teeth_category_name", "asc");
+        $query1 = $this->db->get();
+        $teethar_cat = $query1->result_array();
+        foreach ($teethar_cat as $key => $teetharcat_data) {
+            if ($teetharcat_data['id'] > 5) {
+                ?>
+                <option value="<?php echo $teetharcat_data['id']; ?>" <?php
+                if ($teetharcat_data['id'] == '4') {
+                    echo "selected='selected'";
+                }
+                ?>><?php echo $teetharcat_data['teeth_category_name']; ?></option>
+                <?php
+            }
+        }
+        ?>
+    </select>
+    <?php
+}
+
 public function getteethdata() {
     ?>
     <ul id="continents1_teeth">
@@ -763,6 +788,28 @@ public function getteethdata() {
     </ul>
     <?php
 }
+
+public function getteethdata_edit() {
+    ?>
+    <ul id="continents1_teeth">
+        <?php
+        $i = 1;
+        $this->db->select('*')->from('teeth');
+        $this->db->where('teeth_cat', 7);
+        $query = $this->db->get();
+        $teethar = $query->result_array();
+        foreach ($teethar as $key => $teethar_data) {
+            ?> 
+
+            <li class="teeth_child<?php echo $i; ?>" ><a href="#" onclick="getRecord_teechinfo(<?php echo $teethar_data['id']; ?>, '<?php echo $teethar_data['teeth_note']; ?>', '<?php echo $teethar_data['image']; ?>')" data-original-title="<?php echo $teethar_data['teeth_note']; ?>"></a></li>
+            <?php
+            $i++;
+        }
+        ?>
+    </ul>
+    <?php
+}
+
 public function getteeth_new()
 {
   ?>
@@ -848,6 +895,7 @@ public function getteethdata_per_new()
 </ul>
 <?php
 }
+
 public function getteeth_per() {
     ?>
     <label>Tooth Notation</label>
@@ -873,7 +921,53 @@ public function getteeth_per() {
     <?php
 }
 
+public function getteeth_per_edit() {
+    ?>
+    <label>Tooth Notation</label>
+    <select class="form-control" name="teethcat_id_treatment_edit" id="teethcat_id_treatment_edit" onchange="gettecchnumbers_treatment(this.value)">
+        <?php
+        $this->db->select('*')->from('teeth_category');
+        $this->db->order_by("teeth_category_name", "asc");
+        $query1 = $this->db->get();
+        $teethar_cat = $query1->result_array();
+        foreach ($teethar_cat as $key => $teetharcat_data) {
+            if ($teetharcat_data['id'] <= 5) {
+                ?>
+                <option value="<?php echo $teetharcat_data['id']; ?>" <?php
+                if ($teetharcat_data['id'] == '4') {
+                    echo "selected='selected'";
+                }
+                ?>><?php echo $teetharcat_data['teeth_category_name']; ?></option>
+                <?php
+            }
+        }
+        ?>
+    </select>
+    <?php
+}
+
 public function getteethdata_per() {
+    ?>
+    <ul id="continents1">
+        <?php
+        $i = 1;
+        $this->db->select('*')->from('teeth');
+        $this->db->where('teeth_cat', 4);
+        $query = $this->db->get();
+        $teethar = $query->result_array();
+        foreach ($teethar as $key => $teethar_data) {
+            ?> 
+
+            <li class="teethord<?php echo $i; ?>" ><a onclick="getRecord_teechinfo(<?php echo $teethar_data['id']; ?>, '<?php echo $teethar_data['teeth_note']; ?>', '<?php echo $teethar_data['image']; ?>')" data-original-title="<?php echo $teethar_data['teeth_note']; ?>"></a></li>
+            <?php
+            $i++;
+        }
+        ?>
+    </ul>
+    <?php
+}
+
+public function getteethdata_per_edit() {
     ?>
     <ul id="continents1">
         <?php
@@ -1047,6 +1141,9 @@ public function add_payment() {
 }
 
 public function add_note_new() {
+    // echo "<pre>";
+    // print_r($this->input->post());
+    // die;
     $new = $this->input->post('addnew');
     $tt = $this->input->post('toothinfo_ids');
 
@@ -1100,6 +1197,61 @@ public function add_note_new() {
         // $insid1 = $this->db->insert_id();
     $array = array('status' => 'success', 'error' => '', 'message' => $this->lang->line('success_message'), 'trid' => $insid, 'ttype' => $this->input->post('trtypes'));
     echo json_encode($array);
+}
+
+public function update_note_new() {
+    // echo "<pre>";
+    // print_r($this->input->post());
+    // die;
+    $new = $this->input->post('addnew');
+    $tt = $this->input->post('toothinfo_ids');
+
+    if ($_POST['print_tooth_name_treatment'] == '') {
+        $print_tooth_name_treatment = '';
+    } else {
+        $print_tooth_name_treatment = $_POST['print_tooth_name_treatment'];
+    }
+    if ($_POST['view_individual_treatment'] == '') {
+        $view_individual_treatment = '';
+    } else {
+        $view_individual_treatment = $_POST['view_individual_treatment'];
+    }
+
+    if ($_POST['treatment_type'] == 'chief_complaint') {
+        $status = '2';
+    } else if ($_POST['treatment_type'] == 'other_findings') {
+        $status = '2';
+    } else {
+        $status = '0';
+    }
+
+    $date = date('Y-m-d');
+    $treatment_data = array(
+        'patient_id' => $this->input->post('patient_id'),
+        'date' => date('Y-m-d'),
+        'doctor' => $this->input->post('treatment_doctor'),
+        'job' => $this->input->post('job_name'),
+        'job_id' => $this->input->post('job_id'),
+        'status' => $status,
+        'amount' => $this->input->post('treatment_amount'),
+        'courtesy' => $this->input->post('treatment_courtesy'),
+    );
+
+    $this->admin_model->edit_option($treatment_data,$this->input->post('id'),'treatmentplans');
+
+    $data1 = array(
+        'tooth_patient_id' => $this->input->post('patient_id'),
+        'toth_note' => $this->input->post('toth_note'),
+        'date' => $date,
+        'teeth_id' => $this->input->post('teethsid'),
+        'teeth_number_note' => $this->input->post('tooth_no_note'),
+        'doc_id' => $this->input->post('treatment_doctor'),
+        'treatmentplans_id' => $this->input->post('id'),
+        'type' => $this->input->post('treatment_type'),
+    );
+    $this->admin_model->edit_option($data1,$this->input->post('id'),'teethinfo');
+
+    redirect(base_url('clinic-admin/patients/view/'.$this->input->post('patient_id').'/treatmentplans/'));
 }
 
 public function delete_insurance() {
@@ -1256,6 +1408,23 @@ public function getteethlist_treatment() {
     }
 }
 
+
+public function getteethlist_treatment_edit() {
+    $this->db->select('*')->from('teeth');
+    $this->db->where('teeth_cat', $_POST['teeth_cat_id']);
+    $query = $this->db->get();
+    $teethar = $query->result_array();
+    $option = '<option value="">Select</option>';
+    foreach ($teethar as $key => $teethar_data) {
+        $option .= '<option attrteeth_number="'.$teethar_data['teeth_number'].'" value="('.$teethar_data['teeth_number'].') '.$teethar_data['teeth_note'].'">('.$teethar_data['teeth_number'].') '.$teethar_data['teeth_note'].'</option>';
+        
+    }
+
+    echo  $option ;
+    
+}
+
+
 public function deleteteeth($id){
 
     $this->db->where('treatmentplans_id', $id);
@@ -1314,6 +1483,18 @@ public function add_patient_form(){
     $data['patientses'] = $this->admin_model->select_all_patients('patientses', 0);
     $data['main_content'] = $this->load->view('admin/patients/add_patients', $data, TRUE);
     $this->load->view('admin/index', $data);
+}
+
+
+public function editTreatementPlan(){
+    $data = $this->db->query('select teethinfo.*,doctors.name as doctor_name,doctors.id as doctor_id,treatmentplans.job,treatmentplans.job_id,treatmentplans.amount,treatmentplans.courtesy FROM `teethinfo` 
+            inner join treatmentplans on treatmentplans.id = teethinfo.treatmentplans_id 
+            inner join doctors on teethinfo.doc_id = doctors.id 
+
+            WHERE teethinfo.tooth_patient_id ="'.$this->input->post('patient_id').'"  and 
+            teethinfo.workdone_id="0" and teethinfo.note_status!=1 and teethinfo.type="chief_complaint" and teethinfo.id="'.$this->input->post('id').'"')->result_array();
+    header('Content-Type: application/json');
+    echo json_encode($data[0]);
 }
 
 

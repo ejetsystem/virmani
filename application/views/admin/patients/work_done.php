@@ -21,6 +21,7 @@
                             <th scope="col">Treatment Code</th>
                             <th scope="col">Doctor</th>
                             <th scope="col">Notes & Diagnosis</th>
+                            <th scope="col">Amount Dues</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -39,6 +40,7 @@
                                 </td>
                                 <td><?php echo $workdone['name'] ?></td>
                                 <td><?php echo $workdone['notesdiagnosis'] ?></td>
+                                <td><?php echo $workdone['amt_due_current_work'] ?></td>
                                 <td>
                                     <a data-val="Category"  data-id="<?php echo $workdone['id'] ?>"  href="<?php echo base_url(); ?>admin/patients/getteethinfodelete/<?php echo $workdone['id'] ?>/<?php echo $patient_id ?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                                 </td>
