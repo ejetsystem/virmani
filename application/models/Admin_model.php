@@ -1297,11 +1297,11 @@ class Admin_model extends CI_Model {
 
     function get_user_prescription($id)
     {
-        $this->db->select('pi.drug_id,pi.prescription_id,d.name');
+        $this->db->select('pi.drug_id,pi.prescription_id,d.medicine_name as name');
         $this->db->from('prescription_items as pi');
         $this->db->join('drugs as d','d.id=pi.drug_id','LEFT');
         $this->db->where('pi.prescription_id', $id);
-        $this->db->group_by('d.name');
+        $this->db->group_by('d.medicine_name');
         $query = $this->db->get();
         $query = $query->result_array();
         foreach ($query as $key => $value) {

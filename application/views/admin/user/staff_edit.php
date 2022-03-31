@@ -247,7 +247,7 @@
                                 <div class="col-md-3">
                                   <div class="form-group">
                                     <label><?php echo ('Reminder Date for Next') ?></label>
-                                    <input type="date" value="<?php echo $v->reminder_date_for_next?>" name="vaccination[<?php echo $k?>][reminder_date_for_next]" id="reminder_date_for_next" class="form-control">
+                                    <input type="date" value="<?php echo $v->reminder_date_for_next?>" name="vaccination[<?php echo $k?>][reminder_date_for_next]" id="reminder_date_for_next" class="form-control" min="<?php echo date('Y-m-d'); ?>">
                                   </div>
                                 </div>
 
@@ -559,7 +559,7 @@
         <div class="col-md-3">
         <div class="form-group">
         <label>Reminder Date for Next </label>
-        <input type="date" name="vaccination[`+count_vaccine+`][reminder_date_for_next]" id="reminder_date_for_next" class="form-control">
+        <input type="date" name="vaccination[`+count_vaccine+`][reminder_date_for_next]" id="reminder_date_for_next" class="form-control" min="<?php echo date('Y-m-d'); ?>">
         </div>
         </div>
 
