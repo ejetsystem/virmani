@@ -1,6 +1,4 @@
-<style>
-    .table{white-space: nowrap;}
-</style>
+ 
 <div style="border:solid 1px #ddd; padding:10px;" id="cont">
     <h4 class="form_title">Sitting Plan</h4>
     <div class="table-responsive">
