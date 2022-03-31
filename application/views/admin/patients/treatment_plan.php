@@ -21,7 +21,7 @@
                     inner join treatmentplans on treatmentplans.id = teethinfo.treatmentplans_id 
                     inner join doctors on teethinfo.doc_id = doctors.id 
                      
-                    WHERE teethinfo.tooth_patient_id ="'.$patients[0]['id'].'" and teethinfo.date="'.date('Y-m-d').'" and 
+                    WHERE teethinfo.tooth_patient_id ="'.$patients[0]['id'].'"  and 
                     teethinfo.workdone_id="0" and teethinfo.note_status!=1 and teethinfo.type="chief_complaint" order by teethinfo.id desc');
 
             $tblrows=$SQLS->num_rows(); 

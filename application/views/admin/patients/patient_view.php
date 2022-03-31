@@ -114,7 +114,7 @@
                             <a class="nav-link  <?php echo ($tabpage == 'workdonehistory')? 'active' : '';?>" id="worksdonehistory" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/workdonehistory" role="tab" aria-controls="workdonehistory" aria-selected="false">Work Done History</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link <?php echo ($tabpage == 'accountings')? 'active' : '';?>" id="accounting" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/accountings" role="tab" aria-controls="accountings" aria-selected="false">Accounting</a>
+                            <a class="nav-link <?php echo ($tabpage == 'payments')? 'active' : '';?>" id="paymentTab" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/payments" role="tab" aria-controls="paymentsTab" aria-selected="false">Payments</a>
                         </li>
                         <li class="nav-item" role="presentation">
                             <a class="nav-link <?php echo ($tabpage == 'labs')? 'active' : '';?>" id="lab" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/labs" role="tab" aria-controls="labs" aria-selected="false">Lab</a>
@@ -122,9 +122,7 @@
                         <li class="nav-item" role="presentation">
                             <a class="nav-link <?php echo ($tabpage == 'xrays')? 'active' : '';?>" id="xray" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/xrays" role="tab" aria-controls="xrays" aria-selected="false">X-Ray</a>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link <?php echo ($tabpage == 'payments')? 'active' : '';?>" id="paymentTab" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/payments" role="tab" aria-controls="paymentsTab" aria-selected="false">Payments</a>
-                        </li>
+                        
                     </ul>
 
                     <!-- Tabs content -->
@@ -239,8 +237,11 @@
                         <div class="tab-pane fade  <?php echo ($tabpage == 'workdonehistory')? 'show active' : '';?>" id="workdonehistory" role="tabpanel" aria-labelledby="worksdonehistory">
                             Tab 5 content
                         </div>
-                        <div class="tab-pane fade  <?php echo ($tabpage == 'accountings')? 'show active' : '';?>" id="accountings" role="tabpanel" aria-labelledby="accounting">
-                            Tab 6 content
+                        <div class="tab-pane fade <?php echo ($tabpage == 'payments')? 'show active' : '';?>" id="paymentsTab" role="tabpanel" aria-labelledby="paymentTab">
+                            <?php 
+                            if($tabpage == 'payments'){
+                                echo $this->load->view('admin/patients/payments_report', $data, TRUE);
+                            }?>
                         </div>
                         <div class="tab-pane fade <?php echo ($tabpage == 'labs')? 'show active' : '';?>" id="labs" role="tabpanel" aria-labelledby="lab">
                             <?php 
@@ -254,12 +255,7 @@
                                 echo $this->load->view('admin/patients/xrays_report', $data, TRUE);
                             }?>
                         </div>
-                        <div class="tab-pane fade <?php echo ($tabpage == 'payments')? 'show active' : '';?>" id="paymentsTab" role="tabpanel" aria-labelledby="paymentTab">
-                            <?php 
-                            if($tabpage == 'payments'){
-                                echo $this->load->view('admin/patients/payments_report', $data, TRUE);
-                            }?>
-                        </div>
+                        
 
                     </div>
                     <!-- Tabs content -->

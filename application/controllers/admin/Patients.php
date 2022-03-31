@@ -989,7 +989,7 @@ $payment_history = array(
   'workdone_id' => $patient_wrkdone,
   'credit_amount' =>'0.00',
   'debit_amount' =>$_POST['amt_due_current_work'],
-  'balance' =>($balance['balance'] + $_POST['amt_due_current_work']),
+  'balance' =>($balance['balance'] - $_POST['amt_due_current_work']),
   'amount_type' =>'1',
   'payment_mode' =>'',
   'description' =>'patient bill',
@@ -1036,7 +1036,7 @@ public function add_payment() {
       'patient_id' =>$_POST['patient_id'],
       'credit_amount' =>$_POST['price'],
       'debit_amount' =>'0.00',
-      'balance' =>($balance['balance'] - $_POST['price']),
+      'balance' =>($balance['balance'] + $_POST['price']),
       'payment_mode' => $_POST['payment_mode'],
       'description' => $_POST['description'],
   ); 
