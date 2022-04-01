@@ -82,11 +82,51 @@
                     <p class="ram_text"><?php echo $patients[0]['present_address']; ?> </p>
                     <lable class="ram_text"><?php echo $contact[0]['phone1']; ?></lable>
                     <hr style="margin-bottom: 6px;">
-                    <lable>Balance Payment:</lable><span>0</span><br>
-                    <lable>Medical History &amp; Allergies: </lable><span></span><br>
-                    <lable>Special Note: </lable><span> </span><br>
-                    <lable>Referred By: </lable><span> </span>, &nbsp; <lable>  Referrer Name: </lable><span></span> <br>
-                    <lable>Referals Sent: </lable><span>53</span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <lable>Medical History &amp; Allergies: </lable><span></span><br>
+                            <lable>Special Note: </lable><span> </span><br>
+                            <lable>Referred By: </lable><span> </span>, &nbsp; <lable>  Referrer Name: </lable><span></span> <br>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box-tools pull-right mr-80">
+                                <lable>
+                                    <?php  
+                                    if($payment_history->balance > 0){
+                                        echo "Advanced Payment : ";
+                                        echo "<span class='text-success'> ".$payment_history->balance."</span>";
+                                    }
+                                    elseif($payment_history->balance==0){
+                                        echo "Advanced Payment : ";
+                                        echo "<span class='text-success'> 0 </span>";
+                                    }
+                                    else{
+                                        echo "Advanced Payment : ";
+                                        echo "<span class='text-success'> 0</span>";
+                                    }
+                                    ?>
+                                </lable>
+                                <br>  
+                                <lable>
+                                    <?php  
+                                    if($payment_history->balance > 0){
+                                        echo "Due Payment : ";
+                                        echo "<span class='text-success'> 0 </span>";
+                                    }
+                                    elseif($payment_history->balance==0){
+                                        echo "Due Payment : ";
+                                        echo "<span class='text-success'> 0 </span>";
+                                    }
+                                    else{
+                                        echo "Due Payment : ";
+                                        echo "<span class='text-success'> ".$payment_history->balance."</span>";
+                                    }
+                                    ?>
+                                </label>  
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <lable>Referals Sent: </lable><span>53</span> -->
                 </div>
             </div>
         </div>

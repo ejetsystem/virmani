@@ -1822,8 +1822,9 @@ public function deleteIpdPatientLab($id) {
     
     public function maxTotalAmount($p_id) {
        // SELECT MAX(income) AS "Maximum Income" FROM employees
-        $this->db->select("MAX(balance) AS balance");
+        $this->db->select("balance AS balance");
          $this->db->where(['patient_id' => $p_id]);
+         $this->db->order_by('id','DESC');
         return $this->db->get('payment_history')->row_array();
     }
     

@@ -22,7 +22,7 @@
           </div>
 
           <div class="box-body">
-            <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form check_email_validate" action="<?php echo base_url('clinic-admin/patients/update')?>" role="form" novalidate>
+            <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form check_form_validate" action="<?php echo base_url('clinic-admin/patients/update')?>" role="form" novalidate>
 
               <input type="hidden"  name="patient_id" value="<?php echo html_escape($patients[0]['id']); ?>">
 
@@ -151,15 +151,15 @@
                     </div>
                   </div>
                 </div>
-
+                
 
 
                 <!-- Email -->
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label><?php echo ('Email'); ?> <span class="text-danger">*</span></label>
-                      <input type="text" name="email" required id="email" class="form-control" value="<?php echo html_escape($contact[0]['email']); ?>">
+                      <label><?php echo ('Email'); ?> </label>
+                      <input type="text" name="email" id="email1" onkeyup="checkEmailExist(this.value)" class="form-control" value="<?php echo html_escape($contact[0]['email']); ?>">
                       <span class="text-danger my-5" id="email_exist_error_message"></span>
                     </div>
                   </div>
@@ -636,5 +636,49 @@
         function deleteInsuranceLoan(id){
           $("#del-insurance"+id).remove();
         }
+
+
+        $(".check_form_validate").submit(function(e){
+          
+          if($("#email1").val()==''){
+            
+          }
+          else{
+            if(validateEmail($("#email1").val()) !='true'){
+              $("#email").focus();
+              $("#email_exist_error_message").text('Enter Valid Email');
+              e.preventDefault();
+              return false;
+              
+            }
+          }
+
+          if($("#phone").val().length ==0){
+            $("#phone").focus();
+            $("#number_error_message").text('Phone is required');
+            e.preventDefault();
+            
+          }
+          else if($("#phone").val().length !=10){
+            $("#phone").focus();
+            $("#number_error_message").text('Enter only 10 digits');
+            e.preventDefault();
+            return false;
+          }
+          else{
+            $("#number_error_message").text('');
+          }
+
+          if($("#name").val() ==''){
+            $("#name").focus();
+            $("#name_error_message").text('Enter Name');
+            e.preventDefault();
+            return false;
+          }
+          else{
+            $("#name_error_message").text('');
+          }
+          
+        });
 
       </script>

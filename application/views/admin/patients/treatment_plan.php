@@ -28,7 +28,7 @@
         if($tblrows > 0){   ?>
 
             <div class="table-responsive">
-                <table class="table table-sm table-bordered table-hover" >
+                <table class="table datatable table-sm table-bordered table-hover" >
                     <thead>
                         <tr class="success table-info">
                             <th>#</th>
@@ -64,7 +64,7 @@
                                 <td><?php echo $teethdata['job'] ?></td>
                                 <td><?php echo $teethdata['amount'] ?></td>
                                 <td>   
-                                    <a href="#" class="on-default edit-row" onclick="editTreatementPlan(<?php echo $teethdata['id'] ?>,<?php echo $patients[0]['id'] ?>)"><i class="fa fa-pencil"></i></a> &nbsp; 
+                                    <a href="#" class="on-default edit-row" onclick="editTreatementPlan(<?php echo $teethdata['id'] ?>,<?php echo $patients[0]['id'] ?>,'chief_complaint')"><i class="fa fa-pencil"></i></a> &nbsp; 
                                     <a data-val="Category"  data-id="<?php echo $teethdata['id'] ?>"  href="<?php echo base_url();?>admin/patients/deleteteeth/<?php echo $teethdata['id'] ?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                                 </td>           
                             </tr>
@@ -3586,7 +3586,7 @@ echo "selected='selected'";
         if($tblrows > 0){   ?>
 
             <div class="table-responsive">
-                <table class="table table-sm table-bordered table-hover data-table" >
+                <table class="table datatable table-sm table-bordered table-hover data-table" >
                     <thead>
                         <tr class="success table-info">
                             <th>#</th>
@@ -3622,7 +3622,7 @@ echo "selected='selected'";
                                 <td><?php echo $teethdata['job'] ?></td>
                                 <td><?php echo $teethdata['amount'] ?></td>
                                 <td>  
-                                    <a href="#" class="on-default edit-row" onclick="editTreatementPlan(<?php echo $teethdata['id'] ?>,<?php echo $patients[0]['id'] ?>)"><i class="fa fa-pencil"></i></a> &nbsp; 
+                                    <a href="#" class="on-default edit-row" onclick="editTreatementPlan(<?php echo $teethdata['id'] ?>,<?php echo $patients[0]['id'] ?>,'other_findings')"><i class="fa fa-pencil"></i></a> &nbsp; 
                                     <a data-val="Category"  data-id="<?php echo $teethdata['id'] ?>"  href="<?php echo base_url();?>admin/patients/deleteteeth/<?php echo $teethdata['id'] ?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                                 </td>           
                             </tr>
@@ -3655,7 +3655,7 @@ echo "selected='selected'";
         if($tblrows > 0){   ?>
 
             <div class="table-responsive">
-                <table class="table table-sm table-bordered table-hover" >
+                <table class="table datatable table-sm table-bordered table-hover" >
                     <thead>
                         <tr class="success table-info">
                             <th>#</th>
@@ -3691,7 +3691,7 @@ echo "selected='selected'";
                                 <td><?php echo $teethdata['job'] ?></td>
                                 <td><?php echo $teethdata['amount'] ?></td>
                                 <td>  
-                                    <a href="#" class="on-default edit-row" onclick="editTreatementPlan(<?php echo $teethdata['id'] ?>,<?php echo $patients[0]['id'] ?>)"><i class="fa fa-pencil"></i></a> &nbsp; 
+                                    <a href="#" class="on-default edit-row" onclick="editTreatementPlan(<?php echo $teethdata['id'] ?>,<?php echo $patients[0]['id'] ?>,'existing')"><i class="fa fa-pencil"></i></a> &nbsp; 
                                     <a data-val="Category"  data-id="<?php echo $teethdata['id'] ?>"  href="<?php echo base_url();?>admin/patients/deleteteeth/<?php echo $teethdata['id'] ?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
                                 </td>           
                             </tr>
@@ -4331,10 +4331,11 @@ echo "selected='selected'";
         });
     }
 
-    function editTreatementPlan(id,patient_id){
+    function editTreatementPlan(id,patient_id,type){
         var post_data = {
             'id': id,
             'patient_id': patient_id,
+            'type': type,
             'csrf_test_name' : csrf_token
         };
 

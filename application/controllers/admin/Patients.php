@@ -236,11 +236,13 @@ class Patients extends Home_Controller {
 
             $patient_id = $this->admin_model->insert($patientses, 'patientses');
 
-            $all_users = $data=array(
-                'email' => $this->input->post('email', true),
-                'created_at' => my_date_now()
-            );
-            $this->admin_model->insert($all_users, 'all_users');
+            if(!empty($this->input->post('email'))){
+                $all_users = $data=array(
+                    'email' => $this->input->post('email', true),
+                    'created_at' => my_date_now()
+                );
+                $this->admin_model->insert($all_users, 'all_users');
+            }
 
 
             // Send Credentials to Patient
@@ -559,6 +561,7 @@ public function view_patient($id,$tabpage='patientinfo') {
     $data['doctors'] = $this->admin_model->get_order_by_attr('doctors', 'name', 'asc');
     $data['teeths'] = $this->admin_model->get_by_column_attr('teeth', 'teeth_cat', '4');
     $data['teethar_cat'] = $this->admin_model->get_order_by_attr('teeth_category', 'teeth_category_name', 'asc');
+    $data['payment_history'] = $this->admin_model->select_patients_balance($id);
     if(!empty($tabpage)){
         $data['tabpage'] = $tabpage; 
     }
@@ -590,6 +593,7 @@ public function view_patient($id,$tabpage='patientinfo') {
         $data['payments']=$this->patient_model->getPatientsPaymnetDetails($id);
     }
 
+    
     $data['main_content'] = $this->load->view('admin/patients/patient_view', $data, TRUE);
     $this->load->view('admin/index', $data);
 }
@@ -1244,7 +1248,7 @@ public function update_note_new() {
         'toth_note' => $this->input->post('toth_note'),
         'date' => $date,
         'teeth_id' => $this->input->post('teethsid'),
-        'teeth_number_note' => $this->input->post('tooth_no_note'),
+        'teeth_number_note' => $this->input->post('teeth_category_edit'),
         'doc_id' => $this->input->post('treatment_doctor'),
         'treatmentplans_id' => $this->input->post('id'),
         'type' => $this->input->post('treatment_type'),
@@ -1492,7 +1496,7 @@ public function editTreatementPlan(){
             inner join doctors on teethinfo.doc_id = doctors.id 
 
             WHERE teethinfo.tooth_patient_id ="'.$this->input->post('patient_id').'"  and 
-            teethinfo.workdone_id="0" and teethinfo.note_status!=1 and teethinfo.type="chief_complaint" and teethinfo.id="'.$this->input->post('id').'"')->result_array();
+            teethinfo.workdone_id="0" and teethinfo.note_status!=1 and teethinfo.type="'.$this->input->post('type').'" and teethinfo.id="'.$this->input->post('id').'"')->result_array();
     header('Content-Type: application/json');
     echo json_encode($data[0]);
 }

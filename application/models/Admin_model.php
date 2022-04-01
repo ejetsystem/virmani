@@ -204,8 +204,10 @@ class Admin_model extends CI_Model {
         $this->db->select();
         $this->db->from($table);
         $this->db->where('id', $id);
-        if($this->session->userdata('id')){
-            $this->db->where('user_id',$this->session->userdata('id'));
+        if ($this->db->field_exists('user_id', $table)){
+            if($this->session->userdata('id')){
+                $this->db->where('user_id',$this->session->userdata('id'));
+            }
         }
         $query = $this->db->get();
         $query = $query->result_array();  
@@ -2302,6 +2304,17 @@ class Admin_model extends CI_Model {
         $query = $this->db->get();
         $query = $query->result();  
         return json_decode( json_encode($query), true);
+    }
+
+    function select_patients_balance($id){
+        $this->db->select('*');
+        $this->db->from("payment_history");
+        $this->db->where("patient_id",$id);
+        $this->db->order_by("id","DESC");
+        $this->db->limit(1);
+        $query = $this->db->get();
+        $query = $query->row();  
+        return $query;
     }
 
     function select_all_patients($table,$is_deleted){

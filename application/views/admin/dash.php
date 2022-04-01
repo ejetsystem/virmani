@@ -7,25 +7,29 @@
       <div class="row">
           <!-- Column -->
           <div class="col-lg-3 col-md-4" data-aos="fade-down" data-aos-duration="200">
-              <a href="<?php echo base_url('superadmin/appointment/list/'.date('Y-m-d')) ?>">
-                  <div class="card shadow-lg">
-                      <div class="card-body bg-default">
-                          <div class="d-flex flex-row">
-                              <div class="round align-self-center bg-primary-soft"><i class="ficons flaticon-appointment"></i></div>
-                              <div class="m-l-10 align-self-center mt-10">
-                                  <h5 class="text-dark"><?php echo trans('todays-appointment') ?> </h5>
-                                  <h4 class="m-0 text-dark"><?php echo count_todays_patient(date('Y-m-d')) ?></h4>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </a>
+              <form action="<?php echo base_url('clinic-admin/appointment/chairView') ?>" method="post">
+                <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+                <input type="hidden" name="sdate">
+                <button style="background-color: #f4f6f9 !important;border:none;margin: 0px;padding: 0px;">
+                    <div class="card shadow-lg">
+                        <div class="card-body bg-default">
+                            <div class="d-flex flex-row">
+                                <div class="round align-self-center bg-primary-soft"><i class="ficons flaticon-appointment"></i></div>
+                                <div class="m-l-10 align-self-center mt-10">
+                                    <h5 class="text-dark"><?php echo trans('todays-appointment') ?> </h5>
+                                    <h4 class="m-0 text-dark"><?php echo count_todays_patient(date('Y-m-d')) ?></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+              </form>
           </div>
           <!-- Column -->
 
           <!-- Column -->
           <div class="col-lg-3 col-md-4" data-aos="fade-down" data-aos-duration="240">
-              <a href="<?php echo base_url('superadmin/appointment/all_list') ?>">
+              <a href="<?php echo base_url('clinic-admin/appointment') ?>">
                 <div class="card shadow-lg">
                     <div class="card-body bg-default">
                         <div class="d-flex flex-row">
@@ -43,7 +47,7 @@
 
           <!-- Column -->
           <div class="col-lg-3 col-md-4" data-aos="fade-down" data-aos-duration="280">
-              <a href="<?php echo base_url('superadmin/staff') ?>">
+              <a href="<?php echo base_url('clinic-admin/staff') ?>">
                   <div class="card shadow-lg">
                       <div class="card-body bg-default">
                           <div class="d-flex flex-row">
@@ -61,7 +65,7 @@
 
           <!-- Column -->
           <div class="col-lg-3 col-md-4" data-aos="fade-down" data-aos-duration="320">
-              <a href="<?php echo base_url('superadmin/patients') ?>">
+              <a href="<?php echo base_url('clinic-admin/patients') ?>">
                   <div class="card shadow-lg">
                       <div class="card-body bg-default">
                           <div class="d-flex flex-row">

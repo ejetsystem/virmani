@@ -153,8 +153,8 @@
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label><?php echo ('Email'); ?> <span class="text-danger">*</span></label>
-                      <input type="text" name="email" required id="email" onkeyup="checkEmailExist(this.value)" class="form-control">
+                      <label><?php echo ('Email'); ?> </label>
+                      <input type="text" name="email" id="email1" onkeyup="checkEmailExist(this.value)" class="form-control">
                       <span class="text-danger my-5" id="email_exist_error_message"></span>
                     </div>
                   </div>

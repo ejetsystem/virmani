@@ -96,7 +96,7 @@ opacity: 1;
 <?php endif; ?>
 <div class="pull-right">
 <a href="<?php echo base_url('admin/registration\registrationController/add_staff') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Add Staff</a>
-<a href="<?php echo base_url(); ?>clinic-admin/doctor" class="btn btn-primary"><i class="fa fa-plus"></i> Add Doctor</a>
+<a href="<?php echo base_url('clinic-admin/doctor/add-doctor'); ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Add Doctor</a>
 </div>
 </div>
 <div class="box-body">
@@ -152,7 +152,7 @@ echo '<div class="download_label">Staff Search</div>';
 }
 ?>
 <div class="tab-pane table-responsive no-padding" id="tab_2">
-<table class="table datatable dataTable no-footer table-striped table-bordered table-hover" id="servertable" cellspacing="0" width="100%">
+<table class="table dataTable no-footer table-striped table-bordered table-hover" id="servertable" cellspacing="0" width="100%">
 <thead>
 <tr class="success table-info">
 <th>Staff ID</th>

@@ -1034,7 +1034,7 @@ $(".check_email_validate").submit(function(e){
     $("#email").focus();
     $("#email_exist_error_message").text('Enter Email');
     e.preventDefault();
-    
+    return false;
   }
   else{
     $("#email_exist_error_message").text('');
@@ -1044,6 +1044,7 @@ $(".check_email_validate").submit(function(e){
     $("#password").focus();
     $("#password_error_message").text('Enter Password');
     e.preventDefault();
+    return false;
   }
   else{
     $("#password_error_message").text('');
@@ -1053,6 +1054,7 @@ $(".check_email_validate").submit(function(e){
     $("#email").focus();
     $("#email_exist_error_message").text('Enter Valid Email');
     e.preventDefault();
+    return false;
     
   }
 
@@ -1066,7 +1068,7 @@ $(".check_email_validate").submit(function(e){
     $("#phone").focus();
     $("#number_error_message").text('Enter only 10 digits');
     e.preventDefault();
-    
+    return false;
   }
   else{
     $("#number_error_message").text('');
@@ -1076,7 +1078,7 @@ $(".check_email_validate").submit(function(e){
     $("#name").focus();
     $("#name_error_message").text('Enter Name');
     e.preventDefault();
-    
+    return false;
   }
   else{
     $("#name_error_message").text('');
