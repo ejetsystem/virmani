@@ -412,7 +412,8 @@
                <div class="box-body">
 
                 <div class="col-md-12 col-sm-12 col-xs-12 scroll table-responsive">
-                  <table class="table table-hover <?php if(count($patientses) > 10){echo "datatable";} ?>">
+                  <table class="table datatable table-hover">
+                    
                     <thead>
                       <tr class="success table-info">
                         <th>#</th>

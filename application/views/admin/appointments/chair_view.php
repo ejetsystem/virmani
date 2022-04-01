@@ -741,7 +741,9 @@ get_instance()->load->helper('custom_helper');
       });
     });
 
-
+    $("#sdate").change(function(){
+      $('#submit_form').submit();
+    });
 
   });
 

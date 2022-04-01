@@ -29,6 +29,7 @@ class Patient_model extends CI_Model {
     public function getWorkdoneReport($p_id) {
         $this->db->select('workdone.*,doctors.name')
                 ->join('doctors', 'doctors.id = workdone.workdone_doc')
+                ->where('workdone.wk_patient_id',$p_id)
                 ->order_by('workdone.id','DESC')
                 ->from('workdone');
         $query = $this->db->get();
