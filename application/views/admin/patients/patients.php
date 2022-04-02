@@ -574,7 +574,7 @@
           }
           else{
             if(validateEmail($("#email1").val()) !='true'){
-              $("#email").focus();
+              $("#email1").focus();
               $("#email_exist_error_message").text('Enter Valid Email');
               e.preventDefault();
               return false;

@@ -79,10 +79,13 @@ class Staff extends Home_Controller {
                             exit();
                         }
                         $id = $this->admin_model->insert($data, 'staffs');
-                        $all_users = $data=array(
-                            'email' => $this->input->post('email', true),
-                            'created_at' => my_date_now()
-                        );
+                        if(!empty($this->input->post('email'))){
+                            $all_users = $data=array(
+                                'email' => $this->input->post('email', true),
+                                'created_at' => my_date_now()
+                            );
+                            $this->admin_model->insert($all_users, 'all_users');
+                        }
                         $this->admin_model->insert($all_users, 'all_users');
 
 

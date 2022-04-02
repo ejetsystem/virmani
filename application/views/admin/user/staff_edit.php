@@ -25,7 +25,7 @@
             </div>
 
             <div class="box-body">
-              <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form check_email_validate" action="<?php echo base_url('admin/Staff/update_staff')?>" role="form" novalidate>
+              <form id="cat-form" method="post" enctype="multipart/form-data" class="validate-form check_form_validate" action="<?php echo base_url('admin/Staff/update_staff')?>" role="form" novalidate>
                 <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
 
                 <div class="row">
@@ -39,7 +39,7 @@
                         </div>
                         <div class="avatar-preview">
                           <div id="imagePreview" style="background-image: url('<?php echo base_url($staff[0][thumb]); ?>');">
-                        </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -155,11 +155,12 @@
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label><?php echo ('Email') ?> <span class="text-danger"> * </span></label>
-                      <input type="text" require class="form-control" placeholder="Enter Email"  name="email" id="email" value="<?php echo $staff[0]['email']?>">
+                      <label><?php echo ('Email') ?> </label>
+                      <input type="text" class="form-control" placeholder="Enter Email"  name="email" id="email1" value="<?php echo $staff[0]['email']?>">
+                      <span class="text-danger my-5" id="email_exist_error_message"></span>
                     </div>
                   </div>
-                  
+
                 </div>
                 <div class="row">
                   <div class="col-md-12">
@@ -310,140 +311,140 @@
 
                     <?php
                     if(count($bank_details)>0){
-                    ?>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <h3 class="border-bottom pb-20">Bank Information</h3>
-                        <div id="bank-container">
-                          <?php
-                          foreach ($bank_details as $k=>$b){
-                          ?>
-                            <div class="row delete-particular-bank-<?php echo $b->id?>">
-                            <div class="col-md-2">
-                              <input type="hidden" name="bank[<?php echo $k?>][id]" value="<?php echo $b->id?>">
-                              <div class="form-group">
-                                <label><?php echo ('Bank Name') ?> </label>
-                                <input type="text" value="<?php echo $b->bank_name ?>" name="bank[<?php echo $k?>][bank_name]"  class="form-control">
+                      ?>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h3 class="border-bottom pb-20">Bank Information</h3>
+                          <div id="bank-container">
+                            <?php
+                            foreach ($bank_details as $k=>$b){
+                              ?>
+                              <div class="row delete-particular-bank-<?php echo $b->id?>">
+                                <div class="col-md-2">
+                                  <input type="hidden" name="bank[<?php echo $k?>][id]" value="<?php echo $b->id?>">
+                                  <div class="form-group">
+                                    <label><?php echo ('Bank Name') ?> </label>
+                                    <input type="text" value="<?php echo $b->bank_name ?>" name="bank[<?php echo $k?>][bank_name]"  class="form-control">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <label><?php echo ('Bank Account Number') ?> </label>
+                                    <input type="text" value="<?php echo $b->bank_account_number ?>" name="bank[<?php echo $k?>][bank_account_number]"  class="form-control">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <label><?php echo ('IFSC Code') ?> </label>
+                                    <input type="text" value="<?php echo $b->ifsc_code ?>" name="bank[<?php echo $k?>][ifsc_code]"  class="form-control">
+                                  </div>
+                                </div>
+                                <div class="col-md-2">
+                                  <div class="form-group">
+                                    <label><?php echo ('Remarks') ?></label>
+                                    <input type="text" value="<?php echo $b->remarks ?>" name="bank[<?php echo $k?>][bank_remarks]" class="form-control">
+                                  </div>
+                                </div> 
+                                <div class="col-md-1" style="margin-top: 13px;">
+                                  <div class="form-group">
+                                    <label></label>
+                                    <p class="btn btn-danger" onclick="deleteParticularBank('<?php echo $b->id ?>')"> Delete</p>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                            <div class="col-md-3">
-                              <div class="form-group">
-                                <label><?php echo ('Bank Account Number') ?> </label>
-                                <input type="text" value="<?php echo $b->bank_account_number ?>" name="bank[<?php echo $k?>][bank_account_number]"  class="form-control">
-                              </div>
-                            </div>
-                            <div class="col-md-3">
-                              <div class="form-group">
-                                <label><?php echo ('IFSC Code') ?> </label>
-                                <input type="text" value="<?php echo $b->ifsc_code ?>" name="bank[<?php echo $k?>][ifsc_code]"  class="form-control">
-                              </div>
-                            </div>
-                            <div class="col-md-2">
-                              <div class="form-group">
-                                <label><?php echo ('Remarks') ?></label>
-                                <input type="text" value="<?php echo $b->remarks ?>" name="bank[<?php echo $k?>][bank_remarks]" class="form-control">
-                              </div>
-                            </div> 
-                            <div class="col-md-1" style="margin-top: 13px;">
-                            <div class="form-group">
-                            <label></label>
-                            <p class="btn btn-danger" onclick="deleteParticularBank('<?php echo $b->id ?>')"> Delete</p>
-                            </div>
-                            </div>
+                              <?php
+                              $last_key_bank = $k;
+                            } 
+                            ?>
                           </div>
-                          <?php
-                          $last_key_bank = $k;
-                          } 
-                          ?>
+                          <a href="#" class="btn btn-primary add-more-banks" style="position: relative;right: -90%;">+ Add More</a>
+                          <input type="hidden" id="last-key-bank" value="<?= $last_key_bank?>">
                         </div>
-                        <a href="#" class="btn btn-primary add-more-banks" style="position: relative;right: -90%;">+ Add More</a>
-                        <input type="hidden" id="last-key-bank" value="<?= $last_key_bank?>">
                       </div>
-                    </div>
-                    <?php
+                      <?php
                     }  
                     ?>
-                    
+
                     <?php
                     if(count($insurance_details)>0){
-                    ?>
+                      ?>
                       <div class="row">
-                      <div class="col-md-12">
-                        <h3 class="border-bottom pb-20">Insurance Information</h3>
-                        <div id="insurance-container">
-                          <?php
-                          foreach($insurance_details as $k=>$in){
-                          ?>
-                          <div class="row delete-particular-insurance-<?php echo $in->id?>">
-                            <div class="col-md-2">
-                              <input type="hidden" value="<?php echo $in->id?>" name="insurance[<?php echo $k?>][id]">
-                              <div class="form-group">
-                                <label><?php echo ('Insurance') ?> </label>
-                                <input type="text" value="<?php echo $in->insurance?>" name="insurance[<?php echo $k?>][insurance]"  class="form-control">
-                              </div>
-                            </div>
-                            <div class="col-md-2">
-                              <div class="form-group">
-                                <label><?php echo ('Insurance Date') ?> </label>
-                                <input type="date" value="<?php echo $in->insurance_date?>" name="insurance[<?php echo $k?>][insurance_date]"  class="form-control">
-                              </div>
-                            </div>
-                            <div class="col-md-2">
-                              <div class="form-group">
-                                <label><?php echo ('Renewal Date') ?> </label>
-                                <input type="date" value="<?php echo $in->renewal_date?>" name="insurance[<?php echo $k?>][renewal_date]"  class="form-control" min="<?php echo date('Y-m-d'); ?>">
-                              </div>
-                            </div>
-                            <div class="col-md-2">
-                              <div class="form-group">
-                                <label><?php echo ('Amount Insured') ?> </label>
-                                <input type="number" value="<?php echo $in->amount_insured?>" name="insurance[<?php echo $k?>][amount_insured]"  class="form-control">
-                              </div>
-                            </div> 
-                            <div class="col-md-2">
-                              <div class="form-group">
-                                <label><?php echo ('Amount Paid') ?> </label>
-                                <input type="text" value="<?php echo $in->amount_paid?>" name="insurance[<?php echo $k?>][amount_paid]"  class="form-control">
-                              </div>
-                            </div> 
+                        <div class="col-md-12">
+                          <h3 class="border-bottom pb-20">Insurance Information</h3>
+                          <div id="insurance-container">
+                            <?php
+                            foreach($insurance_details as $k=>$in){
+                              ?>
+                              <div class="row delete-particular-insurance-<?php echo $in->id?>">
+                                <div class="col-md-2">
+                                  <input type="hidden" value="<?php echo $in->id?>" name="insurance[<?php echo $k?>][id]">
+                                  <div class="form-group">
+                                    <label><?php echo ('Insurance') ?> </label>
+                                    <input type="text" value="<?php echo $in->insurance?>" name="insurance[<?php echo $k?>][insurance]"  class="form-control">
+                                  </div>
+                                </div>
+                                <div class="col-md-2">
+                                  <div class="form-group">
+                                    <label><?php echo ('Insurance Date') ?> </label>
+                                    <input type="date" value="<?php echo $in->insurance_date?>" name="insurance[<?php echo $k?>][insurance_date]"  class="form-control">
+                                  </div>
+                                </div>
+                                <div class="col-md-2">
+                                  <div class="form-group">
+                                    <label><?php echo ('Renewal Date') ?> </label>
+                                    <input type="date" value="<?php echo $in->renewal_date?>" name="insurance[<?php echo $k?>][renewal_date]"  class="form-control" min="<?php echo date('Y-m-d'); ?>">
+                                  </div>
+                                </div>
+                                <div class="col-md-2">
+                                  <div class="form-group">
+                                    <label><?php echo ('Amount Insured') ?> </label>
+                                    <input type="number" value="<?php echo $in->amount_insured?>" name="insurance[<?php echo $k?>][amount_insured]"  class="form-control">
+                                  </div>
+                                </div> 
+                                <div class="col-md-2">
+                                  <div class="form-group">
+                                    <label><?php echo ('Amount Paid') ?> </label>
+                                    <input type="text" value="<?php echo $in->amount_paid?>" name="insurance[<?php echo $k?>][amount_paid]"  class="form-control">
+                                  </div>
+                                </div> 
 
-                            <div class="col-md-2">
-                              <div class="form-group">
-                                <label><?php echo ('Allow Notifications') ?></label>
-                                <br>
-                                <input id="notifications" type="checkbox" value="1" <?php echo ($in->allow_notifications==1) ? 'checked' : ''?> name="insurance[<?php echo $k?>][allow_notifications]" class="">
-                                <label for="notifications"><?php echo ('Yes') ?></label>
+                                <div class="col-md-2">
+                                  <div class="form-group">
+                                    <label><?php echo ('Allow Notifications') ?></label>
+                                    <br>
+                                    <input id="notifications" type="checkbox" value="1" <?php echo ($in->allow_notifications==1) ? 'checked' : ''?> name="insurance[<?php echo $k?>][allow_notifications]" class="">
+                                    <label for="notifications"><?php echo ('Yes') ?></label>
+                                  </div>
+                                </div> 
+
+                                <div class="col-md-4">
+                                  <div class="form-group">
+                                    <label><?php echo ('Remarks') ?></label>
+                                    <input id="notifications" type="text" value="<?php echo $in->remarks?>" name="insurance[<?php echo $k?>][insurance_remarks]" class="form-control">
+                                  </div>
+                                </div>
+
+                                <div class="col-md-1" style="margin-top: 13px;">
+                                  <div class="form-group">
+                                    <label></label>
+                                    <p class="btn btn-danger" onclick="deleteParticularInsurance('<?php echo $in->id ?>')"> Delete</p>
+                                  </div>
+                                </div>
+
                               </div>
-                            </div> 
-
-                            <div class="col-md-4">
-                              <div class="form-group">
-                                <label><?php echo ('Remarks') ?></label>
-                                <input id="notifications" type="text" value="<?php echo $in->remarks?>" name="insurance[<?php echo $k?>][insurance_remarks]" class="form-control">
-                              </div>
-                            </div>
-
-                            <div class="col-md-1" style="margin-top: 13px;">
-                            <div class="form-group">
-                            <label></label>
-                            <p class="btn btn-danger" onclick="deleteParticularInsurance('<?php echo $in->id ?>')"> Delete</p>
-                            </div>
-                            </div>
-
+                              <?php
+                              $last_key_insurance = $k;
+                            }
+                            ?>
                           </div>
-                          <?php
-                          $last_key_insurance = $k;
-                          }
-                          ?>
+                          <a href="#" class="btn btn-primary add-more-insurances" style="position: relative;right: -90%;">+ Add More</a>
+                          <input type="hidden" id="last-key-insurance" value="<?= $last_key_insurance?>">
                         </div>
-                        <a href="#" class="btn btn-primary add-more-insurances" style="position: relative;right: -90%;">+ Add More</a>
-                        <input type="hidden" id="last-key-insurance" value="<?= $last_key_insurance?>">
                       </div>
-                    </div>
-                    <?php
+                      <?php
                     }
                     ?>
-                    
+
                     <center>
                       <div class="mx-auto w-100">
                         <input type="submit" class="btn btn-primary btn-lg mr-5 ml-5" name="save" value="Update">
@@ -452,365 +453,410 @@
                     <!-- End -->
                   </form>
 
-        </div>
+                </div>
 
-      </div>
-
-
-      <?php if (isset($page_title) && $page_title != "Edit"): ?>
-        <div class="box list_area">
-          <div class="box-header with-border">
-            <?php if (isset($page_title) && $page_title == "Edit"): ?>
-              <h3 class="box-title"><?php echo trans('edit') ?> <a href="<?php echo base_url('admin/staff') ?>" class="pull-right btn btn-primary btn-sm"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a></h3>
-              <?php else: ?>
-                <h3 class="box-title"><?php echo trans('all-staffs') ?> </h3>
-              <?php endif; ?>
-
-              <div class="box-tools pull-right">
-               <a href="#" class="pull-right btn btn-light-secondary add_btn"><i class="fa fa-plus"></i> <?php echo trans('add-new-staff') ?> </a>
-             </div>
-           </div>
-
-           <div class="box-body">
-
-            <div class="col-md-12 col-sm-12 col-xs-12 scroll table-responsive">
-              <table class="table table-hover datatable">
-                <thead>
-                  <tr class="success table-info">
-                    <th>#</th>
-                    <th><?php echo trans('thumb') ?></th>
-                    <th><?php echo trans('informations') ?></th>
-                    <th></th>
-                    <th><?php echo trans('action') ?></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php $i=1; foreach ($staffs as $staff): ?>
-                  <tr id="row_<?php echo html_escape($staff->id); ?>">
-
-                    <td><?= $i; ?></td>
-                    <td>
-                      <?php if (!empty($staff->thumb)): ?>
-                        <img width="120px" class="round min-w80 max-w80" src="<?php echo base_url($staff->thumb); ?>">
-                      <?php endif ?>
-                    </td>
-                    <td>
-                      <h3 class="mt-0 mb-0"><?php echo html_escape($staff->name); ?></h3>
-                      <b>
-                        <?php if ($staff->chamber_id == 0): ?>
-                          <?php echo trans('all-chambers') ?>
-                          <?php else: ?>
-                            <?php echo get_by_id($staff->chamber_id, 'chamber')->name; ?>
-                          <?php endif ?>
-                        </b>
-                        <p class="mb-0"><?php echo html_escape($staff->email); ?></p>
-                        <p class="mb-0"><?php echo html_escape($staff->designation); ?></p>
-                      </td>
-
-                      <td>
-
-                      </td>
-
-                      <td class="actions" width="12%">
-                        <a href="<?php echo base_url('clinic-admin/staff/edit/'.html_escape($staff->id));?>" class="on-default edit-row" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; 
-
-                        <a data-val="Category" data-id="<?php echo html_escape($staff->id); ?>" href="<?php echo base_url('clinic-admin/staff/delete/'.html_escape($staff->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="<?php echo trans('delete') ?>"><i class="fa fa-trash-o"></i></a> &nbsp;
-                      </td>
-                    </tr>
-
-                    <?php $i++; endforeach; ?>
-                  </tbody>
-                </table>
               </div>
 
+
+              <?php if (isset($page_title) && $page_title != "Edit"): ?>
+                <div class="box list_area">
+                  <div class="box-header with-border">
+                    <?php if (isset($page_title) && $page_title == "Edit"): ?>
+                      <h3 class="box-title"><?php echo trans('edit') ?> <a href="<?php echo base_url('admin/staff') ?>" class="pull-right btn btn-primary btn-sm"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a></h3>
+                      <?php else: ?>
+                        <h3 class="box-title"><?php echo trans('all-staffs') ?> </h3>
+                      <?php endif; ?>
+
+                      <div class="box-tools pull-right">
+                        <a href="#" class="pull-right btn btn-light-secondary add_btn"><i class="fa fa-plus"></i> <?php echo trans('add-new-staff') ?> </a>
+                      </div>
+                    </div>
+
+                    <div class="box-body">
+
+                      <div class="col-md-12 col-sm-12 col-xs-12 scroll table-responsive">
+                        <table class="table table-hover datatable">
+                          <thead>
+                            <tr class="success table-info">
+                              <th>#</th>
+                              <th><?php echo trans('thumb') ?></th>
+                              <th><?php echo trans('informations') ?></th>
+                              <th></th>
+                              <th><?php echo trans('action') ?></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php $i=1; foreach ($staffs as $staff): ?>
+                            <tr id="row_<?php echo html_escape($staff->id); ?>">
+
+                              <td><?= $i; ?></td>
+                              <td>
+                                <?php if (!empty($staff->thumb)): ?>
+                                  <img width="120px" class="round min-w80 max-w80" src="<?php echo base_url($staff->thumb); ?>">
+                                <?php endif ?>
+                              </td>
+                              <td>
+                                <h3 class="mt-0 mb-0"><?php echo html_escape($staff->name); ?></h3>
+                                <b>
+                                  <?php if ($staff->chamber_id == 0): ?>
+                                    <?php echo trans('all-chambers') ?>
+                                    <?php else: ?>
+                                      <?php echo get_by_id($staff->chamber_id, 'chamber')->name; ?>
+                                    <?php endif ?>
+                                  </b>
+                                  <p class="mb-0"><?php echo html_escape($staff->email); ?></p>
+                                  <p class="mb-0"><?php echo html_escape($staff->designation); ?></p>
+                                </td>
+
+                                <td>
+
+                                </td>
+
+                                <td class="actions" width="12%">
+                                  <a href="<?php echo base_url('clinic-admin/staff/edit/'.html_escape($staff->id));?>" class="on-default edit-row" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; 
+
+                                  <a data-val="Category" data-id="<?php echo html_escape($staff->id); ?>" href="<?php echo base_url('clinic-admin/staff/delete/'.html_escape($staff->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="<?php echo trans('delete') ?>"><i class="fa fa-trash-o"></i></a> &nbsp;
+                                </td>
+                              </tr>
+
+                              <?php $i++; endforeach; ?>
+                            </tbody>
+                          </table>
+                        </div>
+
+                      </div>
+
+
+                    </div>
+                  <?php endif; ?>
+
+                </div>
+              </section>
             </div>
 
 
-          </div>
-        <?php endif; ?>
 
-      </div>
-    </section>
-  </div>
+            <!-- For Vaccination -->
+            <script>
+              $(document).ready(function(){
+                count_vaccine = $("#last-key-vaccination").val();
+                $('.add-more-vaccine').click(function(){
+                  count_vaccine++;
+                  add_vaccination = `<div class="row" id="delete-vaccination`+count_vaccine+`">
+                  <div class="col-md-2">
+                  <div class="form-group">
+                  <label>Vaccination Type </label>
+                  <input type="text" name="vaccination[`+count_vaccine+`][vaccination_type]" id="vaccination_type"  class="form-control">
+                  </div>
+                  </div>
 
+                  <div class="col-md-2">
+                  <div class="form-group">
+                  <label>Vaccination Date </label>
+                  <input type="date" name="vaccination[`+count_vaccine+`][vaccination_date]" id="vaccination_date"  class="form-control">
+                  </div>
+                  </div>
 
+                  <div class="col-md-3">
+                  <div class="form-group">
+                  <label>Reminder Date for Next </label>
+                  <input type="date" name="vaccination[`+count_vaccine+`][reminder_date_for_next]" id="reminder_date_for_next" class="form-control" min="<?php echo date('Y-m-d'); ?>">
+                  </div>
+                  </div>
 
-  <!-- For Vaccination -->
-  <script>
-    $(document).ready(function(){
-      count_vaccine = $("#last-key-vaccination").val();
-      $('.add-more-vaccine').click(function(){
-        count_vaccine++;
-        add_vaccination = `<div class="row" id="delete-vaccination`+count_vaccine+`">
-        <div class="col-md-2">
-        <div class="form-group">
-        <label>Vaccination Type </label>
-        <input type="text" name="vaccination[`+count_vaccine+`][vaccination_type]" id="vaccination_type"  class="form-control">
-        </div>
-        </div>
+                  <div class="col-md-2">
+                  <div class="form-group">
+                  <label>Remarks</label>
+                  <input type="text" name="vaccination[`+count_vaccine+`][vaccination_remarks]" id="vaccination_remarks" class="form-control">
+                  </div>
+                  </div>
 
-        <div class="col-md-2">
-        <div class="form-group">
-        <label>Vaccination Date </label>
-        <input type="date" name="vaccination[`+count_vaccine+`][vaccination_date]" id="vaccination_date"  class="form-control">
-        </div>
-        </div>
+                  <div class="col-md-2">
+                  <div class="form-group">
+                  <label>Medical History</label>
+                  <input type="text" name="vaccination[`+count_vaccine+`][medical_history]" id="medical_history" class="form-control">
+                  </div>
+                  </div>
 
-        <div class="col-md-3">
-        <div class="form-group">
-        <label>Reminder Date for Next </label>
-        <input type="date" name="vaccination[`+count_vaccine+`][reminder_date_for_next]" id="reminder_date_for_next" class="form-control" min="<?php echo date('Y-m-d'); ?>">
-        </div>
-        </div>
+                  <div class="col-md-1" style="margin-top: 13px;">
+                  <div class="form-group">
+                  <label></label>
+                  <p class="btn btn-danger" onclick="deleteVaccination(`+count_vaccine+`)"> Delete</p>
+                  </div>
+                  </div>
 
-        <div class="col-md-2">
-        <div class="form-group">
-        <label>Remarks</label>
-        <input type="text" name="vaccination[`+count_vaccine+`][vaccination_remarks]" id="vaccination_remarks" class="form-control">
-        </div>
-        </div>
+                  </div>`;
+                  $("#vaccination-container").append(add_vaccination);
+                });
+              });
+            </script>
 
-        <div class="col-md-2">
-        <div class="form-group">
-        <label>Medical History</label>
-        <input type="text" name="vaccination[`+count_vaccine+`][medical_history]" id="medical_history" class="form-control">
-        </div>
-        </div>
+            <!-- For Bank -->
+            <script>
+              $(document).ready(function(){
+                count_banks = $("#last-key-vaccination").val();
+                $('.add-more-banks').click(function(){
+                  count_banks++;
+                  add_bank = `<div class="row" id="delete-bank`+count_banks+`">
+                  <div class="col-md-2">
+                  <div class="form-group">
+                  <label>Bank Name </label>
+                  <input type="" name="bank[`+count_banks+`][bank_name]" class="form-control">
+                  </div>
+                  </div>
 
-        <div class="col-md-1" style="margin-top: 13px;">
-        <div class="form-group">
-        <label></label>
-        <p class="btn btn-danger" onclick="deleteVaccination(`+count_vaccine+`)"> Delete</p>
-        </div>
-        </div>
+                  <div class="col-md-3">
+                  <div class="form-group">
+                  <label>Bank Account Number </label>
+                  <input type="" name="bank[`+count_banks+`][bank_account_number]" class="form-control">
+                  </div>
+                  </div>
 
-        </div>`;
-        $("#vaccination-container").append(add_vaccination);
-      });
-      });
-    </script>
+                  <div class="col-md-3">
+                  <div class="form-group">
+                  <label>IFSC Code </label>
+                  <input type="" name="bank[`+count_banks+`][ifsc_code]" class="form-control">
+                  </div>
+                  </div>
 
-    <!-- For Bank -->
-    <script>
-      $(document).ready(function(){
-        count_banks = $("#last-key-vaccination").val();
-        $('.add-more-banks').click(function(){
-          count_banks++;
-          add_bank = `<div class="row" id="delete-bank`+count_banks+`">
-          <div class="col-md-2">
-          <div class="form-group">
-          <label>Bank Name </label>
-          <input type="" name="bank[`+count_banks+`][bank_name]" class="form-control">
-          </div>
-          </div>
+                  <div class="col-md-2">
+                  <div class="form-group">
+                  <label>Remarks</label>
+                  <input type="" name="bank[`+count_banks+`][bank_remarks]" class="form-control">
+                  </div>
+                  </div> 
 
-          <div class="col-md-3">
-          <div class="form-group">
-          <label>Bank Account Number </label>
-          <input type="" name="bank[`+count_banks+`][bank_account_number]" class="form-control">
-          </div>
-          </div>
+                  <div class="col-md-1" style="margin-top: 13px;">
+                  <div class="form-group">
+                  <label></label>
+                  <p class="btn btn-danger" onclick="deleteBank(`+count_bank+`)"> Delete</p>
+                  </div>
+                  </div>
+                  </div>`;
 
-          <div class="col-md-3">
-          <div class="form-group">
-          <label>IFSC Code </label>
-          <input type="" name="bank[`+count_banks+`][ifsc_code]" class="form-control">
-          </div>
-          </div>
+                  $("#bank-container").append(add_bank);
+                });
+              });
+            </script>
 
-          <div class="col-md-2">
-          <div class="form-group">
-          <label>Remarks</label>
-          <input type="" name="bank[`+count_banks+`][bank_remarks]" class="form-control">
-          </div>
-          </div> 
+            <!-- For Insurance -->
+            <script>
+              $(document).ready(function(){
+                count_insurances = $("#last-key-insurance").val();
+                $(".add-more-insurances").click(function(){
+                  count_insurances++;
+                  add_insurance = `<div class="row" id="insurance-bank`+count_insurances+`">
+                  <div class="col-md-2">
+                  <div class="form-group">
+                  <label>Insurance </label>
+                  <input type="" name="insurance[`+count_insurances+`][insurance]" class="form-control">
+                  </div>
+                  </div>
 
-          <div class="col-md-1" style="margin-top: 13px;">
-          <div class="form-group">
-          <label></label>
-          <p class="btn btn-danger" onclick="deleteBank(`+count_bank+`)"> Delete</p>
-          </div>
-          </div>
-          </div>`;
+                  <div class="col-md-2">
+                  <div class="form-group">
+                  <label>Insurance Date </label>
+                  <input type="date" name="insurance[`+count_insurances+`][insurance_date]" class="form-control">
+                  </div>
+                  </div>
 
-          $("#bank-container").append(add_bank);
-        });
-        });
-      </script>
+                  <div class="col-md-2">
+                  <div class="form-group">
+                  <label>Renewal Date </label>
+                  <input type="date" name="insurance[`+count_insurances+`][renewal_date]" class="form-control" min="<?php echo date('Y-m-d'); ?>">
+                  </div>
+                  </div>
 
-      <!-- For Insurance -->
-      <script>
-        $(document).ready(function(){
-      count_insurances = $("#last-key-insurance").val();
-      $(".add-more-insurances").click(function(){
-        count_insurances++;
-        add_insurance = `<div class="row" id="insurance-bank`+count_insurances+`">
-        <div class="col-md-2">
-        <div class="form-group">
-        <label>Insurance </label>
-        <input type="" name="insurance[`+count_insurances+`][insurance]" class="form-control">
-        </div>
-        </div>
+                  <div class="col-md-2">
+                  <div class="form-group">
+                  <label>Amount Insured </label>
+                  <input type="number" name="insurance[`+count_insurances+`][amount_insured]" class="form-control">
+                  </div>
+                  </div> 
+                  <div class="col-md-2">
+                  <div class="form-group">
+                  <label>Amount Paid </label>
+                  <input type="" name="insurance[`+count_insurances+`][amount_paid]" class="form-control">
+                  </div>
+                  </div> 
 
-        <div class="col-md-2">
-        <div class="form-group">
-        <label>Insurance Date </label>
-        <input type="date" name="insurance[`+count_insurances+`][insurance_date]" class="form-control">
-        </div>
-        </div>
+                  <div class="col-md-2">
+                  <div class="form-group">
+                  <label>Allow Notifications</label>
+                  <br>
+                  <input id="notifications" type="checkbox" value="1" name="insurance[`+count_insurances+`][allow_notifications]" class="">
+                  <label for="notifications">Yes</label>
+                  </div>
+                  </div> 
 
-        <div class="col-md-2">
-        <div class="form-group">
-        <label>Renewal Date </label>
-        <input type="date" name="insurance[`+count_insurances+`][renewal_date]" class="form-control" min="<?php echo date('Y-m-d'); ?>">
-        </div>
-        </div>
+                  <div class="col-md-4">
+                  <div class="form-group">
+                  <label>Remarks</label>
+                  <input id="notifications" type="text" name="insurance[`+count_insurances+`][insurance_remarks]" class="form-control">
+                  </div>
+                  </div> 
 
-        <div class="col-md-2">
-        <div class="form-group">
-        <label>Amount Insured </label>
-        <input type="number" name="insurance[`+count_insurances+`][amount_insured]" class="form-control">
-        </div>
-        </div> 
-        <div class="col-md-2">
-        <div class="form-group">
-        <label>Amount Paid </label>
-        <input type="" name="insurance[`+count_insurances+`][amount_paid]" class="form-control">
-        </div>
-        </div> 
-
-        <div class="col-md-2">
-        <div class="form-group">
-        <label>Allow Notifications</label>
-        <br>
-        <input id="notifications" type="checkbox" value="1" name="insurance[`+count_insurances+`][allow_notifications]" class="">
-        <label for="notifications">Yes</label>
-        </div>
-        </div> 
-
-        <div class="col-md-4">
-        <div class="form-group">
-        <label>Remarks</label>
-        <input id="notifications" type="text" name="insurance[`+count_insurances+`][insurance_remarks]" class="form-control">
-        </div>
-        </div> 
-
-        <div class="col-md-1" style="margin-top: 13px;">
-        <div class="form-group">
-        <label></label>
-        <p class="btn btn-danger" onclick="deleteInsurance(`+count_insurances+`)"> Delete</p>
-        </div>
-        </div>
-        </div>`;
-        $("#insurance-container").append(add_insurance);
-      });
-      });
-    </script>
+                  <div class="col-md-1" style="margin-top: 13px;">
+                  <div class="form-group">
+                  <label></label>
+                  <p class="btn btn-danger" onclick="deleteInsurance(`+count_insurances+`)"> Delete</p>
+                  </div>
+                  </div>
+                  </div>`;
+                  $("#insurance-container").append(add_insurance);
+                });
+              });
+            </script>
 
 
-    <script>
-      function deleteParticularVaccination(id){
-          swal({
-                 title: "Are you sure?",
-                 text: "You will not be able to recover this data !",
-                 type: "warning",
-                 showCancelButton: true,
-                 confirmButtonColor: "#DD6B55",
-                 confirmButtonText: "Yes, delete it!",
-                 cancelButtonText: "No, cancel plx!",
-                 closeOnConfirm: false,
-                 closeOnCancel: false 
-             },
-             function(isConfirm) {
-                 if (isConfirm) {
-                     $.ajax({
-                       type: "POST",
-                       data: {
-                         'id' : id,
-                         'csrf_test_name' : csrf_token,
-                       },
-                      // contentType: "application/json; charset=utf-8",
-                       url: base_url+'admin/Staff/deleteParticularVaccination',
-                       success: function (data) {
-                         $('.delete-particular-vaccination-'+id).remove();
-                         swal("Deleted!", "Data Successfully has been deleted.", "success");
-                       }
-                     });
-                 } else {
-                     swal("Cancelled", "Your Data is safe :)", "error");
-                 }
-             }
-         );
-        }
+            <script>
+              function deleteParticularVaccination(id){
+                swal({
+                  title: "Are you sure?",
+                  text: "You will not be able to recover this data !",
+                  type: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#DD6B55",
+                  confirmButtonText: "Yes, delete it!",
+                  cancelButtonText: "No, cancel plx!",
+                  closeOnConfirm: false,
+                  closeOnCancel: false 
+                },
+                function(isConfirm) {
+                  if (isConfirm) {
+                    $.ajax({
+                      type: "POST",
+                      data: {
+                        'id' : id,
+                        'csrf_test_name' : csrf_token,
+                      },
+// contentType: "application/json; charset=utf-8",
+url: base_url+'admin/Staff/deleteParticularVaccination',
+success: function (data) {
+  $('.delete-particular-vaccination-'+id).remove();
+  swal("Deleted!", "Data Successfully has been deleted.", "success");
+}
+});
+                  } else {
+                    swal("Cancelled", "Your Data is safe :)", "error");
+                  }
+                }
+                );
+              }
 
-      function deleteParticularBank(id){
-        swal({
-               title: "Are you sure?",
-               text: "You will not be able to recover this data !",
-               type: "warning",
-               showCancelButton: true,
-               confirmButtonColor: "#DD6B55",
-               confirmButtonText: "Yes, delete it!",
-               cancelButtonText: "No, cancel plx!",
-               closeOnConfirm: false,
-               closeOnCancel: false 
-           },
-           function(isConfirm) {
-               if (isConfirm) {
-                   // swal("Deleted!", "Your imaginary file has been deleted.", "success");
-                   alert();
-                   $.ajax({
-                     type: "POST",
-                     data: {
-                       'id' : id,
-                       'csrf_test_name' : csrf_token,
-                     },
-                    // contentType: "application/json; charset=utf-8",
-                     url: base_url+'admin/Staff/deleteParticularBank',
-                     success: function (data) {
-                       $('.delete-particular-bank-'+id).remove();
-                       swal("Deleted!", "Data Successfully has been deleted.", "success");
-                     }
-                   });
-               } else {
-                   swal("Cancelled", "Your Data is safe :)", "error");
-               }
-           }
-       );
-        }
-      
-      function deleteParticularInsurance(id){
-        swal({
-               title: "Are you sure?",
-               text: "You will not be able to recover this data !",
-               type: "warning",
-               showCancelButton: true,
-               confirmButtonColor: "#DD6B55",
-               confirmButtonText: "Yes, delete it!",
-               cancelButtonText: "No, cancel plx!",
-               closeOnConfirm: false,
-               closeOnCancel: false 
-           },
-           function(isConfirm) {
-               if (isConfirm) {
-                   $.ajax({
-                     type: "POST",
-                     data: {
-                       'id' : id,
-                       'csrf_test_name' : csrf_token,
-                     },
-                    // contentType: "application/json; charset=utf-8",
-                     url: base_url+'admin/Staff/deleteParticularInsurance',
-                     success: function (data) {
-                       $('.delete-particular-insurance-'+id).remove();
-                       swal("Deleted!", "Data Successfully has been deleted.", "success");
-                     }
-                   });
-               } else {
-                   swal("Cancelled", "Your Data is safe :)", "error");
-               }
-           }
-       );
-        }   
-      
-    </script>
+              function deleteParticularBank(id){
+                swal({
+                  title: "Are you sure?",
+                  text: "You will not be able to recover this data !",
+                  type: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#DD6B55",
+                  confirmButtonText: "Yes, delete it!",
+                  cancelButtonText: "No, cancel plx!",
+                  closeOnConfirm: false,
+                  closeOnCancel: false 
+                },
+                function(isConfirm) {
+                  if (isConfirm) {
+// swal("Deleted!", "Your imaginary file has been deleted.", "success");
+alert();
+$.ajax({
+  type: "POST",
+  data: {
+    'id' : id,
+    'csrf_test_name' : csrf_token,
+  },
+// contentType: "application/json; charset=utf-8",
+url: base_url+'admin/Staff/deleteParticularBank',
+success: function (data) {
+  $('.delete-particular-bank-'+id).remove();
+  swal("Deleted!", "Data Successfully has been deleted.", "success");
+}
+});
+} else {
+  swal("Cancelled", "Your Data is safe :)", "error");
+}
+}
+);
+              }
+
+              function deleteParticularInsurance(id){
+                swal({
+                  title: "Are you sure?",
+                  text: "You will not be able to recover this data !",
+                  type: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#DD6B55",
+                  confirmButtonText: "Yes, delete it!",
+                  cancelButtonText: "No, cancel plx!",
+                  closeOnConfirm: false,
+                  closeOnCancel: false 
+                },
+                function(isConfirm) {
+                  if (isConfirm) {
+                    $.ajax({
+                      type: "POST",
+                      data: {
+                        'id' : id,
+                        'csrf_test_name' : csrf_token,
+                      },
+// contentType: "application/json; charset=utf-8",
+url: base_url+'admin/Staff/deleteParticularInsurance',
+success: function (data) {
+  $('.delete-particular-insurance-'+id).remove();
+  swal("Deleted!", "Data Successfully has been deleted.", "success");
+}
+});
+                  } else {
+                    swal("Cancelled", "Your Data is safe :)", "error");
+                  }
+                }
+                );
+              }   
+
+            </script>
+
+            <script>
+              $(".check_form_validate").submit(function(e){
+
+                if($("#email1").val()==''){
+
+                }
+                else{
+                  if(validateEmail($("#email1").val()) !='true'){
+                    $("#email1").focus();
+                    $("#email_exist_error_message").text('Enter Valid Email');
+                    e.preventDefault();
+                    return false;
+
+                  }
+                }
+
+                if($("#phone").val().length ==0){
+                  $("#phone").focus();
+                  $("#number_error_message").text('Phone is required');
+                  e.preventDefault();
+
+                }
+                else if($("#phone").val().length !=10){
+                  $("#phone").focus();
+                  $("#number_error_message").text('Enter only 10 digits');
+                  e.preventDefault();
+                  return false;
+                }
+                else{
+                  $("#number_error_message").text('');
+                }
+
+                if($("#name").val() ==''){
+                  $("#name").focus();
+                  $("#name_error_message").text('Enter Name');
+                  e.preventDefault();
+                  return false;
+                }
+                else{
+                  $("#name_error_message").text('');
+                }
+
+              });
+            </script>

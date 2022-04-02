@@ -73,11 +73,13 @@ class Doctor extends Home_Controller {
           // Insert in Doctors Table
       $id = $this->admin_model->insert($doctors,'doctors');
 
-      $all_users = $data=array(
-          'email' => $this->input->post('email', true),
-          'created_at' => my_date_now()
-      );
-      $this->admin_model->insert($all_users, 'all_users');
+      if(!empty($this->input->post('email'))){
+          $all_users = $data=array(
+              'email' => $this->input->post('email', true),
+              'created_at' => my_date_now()
+          );
+          $this->admin_model->insert($all_users, 'all_users');
+      }
 
       // Send Credentials to Doctor
       $subject = "Your Credentials";

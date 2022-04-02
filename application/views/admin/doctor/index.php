@@ -24,7 +24,7 @@
             </div>
 
             <div class="box-body">
-              <form id="cat-form" method="post" enctype="multipart/form-data" class="check_email_validate validate-form" action="<?php echo base_url('clinic-admin/doctor/add')?>" role="form" novalidate>
+              <form id="cat-form" method="post" enctype="multipart/form-data" class="check_form_validate validate-form" action="<?php echo base_url('clinic-admin/doctor/add')?>" role="form" novalidate>
                 <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
 
                 <div class="row">
@@ -211,8 +211,8 @@
                     <h3 class="border-bottom">Address Information</h3>
                     <div class="row">
                       <div class="col-md-12">
-                        <label><?php echo ('Email'); ?> <span class="text-danger">*</span></label>
-                        <input type="text" name="email" id="email" required onkeyup="checkEmailExist(this.value)"  class="form-control">
+                        <label><?php echo ('Email'); ?> </label>
+                        <input type="text" name="email" id="email1" onkeyup="checkEmailExist(this.value)"  class="form-control">
                         <span class="text-danger my-5" id="email_exist_error_message"></span>
                       </div>
 
@@ -570,3 +570,48 @@
             </div>
           </section>
         </div>
+
+        <script>
+          $(".check_form_validate").submit(function(e){
+            
+            if($("#email1").val()==''){
+              
+            }
+            else{
+              if(validateEmail($("#email1").val()) !='true'){
+                $("#email1").focus();
+                $("#email_exist_error_message").text('Enter Valid Email');
+                e.preventDefault();
+                return false;
+                
+              }
+            }
+
+            if($("#phone").val().length ==0){
+              $("#phone").focus();
+              $("#number_error_message").text('Phone is required');
+              e.preventDefault();
+              
+            }
+            else if($("#phone").val().length !=10){
+              $("#phone").focus();
+              $("#number_error_message").text('Enter only 10 digits');
+              e.preventDefault();
+              return false;
+            }
+            else{
+              $("#number_error_message").text('');
+            }
+
+            if($("#name").val() ==''){
+              $("#name").focus();
+              $("#name_error_message").text('Enter Name');
+              e.preventDefault();
+              return false;
+            }
+            else{
+              $("#name_error_message").text('');
+            }
+            
+          });
+        </script>

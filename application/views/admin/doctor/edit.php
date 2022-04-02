@@ -24,7 +24,7 @@
             </div>
 
             <div class="box-body">
-              <form id="cat-form" method="post" enctype="multipart/form-data" class="check_email_validate validate-form" action="<?php echo base_url('clinic-admin/doctor/update')?>" role="form" novalidate>
+              <form id="cat-form" method="post" enctype="multipart/form-data" class="check_form_validate validate-form" action="<?php echo base_url('clinic-admin/doctor/update')?>" role="form" novalidate>
                 <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">
 
                 <input type="hidden" name="id" value="<?php echo $doctors->id;?>">
@@ -50,6 +50,7 @@
                         <div class="form-group">
                           <label><?php echo trans('name') ?> </label>
                           <input type="text" class="form-control"  name="name" id="name" value="<?php echo html_escape($doctors->name); ?>" >
+                          <span class="text-danger" id="name_error_message"></span>
                         </div>
                       </div>
                       <div class="col-md-4">  
@@ -91,7 +92,7 @@
                           </select>
                         </div>
                       </div>
-                      
+
                       <div class="col-md-4">
                         <div class="form-group">
                           <label><?php echo ('Blood Group') ?> </label>
@@ -111,11 +112,11 @@
                     </div>
                   </div>
                 </div>
-                
 
-                
 
-                
+
+
+
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
@@ -131,7 +132,7 @@
                       <input type="text" class="form-control" name="password" id="password" value="" >
                     </div>
                   </div>
-                  
+
                   <div class="col-md-4">
                     <div class="form-group">
                       <label><?php echo ('Speciality') ?> </label>
@@ -155,8 +156,8 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label><?php echo ('Phone 1') ?> </label>
-                      <input type="text" class="form-control" name="phone1" id="phone1" value="<?php echo html_escape($doctors->phone1); ?>">
-
+                      <input type="text" class="form-control" name="phone1" id="phone" value="<?php echo html_escape($doctors->phone1); ?>">
+                      <span class="text-danger" id="number_error_message"></span>
                     </div>
                   </div>
 
@@ -166,7 +167,7 @@
                       <input type="text" class="form-control" name="phone2" id="phone2" value="<?php echo html_escape($doctors->phone2); ?>">
                     </div>
                   </div>
-                  
+
                   <div class="col-md-3">
                     <div class="form-group">
                       <label><?php echo ('Phone 3') ?> </label>
@@ -224,9 +225,9 @@
                     <div class="row">
                       <div class="col-md-12">
                         <label><?php echo ('Email'); ?> </label>
-                        <input type="text" name="email" id="email"  class="form-control" value="<?php echo html_escape($doctors->email); ?>">
+                        <input type="text" name="email" id="email1"  class="form-control" value="<?php echo html_escape($doctors->email); ?>">
                       </div>
-                      
+
                     </div>
                   </div>
 
@@ -272,7 +273,7 @@
                         <label><?php echo ('Email 2') ?></label>
                         <input type="text" name="email2" id="email2" class="form-control" value="<?php echo html_escape($doctors->email2); ?>">
                       </div>
-                      
+
                     </div>
                   </div>
 
@@ -326,7 +327,7 @@
                       foreach ($vaccination as $key => $vaccine) {
                         ?>
                         <div class="row" id="del-vac<?php echo html_escape($vaccine->vaccination_id); ?>">
-                          
+
                           <input type="hidden" value="<?php echo html_escape($vaccine->vaccination_id); ?>" name="vaccination_id[]" id="vaccination_id" >
 
                           <div class="col-md-2">
@@ -547,28 +548,28 @@
                     <input type="submit" class="btn btn-primary btn-lg mr-5 ml-5" name="save" value="Update">
                   </div>
                 </center>
-                </form>
-
-              </div>
+              </form>
 
             </div>
 
+          </div>
 
-            <?php if (isset($page_title) && $page_title != "Edit"): ?>
-              <div class="box list_area">
-                <div class="box-header with-border">
-                  <?php if (isset($page_title) && $page_title == "Edit"): ?>
-                    <h3 class="box-title"><?php echo trans('edit') ?> <a href="<?php echo base_url('admin/doctor') ?>" class="pull-right btn btn-primary btn-sm"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a></h3>
-                    <?php else: ?>
-                      <h3 class="box-title"><?php echo 'All Doctors' ?> </h3>
-                    <?php endif; ?>
 
-                    <div class="box-tools pull-right">
-                     <a href="#" class="pull-right btn btn-light-secondary add_btn"><i class="fa fa-plus"></i> <?php echo 'Add New Doctor'; ?></a>
-                   </div>
-                 </div>
+          <?php if (isset($page_title) && $page_title != "Edit"): ?>
+            <div class="box list_area">
+              <div class="box-header with-border">
+                <?php if (isset($page_title) && $page_title == "Edit"): ?>
+                  <h3 class="box-title"><?php echo trans('edit') ?> <a href="<?php echo base_url('admin/doctor') ?>" class="pull-right btn btn-primary btn-sm"><i class="fa fa-angle-left"></i> <?php echo trans('back') ?></a></h3>
+                  <?php else: ?>
+                    <h3 class="box-title"><?php echo 'All Doctors' ?> </h3>
+                  <?php endif; ?>
 
-                 <div class="box-body">
+                  <div class="box-tools pull-right">
+                    <a href="#" class="pull-right btn btn-light-secondary add_btn"><i class="fa fa-plus"></i> <?php echo 'Add New Doctor'; ?></a>
+                  </div>
+                </div>
+
+                <div class="box-body">
 
                   <div class="col-md-12 col-sm-12 col-xs-12 scroll table-responsive">
                     <table class="datatable table table-hover">
@@ -593,101 +594,147 @@
                           </td>
                           <td>
                             <h3 class="mt-0 mb-0"><?php echo html_escape($doctor->name); ?></h3>
-                            <!-- <b>
-                              <?php if ($doctor->chamber_id == 0): ?>
-                                <?php echo trans('all-chambers') ?>
-                                <?php else: ?>
-                                  <?php echo get_by_id($doctor->chamber_id, 'chamber')->name; ?>
-                                <?php endif ?>
-                              </b> -->
-                              <p class="mb-0"><?php echo html_escape($doctor->email); ?></p>
-                              <p class="mb-0 text-capitalize"><?php echo html_escape($doctor->gender); ?></p>
-                            </td>
+<!-- <b>
+<?php if ($doctor->chamber_id == 0): ?>
+<?php echo trans('all-chambers') ?>
+<?php else: ?>
+<?php echo get_by_id($doctor->chamber_id, 'chamber')->name; ?>
+<?php endif ?>
+</b> -->
+<p class="mb-0"><?php echo html_escape($doctor->email); ?></p>
+<p class="mb-0 text-capitalize"><?php echo html_escape($doctor->gender); ?></p>
+</td>
 
-                            <td>
+<td>
 
-                            </td>
-                            
-                            <td class="actions" width="12%">
-                              <a href="<?php echo base_url('admin/doctor/edit/'.html_escape($doctor->id));?>" class="on-default edit-row" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; 
+</td>
 
-                              <a data-val="Category" data-id="<?php echo html_escape($doctor->id); ?>" href="<?php echo base_url('clinic-admin/doctor/delete/'.html_escape($doctor->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="<?php echo trans('delete') ?>"><i class="fa fa-trash-o"></i></a> &nbsp;
-                            </td>
-                          </tr>
+<td class="actions" width="12%">
+  <a href="<?php echo base_url('admin/doctor/edit/'.html_escape($doctor->id));?>" class="on-default edit-row" data-placement="top" title="<?php echo trans('edit') ?>"><i class="fa fa-pencil"></i></a> &nbsp; 
 
-                          <?php $i++; endforeach; ?>
-                        </tbody>
-                      </table>
-                    </div>
+  <a data-val="Category" data-id="<?php echo html_escape($doctor->id); ?>" href="<?php echo base_url('clinic-admin/doctor/delete/'.html_escape($doctor->id));?>" class="on-default remove-row delete_item" data-toggle="tooltip" data-placement="top" title="<?php echo trans('delete') ?>"><i class="fa fa-trash-o"></i></a> &nbsp;
+</td>
+</tr>
 
-                  </div>
+<?php $i++; endforeach; ?>
+</tbody>
+</table>
+</div>
 
-
-                </div>
-              <?php endif; ?>
-
-            </div>
-          </section>
-        </div>
+</div>
 
 
-        <script>
-          function deleteOneVaccine(id){          
-            if(confirm("Are you sure you want to delete this ?") == true){
-              $.ajax({
-                type: "POST",
-                data: {
-                  'id' : id,
-                  'table' : 'doctors_vaccination',
-                  'csrf_test_name' : csrf_token,
-                },
-               // contentType: "application/json; charset=utf-8",
-                url: base_url+'admin/doctor/delete',
-                success: function (data) {
-                  console.log(data);
-                  $('#del-vac'+id).remove();
-                }
-              });
-            }
-          }
+</div>
+<?php endif; ?>
 
-          function deleteOneBank(id){          
-            if(confirm("Are you sure you want to delete this ?") == true){
-              $.ajax({
-                type: "POST",
-                data: {
-                  'id' : id,
-                  'table' : 'doctor_bank_details',
-                  'csrf_test_name' : csrf_token,
-                },
-               // contentType: "application/json; charset=utf-8",
-                url: base_url+'admin/doctor/delete',
-                success: function (data) {
-                  console.log(data);
-                  $('#del-bank'+id).remove();
-                }
-              });
-            }
-          }
+</div>
+</section>
+</div>
 
-          function deleteOneInsurance(id){          
-            if(confirm("Are you sure you want to delete this ?") == true){
-              $.ajax({
-                type: "POST",
-                data: {
-                  'id' : id,
-                  'table' : 'doctor_insurance_details',
-                  'csrf_test_name' : csrf_token,
-                },
-               // contentType: "application/json; charset=utf-8",
-                url: base_url+'admin/doctor/delete',
-                success: function (data) {
-                  console.log(data);
-                  $('#del-insure'+id).remove();
-                }
-              });
-            }
-          }
 
-          
-        </script>
+<script>
+  function deleteOneVaccine(id){          
+    if(confirm("Are you sure you want to delete this ?") == true){
+      $.ajax({
+        type: "POST",
+        data: {
+          'id' : id,
+          'table' : 'doctors_vaccination',
+          'csrf_test_name' : csrf_token,
+        },
+// contentType: "application/json; charset=utf-8",
+url: base_url+'admin/doctor/delete',
+success: function (data) {
+  console.log(data);
+  $('#del-vac'+id).remove();
+}
+});
+    }
+  }
+
+  function deleteOneBank(id){          
+    if(confirm("Are you sure you want to delete this ?") == true){
+      $.ajax({
+        type: "POST",
+        data: {
+          'id' : id,
+          'table' : 'doctor_bank_details',
+          'csrf_test_name' : csrf_token,
+        },
+// contentType: "application/json; charset=utf-8",
+url: base_url+'admin/doctor/delete',
+success: function (data) {
+  console.log(data);
+  $('#del-bank'+id).remove();
+}
+});
+    }
+  }
+
+  function deleteOneInsurance(id){          
+    if(confirm("Are you sure you want to delete this ?") == true){
+      $.ajax({
+        type: "POST",
+        data: {
+          'id' : id,
+          'table' : 'doctor_insurance_details',
+          'csrf_test_name' : csrf_token,
+        },
+// contentType: "application/json; charset=utf-8",
+url: base_url+'admin/doctor/delete',
+success: function (data) {
+  console.log(data);
+  $('#del-insure'+id).remove();
+}
+});
+    }
+  }
+
+
+</script>
+
+
+<script>
+  $(".check_form_validate").submit(function(e){
+
+    if($("#email1").val()==''){
+
+    }
+    else{
+      if(validateEmail($("#email1").val()) !='true'){
+        $("#email1").focus();
+        $("#email_exist_error_message").text('Enter Valid Email');
+        e.preventDefault();
+        return false;
+
+      }
+    }
+
+    if($("#phone").val().length ==0){
+      $("#phone").focus();
+      $("#number_error_message").text('Phone is required');
+      e.preventDefault();
+
+    }
+    else if($("#phone").val().length !=10){
+      $("#phone").focus();
+      $("#number_error_message").text('Enter only 10 digits');
+      e.preventDefault();
+      // return false;
+    }
+    else{
+      $("#number_error_message").text('');
+    }
+
+    if($("#name").val() ==''){
+      $("#name").focus();
+      $("#name_error_message").text('Enter Name');
+      e.preventDefault();
+      // return false;
+    }
+    else{
+      $("#name_error_message").text('');
+    }
+
+  });
+</script>
