@@ -4,6 +4,9 @@
 <table class="table table-bordered table-hover datatable">
     <thead>
         <tr class="success table-info">
+            <th scope="col">#</th>
+            <th scope="col">Doctor Name</th>
+            <th scope="col">Tooth Code</th>
             <th scope="col">Date</th>
             <th scope="col">Description</th>
             <th scope="col">Debit</th>
@@ -16,10 +19,14 @@
     <tbody>
         <?php
         if (!empty($payments)) {
+            $countnumber = 1;
             foreach ($payments as $key => $payment) {
                 //print_r($value);
                 ?>  
                 <tr id="row_<?php echo $payment['id']; ?>">
+                    <td><?php echo $countnumber++;?></td>
+                    <td><?php echo $payment['doctor_name']?></td>
+                    <td><?php echo $payment['tooth_code']?></td>
                     <td><?php echo date('d M, Y', strtotime($payment['created_at'])) ?></td>
                     <td><?php echo $payment['description']?></td>
                     <td><?php echo $payment["debit_amount"];?></td>

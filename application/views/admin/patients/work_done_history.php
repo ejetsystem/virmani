@@ -12,6 +12,67 @@
 <div class="box-body box-profile" id="refpatientdiv">
 <h4 class="form_title">Work Done Information</h4>  
 <hr class="border_hr">
+<form action="<?php echo base_url('clinic-admin/patients/view/'.$patient_id.'/workdonehistory'); ?>" method="post" accept-charset="utf-8">
+	<h3>Search </h3>
+<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+<div class="row">
+	<div class="col-md-3">
+		<div class="form-group">
+		<label><strong>By Doctor</strong></label>
+		<!-- <input type="text" name="supplier" class="form-control" required> -->
+		<select name="doctor_id" id="workdone_doc" class="form-control">
+		<option value="">Select Doctor</option>
+		<?php foreach ($doctors as $dkey => $dvalue) { ?>
+		<option <?php echo ($_POST['doctor_id']==$dvalue->id) ? 'selected' : '' ?> value="<?php echo $dvalue->id ?>"><?php echo $dvalue->name; ?></option>
+		<?php } ?>
+		</select>
+		</div>
+	</div>
+
+	<div class="col-md-3">
+		<div class="form-group">
+		<label><strong>By Status</strong></label>
+		<select name="status" id="status_update" class="form-control">
+		<option value="">--Select--</option>
+		<option <?php echo ($_POST['status']==2) ? 'selected' : '' ?> value="2">Incompleted</option>
+		<option <?php echo ($_POST['status']==1) ? 'selected' : '' ?> value="1">Completed</option>
+		<option <?php echo ($_POST['status']==0 && $_POST['status']!='') ? 'selected' : '' ?> value="0">Observation</option>
+		</select>
+		</div>
+	</div>
+
+	<div class="col-md-3">
+		<div class="form-group" style="margin-top:30px;">
+		<button class="btn btn-primary col-5" style="padding : 8px;">Filter</button>
+		</div>
+	</div>
+
+	
+</div>
+</form>
+
+
+
+<?php  
+/*$this->db->select('workdone.*,doctors.name');
+$this->db->join('doctors', 'doctors.id = workdone.workdone_doc');
+$this->db->where('workdone.wk_patient_id',$patient_id);
+if(!empty($_POST['doctor_id'])){
+	$this->db->where('workdone.workdone_doc',$_POST['doctor_id']);
+}
+
+if(!empty($_POST['status'])){
+	$this->db->where('workdone.status',$_POST['status']);
+}
+else{
+	$this->db->where('workdone.status',2);	
+}
+$this->db->order_by('workdone.id','DESC');
+$this->db->from('workdone');
+$workdones = $this->db->get()->result_array();*/
+?>
+
+
 <div class="table-responsive">
 <table class="table table-striped table-bordered table-hover datatable" cellspacing="0" width="100%">
 <thead>
@@ -19,11 +80,11 @@
 <th scope="col">#</th>
 <th scope="col">Tooth Name</th>
 <th scope="col">Date</th>
-<th scope="col"></th>
 <th scope="col">Work Done</th>
 <th scope="col">Treatment Code</th>
 <th scope="col">Doctor</th>
 <th scope="col">Notes & Diagnosis</th>
+<th scope="col">Status</th>
 <th scope="col">Amount Dues</th>
 <th scope="col">Action</th>
 </tr>
@@ -35,7 +96,6 @@
 <td><?php echo $workdone['workdone_date'] ?></td>
 <td><?php echo $workdone['print_tooth_name'] ?></td>
 <td><?php echo $workdone['workdone_date'] ?></td>
-<td><a href="<?php echo base_url(); ?>clinic-admin/appointment/chairView?treatment_patient=<?php echo $patients[0]['id']; ?>&treatmentID=<?php echo $workdone['id']; ?>" class="btn btn-purple btn-sm border_radius5 mb_5" >Appointments</a></td>
 <td><?php
 if (!empty($workdone['workdoneon'])) {
 echo $workdone['workdoneon'];
@@ -46,6 +106,19 @@ echo $workdone['workdoneon'];
 </td>
 <td><?php echo $workdone['name'] ?></td>
 <td><?php echo $workdone['notesdiagnosis'] ?></td>
+<td>
+	<?php 
+	if($workdone['status']==2){
+		echo "Incompleted";
+	}
+	elseif($workdone['status']==1){
+		echo "Completed";
+	}
+	else{
+		echo "Observation";
+	}
+	?>
+</td>
 <td><?php echo $workdone['amt_due_current_work'] ?></td>
 <td>
 <a href="#" class="on-default edit-row" onclick="editWorkDone(<?php echo $workdone['id'] ?>,<?php echo $patient_id ?>)"><i class="fa fa-pencil"></i></a> &nbsp;
@@ -240,254 +313,6 @@ Incompleted
 </div>
 </div>
 
-<h4 class="form_title">Work Done</h4>  
-<hr class="border_hr">
-
-<form action="<?php echo base_url(); ?>admin/patients/add_workdone_report" method="post" id="save_total_workdne">
-
-<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
-<input type="hidden" name="patient_name" value="<?php echo $patients[0]['name']; ?>" class="form-control">
-<input type="hidden" name="wrk_apt_id" id="wrk_apt_id">
-<div class="clear"></div>
-<input type="hidden" name="wk_patient_id" value="<?php echo $patient_id; ?>">
-<div class="col-md-12">
-<div class="row">
-<!-- <input type="checkbox" name="" value="on" id="chkdiv1" onclick="getDatavalue_wr(this.value)"> Milk Teeth<br/> -->
-<div class="col-md-6" id="loadteeeth_wk">
-<label>Tooth Notation</label>
-<select class="form-control" name="teethcat_id" onchange="gettecchnumbers_new(this.value)">
-<?php
-$this->db->select('*')->from('teeth_category');
-$this->db->order_by("teeth_category_name", "asc");
-$query1 = $this->db->get();
-$teethar_cat = $query1->result_array();
-foreach ($teethar_cat as $key => $teetharcat_data) {
-if ($teetharcat_data['id'] <= 5) {
-?>
-<option value="<?php echo $teetharcat_data['id']; ?>"  <?php
-if ($teetharcat_data['id'] == '4') {
-echo "selected='selected'";
-}
-?>><?php echo $teetharcat_data['teeth_category_name']; ?></option>
-<?php
-}
-}
-?>
-</select>
-</div>
-<div class="col-md-6 mt-20">
-<input type="checkbox" name="" value="on" id="chkdiv1_edit" onclick="getDatavalue_wr_edit(this.value)"> Milk Teeth<br/>
-</div>
-</div>
-<div class="newteeth" id="container_new_edit">
-
-<input type="hidden" name="print_tooth_id" required="" id="print_tooth_id" value=""> 
-<ul id="continents1_new">
-<?php
-$i = 1;
-$this->db->select('*')->from('teeth');
-$this->db->where('teeth_cat', 4);
-$query = $this->db->get();
-$teethar = $query->result_array();
-foreach ($teethar as $key => $teethar_data) {
-?> 
-
-<li class="teethord<?php echo $i; ?>" ><a href="#"  title="" onclick="getRecord_teechinfo_new(<?php echo $teethar_data['id']; ?>, '<?php echo $teethar_data['teeth_note']; ?>', '<?php echo $teethar_data['image']; ?>')" data-original-title="<?php echo $teethar_data['teeth_note']; ?>"></a></li>
-<?php
-$i++;
-}
-?>
-</ul>
-</div>
-</div>
-<div class="clear"></div>
-
-<div class="table-responsive" id="loadprescriptioninfo">
-<?php
-$SQL = $this->db->query('select * FROM `prescription` WHERE patient_id ="' . $patient_id . '" and workdone_id="0" order by id desc');
-$resultlist = $SQL->result_array();
-$tnrows = $SQL->num_rows();
-$i = 1;
-foreach ($resultlist as $presc) {
-$brand_name = $this->db->get_where("medicine_brand", array('id' => $presc["medicine_brand_id"]))->row();
-$medicine_category = $this->db->get_where("medicine_category", array('id' => $presc["medicine_category_id"]))->row();
-?>
-<h3>Prescription</h3><?php $total_tbls = $presc['total_tablets'] * $presc['days']; ?>
-
-<table class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-
-<tr>
-<td><label>Tablet:</label><?php echo $presc['medicine']; ?> (<?php echo $brand_name->medicine_brand; ?>) (<?php echo $presc['instruction']; ?>) (<?php echo $total_tbls; ?> tablets total)    <p>(<?php echo $medicine_category->medicine_category; ?>) (<?php echo $presc['medicine_company']; ?>)</p> </td> </tr>
-
-<tr>
-<td>  <label>Basic Salt:</label><span class="sb-1"><?php echo $presc['basic_salt']; ?></span></td> 
-</tr>
-
-<tr>
-<td> <label>Dosage:</label><span class="sb-1"><?php echo $presc['dosage']; ?> for <?php echo $presc['days']; ?>&nbsp;Days</span></td></tr>
-<tr>
-<td> 
-<label>description:</label>
-<span class="sb-1"><?php echo $presc['description']; ?></span>
-<?php } ?>
-</td>
-</tr>      </table> 
-
-</div>
-
-
-
-<div class="clear"></div>
-<div class="row">
-<div id="show_toothnumber" style="display: none"></div>
-<div id="shw_tooth_number">
-<p class="texp">Tooth Number: <span class="tre-code"></span></p>
-<span id="tooth_no_note_view"></span>
-</div>
-
-<div class="col-sm-12">
-<div class="form-group">
-<label>Notes & Diagnosis</label>
-<textarea class="form-control" rows="4" name="notesdiagnosis"></textarea>
-</div>
-</div>
-<div class="col-md-6 mt-20">
-<div class="payment_bxblock">
-<h4><strong>Payment</strong></h4>
-<div class="row">
-<div class="col-md-12">
-<div class="form-group">
-<label>Treatment Code</label>
-<input type="hidden" id="workdoneon_edit" name="workdoneon" class="form-control" > 
-<select name="workdoneon_id" id="workdoneon_id" class="form-control" onchange="choose_job(this);">
-<option value="0">-- Job -- </option>
-<?php foreach ($treatmentplans as $plandata) { ?>
-<option treatment_amount="<?php echo $plandata['amount']; ?>" treatment_job="<?php echo $plandata['job']; ?>" value="<?php echo $plandata['id']; ?>"><?php echo ucwords($plandata['job']); ?></option>
-<?php } ?>
-</select>
-</div>
-<div class="form-group">
-<label>Estimate</label>
-<input name="estimate" id="estimate" placeholder="" type="text" class="form-control" value="" readonly=""  onkeypress="return isNumberKey(event)"> 
-</div>
-</div>
-<div class="col-md-12">
-<div class="form-group">
-<label>Amount Due for Todays's Work.</label>
-<input name="amt_due_current_work" id="amt_due_current_work" placeholder="" type="text" class="form-control" value=""  onkeypress="return isNumberKey(event)"> 
-</div>
-</div>
-
-<input name="if_any_amt" placeholder="" type="hidden" class="form-control" value="0" onkeypress="return isNumberKey(event)">
-<input name="prev_bal_amt" placeholder="" type="hidden" class="form-control" value="0" onkeypress="return isNumberKey(event)">
-<input name="adv_amt" placeholder="" type="hidden" class="form-control" value="0" onkeypress="return isNumberKey(event)">
-<!--                                    <div class="col-md-4">
-<div class="form-group">
-<label>If Any.</label>
-<input name="if_any_amt" placeholder="" type="text" class="form-control" value="0" onkeypress="return isNumberKey(event)">
-</div>
-</div>
-<?php
-$prev_amount = $this->db->get_where("partial_payments", array('wk_patient_id' => $patient_id))->row();
-if ($prev_amount->pending_amount) {
-$prev_amt = $prev_amount->pending_amount;
-} else {
-$prev_amt = "0";
-}
-?>
-
-<div class="col-md-8">
-<div class="form-group">
-<label>Prev Bal Amt Due</label>
-<input name="prev_bal_amt" placeholder="" type="text" class="form-control" value="<?php echo $prev_amt; ?>" onkeypress="return isNumberKey(event)">
-</div>
-</div>
-<div class="col-md-4">
-<div class="form-group">
-<label>Adv.</label>
-<input name="adv_amt" placeholder="" type="text" class="form-control" value="0" onkeypress="return isNumberKey(event)">
-</div>
-</div>-->
-
-</div>
-</div>
-</div>
-
-
-<div class="col-md-6 mt-20">
-<h4><strong>&nbsp;</strong></h4>
-
-
-<div class="form-group">
-<label><strong>Teeth Name</strong> (Please select above any teeth!)</label>
-<input type="text" name="print_tooth_name" id="tooth_no_note"  value="" required="" class="readonly form-control">
-</div>
-<div class="form-group">
-<label><strong>By Doctor</strong></label>
-<!-- <input type="text" name="supplier" class="form-control" required> -->
-<select name="workdone_doc" id="workdone_doc" class="form-control" required>
-<option value="">Select Doctor</option>
-<?php foreach ($doctors as $dkey => $dvalue) { ?>
-<option value="<?php echo $dvalue->id ?>"><?php echo $dvalue->name; ?></option>
-<?php } ?>
-</select>
-</div>
-
-<div class="payment_bxblock pyatm">
-<h4><strong>Treatment</strong></h4>
-<div class="row">
-<div class="col-md-6">
-<div class="form-check">
-<input class="form-check-input" type="radio" name="treatment_status" id="observation" value="0" >
-<label class="form-check-label" for="observation">
-Observation
-</label>
-</div>
-</div>
-<div class="col-md-6">
-<div class="form-check">
-<input class="form-check-input" type="radio" name="treatment_status" id="completed" value="1" >
-<label class="form-check-label" for="completed">
-Completed
-</label>
-</div>
-</div>
-<div class="col-md-6">
-<div class="form-check">
-<input class="form-check-input" type="radio" name="treatment_status" id="incompleted" value="2" >
-<label class="form-check-label" for="incompleted">
-Incompleted
-</label>
-</div>
-
-</div>
-</div>
-</div>
-<div class="box-footer">
-<div class="align-center workdone_buttons">
-<!--                                <div id="act">
-<a href="#prescription" class="btn btn-primary" data-toggle="tab" aria-expanded="true">Edit</a>
-</div>-->
-
-<!--<a href="#" class="btn btn-purple" data-toggle="tooltip" title="" onclick="getRecord_id('20')" data-original-title="Add Prescription">Prescription</a>-->
-<input type="submit" name="" value="Submit" class="btn btn-primary">
-
-<!--<a href="#" class="btn btn-purple" data-toggle="tooltip" title="" onclick="getappointment_id('20')" data-original-title="Add Prescription">Next Appointment</a>-->
-
-<!--<a hre  f="#appointments" class="btn btn-dgreen" data-toggle="tab" aria-expanded="true">Appointment's</a>-->
-
-
-</div>
-</div>
-</div> 
-</div> 
-<div class="clear"></div>
-
-
-
-
-
-</form>
 
 
 </div>
@@ -819,77 +644,6 @@ function setNameOnTeethName(id,print_tooth_id_edit){
 $("#tooth_no_note_edit").val(id);
 $("#print_tooth_id_edit").val(print_tooth_id_edit);
 }
-
-
-
-function updateVal(currentEle) {
-        var value = $(currentEle).html().trim();
-        $(currentEle).html('<input  class="thVal" type="text" value="' + value + '" />');
-        //var mode = $(currentEle).attr('class').split(' ')[1];
-        var trtid = $(currentEle).attr('attr_treat_id');
-
-        $(".thVal").focus();
-
-        $(".thVal").keyup(function (event) {
-            var org_val = $(".thVal").val();
-            if (event.keyCode == 13) {
-                $('#treat_id_' + trtid).html($(".thVal").val().trim());
-
-                $.ajax({
-                    url: '<?php echo base_url(); ?>admin/patients/add_sitting',
-                    type: "POST",
-                    data: {patient_id: '<?php echo $patients[0]['id'];?>',trtid: trtid, sitting: org_val, csrf_test_name: csrf_token},
-                      success: function (data) {
-                        // location.reload();
-                        if (data.status == "fail") {
-                            var message = "";
-                            $.each(data.error, function (index, value) {
-                                message += value;
-                            });
-                            
-                        } else {
-                            // location.reload();
-                            //successMsg(data.message);
-                            $.ajax({
-                                url: '<?php echo base_url(); ?>admin/patients/changestatus',
-                                type: "POST",
-                                data: {patient_id: trtid, csrf_test_name: csrf_token},
-                                success: function (data) {
-                                    //  $('#tratmenthistory').html(data); 
-                                    
-                                }
-                            });
-                            $.ajax({
-                                url: '<?php echo base_url(); ?>admin/patients/getteethinfo',
-                                type: "POST",
-                                data: {patientid: trtid, workdone_id: 0, treatmentplans_id: 0},
-                                success: function (data) {
-                                    // $("#loadtoothinfo").html(data);
-                                    // $("#loadtoothinfo_treatment").html(data);
-                                    // location.replace('<?php echo base_url(); ?>admin/patient/profile/<?php echo $id ?>#prescription');
-                                    /*location.reload();*/
-
-                                    document.getElementById("cont").style.display = "block";
-
-//                        $('html, body').animate({
-//                            scrollTop: $("#tratmenthistory").offset().top
-//                        }, 2000);
-                                }
-                            })
-                        }
-                    },
-                    error: function () {
-                    }
-                });
-            }
-        });
-
-        $(document).click(function () {
-            var id = $(".thVal").parent().attr('id');
-            $('#' + id).html($(".thVal").val());
-
-        });
-    }
 </script>
 
 

@@ -159,7 +159,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label><?php echo ('Email'); ?> </label>
-                      <input type="text" name="email" id="email1" onkeyup="checkEmailExist(this.value)" class="form-control" value="<?php echo html_escape($contact[0]['email']); ?>">
+                      <input type="text" name="email" id="email1" class="form-control" value="<?php echo html_escape($contact[0]['email']); ?>">
                       <span class="text-danger my-5" id="email_exist_error_message"></span>
                     </div>
                   </div>

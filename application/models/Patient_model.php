@@ -1823,13 +1823,18 @@ public function deleteIpdPatientLab($id) {
     public function maxTotalAmount($p_id) {
        // SELECT MAX(income) AS "Maximum Income" FROM employees
         $this->db->select("balance AS balance");
-         $this->db->where(['patient_id' => $p_id]);
-         $this->db->order_by('id','DESC');
+        $this->db->where(['patient_id' => $p_id]);
+        $this->db->order_by('id','DESC');
         return $this->db->get('payment_history')->row_array();
     }
     
     function getPatientsPaymnetDetails($id) {
-        $query = $this->db->where("patient_id", $id)->order_by('created_at','DESC')->get("payment_history");
+        $this->db->select('ph.*,d.name as doctor_name,w.print_tooth_name as tooth_code');
+        $this->db->from('payment_history ph');
+        $this->db->where("ph.patient_id", $id);
+        $this->db->join('doctors d','d.id=ph.doctor_id','LEFT');
+        $this->db->join('workdone w','w.id=ph.workdone_id','LEFT');
+        $query = $this->db->order_by('created_at','DESC')->get();
         return $query->result_array();
     }
        

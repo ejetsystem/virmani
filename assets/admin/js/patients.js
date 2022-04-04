@@ -236,6 +236,53 @@ function getDatavalue_wr(a)
     }
 }
 
+// edit
+function getDatavalue_wr_edit(a)
+{
+    if ($('#chkdiv1_edit').is(":checked"))
+    {
+
+        $.ajax({
+            url: base_url + 'admin/patients/getteeth_new_edit',
+            method: 'post',
+             data: {csrf_test_name: csrf_token},
+            success: function (response) {
+                $("#loadteeeth_wk_edit").html(response);
+            }
+        });
+        $.ajax({
+            url: base_url + 'admin/patients/getteethdata_new_edit',
+            method: 'post',
+             data: {csrf_test_name: csrf_token},
+            success: function (response) {
+                $("#container_new_edit").html(response);
+            }
+        });
+
+    } else
+    {
+
+        $.ajax({
+            url: base_url + 'admin/patients/getteeth_per_new_edit',
+            method: 'post',
+             data: {csrf_test_name: csrf_token},
+            success: function (response) {
+                $("#loadteeeth_wk_edit").html(response);
+            }
+        });
+        $.ajax({
+            url: base_url + 'admin/patients/getteethdata_per_new_edit',
+            method: 'post',
+             data: {csrf_test_name: csrf_token},
+            success: function (response) {
+                $("#container_new_edit").html(response);
+            }
+        });
+
+
+    }
+}
+
 //Add New teeth
 $("#form_addnotes_new").on('submit', (function (e) { 
     e.preventDefault();

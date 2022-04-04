@@ -275,7 +275,10 @@
                             }?>
                         </div>
                         <div class="tab-pane fade  <?php echo ($tabpage == 'workdonehistory')? 'show active' : '';?>" id="workdonehistory" role="tabpanel" aria-labelledby="worksdonehistory">
-                            Tab 5 content
+                            <?php 
+                            if($tabpage == 'workdonehistory'){
+                                echo $this->load->view('admin/patients/work_done_history', $data, TRUE);
+                            }?>
                         </div>
                         <div class="tab-pane fade <?php echo ($tabpage == 'payments')? 'show active' : '';?>" id="paymentsTab" role="tabpanel" aria-labelledby="paymentTab">
                             <?php 
