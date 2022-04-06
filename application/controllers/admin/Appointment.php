@@ -46,6 +46,7 @@ class Appointment extends Home_Controller {
         {  
              
             $treatment_id = $this->input->post('treatment_id');
+            $workdone_id = $this->input->post('workdone_id');
             
             if(user()->role == 'staff'){$user_id = user()->user_id;}else{$user_id = user()->id;}
 
@@ -122,7 +123,7 @@ class Appointment extends Home_Controller {
                 'date' => $date,
                 'start_time' => $this->input->post('start_time', true),
                 'end_time' => $this->input->post('end_time', true),
-                'status' => 0,
+                'status' => 1,
                 'type' => $this->input->post('type'),
                 'created_at' => my_date_now()
             );
@@ -148,7 +149,18 @@ class Appointment extends Home_Controller {
                     );
                     $this->admin_model->insert($treat_data, 'appointment_treatmentplan');
                     redirect(base_url('clinic-admin/patients/view/'.$patient_id.'/sittingplans'));
-                }else{ 
+                }
+
+                elseif($workdone_id){
+                    $treat_data = array(
+                        'appointment_id' => $appointment_id,
+                        'workdone_id' => $workdone_id
+                    );
+                    $this->admin_model->insert($treat_data, 'appointment_workdone');
+                    redirect(base_url('clinic-admin/patients/view/'.$patient_id.'/worksdone'));
+                }
+
+                else{ 
                   redirect(base_url('clinic-admin/appointment/chair-view'));  
                 }
             }
@@ -387,9 +399,25 @@ public function appointments_function() {
 
 
 public function changeAppointmentStatus() {
-    $appointment_id = $this->input->post('id');
-    $appointment_status = $this->input->post('status');
-    $this->admin_model->edit_option(array('appointment_status' => $appointment_status), $appointment_id,'appointments');
+    // echo "<pre>";
+    // print_r($this->input->post());
+    // die;
+    if($this->input->post('appointment_type')=='shift_appointment'){
+        $appointment_id = $this->input->post('id');
+        $shift = array(
+            'date' => date("Y-m-d",strtotime($this->input->post('date', true))),
+            'start_time' => $this->input->post('start_time', true),
+            'end_time' => $this->input->post('end_time', true),
+            'slot_time' => $this->input->post('slot_type', true),
+            'appointment_status' => $this->input->post('status', true)
+        );
+        $this->admin_model->edit_option($shift, $appointment_id,'appointments');
+    }
+    else{
+        $appointment_id = $this->input->post('id');
+        $appointment_status = $this->input->post('status');
+        $this->admin_model->edit_option(array('appointment_status' => $appointment_status), $appointment_id,'appointments');
+    }
 }
 
 

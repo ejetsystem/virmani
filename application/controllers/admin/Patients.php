@@ -561,6 +561,7 @@ public function view_patient($id,$tabpage='patientinfo') {
     if($tabpage == 'sittingplans')
     {
         $data['sitting_plan_list'] = $this->patient_model->getSittingPlanList($id);
+        
         $data['pending']=$this->patient_model->count_rows('treatmentplans','0');
         $data['completed']=$this->patient_model->count_rows('treatmentplans','1');
     }
@@ -568,6 +569,9 @@ public function view_patient($id,$tabpage='patientinfo') {
     {
         $data['treatmentplans'] = $this->admin_model->select_patients(array('patient_id' => $id), 'treatmentplans');
         $data['workdones'] = $this->patient_model->getWorkdoneReport($id);
+        // echo "<pre>";
+        // print_r($data['workdones']);
+        // die;
     }
     if($tabpage == 'workdonehistory')
     {

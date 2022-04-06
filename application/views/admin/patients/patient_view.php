@@ -136,31 +136,31 @@
                 <div class="col-lg-12">
                     <ul class="nav nav-tabs nav-fill mb-3" id="ex1" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link <?php echo ($tabpage == 'patientinfo')? 'active' : '';?>" id="patientsinfo" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/patientinfo" role="tab" aria-controls="patientinfo" aria-selected="false">Patient Info</a>
+                            <a class="nav-link rounded <?php echo ($tabpage == 'patientinfo')? 'active' : '';?>" id="patientsinfo" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/patientinfo" role="tab" aria-controls="patientinfo" aria-selected="false">Patient Info</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link  <?php echo ($tabpage == 'appointments')? 'active' : '';?>" id="appointment" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/appointments" role="tab" aria-controls="appointments" aria-selected="false" >Appointments</a>
+                            <a class="nav-link rounded <?php echo ($tabpage == 'appointments')? 'active' : '';?>" id="appointment" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/appointments" role="tab" aria-controls="appointments" aria-selected="false" >Appointments</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link  <?php echo ($tabpage == 'treatmentplans')? 'active' : '';?>" id="treatmentplan" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/treatmentplans" role="tab" aria-controls="treatmentplans" aria-selected="true">Treatment Plan</a>
+                            <a class="nav-link rounded <?php echo ($tabpage == 'treatmentplans')? 'active' : '';?>" id="treatmentplan" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/treatmentplans" role="tab" aria-controls="treatmentplans" aria-selected="true">Treatment Plan</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link  <?php echo ($tabpage == 'sittingplans')? 'active' : '';?>" id="sittingplan" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/sittingplans" role="tab" aria-controls="sittingplans" aria-selected="true">Sitting Plan</a>
+                            <a class="nav-link rounded <?php echo ($tabpage == 'sittingplans')? 'active' : '';?>" id="sittingplan" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/sittingplans" role="tab" aria-controls="sittingplans" aria-selected="true">Sitting Plan</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link <?php echo ($tabpage == 'worksdone')? 'active' : '';?>" id="workdone" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/worksdone" role="tab" aria-controls="worksdone" aria-selected="false">Work Done</a>
+                            <a class="nav-link rounded <?php echo ($tabpage == 'worksdone')? 'active' : '';?>" id="workdone" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/worksdone" role="tab" aria-controls="worksdone" aria-selected="false">Work Done</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link  <?php echo ($tabpage == 'workdonehistory')? 'active' : '';?>" id="worksdonehistory" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/workdonehistory" role="tab" aria-controls="workdonehistory" aria-selected="false">Work Done History</a>
+                            <a class="nav-link rounded <?php echo ($tabpage == 'workdonehistory')? 'active' : '';?>" id="worksdonehistory" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/workdonehistory" role="tab" aria-controls="workdonehistory" aria-selected="false">Work Done History</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link <?php echo ($tabpage == 'payments')? 'active' : '';?>" id="paymentTab" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/payments" role="tab" aria-controls="paymentsTab" aria-selected="false">Payments</a>
+                            <a class="nav-link rounded <?php echo ($tabpage == 'payments')? 'active' : '';?>" id="paymentTab" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/payments" role="tab" aria-controls="paymentsTab" aria-selected="false">Payments</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link <?php echo ($tabpage == 'labs')? 'active' : '';?>" id="lab" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/labs" role="tab" aria-controls="labs" aria-selected="false">Lab</a>
+                            <a class="nav-link rounded <?php echo ($tabpage == 'labs')? 'active' : '';?>" id="lab" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/labs" role="tab" aria-controls="labs" aria-selected="false">Lab</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link <?php echo ($tabpage == 'xrays')? 'active' : '';?>" id="xray" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/xrays" role="tab" aria-controls="xrays" aria-selected="false">X-Ray</a>
+                            <a class="nav-link rounded <?php echo ($tabpage == 'xrays')? 'active' : '';?>" id="xray" data-mdb-toggle="tab" href="<?php echo base_url();?>clinic-admin/patients/view/<?php echo $patients[0]['id']; ?>/xrays" role="tab" aria-controls="xrays" aria-selected="false">X-Ray</a>
                         </li>
                         
                     </ul>

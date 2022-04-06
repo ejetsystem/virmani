@@ -35,21 +35,49 @@ function getPatientPhone(id){
 }
 
 // Change Appointment Status
-  function changeAppointmentStatus(current_status,appointment_id){
+  function changeAppointmentStatus(current_status,appointment_id,appointment_type=''){
     var post_data = {
       'id' :appointment_id,
       'status' :current_status,
+      'appointment_type' :appointment_type,
       'csrf_test_name' : csrf_token
     };
 
-    $.ajax({
-      url: base_url+"clinic-admin/appointment/change-appointment-status",
-      type: "Post",
-      data: post_data,
-      success: function (data) {
-        location.reload();
-      }
-    });
+    if(appointment_type=='shift_appointment'){
+      date = $("#date_field").val();
+      start_time = $("#start_time").val();
+      end_time = $("#show_end_time_to_user").val();
+      slot_type = $("#slot_type").val();
+      var post_data = {
+        'id' :appointment_id,
+        'status' :current_status,
+        'appointment_type' :appointment_type,
+        'date' :date,
+        'slot_type' :slot_type,
+        'start_time' :moment(start_time, ["HH:mm"]).format("HH:mm:ss"),
+        'end_time' :moment(end_time, ["hh:mm a"]).format("HH:mm:ss"),
+        'csrf_test_name' : csrf_token
+      }; 
+      console.log(post_data);
+      $.ajax({
+        url: base_url+"clinic-admin/appointment/change-appointment-status",
+        type: "Post",
+        data: post_data,
+        success: function (data) {
+          location.reload();
+        }
+      });
+    }
+    else{
+      $.ajax({
+        url: base_url+"clinic-admin/appointment/change-appointment-status",
+        type: "Post",
+        data: post_data,
+        success: function (data) {
+          location.reload();
+        }
+      });
+    }
 
   }
 
@@ -60,7 +88,7 @@ function getPatientPhone(id){
       'id' :appointment_id,
       'csrf_test_name' : csrf_token
     };
-    var more_buttons = '<center class="text-white"><a onclick="changeAppointmentStatus(1,'+appointment_id+')" class="btn btn-primary btn-lg mr-30">Missed Appointment</a> <a onclick="changeAppointmentStatus(2,'+appointment_id+')" class="btn btn-success btn-lg mr-30">Complete Appointment</a> <a onclick="changeAppointmentStatus(3,'+appointment_id+')" class="btn btn-info btn-lg mr-30">Cancel Appointment</a> <a data-dismiss="modal" class="btn btn-danger btn-lg mr-30">Close</a></center>';
+    var more_buttons = '<center class="text-white"><a onclick="changeAppointmentStatus(1,'+appointment_id+',`shift_appointment`)" class="btn btn-primary btn-lg mr-30">Shift Appointment</a> <a onclick="changeAppointmentStatus(2,'+appointment_id+')" class="btn btn-success btn-lg mr-30">Complete Appointment</a> <a onclick="changeAppointmentStatus(3,'+appointment_id+')" class="btn btn-info btn-lg mr-30">Cancel Appointment</a> <a data-dismiss="modal" class="btn btn-danger btn-lg mr-30">Close</a></center>';
 
     $.ajax({
       url: base_url+"admin/appointment/fetch_particular_appointment",
@@ -83,7 +111,7 @@ function getPatientPhone(id){
         $('#doctors').attr('disabled', true);
         
         $('#date_field').val(data['date']);
-        $('#date_field').attr('disabled', true);
+        // $('#date_field').attr('disabled', true);
         
         $('#start_time option[value="'+timeStarting+'"]').attr("selected", "selected");
         $('#slot_type').val(data['slot_time']);

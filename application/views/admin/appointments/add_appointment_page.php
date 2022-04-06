@@ -2,6 +2,8 @@
 
   <input type="hidden" name="treatment_id" value="<?php if(!empty($_REQUEST['treatmentID'])){ echo $_REQUEST['treatmentID'];}?>">
 
+  <input type="hidden" name="workdone_id" value="<?php if(!empty($_REQUEST['workdone_id'])){ echo $_REQUEST['workdone_id'];}?>">
+
 
   <div class="row">
     <div class="col-md-6">
@@ -117,7 +119,7 @@
   </div>
 </div>
 
-<?php if(empty($_REQUEST['treatment_patient'])){?>
+<?php if(empty($_REQUEST['treatment_patient']) && empty($_REQUEST['workdone_id'])){?>
   <div class="row">
     <div class="col-md-6">
       <div class="form-group plr-10">
@@ -146,7 +148,7 @@
     </div>
   </div>
 <?php }?>
-<?php if(empty($_REQUEST['treatment_patient'])){?>
+<?php if(empty($_REQUEST['treatment_patient']) && empty($_REQUEST['workdone_id'])){?>
   <div class="old_patient_area plr-10">
     <div class="row">
       <div class="col-md-6">
@@ -169,9 +171,15 @@
     </div>
   </div>
 <?php }else{?>
-  <input type="hidden" name="patient_id" value="<?php if(!empty($_REQUEST['treatment_patient'])){ echo $_REQUEST['treatment_patient'];}?>">
+  <input type="hidden" name="patient_id" value="<?php if(!empty($_REQUEST['treatment_patient'])){ echo $_REQUEST['treatment_patient'];}else{ echo $_REQUEST['workdone_patient'];}?>">
   <?php  
-  $patient_details = $this->db->query('select * FROM `patientses` WHERE id ="'.$_REQUEST['treatment_patient'].'"')->result_array();
+  if(!empty($_REQUEST['treatment_patient'])){ 
+    $patient_id = $_REQUEST['treatment_patient'];
+  }
+  else{ 
+    $patient_id = $_REQUEST['workdone_patient'];
+  }
+  $patient_details = $this->db->query('select * FROM `patientses` WHERE id ="'.$patient_id.'"')->result_array();
   ?>
   <div class="row">
     <div class="col-md-6">

@@ -17,8 +17,8 @@
 <thead>
 <tr role="row" class="success table-info">
 <th scope="col">#</th>
-<th scope="col">Tooth Name</th>
 <th scope="col">Date</th>
+<th scope="col">Tooth Name</th>
 <th scope="col"></th>
 <th scope="col">Work Done</th>
 <th scope="col">Treatment Code</th>
@@ -34,8 +34,15 @@
 <td><?php echo ++$index; ?></td>
 <td><?php echo $workdone['workdone_date'] ?></td>
 <td><?php echo $workdone['print_tooth_name'] ?></td>
+<td>
+	<?php if (empty($workdone['appointment_id'])) { ?>
+		<a href="<?php echo base_url(); ?>clinic-admin/appointment/chairView?workdone_patient=<?php echo $patients[0]['id']; ?>&workdone_id=<?php echo $workdone['id']; ?>" class="btn btn-purple btn-sm border_radius5 mb_5" >Appointments</a>
+	<?php } else { ?>
+        <a href="javascript:void(0);" class="btn btn-purple btn-sm border_radius5 mb_5" >Booked</a>
+    <?php } ?>
+	
+</td>
 <td><?php echo $workdone['workdone_date'] ?></td>
-<td><a href="<?php echo base_url(); ?>clinic-admin/appointment/chairView?treatment_patient=<?php echo $patients[0]['id']; ?>&treatmentID=<?php echo $workdone['id']; ?>" class="btn btn-purple btn-sm border_radius5 mb_5" >Appointments</a></td>
 <td><?php
 if (!empty($workdone['workdoneon'])) {
 echo $workdone['workdoneon'];

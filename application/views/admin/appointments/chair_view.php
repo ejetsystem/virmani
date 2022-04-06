@@ -43,6 +43,12 @@ get_instance()->load->helper('custom_helper');
     line-height: 12px;
     text-transform: capitalize;
   }
+  input.largerCheckbox {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    top: 3px;
+  }
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/1.1.1/css/bootstrap-multiselect.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/1.1.1/js/bootstrap-multiselect.min.js"></script>
@@ -89,7 +95,7 @@ get_instance()->load->helper('custom_helper');
                foreach($splitimes as $stime){
                 $start_time = $stime.':00';
                 foreach($chairs as  $chair){
-                  $sql = "SELECT a.*,patientses.name FROM appointments a inner join patientses on patientses.id = a.patient_id WHERE a.appointment_status IN(0,4) AND date = '".$sdate."' AND chair = '".$chair->id."' AND ('".$start_time."' BETWEEN `start_time` AND `end_time`) ".$doctor_id;
+                  $sql = "SELECT a.*,patientses.name FROM appointments a inner join patientses on patientses.id = a.patient_id WHERE a.appointment_status IN(1,4) AND date = '".$sdate."' AND chair = '".$chair->id."' AND ('".$start_time."' BETWEEN `start_time` AND `end_time`) ".$doctor_id;
                   $query_check = $this->db->query($sql);
                   $res_check = $query_check->result();
 
@@ -210,17 +216,10 @@ get_instance()->load->helper('custom_helper');
                          <?php
                        }
                        ?>
-                       <a href="javascript://" onclick="view_event(<?php echo $ainfo[0]['id']; ?>);">
-                        
-                        <?php
-                        if($ainfo[0]['appointment_status']==0){
-                        ?>
-                        <p class="text-white">
-                          <label>Arrived : </label><input type="checkbox" value="4" name="appointment_status" id="appointment_status" onchange="changeAppointmentStatus(this.value,'<?php echo $ainfo[0]['id'] ?>')">
-                        </p>
-                        <?php  
-                        }
-                        ?>
+                       <span class="text-white">
+                         <label style="font-size: 14px;"><strong>Arrived : </strong></label> &nbsp;<input <?php echo ($ainfo[0]['appointment_status']==4) ? 'checked' : '' ?> type="checkbox" value="4" name="appointment_status" class='largerCheckbox' id="appointment_status" onchange="changeAppointmentStatus(this.value,'<?php echo $ainfo[0]['id'] ?>')">
+                       </span>
+                       <a href="javascript://" onclick="view_event(<?php echo $ainfo[0]['id']; ?>);">                        
                         <p><?php echo $ainfo[0]['name'];?></p>
                         <p><?php echo $ainfo[0]['cause'];?></p>
                         <p><strong>Doctor:</strong> <?php echo $doctor_d;?></p>
