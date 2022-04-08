@@ -427,7 +427,7 @@ $prev_amt = "0";
 
 <div class="form-group">
 <label><strong>Teeth Name</strong> (Please select above any teeth!)</label>
-<input type="text" name="print_tooth_name" id="tooth_no_note"  value="" required="" class="readonly form-control">
+<input type="text" name="print_tooth_name" id="tooth_no_note"  value=""  class="readonly form-control">
 </div>
 <div class="form-group">
 <label><strong>By Doctor</strong></label>

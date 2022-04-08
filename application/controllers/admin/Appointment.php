@@ -149,9 +149,7 @@ class Appointment extends Home_Controller {
                     );
                     $this->admin_model->insert($treat_data, 'appointment_treatmentplan');
                     redirect(base_url('clinic-admin/patients/view/'.$patient_id.'/sittingplans'));
-                }
-
-                elseif($workdone_id){
+                }elseif($workdone_id){
                     $treat_data = array(
                         'appointment_id' => $appointment_id,
                         'workdone_id' => $workdone_id
@@ -161,7 +159,8 @@ class Appointment extends Home_Controller {
                 }
 
                 else{ 
-                  redirect(base_url('clinic-admin/appointment/chair-view'));  
+                    redirect($_SERVER['HTTP_REFERER']);
+                  //redirect(base_url('clinic-admin/appointment/chair-view'));  
                 }
             }
             redirect(base_url('clinic-admin/appointment'));

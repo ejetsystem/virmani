@@ -115,15 +115,14 @@ get_instance()->load->helper('custom_helper');
               
              ?>
              <div class="col-md-10 calender_filter">
-              <form id="submit_form" action="" method="POST">
-                <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
-                Date 
-                <input type="date" name="sdate" class="col-md-2" id="sdate" required="" value="<?php echo $sdate; ?>" autocomplete="off">
-
-                 <center class="col-md-4 d-inline-block">
-                   <div>
-                     Doctor 
-
+              <form id="submit_form" action="" method="get">
+                  <div class="col-md-3 d-inline-block">
+                        <!--<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">-->
+                        <label>Date</label> 
+                        <input type="date" style="height: auto;" name="sdate" class="form-control" id="sdate" required="" value="<?php echo $sdate; ?>" autocomplete="off">
+                  </div>
+                 <div class="col-md-4 d-inline-block">
+                     <label style="width: 100%;">Doctor</label> 
                      <select name="doctor_id[]"  id="doctor_id_top" class="select select-initialized form-control" multiple="multiple">
                        <?php foreach($doctors_list as $key=>$doctor){
                         if(isset($_REQUEST['doctor_id']) && $_REQUEST['doctor_id'][$key]==$doctor->id){
@@ -137,10 +136,10 @@ get_instance()->load->helper('custom_helper');
                        <?php }?>
                      </select>
                    </div>
-                 </center> 
+                 
 
                  <div class="col-md-3 d-inline-block">
-                   Chairs 
+                   <label>Chairs </label>
                    <select name="chair_id[]"  id="chair_id_top" class="form-control" multiple="multiple">
                      <?php 
                      foreach($chairs_list as $key=>$ch){
@@ -192,8 +191,7 @@ get_instance()->load->helper('custom_helper');
                 <tr>
                   <td><strong><?php  echo date("h:i A",strtotime($val)); ?></strong></td> 
                   <?php foreach($ainfo_data as $chair_no => $ainfo){
-                   ?>
-                   <?php 
+                    
                    if($ainfo[0] != 'Allot'){ 
                     $row_s = 'rowspan="'.(($ainfo[0]['slot_time']/15)+1).'"';
                   } else {
@@ -211,14 +209,17 @@ get_instance()->load->helper('custom_helper');
                       ?>
 
                       <div class="chr_default <?php echo $chair_colors[($ainfo[0]['chair']-1)]; ?>">
-                        <?php if($che_c > 0 && $ainfo[0]['appointment_status']=='approve'){ ?>
+                        <?php if($che_c > 0 && $ainfo[0]['appointment_status']=='approve' || $ainfo[0]['date'] == date('Y-m-d')){ ?>
                          <span style="color: #fff;" class="ar_int"><b>Arrived:</b>&nbsp;&nbsp;&nbsp;<input type="checkbox" id="arrivedstat<?php echo $ainfo[0]['id']; ?>" <?php if($ainfo[0]['appointment_status']=='Arrived'){ echo "checked='checked'"; } ?> name="" onclick="getreadystat('Arrived','<?php echo $ainfo[0]['appointment_no']; ?>',<?php echo $ainfo[0]['patient_id'];?>,<?php echo $ainfo[0]['id'];?>)"></span>
                          <?php
                        }
                        ?>
+                         <?php if($ainfo[0]['date'] == date('Y-m-d')){?>
                        <span class="text-white">
+                           
                          <label style="font-size: 14px;"><strong>Arrived : </strong></label> &nbsp;<input <?php echo ($ainfo[0]['appointment_status']==4) ? 'checked' : '' ?> type="checkbox" value="4" name="appointment_status" class='largerCheckbox' id="appointment_status" onchange="changeAppointmentStatus(this.value,'<?php echo $ainfo[0]['id'] ?>')">
                        </span>
+                         <?php }?>
                        <a href="javascript://" onclick="view_event(<?php echo $ainfo[0]['id']; ?>);">                        
                         <p><?php echo $ainfo[0]['name'];?></p>
                         <p><?php echo $ainfo[0]['cause'];?></p>

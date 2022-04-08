@@ -338,7 +338,7 @@ function successMsg(msg) {
 <?php endif ?>
 
 <!-- stripe js -->
-<?php $this->load->view('admin/include/stripe-js'); ?>
+<?php //$this->load->view('admin/include/stripe-js'); ?>
 
 <!-- admin chart js -->
 <?php if (isset($page_title) && $page_title == 'Dashboard'): ?>

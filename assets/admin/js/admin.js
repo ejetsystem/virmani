@@ -137,13 +137,16 @@ jQuery(function($) {
         $('.select2').select2();
         $('.single_select').select2();
 
-
+        if($("ckEditor").length > 0){
         CKEDITOR.replace('ckEditor', {
             language: 'en'
         });
-        CKEDITOR.replace('ckEditor1', {
-            language: 'en'
-        });
+        }
+        if($("ckEditor1").length > 0){
+            CKEDITOR.replace('ckEditor1', {
+                language: 'en'
+            });
+        }
 
     })
 
